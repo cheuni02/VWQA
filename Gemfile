@@ -1,0 +1,11 @@
+source 'https://rubygems.org'
+
+gem 'watir-webdriver'
+gem 'webdriver-user-agent'
+gem 'selenium-webdriver'
+gem 'cucumber'
+gem 'require_all'
+gem 'headless'
+gem 'markaby'
+gem 'nokogiri'
+gem 'rake'

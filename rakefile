@@ -1,0 +1,68 @@
+require 'cucumber'
+require 'cucumber/rake/task'
+require 'fileutils'
+# test
+
+task :daily_checks, [:host, :tag] do |t, args|
+  Cucumber::Rake::Task.new(:run) do |t|
+    ENV['HOST'] = args[:host]
+    ENV['TAG'] = args[:tag]
+    t.profile = "daily_checks"
+  end
+  Rake::Task[:run].invoke()
+end
+
+task :wip, [:host, :tag] do |t,args|
+  Cucumber::Rake::Task.new(:run) do |t|
+    ENV['HOST'] = args[:host]
+    ENV['TAG'] = args[:tag]
+    t.profile = "wip"
+  end
+  Rake::Task[:run].invoke()
+end
+
+task :personalisation, [:host, :tag, :np_cookie, :p_cookie] do |t, args|
+  Cucumber::Rake::Task.new(:run) do |t|
+    ENV['HOST'] = args[:host]
+    ENV['TAG'] = args[:tag]
+    ENV['NPCOOKIE'] = args[:np_cookie]
+    ENV['PCOOKIE'] = args[:p_cookie]
+    t.profile = "personalisation"
+  end
+  Rake::Task[:run].invoke()
+end
+
+task :tagged_build, [:host, :tag_string, :env_tag] do |t, args|
+  tag_string = "#{args[:tag_string]}"
+
+  ENV['ALL_TAGS'] = tag_string
+
+  args.extras.each do |arg|
+    tag_string << " --tags #{arg}" unless arg.length == 0
+  end
+  Cucumber::Rake::Task.new(:run) do |t|
+    ENV['HOST'] = args[:host]
+    ENV['TAG'] = args[:env_tag]
+    #t.cucumber_opts = "--tags #{tag_string} --format junit -o results"
+    t.cucumber_opts = "--tags #{tag_string} --format junit -o results/#{ENV['ALL_TAGS'].sub('@', '')}"
+    t.profile = "tagged_build"
+  end
+  Rake::Task[:run].invoke()
+end
+
+task :tagged_build_headless, [:host, :tag_string, :env_tag] do |t, args|
+  tag_string = "#{args[:tag_string]}"
+  ENV['ALL_TAGS'] = tag_string
+  args.extras.each do |arg|
+    tag_string << " --tags #{arg}" unless arg.length == 0 # Windows Server Fix
+  end
+  # tag_string << " --tags #{args[:optional_tags]}" unless args[:optional_tags].nil?
+  # STDOUT.puts ENV['ALL_TAGS']
+  Cucumber::Rake::Task.new(:run) do |t|
+    ENV['HOST'] = args[:host]
+    ENV['TAG'] = args[:env_tag]
+    t.cucumber_opts = "--tags #{tag_string} --format junit -o #{tag_string.gsub('@', '')} HEADLESS=true"
+    t.profile = "tagged_build"
+  end
+  Rake::Task[:run].invoke()
+end

@@ -1,0 +1,41 @@
+# config/cucumber.yml
+##YAML Template
+---
+
+daily_checks_prod: ENV=production --format CsvFormatter::CsvReport -o report.csv --format json -o daily_checks_prod.json --format pretty --expand --tags @Daily --tags ~@Slow --tags ~@Disabled --tags ~@WIP HEADLESS=false MODE="Daily_Checks"
+#daily_checks_prod: BROWSER=Chrome ENV=production --format CsvFormatter::CsvReport -o report.csv --format json -o daily_checks_prod.json --format pretty --expand --tags @Daily --tags ~@Slow --tags ~@Disabled --tags ~@WIP HEADLESS=false MODE="Daily_Checks"
+
+
+
+daily_checks_dev: ENV=dev01 --format CsvFormatter::CsvReport -o report.csv --format json -o daily_checks_dev01.json --format pretty --expand --tags @Daily --tags ~@Slow --tags ~@Disabled --tags ~@WIP HEADLESS=false MODE="Daily_Checks_DEV01"
+daily_checks_prod_c: ENV=production_c --format CsvFormatter::CsvReport -o report.csv --format json -o daily_checks_prod_nc.json --format pretty --expand --tags @Daily --tags ~@Slow --tags ~@Disabled --tags ~@WIP HEADLESS=false MODE="Daily_Checks_NoCache"
+daily_checks_stage: ENV=stage --format CsvFormatter::CsvReport -o report.csv --format json -o daily_checks_stage.json --format pretty --expand --tags @Daily --tags ~@Slow --tags ~@Disabled --tags ~@WIP HEADLESS=false MODE="Daily_Checks_Stage"
+daily_checks_stage_varnish: ENV=stage_v --format CsvFormatter::CsvReport -o report.csv --format json -o daily_checks_stage.json --format pretty --expand --tags @Daily --tags ~@Slow --tags ~@Disabled --tags ~@WIP HEADLESS=false MODE="Daily_Checks_Stage"
+daily_checks_cms_preview: --format json -o daily_checks_live_preview.json ENV=cms_p --format CsvFormatter::CsvReport -o report.csv --format pretty --expand --tags @Daily --tags ~@Slow --tags ~@WIP HEADLESS=false MODE="Daily_Checks_Live_Preview"
+daily_checks_test: --expand ENV=stage_n --format CsvFormatter::CsvReport -o report.csv --format pretty --expand --tags @WIP --tags ~@Slow HEADLESS=false MODE="daily_checks_test" MODE="Daily_Checks_Stage"
+daily_checks_int: ENV=int --format CsvFormatter::CsvReport -o report.csv --format json -o daily_checks_int.json --format pretty --expand --tags @Daily --tags ~@Slow --tags ~@Disabled --tags ~@WIP HEADLESS=false MODE="Daily_Checks_Int"
+daily_checks_uat: ENV=uat --format CsvFormatter::CsvReport -o report.csv --format json -o daily_checks_uat.json --format pretty --expand --tags @Daily --tags ~@Slow --tags ~@Disabled --tags ~@WIP HEADLESS=false MODE="Daily_Checks_UAT"
+
+daily_checks: --format CsvFormatter::CsvReport -o report.csv --format json -o daily_checks.json --format pretty --expand --tags @Daily --tags ~@Slow --tags ~@Disabled --tags ~@WIP HEADLESS=false MODE=<%ENV['TAG']%>
+
+
+
+
+tagged_build: --format CsvFormatter::CsvReport -o report.csv --expand --tags ~@Slow --tags ~@Disabled --tags ~@WIP HEADLESS=false --format pretty
+personalisation: --format CsvFormatter::CsvReport -o report.csv --format pretty --expand --tags @Personalisation --tags ~@Disabled HEADLESS=false
+
+
+
+
+
+
+
+
+
+mpv: ENV=uat_p --format pretty --tags @MPV HEADLESS=false
+mpv_s: ENV=stage_mpv --format pretty --tags @MPV HEADLESS=false
+
+
+wip:  --format CsvFormatter::CsvReport -o report.csv --expand --format json -o report.json --format pretty --tags @WIP --tags ~@Disabled HEADLESS=false
+wip_p: ENV=production --format pretty --tags @WIP HEADLESS=false
+wip_cms: ENV=cms_p --format pretty --tags @WIP HEADLESS=false

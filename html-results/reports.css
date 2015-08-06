@@ -1,0 +1,14 @@
+body {font-family: verdana; font-size: 12px;}
+table, tr, td, th {border: 1px solid black; text-align: center; border-collapse: collapse;}
+td, th {padding: 5px;}
+h1 {font-size: 35px; text-align: center;}
+h2 {font-size: 22px;}
+h3 {font-size: 18px; color: grey;}
+h4 {font-size: 14px; text-align:center; color: blue;}
+img {width: 75%; height: 75%;}
+
+.box {border: 1px solid orange; padding:15px; margin-top: 25px; margin-bottom:25px;}
+.subbox {border: 1px solid grey; padding: 15px; margin: 10px;} 
+td.passed {background-color: lime;}
+td.skipped {background-color: cyan;}
+td.failed {font-weight:bold; background-color: red;}
