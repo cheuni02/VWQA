@@ -71,17 +71,56 @@ class MPVBasics < Mpv
       when "bodystyle"
         body_style.links(:class => "selected").select{|item| item.visible?}
       when "color"
-        colour.a.click
+        colour.links(:class => "selected").select{|item| item.visible?}
       when "performance"
-        performance.a.click
+        performance.links(:class => "selected").select{|item| item.visible?}
       when "transmission"
-        transmission.a.click
+        transmission.links(:class => "selected").select{|item| item.visible?}
       when "price"
         price.a.click
       else raise
     end
   end
 
+  def summary_option_present?(option)
+    basics_item_container.span(:class => option).visible?
+  end
+
+  def click_close
+    close_buttons = basics_item_container.links(:class => "done-form-item-button")
+    close_buttons.each do |close_button|
+      if close_button.visible?
+        close_button.click
+        return
+      end
+    end
+  end
+
+  def select_options(section, option1, option2)
+    if section == "price"
+      select_min_price(option1)
+      select_max_price(option2)
+      return
+    end
+    options = get_section_options(section)
+    options.each do |opt|
+      if opt.attribute_value("data-inputvalue") == option1 || opt.attribute_value("data-inputvalue") == option2
+        opt.click
+      end
+    end
+  end
+
+  def current_section
+    basics_item_container.divs(:class => "selected").select{|div| div.visible?}[0].attribute_value("data-formtype")
+  end
+
+  def section_expanded?(section)
+    basics_item_container.div(:class => section, :class => "completed").exists?
+  end
+
+  def click_dont_mind
+    basics_item_container.link(:class => "any-form-item-button").click
+  end
 
   private
 
@@ -117,4 +156,13 @@ class MPVBasics < Mpv
     basics_item_container.div(:class => "price")
   end
 
+  def select_min_price(min_price)
+    price.div(:class => "select-list-min").link(:id => /sbSelector_/).click
+    price.div(:class => "select-list-min").ul(:class => "sbOptions").link(:text => min_price).click
+  end
+
+  def select_max_price(max_price)
+    price.div(:class => "select-list-max").link(:id => /sbSelector_/).click
+    price.div(:class => "select-list-max").ul(:class => "sbOptions").link(:text => max_price).click
+  end
 end

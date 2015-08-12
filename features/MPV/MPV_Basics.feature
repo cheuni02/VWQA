@@ -1,4 +1,4 @@
-@MPV @Daily
+@MPV @Daily @wip
 Feature: My Perfect VW - Basics
   As the owner of the VW website
   On navigating to the new My Perfect Volkswagen Basics page
@@ -22,7 +22,40 @@ Feature: My Perfect VW - Basics
     | transmission| 2        |
     | price       | 19       |
 
-  Scenario: Basics - Selecting body style options
-    When I open the Body style panel
-    And click all 6 options that are available
-    Then only 3 options remain selected
+  Scenario Outline: Basics - Selecting options in each section
+    When I open the <section> panel
+    And click all <section> <options> options that are available
+    Then only <result> <section> options remain selected
+
+    Examples:
+    | section      | options  | result |
+    | bodystyle    | 6        | 3      |
+    | color        | 12       | 3      |
+    | performance  | 3        | 3      |
+    | transmission | 2        | 2      |
+
+  Scenario Outline: Basics - Summary of selected options
+    When I select <option1> and <option2> from <section>
+    And click Close
+    Then the <option1> and <option2> are displayed in the summary
+
+    Examples:
+    | section      | option1   | option2  | 
+    | bodystyle    | saloon    | coupe    |
+    | color        | yellow    | silver   |
+    | performance  | petrol    | electric |
+    | transmission | auto      | manual   |
+    | price        | £15K      | £55K     |
+
+  Scenario Outline: Basics - I don't mind option
+    When I click on the <section> panel
+    And click I dont mind 
+    Then I am taken to the <next> section
+    And no option is selected for <section>
+
+    Examples:
+    | section      | next         |
+    | bodystyle    | color        |
+    | color        | performance  |
+    | performance  | transmission |
+    | transmission | price        |
