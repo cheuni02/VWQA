@@ -1,4 +1,4 @@
-@Daily @vw-web-site
+@Daily @vw-web-site @search
 Feature: Site Search
   As a customer on the VW UK Website
   I need to be able to search for something that i am looking for
@@ -6,11 +6,12 @@ Feature: Site Search
 
   Background: Going to the VW Homepage
     Given i visit the VW.co.uk homepage in my browser
-
+@facets
   Scenario Outline: Searching For Car Models
     When i search for the car model called <model_name> in the search box
     Then i should see a panel containing the name of the car i searched for
     And there should be an image along with links to view more information and configure
+    And i should see the relevant facets
 
     Examples:
 
@@ -39,3 +40,9 @@ Feature: Site Search
  Scenario: Checking for the owners manual page in search
     When i enter a search query of "Owners Manual" into the search box
     Then i should find a link is present to the correct content
+
+  @news
+  Scenario: Check that new news results appear
+    When i go to the news page and copy the latest news heading
+    And i enter this text in the search box and click search
+    Then i should get the news result
