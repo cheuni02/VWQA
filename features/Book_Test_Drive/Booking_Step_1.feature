@@ -28,5 +28,4 @@ Feature: Booking a Test Drive - Step 1
     | Golf Cabriolet           |
     | New Passat Estate        |
     | Volkswagen CC            |
-    | Sharan                   |
     | Performance Golfs        |
