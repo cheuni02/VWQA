@@ -14,7 +14,6 @@ Then /^i should see a list of results displayed in my browser$/ do
   raise ElementNotPresentError, "Could not find news tab in search results" unless @siteSearch.news_tab_present?
 end
 
-@facets
 When /^i search for the car model called (.*) in the search box$/ do |query|
   step "i search for \"#{query}\" using the search box on the page"
   @query = query
