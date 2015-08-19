@@ -1,4 +1,4 @@
-@Daily @vw-web-site @search
+@Daily @vw-web-site
 Feature: Site Search
   As a customer on the VW UK Website
   I need to be able to search for something that i am looking for
