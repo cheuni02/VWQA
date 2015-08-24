@@ -66,6 +66,11 @@ class MyVWRegister < MyVW
   def register_form
     register_form_locator
   end
+
+  def form_error_present?
+    form_error.present?
+  end
+
   private
   
   def page_url
@@ -108,4 +113,9 @@ class MyVWRegister < MyVW
   def register_form_locator
     @browser.form(:id => 'register-form')
   end
+
+  def form_error
+    @browser.p(:class=> "form-error")
+  end
+
 end
