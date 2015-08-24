@@ -1,6 +1,7 @@
 Given /^i visit the VW.co.uk homepage in my browser$/ do
   site.homepage.visit
   @siteSearch = site.search
+  @news = site.about_us.news
 end
 
 When /^i search for "(.*)" using the search box on the page$/ do |text|
@@ -35,7 +36,6 @@ And /^i should see the relevant facets$/ do
   raise ElementNotPresentError, "Facets are not showing" unless @siteSearch.check_facets_present
 end
 
-
 When /^i enter a search query of "(.*)" into the search box$/ do |query|
   @siteSearch.submit_query(query)
 end
@@ -45,15 +45,15 @@ Then /^i should find a link is present to the correct content$/ do
 end
 
 When /^i go to the news page and copy the latest news heading$/ do
-  @siteSearch.to_news_page
-  @siteSearch.get_latest_article
+  @news.visit
+  @news.get_latest_article
 end
 
 And /^i enter this text in the search box and click search/ do
-  @siteSearch.input_text_in_search
+  @news.input_text_in_search
 end
 
 Then /^i should get the news result/ do
-  @siteSearch.expand_news_section
-  raise ElementNotPresentError, "News article not there" unless @siteSearch.article_text == @siteSearch.article_present
+  @news.expand_news_section
+  raise ElementNotPresentError, "News article not there" unless @news.article_text == @news.article_present
 end

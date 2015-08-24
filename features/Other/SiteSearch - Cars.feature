@@ -40,7 +40,7 @@ Feature: Site Search
  Scenario: Checking for the owners manual page in search
     When i enter a search query of "Owners Manual" into the search box
     Then i should find a link is present to the correct content
-
+@news
  Scenario: Check that new news results appear
     When i go to the news page and copy the latest news heading
     And i enter this text in the search box and click search
