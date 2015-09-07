@@ -14,24 +14,24 @@ Feature: Small Business Leasing Filters
 
     Examples:
     | filter       | count |
-    | Hatchback    | 09    |
-    | Coupe        | 14    |
-    | Estate       | 14    |
-    | Cabriolet    | 13    |
-    | Saloon       | 13    |
+    | Hatchback    | 10    |
+    | Coupe        | 15    |
+    | Estate       | 15    |
+    | Cabriolet    | 14    |
+    | Saloon       | 14    |
     | MPV          | 13    |
-    | SUV          | 14    |
-    | Door2        | 14    |
-    | Door3        | 13    |
-    | Door4        | 13    |
+    | SUV          | 15    |
+    | Door2        | 15    |
+    | Door3        | 14    |
+    | Door4        | 14    |
     | Door5        | 9     |
-    | Petrol       | 14    |
-    | Diesel       | 12    |
-    | BEV          | 14    |
-    | Manual       | 15    |
-    | DSG          | 15    |
-    | ASG          | 15    |
-    | Auto         | 14    |
+    | Petrol       | 15    |
+    | Diesel       | 13    |
+    | BEV          | 15    |
+    | Manual       | 16    |
+    | DSG          | 16    |
+    | ASG          | 16    |
+    | Auto         | 15    |
 
   Scenario: Visiting the small business leasing page from the homepage
     Given i go back to the VW.co.uk homepage by clicking on the VW logo
