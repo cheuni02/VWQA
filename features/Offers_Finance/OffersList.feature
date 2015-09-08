@@ -29,7 +29,6 @@ Feature: Offers Listing Page
     | New Passat Estate        |
     | Golf Cabriolet           |
     | Volkswagen CC            |
-    | Sharan                   |
     | Performance Golfs        |
     | e-Golf                   |
     | Scirocco                 |

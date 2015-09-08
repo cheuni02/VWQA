@@ -18,11 +18,11 @@ Feature: Checking order booking numbers
     Then i should see an error presented in my browser window
 
   Scenario: Searching for a valid order number
-    When i submit my valid order number of "25142091" into the tracking field
+    When i submit my valid order number of "25127106" into the tracking field
     Then i should see a page appear containing information about the current progress of my order
 
   Scenario: Signing up for alerts while logged out
-    When i submit a different valid order number for my VW Car of "25142091"
+    When i submit a different valid order number for my VW Car of "25127106"
     And i click on the link to sign up for alerts about my VW Build order
     Then i should see the login page load in my browser window
 
