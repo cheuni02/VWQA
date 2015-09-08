@@ -44,7 +44,6 @@ class MPVBasics < Mpv
         section_object = price
       else raise
     end
-
     return section_object.div(:class => 'form-item-expand-controls').links
   end
 
@@ -83,17 +82,21 @@ class MPVBasics < Mpv
   end
 
   def summary_option_present?(option)
-    basics_item_container.span(:class => option).visible?
+    summary_option(option).visible?
   end
 
   def click_close
-    close_buttons = basics_item_container.links(:class => "done-form-item-button")
-    close_buttons.each do |close_button|
-      if close_button.visible?
-        close_button.click
-        return
-      end
-    end
+    close_button.click
+  end
+
+  def select_min_price(min_price)
+    min_price_button.click
+    min_price_option(min_price).click
+  end
+
+  def select_max_price(max_price)
+    max_price_button.click
+    max_price_option(max_price).click
   end
 
   def select_options(section, option1, option2)
@@ -111,15 +114,15 @@ class MPVBasics < Mpv
   end
 
   def current_section
-    basics_item_container.divs(:class => "selected").select{|div| div.visible?}[0].attribute_value("data-formtype")
+    current_section_divs.select{|div| div.visible?}[0].attribute_value("data-formtype")
   end
 
   def section_expanded?(section)
-    basics_item_container.div(:class => section, :class => "completed").exists?
+    basics_completion_section(section).exists?
   end
 
   def click_dont_mind
-    basics_item_container.link(:class => "any-form-item-button").click
+    dont_mind_link.click
   end
 
   private
@@ -156,13 +159,43 @@ class MPVBasics < Mpv
     basics_item_container.div(:class => "price")
   end
 
-  def select_min_price(min_price)
-    price.div(:class => "select-list-min").link(:id => /sbSelector_/).click
-    price.div(:class => "select-list-min").ul(:class => "sbOptions").link(:text => min_price).click
+  def min_price_button
+    price.div(:class => "select-list-min").link(:id => /sbSelector_/)
   end
 
-  def select_max_price(max_price)
-    price.div(:class => "select-list-max").link(:id => /sbSelector_/).click
-    price.div(:class => "select-list-max").ul(:class => "sbOptions").link(:text => max_price).click
+  def min_price_option(min_price)
+    price.div(:class => "select-list-min").ul(:class => "sbOptions").link(:href => /#{min_price}/)
   end
+
+   def max_price_button
+    price.div(:class => "select-list-max").link(:id => /sbSelector_/)
+  end
+
+  def max_price_option(max_price)
+    price.div(:class => "select-list-max").ul(:class => "sbOptions").link(:href => /#{max_price}/)
+  end
+
+  def dont_mind_link
+     basics_item_container.link(:class => "any-form-item-button")
+  end 
+
+  def summary_option(option)
+     basics_item_container.span(:class => /#{option}/)
+  end
+
+  def basics_completion_section(section)
+    basics_item_container.div(:class => section, :class => "completed")
+  end 
+
+  def current_section_divs
+    basics_item_container.divs(:class => "selected")
+  end
+
+def close_button
+    close_buttons = basics_item_container.links(:class => "done-form-item-button")
+    close_buttons.each do |close_item|
+      if close_item.visible?
+        return close_item
+      end
+    end
 end

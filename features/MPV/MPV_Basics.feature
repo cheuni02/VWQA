@@ -22,6 +22,7 @@ Feature: My Perfect VW - Basics
     | transmission| 2        |
     | price       | 19       |
 
+  
   Scenario Outline: Basics - Selecting options in each section
     When I open the <section> panel
     And click all <section> <options> options that are available
@@ -34,6 +35,7 @@ Feature: My Perfect VW - Basics
     | performance  | 3        | 3      |
     | transmission | 2        | 2      |
 
+
   Scenario Outline: Basics - Summary of selected options
     When I select <option1> and <option2> from <section>
     And click Close
@@ -41,11 +43,12 @@ Feature: My Perfect VW - Basics
 
     Examples:
     | section      | option1   | option2  | 
+    | price        | 15000     | 55000    |
     | bodystyle    | saloon    | coupe    |
     | color        | yellow    | silver   |
     | performance  | petrol    | electric |
     | transmission | auto      | manual   |
-    | price        | £15K      | £55K     |
+    
 
   Scenario Outline: Basics - I don't mind option
     When I click on the <section> panel
