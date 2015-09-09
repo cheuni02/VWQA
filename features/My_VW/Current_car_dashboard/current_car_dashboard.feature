@@ -56,10 +56,10 @@ Feature: Current car dashboard
 
     Scenario Outline: Need help module
       When i am on need help module
-      Then i should see the search bar and following <useful links>
+      Then i should see the search bar and following <useful_links>
 
       Examples:
-        | useful links            |
+        | useful_links            |
         | Owner's manual          |
         | Warning lights          |
         | How tos                 |
