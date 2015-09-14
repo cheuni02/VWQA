@@ -1,9 +1,9 @@
 Given /^i have logged into my VW account$/ do
-
+  pending
 end
 
 And /^i am on the My cars page$/ do
-
+  pending
 end
 
 Then /^i should be able to click on the My Configurations link$/ do
