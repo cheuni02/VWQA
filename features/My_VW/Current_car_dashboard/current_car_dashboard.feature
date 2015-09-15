@@ -28,11 +28,10 @@ Feature: Current car dashboard
       Then i should be taken to the relevant page
 
       Examples:
-        | gurantee |
-        |          |
-        |          |
-        |          |
-        # input link href above
+        | gurantee                               |
+        | /owners/service-promise                |
+        | /owners/servicing/what-wecheck-and-why |
+        | /owners/volkswagengenuine-parts        |
 
     Scenario: My Service history
       When i am on the service history module
