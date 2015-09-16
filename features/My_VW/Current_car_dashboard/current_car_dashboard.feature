@@ -1,13 +1,15 @@
+@current_car @Daily
 Feature: Current car dashboard
   As a user logged in the My VW site
   I want to see a page with important information about my current car
 
     Background:
-      Given that i have logged in to my VW account
+      Given that i have logged in to my account
 
+    @logout
     Scenario: Current car dashboard
       When the current car dashboard is loaded
-      Then the I am greeted with the text "Hello <user name>"
+      Then I should be greeted with my name
 
     Scenario: Car health
       When I select "Car health" button on the dashboard

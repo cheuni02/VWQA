@@ -1,14 +1,17 @@
-Given /^that i have logged in to my VW account$/ do
-
+Given /^that i have logged in to my account$/ do
+  @current_car = site.my_vw.current_car_dashboard
+  @current_car.visit
+  @current_car.login_to_account
 end
 
-When /^the current car dashboard is loaded$/do
-
+When /^the current car dashboard is loaded$/ do
+  raise AssertionError, "Current car dashboard not loaded" unless @current_car.current_dashboard_section
 end
 
-Then /^the I am greeted with the text "Hello <user name>"$/ do
-
+Then /^I should be greeted with my name$/ do
+  raise AssertionError, "My name not present" unless @current_car.my_name_present
 end
+
 
 When /^I select "Car health" button$/ do
 
@@ -17,7 +20,7 @@ end
 Then /^the "Car health" module is displayed$/ do
 
 end
-
+=begin
 When /^I click on the camera icon$/ do
 
 end
@@ -70,7 +73,7 @@ When /^i am on the prom modules section$/ do
 
 end
 
-Then /^i should see the (*)$/do |promotions|
+Then /^i should see the (*)$/ do |promotions|
 
 end
 
@@ -97,3 +100,4 @@ end
 Then /^the relevant dashboard (*) should appear$/ do |buttons|
 
 end
+=end
