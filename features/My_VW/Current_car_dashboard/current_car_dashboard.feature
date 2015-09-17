@@ -11,53 +11,50 @@ Feature: Current car dashboard
       When the current car dashboard is loaded
       Then I should be greeted with my name
 
-    Scenario: Car health
-      When I select "Car health" button on the dashboard
-      Then the "Car health" module is displayed
-
+    @logout
     Scenario: Camera icon
       When I click on the camera icon
       Then the system file selector is displayed to choose a photo
 
-    Scenario: Car Health Module -
-      And i am on the car health module
-      When i check to see my car health
-      Then i should see my car health details
-      And my next actions
-
+    @logout
     Scenario Outline: My Service gurantee module
-      When i click on a <gurantee>
-      Then i should be taken to the relevant page
+      When i am on the service gurantee module
+      And i click on a <gurantee>
+      Then i should be taken to the relevant <page>
 
       Examples:
-        | gurantee                               |
-        | /owners/service-promise                |
-        | /owners/servicing/what-wecheck-and-why |
-        | /owners/volkswagengenuine-parts        |
+        | gurantee                               | page                    |
+        | /owners/service-promise                | service-promise         |
+        | /owners/servicing/what-wecheck-and-why | what-we-check-and-why    |
+        | /owners/volkswagengenuine-parts        | volkswagen-genuine-parts |
 
+    @logout
     Scenario: My Service history
       When i am on the service history module
       Then i should see my vehicles service history
 
+    @logout
     Scenario: My Plans
       When i am on the my plans section
       Then i should see any plans that i have
 
+    @logout
     Scenario Outline: Promo Module
-      When i am on the prom modules section
-      Then i should see the <promotions>
+      When i am on the promo modules section
+      Then i should see the <promotions> promotion
+      And the promotion headline
 
       Examples:
-        | Summer health check   |
-        | Get the app           |
-        | Retailer local offer  |
+        | promotions            |
         | Fixed price servicing |
-        | Extended Warranty     |
+        | Extended warranty     |
         | Accessories           |
 
+    @logout @test
     Scenario Outline: Need help module
       When i am on need help module
-      Then i should see the search bar and following <useful_links>
+      Then i should see the need help search bar
+      And the following <useful_links> section appears
 
       Examples:
         | useful_links            |
@@ -66,21 +63,24 @@ Feature: Current car dashboard
         | How tos                 |
         | Breakdown and insurance |
 
+    @logout
     Scenario Outline: Preferred Retailer
       When i am on the Current dashboard
-      Then i should see my preferred retailer and the following <links>
+      Then i should see my preferred retailer
+      And these <links> in the box
 
       Examples:
         | links            |
         | View in maps     |
         | Retailer website |
 
+    @logout
     Scenario Outline: Recovery zone
       When i scroll to the bottom of the page
-      Then the relevant dashboard <buttons> should appear
+      Then the <buttons> button should appear for the user
 
       Examples:
+        | buttons          |
         | Book a service   |
-        | TBD              |
         | Keep me informed |
-        | Contact us       |
+        | Contact Us       |
