@@ -1,13 +1,26 @@
+require 'yaml'
 class CurrentCarDashbaord < MyVW
 
   def visit
     visit_page(page_url)
   end
 
-  def login_to_account
-    set_username.set("#{username}")
-    set_password.set("#{password}")
+  def login_valid_account
+    get_credentials_valid
+    set_username.set("#{username_valid}")
+    set_password.set("#{password_valid}")
     click_login_button
+  end
+
+  def login_unvalidated_account
+    get_credentials_unvalidated
+    set_username.set("#{username_unvalidated}")
+    set_password.set("#{password_unvalidated}")
+    click_login_button
+  end
+
+  def get_credentials_valid
+    grab_user_cred_valid
   end
 
   def set_username
@@ -36,7 +49,7 @@ class CurrentCarDashbaord < MyVW
   end
 
   def upload_image_prompt
-    close_image_picker.present?
+    close_image_picker.send_keys :enter
   end
 
   def my_service_gurantee_module
@@ -62,7 +75,7 @@ class CurrentCarDashbaord < MyVW
     current_service_section.present?
   end
 
-  def my_service_history_table
+    def my_service_history_table
     service_history_table.visible?
   end
 
@@ -100,6 +113,11 @@ class CurrentCarDashbaord < MyVW
     current_car_hero.wait_until_present
   end
 
+  def my_vw_page
+    current_car_hero.present?
+    my_retailer
+  end
+
   def my_retailer
     preferred_retailer.present?
   end
@@ -109,11 +127,29 @@ class CurrentCarDashbaord < MyVW
   end
 
   def scroll_to_recovery_zone
-    recovery_zone_buttons.wd.location_once_scrolled_into_view
+    recovery_zone_buttons.present?
   end
 
   def check_relevant_buttons(buttons)
     @browser.div(:class => "row my-offers__features").a(:text => "#{buttons}").present?
+  end
+
+  def search_help(help)
+    @browser.text_field(:id => "searchTerm").set("#{help}")
+    need_help_search_button.click
+  end
+
+  def search_help_result
+
+  end
+
+  def my_service_plans_box
+    my_service_plans_history.present?
+  end
+
+  def dbg_data_needed
+    owner_postcode_field.present?
+    last_name_field.present?
   end
 
 private
@@ -122,12 +158,20 @@ def page_url
   "/vw-authentication/login/auth?targetUrl=/owners/my/cars"
 end
 
-def username
-  "test123456@test.com"
+def username_valid
+  @username_valid_user
 end
 
-def password
-  "12345678"
+def password_valid
+  @password_valid_user
+end
+
+def username_unvalidated
+  @username_unvalidated_user
+end
+
+def password_unvalidated
+  @password_unvalidated_user
 end
 
 def username_field
@@ -136,6 +180,18 @@ end
 
 def password_box
   @browser.text_field(:id => "password")
+end
+
+def get_credentials_unvalidated
+  user_data = YAML.load_file('user_accounts.yml')
+  @username_unvalidated_user = user_data[1]['username']
+  @password_unvalidated_user = user_data[1]['password']
+end
+
+def grab_user_cred_valid
+  user_data = YAML.load_file('user_accounts.yml')
+  @username_valid_user = user_data[0]['username']
+  @password_valid_user = user_data[0]['password']
 end
 
 def logon_button
@@ -160,6 +216,7 @@ end
 
 def close_image_picker
   @browser.form(:id => "form-upload-image")
+  #@browser.execute_script("window.confirm = function() {return false}")
 end
 
 def welcome_name
@@ -222,6 +279,10 @@ def need_help_search_bar
   @browser.text_field(:id => "searchTerm")
 end
 
+def need_help_search_button
+  @browser.button(:id => "searchSubmit")
+end
+
 def preferred_retailer
   @browser.div(:class => "my-retailer__address").address(:class => "vcard")
 end
@@ -229,6 +290,19 @@ end
 def recovery_zone_buttons
   @browser.div(:class => "row my-offers__features")
 end
+
+def my_service_plans_history
+  @browser.section(:class => "my-current-service-history")
+end
+
+def owner_postcode_field
+  @browser.text_field(:id => "owner-postcode")
+end
+
+def last_name_field
+  @browser.text_field(:id => "owner-surname")
+end
+
 
 
 end

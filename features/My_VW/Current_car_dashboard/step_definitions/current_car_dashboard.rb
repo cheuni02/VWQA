@@ -1,8 +1,7 @@
 Given /^that i have logged in to my account$/ do
   @current_car = site.my_vw.current_car_dashboard
   @current_car.visit
-  @current_car.login_to_account
-  @current_car.go_to_current_car_dash
+  @current_car.login_valid_account
 end
 
 When /^the current car dashboard is loaded$/ do
@@ -27,7 +26,7 @@ When /^i am on the service gurantee module$/ do
   raise AssertionError, "Service gurantee section not present" unless @current_car.my_service_gurantee_module
 end
 
-And /^i click on a (.*)$/ do |gurantee|
+And /^i click on a (.*) link$/ do |gurantee|
   @current_car.click_a_gurantee(gurantee)
 end
 
@@ -75,6 +74,15 @@ And /^the following (.*) section appears$/ do |useful_links|
   raise AssertionError, "Link not present" unless @current_car.check_useful_link(useful_links)
 end
 
+When /^i search for (.*)$/ do |help|
+  #@current_car.search_help(help)
+  pending
+end
+
+Then /^i should get a (.*)$/ do |result|
+  pending
+end
+
 When /^i am on the Current dashboard$/ do
   step "the current car dashboard is loaded"
 end
@@ -83,7 +91,7 @@ Then /^i should see my preferred retailer$/ do
   raise AssertionError, "My preferred retailer not present" unless @current_car.my_retailer
 end
 
-And /^these (.*) in the box$/ do |links|
+And /^the (.*) link in the box$/ do |links|
   raise AssertionError, "link not present" unless @current_car.retailer_links(links)
 end
 

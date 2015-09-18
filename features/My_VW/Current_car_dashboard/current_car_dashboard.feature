@@ -19,7 +19,7 @@ Feature: Current car dashboard
     @logout
     Scenario Outline: My Service gurantee module
       When i am on the service gurantee module
-      And i click on a <gurantee>
+      And i click on a <gurantee> link
       Then i should be taken to the relevant <page>
 
       Examples:
@@ -50,7 +50,7 @@ Feature: Current car dashboard
         | Extended warranty     |
         | Accessories           |
 
-    @logout @test
+    @logout
     Scenario Outline: Need help module
       When i am on need help module
       Then i should see the need help search bar
@@ -63,11 +63,22 @@ Feature: Current car dashboard
         | How tos                 |
         | Breakdown and insurance |
 
+    @logout @test
+    Scenario Outline: Need help search
+      When i search for <help>
+      Then i should get a <result>
+
+    Examples:
+      | help      | result |
+      | breakdown | pass   |
+      | insurance | pass   |
+      | b34f      | fail   |
+
     @logout
     Scenario Outline: Preferred Retailer
       When i am on the Current dashboard
       Then i should see my preferred retailer
-      And these <links> in the box
+      And the <links> link in the box
 
       Examples:
         | links            |
