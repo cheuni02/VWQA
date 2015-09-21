@@ -78,8 +78,6 @@ class Well_worth_it < AboutUs
     subheadings_on_page
   end
 
-
-
   private
 
   def page_url

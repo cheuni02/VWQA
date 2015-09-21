@@ -22,11 +22,11 @@ Then /^the system file selector is displayed to choose a photo$/ do
   pending
 end
 
-When /^i am on the service gurantee module$/ do
+Given /^i am on the service gurantee module$/ do
   @current_car.my_service_gurantee_module_present?
 end
 
-And /^i click on a (.*) link$/ do |gurantee|
+When /^i click on a (.*) link$/ do |gurantee|
   @current_car.click_a_gurantee(gurantee)
 end
 
@@ -88,7 +88,7 @@ When /^i am on the Current dashboard$/ do
 end
 
 Then /^i should see my preferred retailer$/ do
-  raise AssertionError, "My preferred retailer not present" unless @current_car.my_retailer
+  raise AssertionError, "My preferred retailer not present" unless @current_car.my_retailer_present?
 end
 
 And /^the (.*) link in the box$/ do |links|

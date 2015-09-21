@@ -26,12 +26,12 @@ Then /^there should be (.*) options available$/ do |options|
   end
 end
 
-When /^I open the Body style panel$/ do
-  @basics.open_section("bodystyle")
+When /^I open the (.*) panel$/ do |section|
+  @basics.open_section(section)
 end
 
-And /^click all 6 options that are available$/ do
-  @options = @basics.get_section_options("bodystyle")
+And /^click all (.*) (.*) options that are available$/ do |section, no_options|
+  @options = @basics.get_section_options(section)
   @options.each do |option|
     if option.visible?
       option.click
@@ -39,8 +39,39 @@ And /^click all 6 options that are available$/ do
   end
 end
 
-Then /^only 3 options remain selected$/ do
-  @selected = @basics.get_selected_items("bodystyle")
-  raise AssertionError, "Wrong no of selected items" unless @selected.length == 3
+Then /^only (.*) (.*) options remain selected$/ do |result, section|
+  @selected = @basics.get_selected_items(section)
+  raise AssertionError, "Wrong no of selected items" unless @selected.length == result.to_i
+end
+
+When /^I select (.*) and (.*) from (.*)$/ do |option1, option2, section|
+  @basics.open_section(section)
+  @basics.select_options(section, option1, option2)
+end
+
+And /^click Close$/ do
+  @basics.click_close
+end
+
+Then /^the (.*) and (.*) are displayed in the summary$/ do |option1, option2|
+  raise AssertionError, "Option not present in summary" unless @basics.summary_option_present?(option1)
+  raise AssertionError, "Option not present in summary" unless @basics.summary_option_present?(option2)
+end
+
+When /^I click on the (.*) panel$/ do |section|
+  @basics.open_section(section)
+end
+
+And /^click I dont mind$/ do
+  @basics.click_dont_mind
+  sleep(3)
+end
+
+Then /^I am taken to the (.*) section$/ do |next_section|
+  raise AssertionError, "Unexpected next section" unless @basics.current_section == next_section
+end
+
+And /^no option is selected for (.*)$/ do |section|
+  raise AssertionError, "Options selected for section" unless !@basics.section_expanded?(section)
 end
 

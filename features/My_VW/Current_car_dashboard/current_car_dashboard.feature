@@ -15,8 +15,8 @@ Feature: Current car dashboard
       Then the system file selector is displayed to choose a photo
 
     Scenario Outline: My Service gurantee module
-      When i am on the service gurantee module
-      And i click on a <gurantee> link
+      Given i am on the service gurantee module
+      When i click on a <gurantee> link
       Then i should be taken to the relevant <page>
 
       Examples:
