@@ -5,8 +5,8 @@ Given /^i have logged into my VW account$/ do
   @current_car.login_valid_account
 end
 
-And /^i am on the My cars page$/ do
-  raise AssertionError, "My Cars page not loaded" @current_car.current_dashboard_section
+When /^i am on the My cars page$/ do
+  @current_car.current_dashboard_section_present?
 end
 
 Then /^i should be able to click on My Configurations link$/ do
@@ -14,7 +14,7 @@ Then /^i should be able to click on My Configurations link$/ do
 end
 
 And /^i should be able to see My configuration on the page$/ do
-  raise PageNotLoadedError, "My configuration page not loaded" unless @configured_car.configuration_page
+  raise PageNotLoadedError, "My configuration page not loaded" unless @configured_car.configuration_page_present?
 end
 
 Given /^I have logged into my VW account$/ do
@@ -27,7 +27,7 @@ When /^i have gone to the My configurations page$/ do
 end
 
 Then /^i should be able to see the following (.*)$/ do |details|
-  raise AssertionError, "Following section is not present" unless @configured_car.configured_car_section(details)
+  raise AssertionError, "Following section is not present" unless @configured_car.configured_car_sections_present?(details)
 end
 
 Given /^i have a logged into an account with a saved configuration$/ do
@@ -39,15 +39,15 @@ When /^i am on the My configurations page$/ do
 end
 
 And /^i am viewing my configured car$/ do
-  raise AssertionError, "my configured car not present" unless @configured_car.my_configured_car
+  raise AssertionError, "my configured car not present" unless @configured_car.my_configured_car_present?
 end
 
 Then /^i should be able to see the book a test drive button$/ do
-  raise AssertionError, " Book a test drive not present" unless @configured_car.book_test_drive_button
+  raise AssertionError, " Book a test drive not present" unless @configured_car.book_test_drive_button_present?
 end
 
 And /^the (.*) link for my configured car$/ do |actions|
-  raise AssertionError, "Link not present" unless @configured_car.configured_car_user(actions)
+  raise AssertionError, "Link not present" unless @configured_car.configured_car_user_present?(actions)
 end
 
 Given /^i have logged into an account with a saved configuration that is no longer available$/ do
@@ -84,25 +84,39 @@ end
 
 Given /^i am viewing my configuration$/ do
   step 'i have logged into my VW account'
+  @configured_car.configured_car_click
 end
 
 When /^i am further down the page$/ do
-  @configured_car.further_down_page
+  @configured_car.further_down_page_present?
 end
 
 Then /^i should see further action (.*)$/ do |buttons|
-  raise AssertionError, "Button not present" unless @configured_car.configured_car_recovery_button(buttons)
+  raise AssertionError, "Button not present" unless @configured_car.configured_car_recovery_buttons_present?(buttons)
 end
 
 Given /^i am logged in and on the specification section$/ do
   step 'i have logged into my VW account'
-
+  @configured_car.specification_section_present?
 end
 
 When /^i check to see if the table of data is present$/ do
-
+  @configured_car.specifcation_table_present?
 end
 
 Then /^i should also see links to the Dimensions and Terms and Conditions$/ do
+  raise AssertionError, "Link not present" unless @configured_car.specifications_section_links_present?
+end
+
+Given /^i am logged in and on the standard features section$/ do
+  step 'i have logged into my VW account'
+
+end
+
+When /^i click on the expand link$/ do
+
+end
+
+Then /^i should see the full list of standard features appear$/ do
 
 end

@@ -6,7 +6,7 @@ Feature: Configured Car Dashboard
 
     Scenario: My Configurations page
       Given i have logged into my VW account
-      And i am on the My cars page
+      When i am on the My cars page
       Then i should be able to click on My Configurations link
       And i should be able to see My configuration on the page
 
@@ -71,3 +71,8 @@ Feature: Configured Car Dashboard
       Given i am logged in and on the specification section
       When i check to see if the table of data is present
       Then i should also see links to the Dimensions and Terms and Conditions
+
+    Scenario: Standard features section expanded
+      Given i am logged in and on the standard features section
+      When i click on the expand link
+      Then i should see the full list of standard features appear

@@ -1,6 +1,6 @@
 class ConfiguredCarDashboard < BrowserContainer
 
-  def configuration_page
+  def configuration_page_present?
     configured_car_hero.present?
     my_configured_menu.present?
     my_configured_summary.present?
@@ -11,37 +11,50 @@ class ConfiguredCarDashboard < BrowserContainer
     configured_car_click.when_present.click
   end
 
-  def configured_car_recovery_button(buttons)
+  def configured_car_recovery_buttons_present?(buttons)
     @browser.div(:class => "my-offers__feature aligner").link(:text => "#{buttons}").present?
   end
 
-  def configured_car_section(details)
+  def configured_car_sections_present?(details)
     @browser.section(:class => "#{details}").present?
   end
 
-  def my_configured_car
+  def my_configured_car_present?
     configured_car_hero.present?
     name_of_configuration.present?
   end
 
-  def configured_car_user(actions)
+  def configured_car_user_present?(actions)
     @browser.div(:class => "full-hero__content").text("#{actions}").present?
   end
 
-  def further_down_page
+  def further_down_page_present?
     promotions_section.present?
   end
 
-  def book_test_drive_button
+  def book_test_drive_button_present?
     book_test_drive.present?
   end
 
-  def specification_sect
-
-  def specifcation_table
-
+  def specification_section_present?
+    my_specifications_section.present?
   end
 
+  def specifcation_table_present?
+    spec_table.present?
+  end
+
+  def specifications_section_links_present?
+    terms_link.present?
+    spec_dimensions_link.present?
+  end
+
+  def standard_features_section_present?
+    my_configured_standard_features.present?
+  end
+
+  def click_expand_features_link
+    standard_features_expand.click
   private
 
   def get_showroom_account
@@ -84,7 +97,7 @@ class ConfiguredCarDashboard < BrowserContainer
     @browser.section(:class => "my-configured-summary")
   end
 
-  def my_specifications
+  def my_specifications_section
     @browser.section(:class => "my-configured-spec__body")
   end
 
