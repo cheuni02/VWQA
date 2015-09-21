@@ -133,10 +133,6 @@ class CurrentCarDashboard < MyVW
     need_help_search_button.click
   end
 
-  def search_help_result
-
-  end
-
   def my_service_plans_box_present?
     my_service_plans_history.present?
   end
