@@ -11,7 +11,7 @@ Feature: Configured Car Dashboard
 
     Scenario Outline: Configured car details
       Given I have logged into my VW account
-      When i have gone to the My configurations page
+      When i have go to the My configurations page
       Then i should be able to see the following <details>
 
       Examples:
