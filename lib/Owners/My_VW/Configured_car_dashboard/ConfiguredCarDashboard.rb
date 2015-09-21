@@ -1,13 +1,35 @@
 class ConfiguredCarDashboard < BrowserContainer
 
 
+  def configuration_page
+    configured_car_hero.present?
+    my_configured_menu.present?
+    my_configured_summary.present?
+  end
 
+  def configured_car_click
+    my_cars_menu.hover
+    configured_car_click.when_present.click
+  end
 
+  def configured_car_recovery_button(buttons)
+    @browser.div(:class => "my-offers__feature aligner").link(:text => "#{buttons}")
+  end
 
+  def configured_car_section(details)
+    @browser.section(:class => "#{details}").present?
+  end
 
-
+  def my_configured_car
+    configured_car_hero.present?
+    name_of_configuration.present?
+  end
 
   private
+
+  def name_of_configuration
+    @browser.h1(:class => "full-hero__title")
+  end
 
   def configured_car_hero
     @browser.section(:class => "configured-car-hero")
@@ -25,8 +47,12 @@ class ConfiguredCarDashboard < BrowserContainer
     @browser.nav(:class => "full-hero__links").a(:index => 1).span(:text => "Print configuration")
   end
 
-  def my_configured_menu
-    @browser.div(:class => "my-configured-menu__body").ul
+  def my_cars_menu
+    @browser.ul(:class => "welcome-stripe__menu-list", :index => 1).li(:class => "welcome-stripe__menu-list-item").a(:href => "#")
+  end
+
+  def configured_car_link
+    @browser.div(:class => "my-cars-dropdown-cars").image(:alt => "MyBeetle")
   end
 
   def my_configured_summary
@@ -76,10 +102,6 @@ class ConfiguredCarDashboard < BrowserContainer
   def promotions_section
     @browser.section(:class => "my-promo")
   end
-
-  def
-
-
 
 
 

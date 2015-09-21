@@ -1,3 +1,4 @@
+@configured_car @Daily
 Feature: Configured Car Dashboard
   As a potential VW customer browsing the site
   When i have edited and saved a configuration
@@ -6,8 +7,8 @@ Feature: Configured Car Dashboard
     Scenario: My Configurations page
       Given i have logged into my VW account
       And i am on the My cars page
-      Then i should be able to click on the My Configurations link
-      And i should be able to see the My configurations page
+      Then i should be able to click on My Configurations link
+      And i should be able to see My configuration on the page
 
     Scenario Outline: Configured car details
       Given I have logged into my VW account
@@ -15,14 +16,14 @@ Feature: Configured Car Dashboard
       Then i should be able to see the following <details>
 
       Examples:
-        | details           |
-        | Specifications    |
-        | My Choices        |
-        | Extras            |
-        | Standard features |
-        | Shortcode         |
-        | Offer             |
-
+        | details                |
+        | my-configured-summary  |
+        | my-configured-gallery  |
+        | my-configured-spec     |
+        | my-configured-feature  |
+        | my-configured-standard |
+        | my-configured-retailer |
+        | my-promo               |
 
     Scenario Outline: User Authored
       Given i have a logged into an account with a saved configuration
@@ -52,3 +53,15 @@ Feature: Configured Car Dashboard
       When i go to the My cars section
       And click on the My Configurations links
       Then i should see the configured car along with PDF download link
+
+    Scenario Outline: Configured Car recovery buttons
+      Given i am viewing my configuration
+      When i am further down the page
+      Then i should see further action <buttons>
+
+      Examples:
+        | buttons           |
+        | Get a brochure    |
+        | Book a test drive |
+        | Keep me informed  |
+        | Contact Us        |
