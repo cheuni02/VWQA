@@ -38,12 +38,16 @@ When /^i am on the My configurations page$/ do
   step "i am on the My cars page"
 end
 
-Then /^i should be able to see my configured car$/ do
+And /^i am viewing my configured car$/ do
   raise AssertionError, "my configured car not present" unless @configured_car.my_configured_car
 end
 
-And /^further details and (.*) i can take$/ do |actions|
-  pending
+Then /^i should be able to see the book a test drive button$/ do
+  raise AssertionError, " Book a test drive not present" unless @configured_car.book_test_drive_button
+end
+
+And /^the (.*) link for my configured car$/ do |actions|
+  raise AssertionError, "Link not present" unless @configured_car.configured_car_user(actions)
 end
 
 Given /^i have logged into an account with a saved configuration that is no longer available$/ do
@@ -79,13 +83,26 @@ Then /^i should see the configured car along with PDF download link$/ do
 end
 
 Given /^i am viewing my configuration$/ do
-  pending
+  step 'i have logged into my VW account'
 end
 
 When /^i am further down the page$/ do
-  pending
+  @configured_car.further_down_page
 end
 
 Then /^i should see further action (.*)$/ do |buttons|
-  pending
+  raise AssertionError, "Button not present" unless @configured_car.configured_car_recovery_button(buttons)
+end
+
+Given /^i am logged in and on the specification section$/ do
+  step 'i have logged into my VW account'
+
+end
+
+When /^i check to see if the table of data is present$/ do
+
+end
+
+Then /^i should also see links to the Dimensions and Terms and Conditions$/ do
+
 end

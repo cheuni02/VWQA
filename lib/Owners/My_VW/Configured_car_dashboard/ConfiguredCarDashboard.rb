@@ -1,6 +1,5 @@
 class ConfiguredCarDashboard < BrowserContainer
 
-
   def configuration_page
     configured_car_hero.present?
     my_configured_menu.present?
@@ -13,7 +12,7 @@ class ConfiguredCarDashboard < BrowserContainer
   end
 
   def configured_car_recovery_button(buttons)
-    @browser.div(:class => "my-offers__feature aligner").link(:text => "#{buttons}")
+    @browser.div(:class => "my-offers__feature aligner").link(:text => "#{buttons}").present?
   end
 
   def configured_car_section(details)
@@ -25,7 +24,33 @@ class ConfiguredCarDashboard < BrowserContainer
     name_of_configuration.present?
   end
 
+  def configured_car_user(actions)
+    @browser.div(:class => "full-hero__content").text("#{actions}").present?
+  end
+
+  def further_down_page
+    promotions_section.present?
+  end
+
+  def book_test_drive_button
+    book_test_drive.present?
+  end
+
+  def specification_sect
+
+  def specifcation_table
+
+  end
+
   private
+
+  def get_showroom_account
+
+  end
+
+  def get user_invalid_config
+
+  end
 
   def name_of_configuration
     @browser.h1(:class => "full-hero__title")
@@ -59,16 +84,16 @@ class ConfiguredCarDashboard < BrowserContainer
     @browser.section(:class => "my-configured-summary")
   end
 
-  def my_configured_gallery
-    @browser.section(:class => "my-configured-gallery")
-  end
-
-  def my_configured_specifications
-    @browser.section(:class => "my-configured-spec")
+  def my_specifications
+    @browser.section(:class => "my-configured-spec__body")
   end
 
   def spec_dimensions_link
     @browser.div(:class => "my-configured-spec__link--bottom").a(:text => "Dimensions")
+  end
+
+  def spec_table
+    @browser.tables(:class => "spec-table")
   end
 
   def terms_link

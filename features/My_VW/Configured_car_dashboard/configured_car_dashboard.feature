@@ -24,16 +24,17 @@ Feature: Configured Car Dashboard
         | my-configured-standard |
         | my-configured-retailer |
         | my-promo               |
+        | dimmy                  |
 
     Scenario Outline: User Authored
       Given i have a logged into an account with a saved configuration
       When i am on the My configurations page
-      Then i should be able to see my configured car
-      And further details and <actions> i can take
+      And i am viewing my configured car
+      Then i should be able to see the book a test drive button
+      And the <actions> link for my configured car
 
       Examples:
         | actions              |
-        | Book a test drive    |
         | Edit a configuration |
         | Print a brochure     |
 
@@ -65,3 +66,8 @@ Feature: Configured Car Dashboard
         | Book a test drive |
         | Keep me informed  |
         | Contact Us        |
+
+    Scenario: Specification Section links
+      Given i am logged in and on the specification section
+      When i check to see if the table of data is present
+      Then i should also see links to the Dimensions and Terms and Conditions
