@@ -5,11 +5,11 @@ Given /^that i have logged in to my account$/ do
 end
 
 When /^the current car dashboard is loaded$/ do
-  raise AssertionError, "Current car dashboard not loaded" unless @current_car.current_dashboard_section
+  @current_car.current_dashboard_section_present?
 end
 
 Then /^I should be greeted with my name$/ do
-  raise AssertionError, "My name not present" unless @current_car.my_name_present
+  raise AssertionError, "My name not present" unless @current_car.my_name_present?
 end
 
 When /^I click on the camera icon$/ do
@@ -23,7 +23,7 @@ Then /^the system file selector is displayed to choose a photo$/ do
 end
 
 When /^i am on the service gurantee module$/ do
-  raise AssertionError, "Service gurantee section not present" unless @current_car.my_service_gurantee_module
+  @current_car.my_service_gurantee_module_present?
 end
 
 And /^i click on a (.*) link$/ do |gurantee|
@@ -35,15 +35,15 @@ Then /^i should be taken to the relevant (.*)$/ do |page|
 end
 
 When /^i am on the service history module$/ do
-  raise AssertionError, "My Service history module not present" unless @current_car.my_service_history
+  @current_car.my_service_history_present?
 end
 
 Then /^i should see my vehicles service history$/ do
-  raise AssertionError, "My service information not present" unless @current_car.my_service_history_table
+  raise AssertionError, "My service information not present" unless @current_car.my_service_history_table_present?
 end
 
 When /^i am on the my plans section$/ do
-  raise AssertionError, "My plans section not present" unless @current_car.my_plans
+  @current_car.my_plans_present?
 end
 
 Then /^i should see any plans that i have$/ do
@@ -51,27 +51,27 @@ Then /^i should see any plans that i have$/ do
 end
 
 When /^i am on the promo modules section$/ do
-  raise AssertionError, "Promo section not present" unless @current_car.promo_section
+  @current_car.promo_section_present?
 end
 
 Then /^i should see the (.*) promotion$/ do |promotions|
-  raise AssertionError, "promotion not present" unless @current_car.promotions_check(promotions)
+  raise AssertionError, "promotion not present" unless @current_car.promotions_present?(promotions)
 end
 
 And /^the promotion headline$/ do
-  raise AssertionError, "promotion headline is not there" unless @current_car.promo_headline_offer
+  raise AssertionError, "promotion headline is not there" unless @current_car.promo_headline_offer_present?
 end
 
 When /^i am on need help module$/ do
- raise AssertionError, "Need help section not present" unless @current_car.need_help_section
+ @current_car.need_help_section_present?
 end
 
 Then /^i should see the need help search bar$/ do
-  raise AssertionError, "Need help search bar not present" unless @current_car.need_help_search
+  raise AssertionError, "Need help search bar not present" unless @current_car.need_help_search_present?
 end
 
 And /^the following (.*) section appears$/ do |useful_links|
-  raise AssertionError, "Link not present" unless @current_car.check_useful_link(useful_links)
+  raise AssertionError, "Link not present" unless @current_car.check_useful_link_present?(useful_links)
 end
 
 When /^i search for (.*)$/ do |help|
@@ -92,13 +92,13 @@ Then /^i should see my preferred retailer$/ do
 end
 
 And /^the (.*) link in the box$/ do |links|
-  raise AssertionError, "link not present" unless @current_car.retailer_links(links)
+  raise AssertionError, "link not present" unless @current_car.retailer_links_present?(links)
 end
 
 When /^i scroll to the bottom of the page$/ do
-  @current_car.scroll_to_recovery_zone
+  @current_car.recovery_zone_present?
 end
 
 Then /^the (.*) button should appear for the user$/ do |buttons|
-  raise AssertionError, "Button not present" unless @current_car.check_relevant_buttons(buttons)
+  raise AssertionError, "Button not present" unless @current_car.check_relevant_buttons_present?(buttons)
 end
