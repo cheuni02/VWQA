@@ -7,8 +7,8 @@ Feature: Current car dashboard
       Given that i have logged in to my account
 
     Scenario: Current car dashboard
-      When the current car dashboard is loaded
-      Then I should be greeted with my name
+      When the current car dashboard page has loaded
+      Then I should be greeted with my current car dashboard and my name
 
     Scenario: Camera icon
       When I click on the camera icon

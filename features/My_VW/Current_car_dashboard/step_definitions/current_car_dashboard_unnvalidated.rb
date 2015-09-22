@@ -5,7 +5,7 @@ Given /^that i have logged in to my unvalidated VW account$/ do
 end
 
 When /^i am on the MY VW page for my account$/ do
-  @current_car.my_vw_page_present?
+  #Nothing to do here
 end
 
 Then /^i should see the My Service history & plans module$/ do

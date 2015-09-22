@@ -4,11 +4,11 @@ Given /^that i have logged in to my account$/ do
   @current_car.login_valid_account
 end
 
-When /^the current car dashboard is loaded$/ do
-  @current_car.current_dashboard_section_present?
+When /^the current car dashboard page has loaded$/ do
+  #Nothing to do here
 end
 
-Then /^I should be greeted with my name$/ do
+Then /^I should be greeted with my current car dashboard and my name$/ do
   raise AssertionError, "My name not present" unless @current_car.my_name_present?
 end
 
@@ -23,7 +23,7 @@ Then /^the system file selector is displayed to choose a photo$/ do
 end
 
 Given /^the service gurantee module is present on the page$/ do
-  @current_car.my_service_gurantee_module_present?
+  #Nothing to do here
 end
 
 When /^i click on a (.*) link$/ do |gurantee|
@@ -35,7 +35,7 @@ Then /^i should be taken to the relevant (.*)$/ do |page|
 end
 
 When /^i am on the service history module$/ do
-  @current_car.my_service_history_present?
+  #Nothing to do here
 end
 
 Then /^i should see my vehicles service history$/ do
@@ -43,7 +43,7 @@ Then /^i should see my vehicles service history$/ do
 end
 
 When /^i am on the my plans section$/ do
-  @current_car.my_plans_present?
+  #Nothing to do here
 end
 
 Then /^i should see any plans that i have$/ do
@@ -51,7 +51,7 @@ Then /^i should see any plans that i have$/ do
 end
 
 When /^i am on the promo modules section$/ do
-  @current_car.promo_section_present?
+  #Nothing to do here
 end
 
 Then /^i should see the (.*) promotion$/ do |promotions|
@@ -63,7 +63,7 @@ And /^the promotion headline$/ do
 end
 
 When /^i am on need help module$/ do
- @current_car.need_help_section_present?
+  #Nothing to do here
 end
 
 Then /^i should see the need help search bar$/ do
@@ -84,7 +84,7 @@ Then /^i should get a (.*)$/ do |result|
 end
 
 When /^i am on the Current dashboard$/ do
-  step "the current car dashboard is loaded"
+  #Nothing to do here
 end
 
 Then /^i should see my preferred retailer$/ do
@@ -96,7 +96,7 @@ And /^the (.*) link in the box$/ do |links|
 end
 
 When /^i scroll to the bottom of the page$/ do
-  @current_car.recovery_zone_present?
+  #Nothing to do here
 end
 
 Then /^the (.*) button should appear for the user$/ do |buttons|
