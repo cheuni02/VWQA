@@ -22,7 +22,7 @@ Then /^the system file selector is displayed to choose a photo$/ do
   pending
 end
 
-Given /^i am on the service gurantee module$/ do
+Given /^the service gurantee module is present on the page$/ do
   @current_car.my_service_gurantee_module_present?
 end
 

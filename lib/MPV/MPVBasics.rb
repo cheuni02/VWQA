@@ -199,3 +199,4 @@ def close_button
       end
     end
 end
+end

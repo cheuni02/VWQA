@@ -1,4 +1,4 @@
-require 'yaml'
+require 'json'
 class CurrentCarDashboard < MyVW
 
   def visit
@@ -173,15 +173,17 @@ def password_box
 end
 
 def get_credentials_unvalidated
-  user_data = YAML.load_file('user_accounts.yml')
-  @username_unvalidated_user = user_data[1]['username']
-  @password_unvalidated_user = user_data[1]['password']
+  user_data = File.read('users.json')
+  users_hash = JSON.parse(user_data)
+  @username_unvalidated_user = users_hash["User_accounts"]["Unvalid_users"][0]["Username"]
+  @password_unvalidated_user = users_hash["User_accounts"]["Unvalid_users"][0]["Password"]
 end
 
 def grab_user_cred_valid
-  user_data = YAML.load_file('user_accounts.yml')
-  @username_valid_user = user_data[0]['username']
-  @password_valid_user = user_data[0]['password']
+  user_data = File.read('users.json')
+  users_hash = JSON.parse(user_data)
+  @username_valid_user = users_hash["User_accounts"]["Valid_users"][0]["Username"]
+  @password_valid_user = users_hash["User_accounts"]["Valid_users"][0]["Password"]
 end
 
 def logon_button
