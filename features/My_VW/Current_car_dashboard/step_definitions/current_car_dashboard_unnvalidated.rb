@@ -9,7 +9,7 @@ When /^i am on the MY VW page for my account$/ do
 end
 
 Then /^i should see the My Service history & plans module$/ do
-  raise AssertionError, "My Plans and Service history section not present" unless @current_car.my_service_plans_box
+  raise AssertionError, "My Plans and Service history section not present" unless @current_car.my_service_plans_box_present?
 end
 
 And /^I should see the last name and postcode input fields$/ do

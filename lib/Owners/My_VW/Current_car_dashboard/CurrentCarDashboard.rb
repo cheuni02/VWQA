@@ -109,7 +109,7 @@ class CurrentCarDashboard < MyVW
 
   def my_vw_page_present?
     current_car_hero.present?
-    my_retailer
+    my_retailer_present?
   end
 
   def my_retailer_present?

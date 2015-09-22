@@ -167,7 +167,7 @@ class MPVBasics < Mpv
     price.div(:class => "select-list-min").ul(:class => "sbOptions").link(:href => /#{min_price}/)
   end
 
-   def max_price_button
+  def max_price_button
     price.div(:class => "select-list-max").link(:id => /sbSelector_/)
   end
 
@@ -177,7 +177,7 @@ class MPVBasics < Mpv
 
   def dont_mind_link
      basics_item_container.link(:class => "any-form-item-button")
-  end 
+  end
 
   def summary_option(option)
      basics_item_container.span(:class => /#{option}/)
@@ -185,7 +185,7 @@ class MPVBasics < Mpv
 
   def basics_completion_section(section)
     basics_item_container.div(:class => section, :class => "completed")
-  end 
+  end
 
   def current_section_divs
     basics_item_container.divs(:class => "selected")
