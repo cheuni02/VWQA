@@ -108,15 +108,15 @@ Then /^i should also see links to the Dimensions and Terms and Conditions$/ do
   raise AssertionError, "Link not present" unless @configured_car.specifications_section_links_present?
 end
 
-Given /^i am logged in and on the standard features section$/ do
+Given /^i am logged in and the standard features section is present$/ do
   step 'i have logged into my VW account'
-
+  @configured_car.standard_features_section_present?
 end
 
 When /^i click on the expand link$/ do
-
+  @configured_car.click_expand_features_link
 end
 
 Then /^i should see the full list of standard features appear$/ do
-
+  raise AssertionError, "Expanded standard features section not present" unless @configured_car.standard_features_expanded_present?
 end

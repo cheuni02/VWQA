@@ -55,6 +55,12 @@ class ConfiguredCarDashboard < BrowserContainer
 
   def click_expand_features_link
     standard_features_expand.click
+  end
+
+  def standard_features_expanded_present?
+    standard_features_expanded_section.present?
+  end
+
   private
 
   def get_showroom_account
@@ -125,6 +131,10 @@ class ConfiguredCarDashboard < BrowserContainer
     @browser.link(:id => "toggle-features-link")
   end
 
+  def standard_features_expanded_section
+    @browser.div(:id => "standard-features")
+  end
+
   def configurator_link
     @browser.h3(:class => "my-configured-retailer__title--blue")
   end
@@ -140,7 +150,5 @@ class ConfiguredCarDashboard < BrowserContainer
   def promotions_section
     @browser.section(:class => "my-promo")
   end
-
-
 
 end

@@ -73,6 +73,6 @@ Feature: Configured Car Dashboard
       Then i should also see links to the Dimensions and Terms and Conditions
 
     Scenario: Standard features section expanded
-      Given i am logged in and on the standard features section
+      Given i am logged in and the standard features section is present
       When i click on the expand link
       Then i should see the full list of standard features appear
