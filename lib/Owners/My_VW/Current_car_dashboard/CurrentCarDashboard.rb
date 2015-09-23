@@ -252,7 +252,7 @@ def service_history_table
 end
 
 def volkswagen_plans_section
-  @browser.section(:class => "my-current-plan")
+  @browser.section(:class => "my-current-plan").table(:class => "my-table--white")
 end
 
 def promotion_section

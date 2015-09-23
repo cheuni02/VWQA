@@ -29,6 +29,7 @@ Feature: Current car dashboard
       When i am on the service history module
       Then i should see my vehicles service history
 
+    @plan
     Scenario: My Plans
       When i am on the my plans section
       Then i should see any plans that i have

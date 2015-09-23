@@ -47,7 +47,7 @@ When /^i am on the my plans section$/ do
 end
 
 Then /^i should see any plans that i have$/ do
-  pending
+  raise AssertionError, "My Plan table not present" unless @current_car.my_plans_present?
 end
 
 When /^i am on the promo modules section$/ do
