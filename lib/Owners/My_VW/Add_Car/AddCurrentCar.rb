@@ -3,6 +3,9 @@ class AddCurrentCar < MyVW
 
 
 
+  def step_1.present?
+    add_car_title.present?
+  end
 
 
 
@@ -50,6 +53,34 @@ class AddCurrentCar < MyVW
 
   def my_car_name_input_box
     @browser.text_field(:id => "car-name")
+  end
+
+  def goto_section2
+    @browser.button(:id => "goto-section-2")
+  end
+
+  def step_2_title
+    @browser.span(:text => "2").text
+  end
+
+  def retailers_from_previous_car
+    @browser.h3(:text => "From your other cars")
+  end
+
+  def retailer_location_search
+    @browser.text_field(:id => "retailer-location-search")
+  end
+
+  def retailer_location_lookup_button
+    @browsr.button(:id => "retailer-location-search-submit")
+  end
+
+  def retailer_name_search
+    @browser.text_field(:id => "retailer-name-search")
+  end
+
+  def finish_button
+    @browser.button(:id => "submit-no-owner")
   end
 
 
