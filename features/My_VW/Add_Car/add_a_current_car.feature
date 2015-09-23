@@ -7,34 +7,27 @@ Feature: Add a current car
       Given i have logged into my VW account and am on the My VW page
       And i go to the add a car page and click on the "A car i own" button
 
-    Scenario Outline: Add a car options - Step 1a
-      When i check i am on the Add a car i own page
-      Then i should see three <options> to add a car
-
-      Examples:
-        | options          |
-        | A car i own      |
-        | A car i ordered  |
-        | A configured car |
+    Scenario Outline: Add a car option - Step 1a
+      When i check that am on the Add a car i own page
+      Then i should see the regisration field appear
 
     Scenario Outline: Add A car i own - Step 1b validation
       When i enter a <registration> in the input field
-      Then i should see a error message if the registration needs to be reviewed
+      Then i should see a <error> message if the registration needs to be reviewed
 
       Examples:
-        | registration |
-        | GD14HSX      |
-        |              |
-        | gf3435"3$%   |
+        | registration | error |
+        | GD14HSX      | pass  |
+        |              | fail  |
+        | gf3435"3$%   | fail  |
 
     Scenario Outline: Add a car i own - Step 1b
-      When i enter my <registration>
+      When i enter one of my <registrations>
       And click the lookup button
       Then i should see a message saying think we've found your car
 
       Examples:
          | registration |
-         |              |
          |              |
          |              |
 
@@ -50,12 +43,12 @@ Feature: Add a current car
 
       Examples:
         | day | month     | year | engine_size |
-        | 02  | september | 2015 |             |
-        |     | october   | 2015 | 1.4         |
-        | 02  | october   | 2015 | 1.4         |
+        | 2   | September | 2015 |             |
+        |     | October   | 2015 | 1.4         |
+        | 2   | October   | 2015 | 1.4         |
 
     Scenario Outline: Add an owned car - Step 2a search by postcode
-      When i finished completing steps 1a, b, c
+      When i finish completing steps 1a, b, c
       And search for a retailer using a <postcode> and click the lookup button
       Then i should see a list of retailers in a list
       And a map view of the retailer as well
