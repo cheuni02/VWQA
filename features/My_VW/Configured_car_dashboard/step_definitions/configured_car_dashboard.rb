@@ -6,7 +6,7 @@ Given /^i have logged into my VW account$/ do
 end
 
 When /^i am on the My cars page$/ do
-  @current_car.current_dashboard_section_present?
+  #Nothing to do here
 end
 
 Then /^i should be able to click on My Configurations link$/ do
@@ -23,7 +23,7 @@ Given /^I have logged into my VW account$/ do
 end
 
 When /^i have gone to the My configurations page$/ do
-  step "i am on the My cars page"
+  #Nothing to do here
 end
 
 Then /^i should be able to see the following (.*)$/ do |details|
@@ -35,7 +35,7 @@ Given /^i have a logged into an account with a saved configuration$/ do
 end
 
 When /^i am on the My configurations page$/ do
-  step "i am on the My cars page"
+  #Nothing to do here
 end
 
 And /^i am viewing my configured car$/ do
@@ -55,7 +55,7 @@ Given /^i have logged into an account with a saved configuration that is no long
 end
 
 When /^i get to the My Configurations page$/ do
-  pending
+  #Nothing to do here
 end
 
 Then /^i should see the configuration and a message that says the configuration is no longer available$/ do
@@ -71,7 +71,7 @@ Given /^i have configured a car on the showrooms app and have logged in with the
 end
 
 When /^i go to the My cars section$/ do
-  pending
+  #Nothing to do here
 end
 
 And /^click on the My Configurations links$/ do
@@ -88,7 +88,7 @@ Given /^i am viewing my configuration$/ do
 end
 
 When /^i am further down the page$/ do
-  @configured_car.further_down_page_present?
+  #Nothing to do here
 end
 
 Then /^i should see further action (.*)$/ do |buttons|
@@ -101,7 +101,7 @@ Given /^i am logged in and on the specification section$/ do
 end
 
 When /^i check to see if the table of data is present$/ do
-  @configured_car.specifcation_table_present?
+  #Nothing to do here
 end
 
 Then /^i should also see links to the Dimensions and Terms and Conditions$/ do
