@@ -29,4 +29,8 @@ class MyVW < BrowserContainer
     ConfiguredCarDashboard.new(@browser)
   end
 
+  def current_car_dashboard
+    CurrentCarDashboard.new(@browser)
+  end
+
 end
