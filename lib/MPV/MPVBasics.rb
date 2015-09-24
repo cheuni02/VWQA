@@ -200,4 +200,3 @@ class MPVBasics < Mpv
       end
   end
 end
-end

@@ -4,6 +4,7 @@ Feature: Configured Car Dashboard
   When i have edited and saved a configuration
   It should appear in the My configurations section where i can see more details and actions
 
+    @test
     Scenario: My Configurations page
       Given i have logged into my VW account
       When i am on the My cars page

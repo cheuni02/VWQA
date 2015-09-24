@@ -8,7 +8,7 @@ class ConfiguredCarDashboard < BrowserContainer
 
   def configured_car_click
     my_cars_menu.hover
-    configured_car_click.when_present.click
+    configured_car_click.click
   end
 
   def configured_car_recovery_buttons_present?(buttons)
@@ -96,7 +96,7 @@ class ConfiguredCarDashboard < BrowserContainer
   end
 
   def configured_car_link
-    @browser.div(:class => "my-cars-dropdown-cars").image(:alt => "MyBeetle")
+    @browser.div(:class => "my-cars-dropdown-cars").image(:alt => "up1")
   end
 
   def my_configured_summary
