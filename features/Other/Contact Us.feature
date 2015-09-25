@@ -26,7 +26,7 @@ Feature: Contact Us Email Form
     | Lady  | Test       | Test       | 0123456789 | test.com                                 | failed  |
     | Sir   | Gowtham    | Selvarajah | 0123456789 | Gowtham.Selvarajah@tribalworldwide.co.uk | success |
 
-
+ 
   Scenario: Testing Retailer Find by location
    When i enter my local postcode as "UB6 7HA" to the find by location field
    And i click on the go button beside this field
