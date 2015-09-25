@@ -1,4 +1,8 @@
-class ConfiguredCarDashboard < BrowserContainer
+class ConfiguredCarDashboard < MyVW
+
+  def visit
+    visit_page(page_url)
+  end
 
   def configuration_page_present?
     configured_car_hero.present?
@@ -6,13 +10,8 @@ class ConfiguredCarDashboard < BrowserContainer
     my_configured_summary.present?
   end
 
-  def configured_car_click
-    my_cars_menu.hover
-    configured_car_click.click
-  end
-
   def configured_car_recovery_buttons_present?(buttons)
-    @browser.div(:class => "my-offers__feature aligner").link(:text => "#{buttons}").present?
+    @browser.div(:class => "my-offers__features").link(:text => "#{buttons}").present?
   end
 
   def configured_car_sections_present?(details)
@@ -24,8 +23,9 @@ class ConfiguredCarDashboard < BrowserContainer
     name_of_configuration.present?
   end
 
-  def configured_car_user_present?(actions)
-    @browser.div(:class => "full-hero__content").text("#{actions}").present?
+  def configuration_links_present?
+    edit_configuration_link.include?("Edit configuration")
+    print_configuration_link.include?("Print configuration")
   end
 
   def further_down_page_present?
@@ -61,7 +61,21 @@ class ConfiguredCarDashboard < BrowserContainer
     standard_features_expanded_section.present?
   end
 
+  def click_configuration
+    get_all_cars.each do |car|
+      my_car_link = car.link(:index => 0).href
+      if my_car_link =~ /configurations/i
+        @browser.goto my_car_link
+        break
+      end
+    end
+  end
+
   private
+
+  def page_url
+    "/owners/my/configurations/c93bd4cb-cba3-4874-a701-caa8f0d97e18"
+  end
 
   def get_showroom_account
 
@@ -84,19 +98,23 @@ class ConfiguredCarDashboard < BrowserContainer
   end
 
   def edit_configuration_link
-    @browser.nav(:class => "full-hero__links").a(:index => 0).span(:text => "Edit configuration")
+    @browser.nav(:class => "full-hero__links").a(:index => 0).text
   end
 
   def print_configuration_link
-    @browser.nav(:class => "full-hero__links").a(:index => 1).span(:text => "Print configuration")
+    @browser.nav(:class => "full-hero__links").a(:index => 1).text
   end
 
   def my_cars_menu
-    @browser.ul(:class => "welcome-stripe__menu-list", :index => 1).li(:class => "welcome-stripe__menu-list-item").a(:href => "#")
+    @browser.ul(:class => "welcome-stripe__menu-list", :index => 1).li(:class => "welcome-stripe__menu-list-item")
   end
 
-  def configured_car_link
-    @browser.div(:class => "my-cars-dropdown-cars").image(:alt => "up1")
+  def my_cars_list
+    @browser.div(:class => "my-cars-dropdown")
+  end
+
+  def my_configured_menu
+    @browser.section(:class => "my-configured-menu")
   end
 
   def my_configured_summary
@@ -150,5 +168,10 @@ class ConfiguredCarDashboard < BrowserContainer
   def promotions_section
     @browser.section(:class => "my-promo")
   end
+
+  def get_all_cars
+    @browser.execute_script('return document.getElementsByClassName("my-cars-dropdown-car-detail")')
+  end
+
 
 end
