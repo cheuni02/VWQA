@@ -29,4 +29,8 @@ class MyVW < BrowserContainer
     CurrentCarDashbaord.new(@browser)
   end
 
+  def ordered_car_dashboard
+    OrderedCarDashbaord.new(@browser)
+  end
+
 end
