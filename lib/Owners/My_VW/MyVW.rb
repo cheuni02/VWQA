@@ -26,7 +26,7 @@ class MyVW < BrowserContainer
   end
 
   def current_car_dashboard
-    CurrentCarDashbaord.new(@browser)
+    CurrentCarDashboard.new(@browser)
   end
 
   def ordered_car_dashboard

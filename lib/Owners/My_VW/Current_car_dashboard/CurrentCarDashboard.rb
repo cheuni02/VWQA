@@ -1,5 +1,5 @@
-require 'yaml'
-class CurrentCarDashbaord < MyVW
+require 'json'
+class CurrentCarDashboard < MyVW
 
   def visit
     visit_page(page_url)
@@ -35,11 +35,11 @@ class CurrentCarDashbaord < MyVW
     logon_button.click
   end
 
-  def my_name_present
+  def my_name_present?
     welcome_name.present?
   end
 
-  def current_dashboard_section
+  def current_dashboard_section_present?
     current_car_hero.present?
     my_car_nav_menu.present?
   end
@@ -52,7 +52,7 @@ class CurrentCarDashbaord < MyVW
     close_image_picker.send_keys :enter
   end
 
-  def my_service_gurantee_module
+  def my_service_gurantee_module_present?
     service_gurantee_section.present?
   end
 
@@ -71,66 +71,60 @@ class CurrentCarDashbaord < MyVW
     end
   end
 
-  def my_service_history
+  def my_service_history_present?
     current_service_section.present?
   end
 
-    def my_service_history_table
+    def my_service_history_table_present?
     service_history_table.visible?
   end
 
-  def my_plans
+  def my_plans_present?
     volkswagen_plans_section.present?
   end
 
-  def promo_section
+  def promo_section_present?
     promotion_section.present?
   end
 
-  def promotions_check(promotions)
+  def promotions_present?(promotions)
     @browser.div(:class => "col-6 my-promo__features").a(:title => "#{promotions}").present?
   end
 
-  def promo_headline_offer
+  def promo_headline_offer_present?
     promotion_headline.present?
   end
 
-  def need_help_section
+  def need_help_section_present?
     need_help_module.present?
   end
 
-  def need_help_search
+  def need_help_search_present?
     need_help_search_bar.present?
   end
 
-  def check_useful_link(useful_links)
+  def check_useful_link_present?(useful_links)
     @browser.h5(:text => "#{useful_links}").present?
   end
 
-  def go_to_current_car_dash
-    my_cars_link.when_present.hover
-    current_car_polo.when_present.click
-    current_car_hero.wait_until_present
-  end
-
-  def my_vw_page
+  def my_vw_page_present?
     current_car_hero.present?
-    my_retailer
+    my_retailer_present?
   end
 
-  def my_retailer
+  def my_retailer_present?
     preferred_retailer.present?
   end
 
-  def retailer_links(links)
+  def retailer_links_present?(links)
     @browser.div(:class => "my-retailer__hours").a(:text => "#{links}").present?
   end
 
-  def scroll_to_recovery_zone
+  def recovery_zone_present?
     recovery_zone_buttons.present?
   end
 
-  def check_relevant_buttons(buttons)
+  def check_relevant_buttons_present?(buttons)
     @browser.div(:class => "row my-offers__features").a(:text => "#{buttons}").present?
   end
 
@@ -139,15 +133,11 @@ class CurrentCarDashbaord < MyVW
     need_help_search_button.click
   end
 
-  def search_help_result
-
-  end
-
-  def my_service_plans_box
+  def my_service_plans_box_present?
     my_service_plans_history.present?
   end
 
-  def dbg_data_needed
+  def dbg_data_needed_present?
     owner_postcode_field.present?
     last_name_field.present?
   end
@@ -183,15 +173,17 @@ def password_box
 end
 
 def get_credentials_unvalidated
-  user_data = YAML.load_file('user_accounts.yml')
-  @username_unvalidated_user = user_data[1]['username']
-  @password_unvalidated_user = user_data[1]['password']
+  user_data = File.read('users.json')
+  users_hash = JSON.parse(user_data)
+  @username_unvalidated_user = users_hash["User_accounts"]["Unvalid_users"][0]["Username"]
+  @password_unvalidated_user = users_hash["User_accounts"]["Unvalid_users"][0]["Password"]
 end
 
 def grab_user_cred_valid
-  user_data = YAML.load_file('user_accounts.yml')
-  @username_valid_user = user_data[0]['username']
-  @password_valid_user = user_data[0]['password']
+  user_data = File.read('users.json')
+  users_hash = JSON.parse(user_data)
+  @username_valid_user = users_hash["User_accounts"]["Valid_users"][0]["Username"]
+  @password_valid_user = users_hash["User_accounts"]["Valid_users"][0]["Password"]
 end
 
 def logon_button
@@ -260,7 +252,7 @@ def service_history_table
 end
 
 def volkswagen_plans_section
-  @browser.section(:class => "my-current-plan")
+  @browser.section(:class => "my-current-plan").table(:class => "my-table--white")
 end
 
 def promotion_section
@@ -302,7 +294,5 @@ end
 def last_name_field
   @browser.text_field(:id => "owner-surname")
 end
-
-
 
 end

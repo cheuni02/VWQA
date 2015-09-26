@@ -1,4 +1,4 @@
-@Daily @vw-dogs
+@vw-dogs
 Feature: VW Dogs Landing Page
   As the owner of Volkswage
   We need to make sure that the special "Dogs" Landing page is usable for our customers

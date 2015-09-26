@@ -1,6 +1,5 @@
 class SiteSearch < BrowserContainer
 
-
   def submit_query(text)
     search_box.set(text)
     search_box.send_keys :enter
@@ -51,10 +50,16 @@ class SiteSearch < BrowserContainer
     return false
   end
 
+  def check_facets_present
+    facet_links.each do |link|
+      unless link.present?
+        return false
+      end
+    end
+    return true
+  end
 
-
-
-  private
+private
 
   def search_box
     @browser.text_field(:name => "query")
@@ -93,12 +98,12 @@ class SiteSearch < BrowserContainer
     @browser.ul(:class => "listing", :index => 0).links
   end
 
+  def facet_link_parent
+    @browser.div(:class => "side-bar").ul
+  end
 
-
-
-
-
-
-
+  def facet_links
+    facet_link_parent.lis
+  end
 
 end

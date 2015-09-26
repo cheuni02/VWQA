@@ -5,13 +5,13 @@ Given /^that i have logged in to my unvalidated VW account$/ do
 end
 
 When /^i am on the MY VW page for my account$/ do
-  raise PageNotLoadedError, "My VW page not loaded" unless @current_car.my_vw_page
+  #Nothing to do here
 end
 
 Then /^i should see the My Service history & plans module$/ do
-  raise AssertionError, "My Plans and Service history section not present" unless @current_car.my_service_plans_box
+  raise AssertionError, "My Plans and Service history section not present" unless @current_car.my_service_plans_box_present?
 end
 
 And /^I should see the last name and postcode input fields$/ do
-  raise AssertionError, "Fields not present" unless @current_car.dbg_data_needed
+  raise AssertionError, "Fields not present" unless @current_car.dbg_data_needed_present?
 end

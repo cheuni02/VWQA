@@ -29,7 +29,7 @@ Feature: New Car MLP And Navigation
     | model           |
     | Polo            |
     | Volkswagen CC   |
-    | Touran          |
+    | The Beetle      |
     | Golf            |
     | Sharan          |
 
