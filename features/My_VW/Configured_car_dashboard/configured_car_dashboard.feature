@@ -28,7 +28,6 @@ Feature: Configured Car Dashboard
         | my-configured-retailer |
         | my-promo               |
 
-    @test
     Scenario: User Authored
       And i have a logged into an account with a saved configuration
       When i am on the My configured car dashboard page
@@ -57,7 +56,7 @@ Feature: Configured Car Dashboard
     Scenario Outline: Configured Car recovery buttons
       And i am viewing my configuration
       When i am further down the page
-      Then i should see further action such as <buttons>
+      Then i should see a further action such as <buttons>
 
       Examples:
         | buttons           |
@@ -71,7 +70,6 @@ Feature: Configured Car Dashboard
       When i check to see if the table of data is present
       Then i should also see links to the Dimensions and Terms and Conditions
 
-    @test
     Scenario: Standard features section expanded
       Given i am logged in and the standard features section is present
       When i click on the expand link

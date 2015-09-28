@@ -93,7 +93,7 @@ When /^i am further down the page$/ do
   #Nothing to do here
 end
 
-Then /^i should see further action such as (.*)$/ do |buttons|
+Then /^i should see a further action such as (.*)$/ do |buttons|
   raise AssertionError, "Button not present" unless @configured_car.configured_car_recovery_buttons_present?(buttons)
 end
 
