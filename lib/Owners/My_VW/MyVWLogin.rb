@@ -27,24 +27,6 @@ class MyVWLogin < MyVW
     do_login
   end
 
-  def login_active?
-    login_active.present?
-  end
-
-  def login_inactive?
-    login_inactive.present?
-  end
-
-  def my_profile_edit
-    my_profile.click
-  end
-
-  def delete_account_click
-    delete_account.click
-    @browser.alert.exists?
-    @browser.alert.ok
-  end
-
   private
 
   def page_url
@@ -61,22 +43,6 @@ class MyVWLogin < MyVW
   
   def login_button
     @browser.button(:id => "login-button")
-  end
-
-  def login_active
-    @browser.div(:id => "top-bar").li(:class => "user-link login active")
-  end
-
-  def login_inactive
-    @browser.div(:id => "top-bar").li(:class => "user-link login")
-  end
-
-  def my_profile
-    @browser.link(:id => "owner-profile-link")
-  end
-
-  def delete_account
-    @browser.link(:id => "delete-account")
   end
 
 end
