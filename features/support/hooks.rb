@@ -19,3 +19,8 @@ end
 
 After ('@noissues') do
 end
+
+After ('@logout') do
+  site.my_vw.primary_nav.click_logout
+  #site.owners.wait_for_page
+end

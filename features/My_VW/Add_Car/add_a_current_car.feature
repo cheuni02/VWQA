@@ -6,7 +6,7 @@ Feature: Add a current car
     Background:
       Given i have logged into my VW account and am on the My VW page
       And i go to the add a car page and click on the "A car i own" button
-
+@test
     Scenario Outline: Add a car option - Step 1a
       When i check that am on the Add a car i own page
       Then i should see the regisration field appear
