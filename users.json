@@ -5,6 +5,10 @@
 	 	 ],
 		 "Unvalid_users": [
     			{"Username": "tribaltester@outlook.com", "Password": "Jerome123"}
-		 ]
+		 ],
+         "Users_ordered_car": [
+                {"Username": "orderedcar@test.com", "Password": "password123"}
+      ]
+
   }
 }
