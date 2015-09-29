@@ -74,3 +74,8 @@ Feature: Configured Car Dashboard
       Given i am logged in and the standard features section is present
       When i click on the expand link
       Then i should see the full list of standard features appear
+
+    Scenario: Configuration Shortcode
+      Given i have scrolled down the page
+      When i see the the configuration link section
+      Then i should see my configuration shortcode

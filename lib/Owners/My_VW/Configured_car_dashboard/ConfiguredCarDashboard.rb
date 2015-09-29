@@ -71,6 +71,10 @@ class ConfiguredCarDashboard < MyVW
     end
   end
 
+  def shortcode_present?
+    shortcode.present?
+  end
+
   private
 
   def page_url
@@ -171,6 +175,10 @@ class ConfiguredCarDashboard < MyVW
 
   def get_all_cars
     @browser.execute_script('return document.getElementsByClassName("my-cars-dropdown-car-detail")')
+  end
+
+  def shortcode
+    @browser.h3(:class => "my-configured-retailer__title--blue")
   end
 
 

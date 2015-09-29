@@ -124,3 +124,16 @@ end
 Then /^i should see the full list of standard features appear$/ do
   raise AssertionError, "Expanded standard features section not present" unless @configured_car.standard_features_expanded_present?
 end
+
+Given /^i have scrolled down the page$/ do
+  step 'i have logged into my VW account'
+  @configured_car.click_configuration
+end
+
+When /^i see the the configuration link section$/ do
+  #Nothing to do here
+end
+
+Then /^i should see my configuration shortcode$/ do
+  raise AssertionError, "Shortcode not present" unless @configured_car.shortcode_present?
+end
