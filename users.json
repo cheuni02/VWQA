@@ -1,10 +1,11 @@
 {
 	"User_accounts": {
 		 "Valid_users": [
-    			{"Username":"test123456@test.com", "Password":"12345678"}
+    			{"Username": "test123456@test.com", "Password":"12345678"}
 	 	 ],
 		 "Unvalid_users": [
-    			{"Username": "tribaltester@outlook.com", "Password": "Jerome123"}
+    			{"Username": "tribaltester@outlook.com", "Password": "Jerome123"},
+					{"Username": "add@car.com", "Password": "password"}
 		 ]
   }
 }
