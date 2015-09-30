@@ -124,7 +124,7 @@ Then /^i should see the car in the owned cars section$/ do
 end
 
 When /^i have completed Steps 1 and 2 for adding a car i own$/ do
-  pending
+  step 'i have completed Steps 1 and 2'
 end
 
 And /^i enter my (.*) and (.*)$/ do |last_name, postcode|
@@ -136,7 +136,7 @@ Then /^i should get an error message if it can not find a record$/ do
 end
 
 When /^i have complete Steps 1 and 2 for adding my car$/ do
-  pending
+  step 'i have completed Steps 1 and 2'
 end
 
 And /^i enter my last name and postcode$/ do
