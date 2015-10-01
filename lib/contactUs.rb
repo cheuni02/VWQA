@@ -146,12 +146,12 @@ class ContactUs < BrowserContainer
 
   def retailer_location_page
     @browser.section(:id => "show-all-content").wait_until_present
-    @browser.section(:id => "show-all-content").section(:class => "table__container").section(:class => "table-cell__left-box").li(:index => 4).link
+    @browser.section(:id => "show-all-content").section(:class => "table__container").section(:class => "table-cell__left-box").li(:index => 5).link
   end
 
   def retailer_map
     @browser.figure(:class => "map-retailer--container").section(:class => "map-responsive-helper js-maps-container")
-  end 
+  end
 
   def retailer_details
     @browser.figure(:class => "map-retailer--container").figcaption(:class => "map-retailer__details--wrapper")
