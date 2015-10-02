@@ -28,15 +28,19 @@ class OrderedCarDashboard < MyVW
   end
 
   def ordered_car_hero_present
-  ordered_car_hero.present?
+    ordered_car_hero.present?
   end
 
   def title_present
-  order_status_title.present?
+    order_status_title.present?
   end
 
   def title_text
     order_status_title.text
+  end
+
+  def my_cars_hover
+    my_cars.when_present.hover
   end
 
   def go_to_ordered_car_step (step_number)
@@ -46,8 +50,8 @@ class OrderedCarDashboard < MyVW
   end
 
   def ordered_dashboard_section
-    ordered_car_hero.present?
-    progress_indicator.present?
+    ordered_car_hero.wait_until_present
+    progress_indicator.wait_until_present
   end
 
   def current_step
@@ -58,13 +62,24 @@ class OrderedCarDashboard < MyVW
     logout_button.click
   end
 
-  # def click_ordered_car_step (step)
-  # to be added
-  # end
+  def get_ordered_car_step (step)
+    get_all_ordered_cars.each do |step_num|
+      if step_num.link.img.alt == "#{step}"
+      then
+        my_car_url = step_num.link(:index => 0).href
+        @browser.goto my_car_url
+        break
+      end
+    end
+  end
+
+  def refresh_browser_on_step
+    @browser.refresh
+  end
 
   private
 
-   def page_url
+  def page_url
     "/vw-authentication/login/auth?targetUrl=/owners/my/cars"
   end
 
@@ -111,20 +126,20 @@ class OrderedCarDashboard < MyVW
     @browser.div(:class => "parallax-hero__content").h1(:class => "parallax-hero__title")
   end
 
-   def my_cars
-     @browser.ul(:class => "welcome-stripe__menu-list", :index =>1).li(:class => "welcome-stripe__menu-list-item").a(:href => "#")
-   end
+  def my_cars
+    @browser.ul(:class => "welcome-stripe__menu-list", :index => 1).li(:class => "welcome-stripe__menu-list-item").a(:href => "#")
+  end
 
   def step_passed
-  @browser.div(:class => "parallax-hero__steps")
+    @browser.div(:class => "parallax-hero__steps")
   end
 
   def current_order_step
     @browser.li(:class => "parallax-hero__step--active")
   end
 
-  # def get_all_ordered_cars
-  #   @browser.execute_script('return document.getElementsByClassName("my-cars-dropdown-car-detail")')
-  # end
-  #
+  def get_all_ordered_cars
+    @browser.execute_script('return document.getElementsByClassName("my-cars-dropdown-car-detail")')
   end
+
+end
