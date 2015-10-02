@@ -191,12 +191,12 @@ class MPVBasics < Mpv
     basics_item_container.divs(:class => "selected")
   end
 
-def close_button
-    close_buttons = basics_item_container.links(:class => "done-form-item-button")
-    close_buttons.each do |close_item|
-      if close_item.visible?
-        return close_item
+  def close_button
+      close_buttons = basics_item_container.links(:class => "done-form-item-button")
+      close_buttons.each do |close_item|
+        if close_item.visible?
+          return close_item
+        end
       end
-    end
-end
+  end
 end

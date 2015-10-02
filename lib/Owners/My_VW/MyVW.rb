@@ -25,6 +25,10 @@ class MyVW < BrowserContainer
     CommonNav::PrimaryNav.new(@browser)
   end
 
+  def configured_car_dashboard
+    ConfiguredCarDashboard.new(@browser)
+  end
+
   def current_car_dashboard
     CurrentCarDashboard.new(@browser)
   end
