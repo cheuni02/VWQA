@@ -17,8 +17,8 @@ class AddCurrentCar < MyVW
     registration_text_field.present?
   end
 
-  def enter_registrations(registration)
-    registration_text_field.set("#{registration}")
+  def enter_registrations(registrations)
+    registration_text_field.set("#{registrations}")
   end
 
   def error_message_present?
@@ -75,11 +75,11 @@ class AddCurrentCar < MyVW
   def validate_postcode_field
     retailer_selection.wait_until_present
     if retailer_list.present?
-      return false
-    elsif error_message_retailer.present?
-      return false
-    else
       return true
+    elsif error_message_retailer.present?
+      return true
+    else
+      return false
     end
   end
 
@@ -165,10 +165,6 @@ class AddCurrentCar < MyVW
 
   def error_message
     @browser.div(:class => "error-label")
-  end
-
-  def my_car_form
-    @browser.div(:class => "my-car-form__window")
   end
 
   def edit_my_car_details

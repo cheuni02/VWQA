@@ -10,7 +10,7 @@ And /^i go to the add a car page and click on the "A car i own" button$/ do
   @add_car.click_i_own_car_button
 end
 
-When /^i check i that i am on the Add a car i own page$/ do
+When /^i check that i am on the Add a car i own page$/ do
   #nothing to do
 end
 
@@ -23,7 +23,7 @@ When /^i enter a (.*) in the input field$/ do |registration|
   @add_car.click_registration_lookup_button
 end
 
-Then /^i should see a (.*) message if the registration needs to be reviewed$/ do |error|
+Then /^i should see a (.*) message if the registration needs to be reviewed$/ do |message|
   raise AssertionError, "Error message not present" unless !@add_car.error_message_present?
 end
 
@@ -77,7 +77,7 @@ And /^i enter a (.*) in the search field and click the lookup button$/ do |postc
 end
 
 Then /^i should see a list of retailers in a list or an error message if input is invalid$/ do
-  raise AssertionError, "no retailers or error" unless @add_car.validate_postcode_field == false
+  raise AssertionError, "no retailers or error" unless @add_car.validate_postcode_field == true
 end
 
 When /^i have completed Step 1a, b, c$/ do
@@ -119,19 +119,19 @@ And /^i click the Skip & finish button$/ do
   pending
 end
 
-Then /^i should see the car in the owned cars section$/ do
-  @add_car.added_car_present?
+Then /^i should see the car in the my cars dropdown section$/ do
+  pending
 end
 
 When /^i have completed Steps 1 and 2 for adding a car i own$/ do
   step 'i have completed Steps 1 and 2'
 end
 
-And /^i enter my (.*) and (.*)$/ do |last_name, postcode|
+And /^i enter (.*) and (.*) into the fields$/ do |last_name, postcode|
   pending
 end
 
-Then /^i should get an error message if it can not find a record$/ do
+Then /^i should get an error message if no record is present$/ do
   pending
 end
 
@@ -143,6 +143,6 @@ And /^i enter my last name and postcode$/ do
   pending
 end
 
-Then /^after i click finish i should see my car in the owned cars section$/ do
+Then /^after i click finish i should see my car in the my cars menu$/ do
   pending
 end
