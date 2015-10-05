@@ -38,7 +38,7 @@ class AddCurrentCar < MyVW
   end
 
   def step_1a_b
-    registration_text_field.when_present.set("VX63NSN")
+    registration_text_field.when_present.set("DV62GRK")
     registration_lookup_button.click
   end
 
@@ -160,11 +160,11 @@ class AddCurrentCar < MyVW
   end
 
   def found_car_message
-    @browser.h3(:class => "my-car-form__editor-subtitle--black", :text => "We think we've found your car")
+    @browser.div(:id => "car-detail-text").h3(:class => "my-car-form__editor-subtitle--black", :text => "We think we've found your car")
   end
 
   def error_message
-    @browser.div(:class => "error-label")
+    @browser.div(:id => "section-registration-number").div(:class => "error-label", :text => "Sorry your details could not be found. Please enter your details manually below.")
   end
 
   def edit_my_car_details
@@ -252,7 +252,7 @@ class AddCurrentCar < MyVW
   end
 
   def serviced_by_button
-    @browser.div(:class => "serviced-by").radio(:name => "servicedBy")
+    @browser.div(:class => "serviced-by").radio(:name => "suppliedBy")
   end
 
   def added_car
