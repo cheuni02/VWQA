@@ -58,7 +58,7 @@ Feature: Current car dashboard
         | Breakdown and insurance |
 
     Scenario Outline: Need help search
-      When i search for <help>
+      When i search for <help> in the need help section
       Then i should get a <result>
 
     Examples:

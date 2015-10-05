@@ -1,6 +1,6 @@
 Given /^i visit the VW.co.uk homepage in my browser$/ do
   site.homepage.visit
-  @siteSearch = site.specail_pages.site_search
+  @siteSearch = site.special_pages.site_search
   @news = site.about_us.news
 end
 
