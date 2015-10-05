@@ -1,4 +1,4 @@
-class ContactUs < BrowserContainer
+class ContactUs < SpecialPages
 
   def visit
     visit_page(page_url)

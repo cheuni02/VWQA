@@ -1,10 +1,25 @@
 {
 	"User_accounts": {
-		 "Valid_users": [
-    			{"Username":"test123456@test.com", "Password":"12345678"}
-	 	 ],
-		 "Unvalid_users": [
-    			{"Username": "tribaltester@outlook.com", "Password": "Jerome123"}
-		 ]
+    "www.volkswagen.co.uk": [
+			{
+				"username":"automatedtestdragon@example.com",
+				"password":"Abcd!2345",
+				"purpose": "General"
+			}
+		],
+		"origin.volkswagen.co.uk": [
+			{
+				"username":"automatedtestdragon@example.com",
+				"password":"Abcd!2345",
+				"purpose": "General"
+			}
+		],
+		"cms-preview.volkswagen.co.uk": [
+			{
+				"username":"automatedtestdragon@example.com",
+				"password":"Abcd!2345",
+				"purpose": "General"
+			},
+		]
   }
 }

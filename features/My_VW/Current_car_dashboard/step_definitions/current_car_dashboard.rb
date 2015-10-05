@@ -74,7 +74,7 @@ And /^the following (.*) section appears$/ do |useful_links|
   raise AssertionError, "Link not present" unless @current_car.check_useful_link_present?(useful_links)
 end
 
-When /^i search for (.*)$/ do |help|
+When /^i search for (.*) in the need help section$/ do |help|
   #@current_car.search_help(help)
   pending
 end
