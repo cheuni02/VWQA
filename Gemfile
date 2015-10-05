@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'watir-webdriver'
-gem 'webdriver-user-agent'
 gem 'selenium-webdriver'
 gem 'cucumber'
 gem 'require_all'

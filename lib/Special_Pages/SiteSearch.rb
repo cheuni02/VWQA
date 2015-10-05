@@ -1,4 +1,4 @@
-class SiteSearch < BrowserContainer
+class SiteSearch < SpecialPages
 
   def submit_query(text)
     search_box.set(text)

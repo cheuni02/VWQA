@@ -1,4 +1,4 @@
-class MyVW < BrowserContainer
+class MyVW < VWBase
   include CommonNav
 
   def register

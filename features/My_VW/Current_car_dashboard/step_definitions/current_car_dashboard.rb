@@ -1,7 +1,7 @@
 Given /^that i have logged in to my account$/ do
   @current_car = site.my_vw.current_car_dashboard
   @current_car.visit
-  @current_car.login_valid_account
+  site.my_vw.login.login(@account[0],@account[1])
 end
 
 When /^the current car dashboard page has loaded$/ do
@@ -74,7 +74,7 @@ And /^the following (.*) section appears$/ do |useful_links|
   raise AssertionError, "Link not present" unless @current_car.check_useful_link_present?(useful_links)
 end
 
-When /^i search for (.*)$/ do |help|
+When /^i search for (.*) in the need help section$/ do |help|
   #@current_car.search_help(help)
   pending
 end
