@@ -1,4 +1,4 @@
-@current_car @Daily @logout
+@current_car @Daily @login @my_vw
 Feature: Current car dashboard
   As a user logged in the My VW site
   I want to see a page with important information about my current car
@@ -29,7 +29,6 @@ Feature: Current car dashboard
       When i am on the service history module
       Then i should see my vehicles service history
 
-    @plan
     Scenario: My Plans
       When i am on the my plans section
       Then i should see any plans that i have

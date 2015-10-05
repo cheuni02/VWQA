@@ -2,14 +2,19 @@ Before('@login') do
   @account = site.my_vw.login.get_login_details('General')
 end
 
-After('@login') do
+After('@login, @login_unvalid_user') do
   begin
     site.my_vw.primary_nav.click_logout
-    site.owners.wait_for_page
+    #site.owners.wait_for_page
   rescue Watir::Exception::UnknownObjectException #We might already be logged out
     #
   end
 end
+
+Before('@login_unvalid_user') do
+  @account = site.my_vw.login.get_login_details('Unvalid_User')
+end
+
 
 # Hook for Registering a Temporary Volkswagen.co.uk account
 # USE THIS SPARINGLY! Will Spam the DB with test accounts if not carefully used!
