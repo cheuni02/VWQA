@@ -31,7 +31,7 @@ class OrderedCarDashboard < MyVW
     ordered_car_hero.present?
   end
 
-  def title_present
+  def title_present?
     order_status_title.present?
   end
 
@@ -39,38 +39,29 @@ class OrderedCarDashboard < MyVW
     order_status_title.text
   end
 
-  def my_cars_hover
-    my_cars.when_present.hover
-  end
-
-  def go_to_ordered_car_step (step_number)
-    my_cars.when_present.hover
-    @browser.img(:alt => "#{step_number}").when_present.click
-    ordered_car_hero.wait_until_present
-  end
-
-  def ordered_dashboard_section
-    ordered_car_hero.wait_until_present
-    progress_indicator.wait_until_present
+  def ordered_dashboard_section_present?
+    ordered_car_hero.present?
+    progress_indicator.present?
   end
 
   def current_step
     current_order_step.text
   end
 
-  def logout
-    logout_button.click
-  end
-
-  def get_ordered_car_step (step)
+  def get_ordered_car_step(step_number)
     get_all_ordered_cars.each do |step_num|
-      if step_num.link.img.alt == "#{step}"
-      then
+      if step_num.a.img.alt == "#{step_number}"
         my_car_url = step_num.link(:index => 0).href
-        @browser.goto my_car_url
-        break
+        return my_car_url
+      elsif step_num.nil?
+        raise
       end
     end
+    return nil
+  end
+
+  def goto_my_car_url(my_car_url)
+    @browser.goto my_car_url
   end
 
   def refresh_browser_on_step
@@ -106,10 +97,6 @@ class OrderedCarDashboard < MyVW
     @password_user_ordered = users_hash["User_accounts"]["Users_ordered_car"][0]["Password"]
   end
 
-  def logout_button
-    @browser.li(:class => 'logout').a(:text => "Logout")
-  end
-
   def logon_button
     @browser.button(:id => 'login-button')
   end
@@ -126,10 +113,6 @@ class OrderedCarDashboard < MyVW
     @browser.div(:class => "parallax-hero__content").h1(:class => "parallax-hero__title")
   end
 
-  def my_cars
-    @browser.ul(:class => "welcome-stripe__menu-list", :index => 1).li(:class => "welcome-stripe__menu-list-item").a(:href => "#")
-  end
-
   def step_passed
     @browser.div(:class => "parallax-hero__steps")
   end
@@ -139,7 +122,7 @@ class OrderedCarDashboard < MyVW
   end
 
   def get_all_ordered_cars
-    @browser.execute_script('return document.getElementsByClassName("my-cars-dropdown-car-detail")')
+    @browser.execute_script('return document.getElementsByClassName("status-ordered-car")')
   end
 
 end
