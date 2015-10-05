@@ -114,25 +114,6 @@ class AddCurrentCar < MyVW
     added_car.present?
   end
 
-  def login_add_car_user_account
-    get_add_car_user
-    set_username.set("#{username_add_car_user}")
-    set_password.set("#{password_add_car_user}")
-    click_login_button
-  end
-
-  def set_username
-    username_field
-  end
-
-  def set_password
-    password_box
-  end
-
-  def click_login_button
-    logon_button.click
-  end
-
   private
 
   def page_url
@@ -258,32 +239,4 @@ class AddCurrentCar < MyVW
   def added_car
     @browser.my_car_menu.div(:class => "my-cars-dropdown-cars").h2(:class => "my-cars-dropdown-car-detail-info__title", :text => "test")
   end
-
-  def username_add_car_user
-    @username_add_car_user
-  end
-
-  def password_add_car_user
-    @password_add_car_user
-  end
-
-  def get_add_car_user
-    user_data = File.read('users.json')
-    users_hash = JSON.parse(user_data)
-    @username_add_car_user = users_hash["User_accounts"]["Unvalid_users"][1]["Username"]
-    @password_add_car_user = users_hash["User_accounts"]["Unvalid_users"][1]["Password"]
-  end
-
-  def username_field
-    @browser.text_field(:id => "username")
-  end
-
-  def password_box
-    @browser.text_field(:id => "password")
-  end
-
-  def logon_button
-    @browser.button(:id => 'login-button')
-  end
-
 end

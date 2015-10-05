@@ -2,7 +2,7 @@ Given /^i have logged into my VW account and am on the My VW page$/ do
   @current_car = site.my_vw.current_car_dashboard
   @add_car = site.my_vw.add_current_car
   @current_car.visit
-  @add_car.login_add_car_user_account
+  site.my_vw.login.login(@account[0],@account[1])
 end
 
 And /^i go to the add a car page and click on the "A car i own" button$/ do
@@ -144,5 +144,21 @@ And /^i enter my last name and postcode$/ do
 end
 
 Then /^after i click finish i should see my car in the my cars menu$/ do
+  pending
+end
+
+When /^i have added a car$/ do
+  pending
+end
+
+And /^i hover over the my cars nav bar$/ do
+  pending
+end
+
+Then /^i should be able to click on the bin icon on the cars$/ do
+  pending
+end
+
+And /^the car should be deleted$/ do
   pending
 end

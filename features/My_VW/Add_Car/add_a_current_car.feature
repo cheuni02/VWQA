@@ -1,4 +1,4 @@
-@add_car @logout @my_vw
+@add_car @add_car_user @my_vw
 Feature: Add a current car
   As a Volkswagen vehicle owner
   I want to be able to add my current car to my account
@@ -29,9 +29,9 @@ Feature: Add a current car
 
       Examples:
          | registrations |
-         |  WN60WAU      |
+         |  WM12GWG      |
          |  HFZ9540      |
-         |  AFZ9047      |
+         |  DV62GRK      |
 
     Scenario: Add a car i own - Step 1c
       When i have completed steps 1a and 1b
@@ -98,3 +98,9 @@ Feature: Add a current car
       When i have complete Steps 1 and 2 for adding my car
       And i enter my last name and postcode
       Then after i click finish i should see my car in the my cars menu
+
+    Scenario: Delete cars
+      When i have added a car
+      And i hover over the my cars nav bar
+      Then i should be able to click on the bin icon on the cars
+      And the car should be deleted
