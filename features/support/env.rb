@@ -6,31 +6,13 @@ require 'cucumber'
 require 'require_all'
 require 'securerandom'
 require 'fileutils'
-require 'webdriver-user-agent'
-
 
 screenshot_dir = "html-results/screenshots"
-#screenshot_dir = 'C:\Automation-Reports\VW\Front-End' + "\Screenshots-#{Time.now.day}-#{Time.now.month}"
 FileUtils.mkdir_p screenshot_dir
 Watir.default_timeout = 20
 
 VW_USER = "vw_envs"
 VW_PASSWORD = "sooT5wioAhxuiH0o"
-
-=begin
-URLS = { :production => 'http://www.volkswagen.co.uk',
-         :production_c => 'http://origin.volkswagen.co.uk',
-         :stage => 'http://origin-stage-vw.tribalddb.co.uk',
-	       :stage_v => 'http://www-stage-vw.tribalddb.co.uk',
-         :int => 'http://origin-int-vw.tribalddb.co.uk',
-         :int_p => 'http://www-int-vw.tribalddb.co.uk',
-         :uat_p => 'http://vw-uat10-preview.tribalddb.co.uk',
-    		 :cms_p => 'http://cms-preview.volkswagen.co.uk',
-         :stage_mpv => 'https://perfect-stage-vw.tribalddb.co.uk',
-         :dev01 => 'http://origin-devxx-vw.tribalddb.co.uk/',
-         :uat => 'http://origin-uat-vw.tribalddb.co.uk/'
-      }
-=end
 
 
 URLS = "http://#{ENV['HOST']}"
@@ -65,23 +47,6 @@ when /firefox/i
   profile['network.http.pipelining'] = true
   profile['network.http.pipelining.maxrequests'] = 8
   browser = Watir::Browser.new :firefox, :profile => profile
-when 'iPhonep', 'iPadMinip'
-  driver = Webdriver::UserAgent.driver(:browser => :chrome, :agent => :iphone, :orientation => :portrait)
-  browser = Watir::Browser.new driver
-  if ENV['BROWSER'] == 'iPadMinip'
-    browser.window.resize_to 1024, 768
-  else
-    browser.window.resize_to 320, 568
-  end
-when 'iPhonel', 'iPadMinil'
-  driver = Webdriver::UserAgent.driver(:browser => :chrome, :agent => :iphone, :orientation => :landscape)
-  browser = Watir::Browser.new driver
-  browser.window.resize_to 568, 320
-  if ENV['BROWSER'] == 'iPadMinil'
-    browser.window.resize_to 768, 1024
-  else
-    browser.window.resize_to 568, 320
-  end
 else # Default to Firefox if we don't know exactly what we're using
   profile = Selenium::WebDriver::Firefox::Profile.new
   profile['browser.cache.disk.enable'] = false
@@ -102,8 +67,6 @@ unless ENV['TAG'].to_sym == :live
 end
 
 
-#browser.window.resize_to 1024, 768 unless ENV['BROWSER'] =~ /mobile/i
-
 class CustomWorld
   class << self; attr_accessor :browser end
   #attr_accessor :browser
@@ -118,17 +81,10 @@ CustomWorld.browser = browser
 
 World do
   CustomWorld.new
-  #STDOUT.puts CustomWorld.browser
 end
 
-Before do
-  #STDOUT.puts browser.cookies.to_a
-  #STDOUT.puts ENV['PCOOKIE']
-  #STDOUT.puts ENV['NPCOOKIE']
-end
 
 After do |scenario|
-  #STDOUT.puts scenario.name
   if scenario.failed?
     time = Time.now.strftime("%Y-%m-%d-%H%M%S")
     name = "#{time}-#{scenario.name}".slice(0, 250).gsub(/[\,\/]/, '-')
