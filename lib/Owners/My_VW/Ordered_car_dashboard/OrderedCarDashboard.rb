@@ -3,7 +3,7 @@ class OrderedCarDashboard < MyVW
   def visit
     visit_page(page_url)
   end
-
+=begin
   def login_account_ordered
     get_credentials_ordered
     set_username.set("#{username_ordered}")
@@ -26,7 +26,7 @@ class OrderedCarDashboard < MyVW
   def click_login_button
     logon_button.click
   end
-
+=end
   def ordered_car_hero_present
     ordered_car_hero.present?
   end
@@ -73,7 +73,7 @@ class OrderedCarDashboard < MyVW
   def page_url
     "/vw-authentication/login/auth?targetUrl=/owners/my/cars"
   end
-
+=begin
   def username_ordered
     @username_user_ordered
   end
@@ -100,7 +100,7 @@ class OrderedCarDashboard < MyVW
   def logon_button
     @browser.button(:id => 'login-button')
   end
-
+=end
   def ordered_car_hero
     @browser.section(:class => "ordered-car-hero--step-04")
   end

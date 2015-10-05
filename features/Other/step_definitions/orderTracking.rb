@@ -1,5 +1,5 @@
 Given /^i am on the order tracking page on the VW Website$/ do
-  @orders = site.owners.orders_status
+  @orders = site.special_pages.vdt
   @orders.visit
 end
 

@@ -1,8 +1,8 @@
 Given /^i am logged in with correct account$/ do
   @current_car = site.my_vw.current_car_dashboard
-  @current_car.visit
   @ordered_car = site.my_vw.ordered_car_dashboard
-  @ordered_car.login_account_ordered
+  @current_car.visit
+  site.my_vw.login.login(@account[0],@account[1])
  end
 
 And /^i am on the ordered car dashboard page with car which is on step (.*)$/ do |step_number|

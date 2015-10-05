@@ -5,7 +5,7 @@ Given /^I have loaded the My VW section$/ do
 end
 
 And /^i have logged into my VW account$/ do
-  @current_car.login_valid_account
+  site.my_vw.login.login(@account[0],@account[1])
 end
 
 When /^i am on the My cars page$/ do
@@ -21,7 +21,7 @@ And /^i should be able to see My configuration on the page$/ do
 end
 
 Given /^I have logged into my own VW account$/ do
-  @current_car.login_valid_account
+  step 'i have logged into my VW account'
 end
 
 When /^i have gone to the My configuration page$/ do

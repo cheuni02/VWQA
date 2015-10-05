@@ -1,14 +1,47 @@
 {
 	"User_accounts": {
-		 "Valid_users": [
-    			{"Username":"test123456@test.com", "Password":"12345678"}
-	 	 ],
-		 "Unvalid_users": [
-    			{"Username": "tribaltester@outlook.com", "Password": "Jerome123"}
-		 ],
-         "Users_ordered_car": [
-                {"Username": "orderedcar@test.com", "Password": "password123"}
-      ]
-
+    "www.volkswagen.co.uk": [
+			{
+				"username":"automatedtestdragon@example.com",
+				"password":"Abcd!2345",
+				"purpose": "General"
+			}
+		],
+		"origin.volkswagen.co.uk": [
+			{
+				"username":"automatedtestdragon@example.com",
+				"password":"Abcd!2345",
+				"purpose": "General"
+			}
+		],
+		"cms-preview.volkswagen.co.uk": [
+			{
+				"username":"automatedtestdragon@example.com",
+				"password":"Abcd!2345",
+				"purpose": "General"
+			}
+		],
+		"10.69.105.120": [
+			{
+				"username":"test123456@test.com",
+				"password":"12345678",
+				"purpose": "General"
+			},
+			{
+				"username":"tribaltester@outlook.com",
+				"password":"Jerome123",
+				"purpose": "Unvalid_User"
+			},
+			{
+				"username":"add@car.com",
+				"password":"password",
+				"purpose": "Add_car_User"
+			},
+			{
+				"username":"orderedcar@test.com",
+				"password":"password123",
+				"purpose": "Ordered_User"
+			}
+		]
   }
 }

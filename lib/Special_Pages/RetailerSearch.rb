@@ -1,4 +1,4 @@
-class RetailerSearch < BrowserContainer
+class RetailerSearch < SpecialPages
 
   def visit
     visit_page(page_url)
