@@ -6,6 +6,7 @@ require 'cucumber'
 require 'require_all'
 require 'securerandom'
 require 'fileutils'
+require 'json'
 
 screenshot_dir = "html-results/screenshots"
 FileUtils.mkdir_p screenshot_dir
@@ -82,6 +83,9 @@ CustomWorld.browser = browser
 World do
   CustomWorld.new
 end
+
+
+
 
 
 After do |scenario|
