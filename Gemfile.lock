@@ -17,7 +17,7 @@ GEM
     facets (3.0.0)
     ffi (1.9.10)
     ffi (1.9.10-x64-mingw32)
-    gherkin3 (3.1.1)
+    gherkin3 (3.1.2)
     headless (2.2.0)
     json (1.8.3)
     markaby (0.8.0)
@@ -61,3 +61,6 @@ DEPENDENCIES
   selenium-webdriver
   watir-webdriver
   webdriver-user-agent
+
+BUNDLED WITH
+   1.10.5
