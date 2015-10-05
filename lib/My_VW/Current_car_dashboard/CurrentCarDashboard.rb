@@ -5,36 +5,6 @@ class CurrentCarDashboard < MyVW
     visit_page(page_url)
   end
 
-  def login_valid_account
-    get_credentials_valid
-    set_username.set("#{username_valid}")
-    set_password.set("#{password_valid}")
-    click_login_button
-  end
-
-  def login_unvalidated_account
-    get_credentials_unvalidated
-    set_username.set("#{username_unvalidated}")
-    set_password.set("#{password_unvalidated}")
-    click_login_button
-  end
-
-  def get_credentials_valid
-    grab_user_cred_valid
-  end
-
-  def set_username
-    username_field
-  end
-
-  def set_password
-    password_box
-  end
-
-  def click_login_button
-    logon_button.click
-  end
-
   def my_name_present?
     welcome_name.present?
   end
@@ -146,48 +116,6 @@ private
 
 def page_url
   "/vw-authentication/login/auth?targetUrl=/owners/my/cars"
-end
-
-def username_valid
-  @username_valid_user
-end
-
-def password_valid
-  @password_valid_user
-end
-
-def username_unvalidated
-  @username_unvalidated_user
-end
-
-def password_unvalidated
-  @password_unvalidated_user
-end
-
-def username_field
-  @browser.text_field(:id => "username")
-end
-
-def password_box
-  @browser.text_field(:id => "password")
-end
-
-def get_credentials_unvalidated
-  user_data = File.read('users.json')
-  users_hash = JSON.parse(user_data)
-  @username_unvalidated_user = users_hash["User_accounts"]["Unvalid_users"][0]["Username"]
-  @password_unvalidated_user = users_hash["User_accounts"]["Unvalid_users"][0]["Password"]
-end
-
-def grab_user_cred_valid
-  user_data = File.read('users.json')
-  users_hash = JSON.parse(user_data)
-  @username_valid_user = users_hash["User_accounts"]["Valid_users"][0]["Username"]
-  @password_valid_user = users_hash["User_accounts"]["Valid_users"][0]["Password"]
-end
-
-def logon_button
-  @browser.button(:id => 'login-button')
 end
 
 def current_car_polo

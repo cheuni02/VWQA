@@ -52,6 +52,3 @@ DEPENDENCIES
   require_all
   selenium-webdriver
   watir-webdriver
-
-BUNDLED WITH
-   1.10.5

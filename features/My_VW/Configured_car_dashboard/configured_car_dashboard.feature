@@ -1,4 +1,4 @@
-@configured_car @Daily @logout
+@configured_car @Daily @my_vw @login
 Feature: Configured Car Dashboard
   As a potential VW customer browsing the site
   When i have edited and saved a configuration

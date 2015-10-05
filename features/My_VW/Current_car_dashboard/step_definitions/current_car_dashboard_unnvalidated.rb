@@ -1,7 +1,7 @@
 Given /^that i have logged in to my unvalidated VW account$/ do
   @current_car = site.my_vw.current_car_dashboard
   @current_car.visit
-  @current_car.login_unvalidated_account
+  site.my_vw.login.login(@account[0],@account[1])
 end
 
 When /^i am on the MY VW page for my account$/ do

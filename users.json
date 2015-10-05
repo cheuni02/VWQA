@@ -19,7 +19,29 @@
 				"username":"automatedtestdragon@example.com",
 				"password":"Abcd!2345",
 				"purpose": "General"
+			}
+		],
+		"10.69.105.120": [
+			{
+				"username":"test123456@test.com",
+				"password":"12345678",
+				"purpose": "General"
 			},
+			{
+				"username":"tribaltester@outlook.com",
+				"password":"Jerome123",
+				"purpose": "Unvalid_User"
+			},
+			{
+				"username":"add@car.com",
+				"password":"password",
+				"purpose": "Add_car_User"
+			},
+			{
+				"username":"orderedcar@test.com",
+				"password":"password123",
+				"purpose": "Ordered_User"
+			}
 		]
   }
 }
