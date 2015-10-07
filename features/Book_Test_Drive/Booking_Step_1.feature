@@ -16,6 +16,7 @@ Feature: Booking a Test Drive - Step 1
 
     Examples:
     | modelName                |
+    | Touareg                  |
     | New Passat               |
     | up!                      |
     | New Polo                 |
@@ -23,7 +24,6 @@ Feature: Booking a Test Drive - Step 1
     | Golf                     |
     | Golf Estate              |
     | The Beetle Cabriolet     |
-    | Touran                   |
     | Tiguan                   |
     | Golf Cabriolet           |
     | New Passat Estate        |

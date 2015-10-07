@@ -43,7 +43,6 @@ Feature: New Cars Landing Page
     | filter      | model             |
     | Price       | up!               |
     | Performance | Performance Golfs |
-    | Efficiency  | e-Golf            |
     | Size        | up!               |
 
   Scenario: Viewing the Landing page from the homepage

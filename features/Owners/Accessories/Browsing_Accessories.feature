@@ -32,24 +32,24 @@ Feature: Browsing Accessories
     Then i should see that results are present in my browser
 
     Examples:
-    | model        | year        |
-    | Polo         | 2009 - 2014 |
-    | Golf         | 1984 - 1992 |
-    | Golf Plus    | 2006 - 2008 |
-    | Golf Estate  | 2005 - 2010 |
-    | Golf Cabrio  | 1979 - 1993 |
-    | Beetle       | 1999 - 2005 |
-    | Jetta        | 1984 - 1992 |
-    | Passat       | 2006 - 2010 |
-    | Scirocco     | 2008 - 2014 |
-    | Tiguan       | 2008 - 2010 |
-    | Eos          | 2006 - 2010 |
-    | Touran       | 2003 - 2006 |
-    | Sharan       | 1996 - 2000 |
-    | Touareg      | 2003 - 2006 |
-    | Phaeton      | 2002 - 2010 |
-    | up!          | All         |
-    | Volkswagen CC| All         |
+    | model           | year        |
+    | Polo            | 2009 - 2014 |
+    | Golf            | 1984 - 1992 |
+    | Golf plus       | 2006 - 2008 |
+    | Golf estate     | 2005 - 2010 |
+    | Golf cabriolet  | 1979 - 1993 |
+    | Beetle          | 1999 - 2005 |
+    | Jetta           | 1984 - 1992 |
+    | Passat          | 2006 - 2010 |
+    | Scirocco        | 2008 - 2014 |
+    | Tiguan          | 2008 - 2010 |
+    | Eos             | 2006 - 2010 |
+    | Touran          | 2003 - 2006 |
+    | Sharan          | 1996 - 2000 |
+    | Touareg         | 2003 - 2006 |
+    | Phaeton         | 2002 - 2010 |
+    | up!             | All         |
+    | Volkswagen CC   | All         |
 
   Scenario Outline: Filtering By Category
     Given i ensure i have no active filters on the accessories search page
