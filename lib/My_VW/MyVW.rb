@@ -25,6 +25,10 @@ class MyVW < VWBase
     CommonNav::PrimaryNav.new(@browser)
   end
 
+  def add_current_car
+    AddCurrentCar.new(@browser)
+  end
+
   def configured_car_dashboard
     ConfiguredCarDashboard.new(@browser)
   end
