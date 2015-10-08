@@ -53,7 +53,7 @@ Feature: New Car MLP And Navigation
 
     Examples:
     | model         |
-    | e-up!         |
+    | New Polo      |
     | Volkswagen CC |
     | The Beetle    |
     | Golf          |
