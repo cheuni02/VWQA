@@ -6,25 +6,21 @@ Feature: Booking A Car Service Step 1
 
   Background: Navigating to the new book a service pages
     Given i navigate to the book a service page
-    And i expand both the Car Details and More Information Panels
+    And i expand the Information Panels
 
   Scenario: Get to Step 1 - Common Navigation
     Given i am on the Volkswagen Homepage
     When i click the book a service button in the navigation
     Then i should see step 1 of the new book a service flow loads in my browser
-    And i should find no details are present for my car details
 
   Scenario: Get to Step 1 - My Car (Logged in)
     Given i login to my Volkswagen Account with a valid car saved
     When i visit the book a service section of the site
     Then i should see the details of my car are present on the page
 
-  Scenario: Expanding the More Information Panel
-    When i click on the icon to display the more information panel on the page
-    Then i should see a form displayed that allows me to enter my preferences
-
   Scenario Outline: More Info card - Mileage Validation
     When i fill in the approximate <mileage> value in the more details form
+    And i attempt to proceed to continue with my service booking
     Then i should get a <error> message if it is not valid
 
     Examples:
