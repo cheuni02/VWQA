@@ -2,7 +2,8 @@ Before('@login') do
   @account = site.my_vw.login.get_login_details('General')
 end
 
-After('@login, @login_unvalid_user, @add_car_user') do
+
+After('@login, @login_unvalid_user, @add_car_user, @login_Ordered_User') do
   begin
     site.my_vw.primary_nav.click_logout
     #site.owners.wait_for_page
@@ -17,6 +18,10 @@ end
 
 Before('@login_unvalid_user') do
   @account = site.my_vw.login.get_login_details('Unvalid_User')
+end
+
+Before('@login_Ordered_User') do
+  @account = site.my_vw.login.get_login_details('Ordered_User')
 end
 
 

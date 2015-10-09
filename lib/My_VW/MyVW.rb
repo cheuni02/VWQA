@@ -37,4 +37,8 @@ class MyVW < VWBase
     CurrentCarDashboard.new(@browser)
   end
 
+  def ordered_car_dashboard
+    OrderedCarDashboard.new(@browser)
+  end
+
 end
