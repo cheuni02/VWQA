@@ -8,6 +8,10 @@ class BookAService2 < VWBase
     BookAService2Step1.new(@browser)
   end
 
+  def step2
+    BookAService2Step2.new(@browser)
+  end
+
   def expand_detail_panels
     detail_panels.each do |panel|
       panel.click if panel.present?
