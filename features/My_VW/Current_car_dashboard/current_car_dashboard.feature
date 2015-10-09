@@ -58,7 +58,7 @@ Feature: Current car dashboard
 
     Scenario Outline: Need help search
       When i search for <help> in the need help section
-      Then i should get a <result>
+      Then i should get a <result> from my need help search
 
     Examples:
       | help      | result |

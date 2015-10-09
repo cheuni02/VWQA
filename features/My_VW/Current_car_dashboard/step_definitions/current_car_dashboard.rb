@@ -79,7 +79,7 @@ When /^i search for (.*) in the need help section$/ do |help|
   pending
 end
 
-Then /^i should get a (.*)$/ do |result|
+Then /^i should get a (.*) from my need help search$/ do |result|
   pending
 end
 

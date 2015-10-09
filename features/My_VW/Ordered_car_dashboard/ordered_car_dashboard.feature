@@ -8,7 +8,7 @@ Feature: Ordered car dashboard
     Given i am logged in with correct account
     And i am on the ordered car dashboard page with car which is on step <step_number>
     When i check the status of my order
-    Then i should see the <status>
+    Then i should see the <status> of my VDT Order in progress
     And  i should see step <step> active
 
     Examples:

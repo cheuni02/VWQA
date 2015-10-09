@@ -16,7 +16,7 @@ When /^i check the status of my order$/ do
   @ordered_car.title_present?
 end
 
-Then /^i should see the (.*)$/ do |status|
+Then /^i should see the (.*) of my VDT Order in progress$/ do |status|
   raise AssertionError, "Status of my order is not correct" unless @ordered_car.title_text =~ /#{status}/
 end
 
