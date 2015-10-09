@@ -28,8 +28,38 @@ class BookAService2Step1 < BookAService2
     end
   end
 
+  def set_leased_car(active = true)
+    if ((leased_car_checkbox.set? && !(active)) || (active && !(leased_car_checkbox.set?)))
+      leased_car_label.click
+    end
+  end
+
   def interested_in_plan_present?
     interested_in_plan_label.present?
+  end
+
+  def set_leased_car_field(text)
+    leased_car_field.when_present.set(text)
+  end
+
+  def click_registration_lookup
+    registration_lookup_button.when_present.click
+  end
+
+  def set_registration_field(text)
+    registration_field.when_present.set(text)
+  end
+
+  def do_registration_lookup
+    registration_lookup.when_present.click
+  end
+
+  def click_select_car
+    select_car_button.when_present.click
+  end
+
+  def get_derivative_name
+    derivative_name_field.when_present.value
   end
 
   private
@@ -70,6 +100,35 @@ class BookAService2Step1 < BookAService2
     @browser.checkbox(:id => "hasWaranty")
   end
 
+  def leased_car_checkbox
+    @browser.checkbox(:id => "isLeased")
+  end
 
+  def leased_car_label
+    @browser.label(:for => "isLeased")
+  end
 
+  def leased_car_field
+    @browser.text_field(:id => "leaseCompany")
+  end
+
+  def registration_lookup_button
+    @browser.button(:id => "button-regLookup")
+  end
+
+  def registration_field
+    @browser.text_field(:id => "registration-numberSB")
+  end
+
+  def registration_lookup
+    @browser.button(:class => "my-vw-button js-registration-submit")
+  end
+
+  def select_car_button
+    @browser.button(:id => "button-selectCar")
+  end
+
+  def derivative_name_field
+    @browser.text_field(:id => "derivative")
+  end
 end

@@ -49,7 +49,7 @@ Feature: Booking A Car Service Step 1
   Scenario Outline: More Info card - I lease this car
     When i enable the I lease this car radio button in the more info box
     Then i should be able to type the lease <company> in the field
-    And an error message <get> be displayed if it is not valid
+    And an error message <get> be displayed if it is not valid and i try to proceed
 
     Examples:
       | company    | get        |
@@ -92,7 +92,7 @@ Feature: Booking A Car Service Step 1
     When i complete the Car information by entering my <model> and <trim>
     And i also enter my engine size of <engine_size> with manufacture year <year>
     And i set the transmission to <transmission> with fuel type <fuel>
-    And i attempt to proceed to the next step of booking a service
+    And i attempt to proceed with the next step of booking a service
     Then i <proceed> be able to continue with booking a service
 
     Examples:
