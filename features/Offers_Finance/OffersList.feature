@@ -12,8 +12,8 @@ Feature: Offers Listing Page
     Then i should see a page with a list of the different offers any types appear in my browser
 
     Examples:
-
     | model                    |
+    | New Touran               |
     | up!                      |
     | New Polo                 |
     | The Beetle               |
@@ -23,7 +23,6 @@ Feature: Offers Listing Page
     | The Beetle Cabriolet     |
     | Golf SV                  |
     | e-up!                    |
-    | Touran                   |
     | New Passat               |
     | Tiguan                   |
     | New Passat Estate        |
