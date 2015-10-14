@@ -133,4 +133,8 @@ class VWBase < BrowserContainer
     @browser.cookies.delete(name)
   end
 
+  def service_booking
+    BookAService2.new(@browser)
+  end
+
 end
