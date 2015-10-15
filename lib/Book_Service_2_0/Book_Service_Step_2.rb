@@ -34,7 +34,7 @@ class BookAService2Step2 < BookAService2
   end
 
   def address_details_populated?
-    address_fields = [house_no_field.value, address_line_1_field.value, city_field.value, postcode_field.value]
+    address_fields = [house_no_field.value, address_line_1_field.value, city_field.value, county_field.value]
     address_fields.each do |field|
       if field.empty?
         return true
@@ -55,7 +55,7 @@ class BookAService2Step2 < BookAService2
     house_no_field.set("#{house_no}")
     address_line_1_field.set("#{address_line1}")
     city_field.set("#{city}")
-    postcode_field.set("#{postcode}")
+    county_field.set("#{postcode}")
   end
 
   private
@@ -116,7 +116,9 @@ class BookAService2Step2 < BookAService2
     @browser.text_field(:id => "city")
   end
 
-  def postcode_field
-    @browser.text_field(:id => "county") #needs to be changed to postcode
+  def county_field
+    @browser.text_field(:id => "county")
   end
+
+  #need to add postcode field when implemented
 end
