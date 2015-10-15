@@ -41,7 +41,7 @@
 				"username":"orderedcar@test.com",
 				"password":"password123",
 				"purpose": "Ordered_User"
-			},
+			}
 		]
   }
 }
