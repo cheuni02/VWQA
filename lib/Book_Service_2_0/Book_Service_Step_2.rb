@@ -58,6 +58,10 @@ class BookAService2Step2 < BookAService2
     county_field.set("#{postcode}")
   end
 
+  def click_step3_button
+    step3_button.when_present.click
+  end
+
   private
 
   def service_plan_info
