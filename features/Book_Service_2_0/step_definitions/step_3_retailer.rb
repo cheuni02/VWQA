@@ -1,15 +1,11 @@
 Given /^i have completed Step 1 of book a service$/ do
   @service_booking_3 = site.service_booking.step3
   @service_booking = site.service_booking.step1
-  @service_booking.visit
-  @service_booking.page_loaded?
-  @service_booking.expand_detail_panels
   @service_booking.do_step_1
 end
 
 And /^completed Step 2 of service booking$/ do
   @service_booking_2 = site.service_booking.step2
-  @service_booking.click_step_2_button
   @service_booking_2.do_step_2
 end
 

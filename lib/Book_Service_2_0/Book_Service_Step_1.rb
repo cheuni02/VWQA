@@ -67,11 +67,15 @@ class BookAService2Step1 < BookAService2
   end
 
   def do_step_1
+    visit
+    page_loaded?
+    expand_detail_panels
     click_registration_lookup
     set_registration_field("FY13MWD")
     click_lookup_button
     click_select_car
-    sleep 2 #had to use as it is waiting for fields to be populated
+    sleep 2 #had to include time for text inside fields to populate
+    click_step_2_button
   end
 
   private
