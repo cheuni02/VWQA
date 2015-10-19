@@ -6,7 +6,7 @@ end
 After('@login, @login_unvalid_user, @add_car_user, @login_Ordered_User') do
   begin
     site.my_vw.primary_nav.click_logout
-    #site.owners.wait_for_page
+    site.owners.wait_for_page
   rescue Watir::Exception::UnknownObjectException #We might already be logged out
     #
   end

@@ -5,9 +5,10 @@ Feature: Service booking Step 3 Retailer
   where i will need to fill in my Retailer details
 
     Background:
-      Given i have completed Step 1 and 2
-      And click the next Retailer button
+      Given i have completed Step 1 of book a service
+      And completed Step 2 of service booking
 
+  @test @login
     Scenario: Get to Step 3 (Logged in)
       When i am on the Step 3 retailer page
       Then i should see my retailer already chosen in the retailer card
@@ -19,7 +20,7 @@ Feature: Service booking Step 3 Retailer
     Scenario Outline: Edit My retailer - Search by location
       Given i am on the Step 3 page
       And i have clicked on the edit link in the My retailer card
-      When i enter a retailer location <location>
+      When i enter a location <location> to see the closest retailer
       And click lookup
       Then i should be able to see a list of retailers appear
       And i should also be able to view a map view of the closest retailers
@@ -27,15 +28,27 @@ Feature: Service booking Step 3 Retailer
       Examples:
         | location      |
         | W2 6AA        |
-        | Milton Keynes |
+        | Hammersmith   |
         | NW9 9JR       |
         | Birmingham    |
+
+    Scenario Outline: Edit My retailer - Search by location Invalid
+      When i click on the edit link in the My retailer card
+      And i input a invalid location such as <invalid_location> in the field
+      Then i should see an error message
+
+      Examples:
+        | invalid_location |
+        | dfsd             |
+        | Dea£$%           |
+        | hZ+=hb3y         |
 
     Scenario Outline: Edit My retailer - Search by name
       Given i am on the Step 3 page of book my service
       And i am on the edit my retailer details view
       When i enter a retailer <name>
       Then i should be able to select a retailer in the dropdown
+      And see the option to select it
 
       Examples:
         | name             |
