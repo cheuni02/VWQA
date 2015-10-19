@@ -53,9 +53,22 @@ class BookAService2Step3 < BookAService2
     map_view_button.click
   end
 
-  def service_radio_button_present?
+  def click_service_radio_button
     retailer_selection.wait_until_present
     service_radio_button.set
+  end
+
+  def click_step4_button
+    step4_button.when_present.click
+  end
+
+  def step3
+    page_loaded?
+    click_retailer_edit_link
+    search_by_name_field.set("birmingham")
+    click_retailer_in_dropdown
+    click_service_radio_button
+    click_step4_button
   end
 
   private
@@ -114,5 +127,9 @@ class BookAService2Step3 < BookAService2
 
   def service_radio_button
     @browser.div(:id => "retailer-list").ul(:id => "retailer-group").li.div(:class => "serviced-by").span.radio(:class => "vw-radio")
+  end
+
+  def step4_button
+    @browser.button(:id => "goto-work")
   end
 end

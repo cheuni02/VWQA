@@ -145,7 +145,6 @@ class BookAService2Step2 < BookAService2
   def postcode_field
     @browser.text_field(:id => "postcode")
   end
-  #need to add postcode field when implemented
 
   def step3_button
     @browser.button(:id => "goto-retailer")

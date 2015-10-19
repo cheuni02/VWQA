@@ -88,5 +88,5 @@ Then /^i should be able to select a retailer in the dropdown$/ do
 end
 
 And /^see the option to select it$/ do
-  @service_booking_3.service_radio_button_present?
+  @service_booking_3.click_service_radio_button
 end
