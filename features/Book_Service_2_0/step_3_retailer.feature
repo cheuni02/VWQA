@@ -8,7 +8,7 @@ Feature: Service booking Step 3 Retailer
       Given i have completed Step 1 of book a service
       And completed Step 2 of service booking
 
-  @test @login
+  @login
     Scenario: Get to Step 3 (Logged in)
       When i am on the Step 3 retailer page
       Then i should see my retailer already chosen in the retailer card
