@@ -12,6 +12,10 @@ class BookAService2 < VWBase
     BookAService2Step2.new(@browser)
   end
 
+  def step3
+    BookAService2Step3.new(@browser)
+  end
+
   def step4
     BookAService2Step4.new(@browser)
   end
@@ -21,7 +25,6 @@ class BookAService2 < VWBase
       panel.click if panel.present?
     end
   end
-
 
   private
 

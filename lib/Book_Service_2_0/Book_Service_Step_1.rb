@@ -46,6 +46,10 @@ class BookAService2Step1 < BookAService2
     registration_lookup_button.when_present.click
   end
 
+  def click_lookup_button
+    registration_lookup.when_present.click
+  end
+
   def set_registration_field(text)
     registration_field.when_present.set(text)
   end
@@ -60,6 +64,18 @@ class BookAService2Step1 < BookAService2
 
   def get_derivative_name
     derivative_name_field.when_present.value
+  end
+
+  def do_step_1
+    visit
+    page_loaded?
+    expand_detail_panels
+    click_registration_lookup
+    set_registration_field("FY13MWD")
+    click_lookup_button
+    click_select_car
+    sleep 2 #had to include time for text inside fields to populate
+    click_step_2_button
   end
 
   private
@@ -121,7 +137,7 @@ class BookAService2Step1 < BookAService2
   end
 
   def registration_lookup
-    @browser.button(:class => "my-vw-button js-registration-submit")
+    @browser.button(:id => "button-regLookup-submit")
   end
 
   def select_car_button
