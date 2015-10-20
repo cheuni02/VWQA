@@ -44,6 +44,14 @@ class BookAService2Step2 < BookAService2
     end
   end
 
+  def do_step_2
+    page_loaded?
+    click_edit_links
+    enter_my_personal_details
+    enter_my_address_details
+    click_step3_button
+  end
+
   def enter_personal_details(first_name, last_name, mobile, email)
     first_name_field.set("#{first_name}")
     last_name_field.set("#{last_name}")
@@ -51,11 +59,25 @@ class BookAService2Step2 < BookAService2
     email_field.set("#{email}")
   end
 
+  def enter_my_personal_details
+    first_name_field.set("Test")
+    last_name_field.set("Test")
+    mobile_field.set("07912345673")
+    email_field.set("tribaltester@outlook.com")
+  end
+
   def enter_address_details(house_no, postcode, address_line1, city)
     house_no_field.set("#{house_no}")
     address_line_1_field.set("#{address_line1}")
     city_field.set("#{city}")
     county_field.set("#{postcode}")
+  end
+
+  def enter_my_address_details
+    house_no_field.set("12")
+    address_line_1_field.set("Bishops Bridge Road")
+    city_field.set("London")
+    postcode_field.set("W2 6AA")
   end
 
   def click_step3_button
@@ -120,10 +142,9 @@ class BookAService2Step2 < BookAService2
     @browser.text_field(:id => "city")
   end
 
-  def county_field
-    @browser.text_field(:id => "county")
+  def postcode_field
+    @browser.text_field(:id => "postcode")
   end
-  #need to add postcode field when implemented
 
   def step3_button
     @browser.button(:id => "goto-retailer")
