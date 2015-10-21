@@ -43,5 +43,9 @@ class BookAService2Step4 < BookAService2
       @browser.div(:id => "workEditLeft-editor")
     end
 
+    def other_checks_input_box
+      @browser.textarea(:id => "workOption-otherChecks")
+    end
+
 
 end

@@ -7,16 +7,16 @@ Feature: Service booking Step 4 Select Work
     Background:
       Given i have completed book a service steps 1-3
 
-    @login
+    @login @test
     Scenario Outline: Get to Step 4 (Logged in)
       When i am on Step 4
-      Then i should be able to see the following <work> sections
+      Then i should be able to see the <work> heading in the service panel
 
       Examples:
         | work                  |
-        | Recommended work      |
-        | Routine work          |
-        | Unplanned maintenance |
+        | Recommended Work      |
+        | Routine Work          |
+        | Unplanned Maintenance |
         | Additional infomation |
         | Estimated total price |
 
@@ -24,9 +24,9 @@ Feature: Service booking Step 4 Select Work
       When i am on step 4 i should be able to see what work can have done on my car
       Then i should be able to select items i want to be done
 
-    Scenario: Select Work items
+    Scenario Outline: Select Work items
       Given i am on Step 4 select work
-      When i view the service section then the following section <section> should appear
+      When i view the service panel then the following section <section> should appear
       Then i should see activities i can select below
       And i should be able to select an activity
 

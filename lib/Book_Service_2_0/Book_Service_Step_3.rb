@@ -62,7 +62,7 @@ class BookAService2Step3 < BookAService2
     step4_button.when_present.click
   end
 
-  def step3
+  def do_step3
     page_loaded?
     click_retailer_edit_link
     search_by_name_field.set("birmingham")
