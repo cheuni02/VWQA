@@ -48,7 +48,7 @@ Feature: Add a current car
         | 2   | September | 2015 |             |
         |     | October   | 2015 | 1.4         |
         | 2   | October   | 2015 | 1.4         |
-
+@test
     Scenario Outline: Add an owned car - Step 2a search by postcode
       When i finish completing step 1 fully
       And i enter a <postcode> in the search field and click the lookup button

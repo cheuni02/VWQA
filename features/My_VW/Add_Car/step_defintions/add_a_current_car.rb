@@ -72,6 +72,7 @@ When /^i finish completing step 1 fully$/ do
 end
 
 And /^i enter a (.*) in the search field and click the lookup button$/ do |postcode|
+  @add_car.page_loaded
   @add_car.search_by_postcode(postcode)
   @add_car.click_postcode_lookup_button
 end

@@ -5,6 +5,10 @@ class AddCurrentCar < MyVW
     visit_page(page_url)
   end
 
+  def page_loaded
+    my_retailer_box.wait_until_present
+  end
+
   def step_1_present?
     add_car_title.present?
   end
@@ -166,6 +170,10 @@ class AddCurrentCar < MyVW
 
   def goto_section2
     @browser.button(:id => "goto-section-2")
+  end
+
+  def my_retailer_box
+    @browser.form(:id => "section-2-edit")
   end
 
   def step_2_title
