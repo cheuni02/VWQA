@@ -26,7 +26,7 @@ Feature: Service booking Step 4 Select Work
 
     Scenario: Select Work items
       Given i am on Step 4 select work
-      When i check each <section>
+      When i view the service section then the following section <section> should appear
       Then i should see activities i can select below
       And i should be able to select an activity
 
