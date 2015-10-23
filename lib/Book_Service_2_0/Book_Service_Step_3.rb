@@ -102,7 +102,7 @@ class BookAService2Step3 < BookAService2
   end
 
   def retailer_dropdown
-    @browser.ul(:id => "ui-id-2")
+    @browser.ul(:id => "ui-id-3")
   end
 
   def retailer_drop_down_link

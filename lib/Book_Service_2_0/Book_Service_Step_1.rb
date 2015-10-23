@@ -73,12 +73,17 @@ class BookAService2Step1 < BookAService2
     click_registration_lookup
     set_registration_field("FY13MWD")
     click_lookup_button
+    Watir::Wait.while { loading_wheel.visible? }
     click_select_car
     sleep 2 #had to include time for text inside fields to populate
     click_step_2_button
   end
 
   private
+
+  def loading_wheel
+    @browser.div(:id => "page").div(:class => "my-loading-shield")
+  end
 
   def car_details_edit_panel
     @browser.div(:id => "carDetailsEditLeft")
