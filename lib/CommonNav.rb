@@ -43,7 +43,7 @@ module CommonNav
     end
 
     def click_logout
-      logout.link.click
+      logout.link.when_present.click
     end
 
 

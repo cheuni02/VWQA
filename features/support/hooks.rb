@@ -3,7 +3,7 @@ Before('@login') do
 end
 
 
-After('@login, @login_unvalid_user, @add_car_user, @login_Ordered_User') do
+After('@login, @login_unvalid_user, @add_car_user, @login_Ordered_User', '~@logout-force') do
   begin
     site.my_vw.primary_nav.click_logout
     site.owners.wait_for_page
@@ -22,6 +22,11 @@ end
 
 Before('@login_Ordered_User') do
   @account = site.my_vw.login.get_login_details('Ordered_User')
+end
+
+# Hook to force logout without clicking on the header link
+After('@logout-force') do
+  site.visit_page('/logout?postLogoutPage=/owners/my/account/index')
 end
 
 

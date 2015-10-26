@@ -13,7 +13,7 @@ class BookAService2Step4 < BookAService2
   end
 
   def page_loaded?
-    Watir::Wait.while { loading_wheel.visible? } #need to look into 
+    Watir::Wait.while { loading_wheel.visible? } #need to look into
   end
 
   def click_service_label
@@ -21,7 +21,8 @@ class BookAService2Step4 < BookAService2
   end
 
   def click_mot_label
-    mot_label.click
+    mot_label.when_present.click
+    sleep(2)
   end
 
   def work_sections_present?(section)
@@ -32,16 +33,46 @@ class BookAService2Step4 < BookAService2
     work_section.section(:class => "#{section}").div(:class => "radio__list").present?
   end
 
-  def select_service_option
-    service_choices.label(:for => "serviceRadio-0-0").click
+  def select_service_option(item = 0)
+    service_choices.label(:for => "serviceRadio-0-0").when_present.click
   end
 
   def select_mot_option
-    mot_choices.label(:for => "motRadio-0-4").click
+    click_mot_label
+    mot_choices.label(:for => "motRadio-0-4").when_present.click
   end
 
   def enter_info_other_checks_box
     other_checks.set("TESTING OPTIONS")
+  end
+
+  def click_step5_button
+    step5_button.when_present.click
+  end
+
+  def service_work_errors_present?
+    service_work_errors.wait_until_present(10)
+  end
+
+  def select_recommended_work_item(item = 0)
+    recommended_work_section.label(:index => item).when_present.click
+  end
+
+  def select_unplanned_maintenance_item(item = 0)
+    unplanned_maintenance_section.label(:index => item).when_present.click
+  end
+
+  def get_total_price
+    estimated_price_section.text.gsub('£', '').to_i
+  end
+
+  def enable_unplanned_maintenance
+    unplanned_work_label.when_present.click
+    sleep(10)
+  end
+
+  def edit_service_work
+    edit_work
   end
 
   private
@@ -74,16 +105,20 @@ class BookAService2Step4 < BookAService2
       @browser.div(:id => "workEditLeft-editor")
     end
 
+    def edit_work
+      @browser.execute_script("document.getElementById('changeTo_workEditLeft-editor').click()")
+    end
+
     def other_checks_input_box
       @browser.textarea(:id => "workOption-otherChecks")
     end
 
     def mot_choices
-      @browser.div(:class => "mot-choices").div(:class => "radio__list")
+      @browser.div(:id => "mot-choices").div(:class => "radio__list")
     end
 
     def service_choices
-      @browser.div(:class => "service-choices").div(:class => "radio__list")
+      @browser.div(:id => "service-choices").div(:class => "radio__list")
     end
 
     def recommended_work_section
@@ -95,11 +130,19 @@ class BookAService2Step4 < BookAService2
     end
 
     def estimated_price_section
-      @browser.div(:id => "workEditLeft").h2.span(:id => "total-price")
+      @browser.div(:id => "workEditLeft").span(:id => "total-price")
     end
 
     def other_checks
       @browser.textarea(:id => "workOption-otherChecks")
+    end
+
+    def step5_button
+      @browser.button(:id => "goto-dateOptions")
+    end
+
+    def service_work_errors
+      @browser.ol(:id => "sb-work-errors")
     end
 
 
