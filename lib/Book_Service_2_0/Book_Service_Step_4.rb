@@ -43,7 +43,7 @@ class BookAService2Step4 < BookAService2
   end
 
   def enter_info_other_checks_box
-    other_checks.set("TESTING OPTIONS")
+    other_checks.when_present.set("TESTING OPTIONS")
   end
 
   def click_step5_button
@@ -69,6 +69,12 @@ class BookAService2Step4 < BookAService2
   def enable_unplanned_maintenance
     unplanned_work_label.when_present.click
     sleep(10)
+  end
+
+  def do_step_4
+    select_service_option
+    enter_info_other_checks_box
+    click_step5_button
   end
 
   def edit_service_work
