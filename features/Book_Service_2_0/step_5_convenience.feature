@@ -19,13 +19,12 @@ Feature: Book a Service Convenience Options
     Scenario: Checking for All my convienence options
       When i check the list of available convieneance options
       Then i should see a list of the following items
-      | Not Required      |
-      | Loan Car          |
+      | Not required      |
+      | Loan car          |
       | Collect & Deliver |
       | Courtesy lift     |
-      | Collection Only   |
-      | Delivery Only     |
-      And each item should contain a price for selecting that option
+      | Collection only   |
+      | Delivery only     |
 
     Scenario: Attempting to continue without setting any date
       When i attempt to continue without setting a date or time for my service
