@@ -68,7 +68,7 @@ Given /^i select a valid date from the calender for my service$/ do
 end
 
 And /^i select a time and convienece option that suits me$/ do
-  @service_booking_5.select_last_booking_time
+  @service_booking_5.set_booking_time("8am - 9am")
   @service_booking_5.select_convieneance_option("Not required")
 end
 

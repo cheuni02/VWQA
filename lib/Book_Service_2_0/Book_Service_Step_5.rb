@@ -48,20 +48,18 @@ class BookAService2Step5 < BookAService2
     manual_delivery_entry_form.wait_until_present(10)
   end
 
-  def select_last_booking_time
-    booking_time_button.click
-    booking_time_options.last.when_present.click
+  def set_booking_time(time)
+    booking_time_set(time)
   end
 
-  def select_convieneance_option(name)
+  def select_convieneance_option(option)
     convieneance_options_items.each do |item|
-      if item.text =~ /#{name}/i
+      if item.text =~ /#{option}/i
         item.click
         break
       end
     end
   end
-
 
 
   private
@@ -119,12 +117,8 @@ class BookAService2Step5 < BookAService2
     @browser.div(:id => "book-service-return-address")
   end
 
-  def booking_time_button
-    @browser.span(:class => "my-selectbox__wrap").button(:class => "ui-button my-selectbox__button ui-combobox-button")
-  end
-
-  def booking_time_options
-    @browser.ul(:id => "ui-id-2").lis
+  def booking_time_set(value)
+    @browser.execute_script("document.getElementsByClassName('my-selectbox__input ui-autocomplete-input')[1].value='#{value}'")
   end
 
 
