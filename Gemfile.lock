@@ -13,6 +13,12 @@ GEM
       multi_test (>= 0.1.2)
     cucumber-core (1.3.0)
       gherkin3 (~> 3.1.0)
+    dbd-mysql (0.4.4)
+      dbi (>= 0.4.0)
+      mysql
+    dbi (0.4.5)
+      deprecated (= 2.0.1)
+    deprecated (2.0.1)
     diff-lcs (1.2.5)
     ffi (1.9.10)
     ffi (1.9.10-x64-mingw32)
@@ -23,12 +29,16 @@ GEM
     mini_portile (0.6.2)
     multi_json (1.11.2)
     multi_test (0.1.2)
+    mysql (2.9.1)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     nokogiri (1.6.6.2-x64-mingw32)
       mini_portile (~> 0.6.0)
+    paint (1.0.0)
     rake (10.4.2)
     require_all (1.3.2)
+    restclient (0.11.3)
+      paint (~> 1.0)
     rubyzip (1.1.7)
     selenium-webdriver (2.48.1)
       childprocess (~> 0.5)
@@ -45,10 +55,16 @@ PLATFORMS
 
 DEPENDENCIES
   cucumber
+  dbd-mysql
+  dbi
   headless
   markaby
   nokogiri
   rake
   require_all
+  restclient
   selenium-webdriver
   watir-webdriver
+
+BUNDLED WITH
+   1.10.6
