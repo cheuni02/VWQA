@@ -28,6 +28,11 @@ DBI.connect("DBI:Mysql:vw_auth:#{ENV['DBHOST']}", 'vw_auth', 'vw_auth') do |dbh|
       dbh.do("UPDATE my_customer_contact SET dbg_id = 999999999999999 WHERE email = #{account['username']}")
     when "Add_car_User"
 
+      sql = "INSERT INTO "
+
+
+
+
 
 
     end
