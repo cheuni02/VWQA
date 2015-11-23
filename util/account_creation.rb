@@ -1,7 +1,7 @@
 require 'restclient'
 require 'json'
 
-PURPOSES = ['General', 'Unvalid_User', 'Add_car_User', 'Ordered_User']
+PURPOSES = ['General', 'DBG_User','DBG_User_Invalid', 'Current_car_User', 'Ordered_User']
 
 users = JSON.parse(File.read("../users.json"))
 new_users = []
@@ -24,8 +24,8 @@ begin
     hash = Hash.new
     hash['title'] = 'Mr'
     hash['firstname'] = "#{purpose}"
-    hash['lastname'] = 'Dragon'
-    hash['username'] = "AutomatedDragonUser#{ctime - index}@example.com"
+    hash['lastname'] = 'Tester'
+    hash['username'] = "AutomatedToastUser#{ctime - index}@example.com"
     hash['password'] = 'Abcd!2345'
     hash['purpose'] = purpose
     index += 1
@@ -42,19 +42,16 @@ begin
   }
 
   puts "Registering Users Via Authentication API"
-  resource = RestClient::Resource.new(ENV['HOST'], :headers => headers , :verify_ssl => false)
+  resource = RestClient::Resource.new("https://#{ENV['HOST']}", :headers => headers , :verify_ssl => false)
 
 
   new_users.each do |user|
     my_user = user.clone
     my_user.delete('purpose')
 
-    begin
-      resource['/api/auth/2.0/register'].post my_user.to_json
-      puts "Successfully created account - #{my_user['username']}"
-    rescue RestClient::Exception => e
-      puts "User creation for #{user} failed! #{e.message} with #{e.response}"
-    end
+    res = resource['/api/auth/2.0/register'].post my_user.to_json
+    user['uuid'] = JSON.parse(res)['uuid']
+    puts "Successfully created account - #{my_user['username']}"
   end
 
   puts "Writing Data to JSON File for generated Users..."
@@ -62,6 +59,7 @@ begin
   users['User_accounts'][ENV['HOST']] = new_users
 
   File.open('../users.json', 'w') do |file|
-    file.write(users.to_json)
+    #my_json = users.to_json
+    file.write(JSON.pretty_generate(users))
   end
 end
