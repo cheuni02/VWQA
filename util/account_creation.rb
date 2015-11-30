@@ -1,7 +1,7 @@
-require 'restclient'
+require 'rest-client'
 require 'json'
 
-PURPOSES = ['General', 'DBG_User','DBG_User_Invalid', 'Current_car_User', 'Ordered_User']
+PURPOSES = ['General', 'DBG_User','DBG_User_Invalid', 'Current_car_User', 'Ordered_Car_User', 'Max_Car_User']
 
 users = JSON.parse(File.read("../users.json"))
 new_users = []
