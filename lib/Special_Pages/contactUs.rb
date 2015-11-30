@@ -64,11 +64,16 @@ class ContactUs < SpecialPages
     contact_page.present?
   end
 
-  def all_contact_options
-    show_all_contact_options.click
+  def show_email_form
+    main_module_item("It's none of these options").when_present.click
+    sub_module_item("A general enquiry").when_present.click
+    #none_option.when_present.click
+    #general_inquiry.when_present.click
+    #show_all_contact_options.when_present.click
   end
 
   def retailer_search_page
+    show_all_contact_options.when_present.click
     retailer_location_page.click
   end
 
@@ -85,6 +90,14 @@ class ContactUs < SpecialPages
 
   def contact_page
     @browser.div(:class => "grid-row ask-volkswagen")
+  end
+
+  def main_module_item(text)
+    @browser.ul(:id => "module-list").link(:text => "#{text}")
+  end
+
+  def sub_module_item(text)
+    @browser.link(:class => "btn-content-link", :text => "#{text}")
   end
 
   def email_panel
