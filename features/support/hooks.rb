@@ -13,15 +13,15 @@ After('@login, @login_unvalid_user, @add_car_user, @login_Ordered_User') do
 end
 
 Before('@add_car_user') do
-  @account = site.my_vw.login.get_login_details('Add_car_User')
+  @account = site.my_vw.login.get_login_details('General')
 end
 
 Before('@login_unvalid_user') do
-  @account = site.my_vw.login.get_login_details('Unvalid_User')
+  @account = site.my_vw.login.get_login_details('DBG_User_Invalid')
 end
 
 Before('@login_Ordered_User') do
-  @account = site.my_vw.login.get_login_details('Ordered_User')
+  @account = site.my_vw.login.get_login_details('Ordered_Car_User')
 end
 
 
