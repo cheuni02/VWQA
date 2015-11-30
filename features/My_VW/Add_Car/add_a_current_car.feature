@@ -1,4 +1,4 @@
-@add_car @add_car_user @my_vw
+@my_vw @Add-Current-Car
 Feature: Add a current car
   As a Volkswagen vehicle owner
   I want to be able to add my current car to my account

@@ -1,4 +1,4 @@
-@Daily @vw-authentication-service
+@login @my_vw @Login-2
 Feature: My Volkswagen Login
   As we have a login section on our website
   We need to make sure that our users can log in successfully
