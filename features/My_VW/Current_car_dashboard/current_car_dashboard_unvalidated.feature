@@ -1,4 +1,4 @@
-@Daily @current_car @my_vw @login_unvalid_user
+@my_vw @Current-Car-Dashboard @login_unvalid_user
 Feature: Current car dashboard - Unvalidated
   As a user logged in the My VW site
   If my details are not valiated by DBG ID

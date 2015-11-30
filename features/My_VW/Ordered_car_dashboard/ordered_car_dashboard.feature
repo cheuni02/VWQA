@@ -1,4 +1,4 @@
-@ordered_car @Daily @login_Ordered_User @my_vw
+@login_Ordered_User @my_vw @Ordered-Car-Dashboard
 Feature: Ordered car dashboard
   As a user who has just orderded a new Volkswagen car
   I want to be able to track my car and see its progress

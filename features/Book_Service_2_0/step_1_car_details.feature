@@ -1,4 +1,4 @@
-@Book_Service_2
+@my_vw @Service-Booking-2
 Feature: Booking A Car Service Step 1
   As part of ensuring that our new service booking flow works as expected
   We need to ensure we can enter our car details on the first step of registration
