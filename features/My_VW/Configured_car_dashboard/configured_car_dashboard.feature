@@ -1,4 +1,4 @@
-@my_vw @Configured-Car-Dashboard
+@my_vw @Configured-Car-Dashboard @login
 Feature: Configured Car Dashboard
   As a potential VW customer browsing the site
   When i have edited and saved a configuration
