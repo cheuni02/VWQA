@@ -1,4 +1,4 @@
-@my_vw @Login-2 @Registration-2
+@my_vw @Registration-2
 Feature: Volkswagen Registration
   As the owner of the VW website
   As the owner of the VW website
