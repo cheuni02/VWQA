@@ -32,16 +32,20 @@ ffprofile['browser.cache.disk.enable'] = false
 ffprofile['browser.cache.disk.capacity'] = 0
 
 # Firefox performance settings
-#ffprofile['network.http.pipelining'] = true
-#ffprofile['network.http.pipelining.maxrequests'] = 8
+ffprofile['network.http.pipelining'] = true
+ffprofile['network.http.pipelining.maxrequests'] = 8
 #ffprofile['network.http.pipelining.aggressive'] = true
 ffprofile['nglayout.initialpaint.delay'] = 0
-#ffprofile['browser.cache.use_new_backend'] = 1
+ffprofile['browser.cache.use_new_backend'] = 1
 #ffprofile['network.prefetch-next'] = true
 ffprofile['browser.tabs.animate'] = false
 ffprofile['browser.display.show_image_placeholders'] = false
 ffprofile['network.dns.disableIPv6'] = true
 #ffprofile['content.notify.backoffcount'] = 5
+ffprofile['gfx.direct2d.disabled'] = true
+ffprofile['layers.acceleration.disabled'] = true
+
+
 
 require_all 'lib'
 
