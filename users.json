@@ -77,62 +77,6 @@
         "uuid": "0d43bd8e-0ffe-484c-a98f-f6310bddabe7"
       }
     ],
-    "10.69.105.120": [
-      {
-        "title": "Mr",
-        "firstname": "General",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1448887118@example.com",
-        "password": "Abcd!2345",
-        "purpose": "General",
-        "uuid": "34dc849f-e598-4f18-9aaa-ba225b16cd51"
-      },
-      {
-        "title": "Mr",
-        "firstname": "DBG_User",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1448887117@example.com",
-        "password": "Abcd!2345",
-        "purpose": "DBG_User",
-        "uuid": "a5f4ba95-4fad-406c-be3d-b2d0148402c5"
-      },
-      {
-        "title": "Mr",
-        "firstname": "DBG_User_Invalid",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1448887116@example.com",
-        "password": "Abcd!2345",
-        "purpose": "DBG_User_Invalid",
-        "uuid": "e3584be7-2aa0-4274-83df-973c257af142"
-      },
-      {
-        "title": "Mr",
-        "firstname": "Current_car_User",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1448887115@example.com",
-        "password": "Abcd!2345",
-        "purpose": "Current_car_User",
-        "uuid": "fb74b4d3-8bb3-4bb4-8cfc-8bd1126036e5"
-      },
-      {
-        "title": "Mr",
-        "firstname": "Ordered_Car_User",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1448887114@example.com",
-        "password": "Abcd!2345",
-        "purpose": "Ordered_Car_User",
-        "uuid": "7ca1ccf9-2475-4b00-985d-b91681de85df"
-      },
-      {
-        "title": "Mr",
-        "firstname": "Max_Car_User",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1448887113@example.com",
-        "password": "Abcd!2345",
-        "purpose": "Max_Car_User",
-        "uuid": "112944dd-fc5d-4f91-a90f-135652eb895f"
-      }
-    ],
     "10.69.101.120": [
       {
         "title": "Mr",
@@ -187,6 +131,62 @@
         "password": "Abcd!2345",
         "purpose": "Max_Car_User",
         "uuid": "3dbe8d83-52e0-4d30-b01d-78d561134239"
+      }
+    ],
+    "10.69.105.120": [
+      {
+        "title": "Mr",
+        "firstname": "General",
+        "lastname": "Tester",
+        "username": "AutomatedToastUser1449074301@example.com",
+        "password": "Abcd!2345",
+        "purpose": "General",
+        "uuid": "806f0802-7e9a-4511-93cd-cf1658879e3c"
+      },
+      {
+        "title": "Mr",
+        "firstname": "DBG_User",
+        "lastname": "Tester",
+        "username": "AutomatedToastUser1449074300@example.com",
+        "password": "Abcd!2345",
+        "purpose": "DBG_User",
+        "uuid": "383b84d7-d358-46d0-8dd9-31db2dc22146"
+      },
+      {
+        "title": "Mr",
+        "firstname": "DBG_User_Invalid",
+        "lastname": "Tester",
+        "username": "AutomatedToastUser1449074299@example.com",
+        "password": "Abcd!2345",
+        "purpose": "DBG_User_Invalid",
+        "uuid": "76350d5f-c433-4109-ac60-aa050f2a1104"
+      },
+      {
+        "title": "Mr",
+        "firstname": "Current_car_User",
+        "lastname": "Tester",
+        "username": "AutomatedToastUser1449074298@example.com",
+        "password": "Abcd!2345",
+        "purpose": "Current_car_User",
+        "uuid": "a7cf08f1-f0b1-4d87-9cf6-7e92e6b0b87a"
+      },
+      {
+        "title": "Mr",
+        "firstname": "Ordered_Car_User",
+        "lastname": "Tester",
+        "username": "AutomatedToastUser1449074297@example.com",
+        "password": "Abcd!2345",
+        "purpose": "Ordered_Car_User",
+        "uuid": "55eb6c52-2276-49c1-8979-23b5533916d5"
+      },
+      {
+        "title": "Mr",
+        "firstname": "Max_Car_User",
+        "lastname": "Tester",
+        "username": "AutomatedToastUser1449074296@example.com",
+        "password": "Abcd!2345",
+        "purpose": "Max_Car_User",
+        "uuid": "58c956e7-4c6b-428f-81d1-97b1c37ca1ee"
       }
     ]
   }

@@ -1,4 +1,4 @@
-@login @my_vw @Current-Car-Dashboard
+@login_current_car @my_vw @Current-Car-Dashboard @my-vw-test
 Feature: Current car dashboard
   As a user logged in the My VW site
   I want to see a page with important information about my current car
@@ -10,28 +10,33 @@ Feature: Current car dashboard
       When the current car dashboard page has loaded
       Then I should be greeted with my current car dashboard and my name
 
-    Scenario: Camera icon
-      When I click on the camera icon
-      Then the system file selector is displayed to choose a photo
+    Scenario: My car hero module
+      When i check the content of the hero module
+      Then i should see a hero tagline with my car name
+      And i should also see a camera icon
+
+    Scenario: My Service Retailer Module
+      When i check the content of the service retailer module
+      Then i should see a map loaded displaying my retailer location
+      And i should also see the following retailer address details displayed:
+      | Ipswich Volkswagen | Sproughton Road | Ipswich | IP1 5AN |
+      And i should see the following contact details:
+      | Phone        | Fax          | Email                   |
+      | 01473 240800 | 01473 240088 | tribalddbtech@gmail.com |
 
     Scenario Outline: My Service gurantee module
-      Given the service gurantee module is present on the page
-      When i click on a <gurantee> link
+      When i click on a <gurantee> link in the service guarantee module
       Then i should be taken to the relevant <page>
 
       Examples:
-        | gurantee                               | page                    |
-        | /owners/service-promise                | service-promise         |
+        | gurantee                               | page                     |
+        | /owners/service-promise                | service-promise          |
         | /owners/servicing/what-wecheck-and-why | what-we-check-and-why    |
         | /owners/volkswagengenuine-parts        | volkswagen-genuine-parts |
 
-    Scenario: My Service history
-      When i am on the service history module
-      Then i should see my vehicles service history
-
-    Scenario: My Plans
-      When i am on the my plans section
-      Then i should see any plans that i have
+    Scenario: My Service History Notification
+      When i check the service history and plans section of my account
+      Then i should see a message prompting me to enter my postcode for more information
 
     Scenario Outline: Promo Module
       When i am on the promo modules section

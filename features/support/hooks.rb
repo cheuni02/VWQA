@@ -3,7 +3,7 @@ Before('@login') do
 end
 
 
-After('@login, @login_unvalid_user, @add_car_user, @login_Ordered_User', '~@logout-force') do
+After('@login, @login_unvalid_user, @add_car_user, @login_Ordered_User, @login_current_car', '~@logout-force') do
   begin
     site.my_vw.primary_nav.click_logout
     site.owners.wait_for_page
@@ -18,6 +18,10 @@ end
 
 Before('@login_unvalid_user') do
   @account = site.my_vw.login.get_login_details('DBG_User_Invalid')
+end
+
+Before('@login_current_car') do
+  @account = site.my_vw.login.get_login_details('Current_car_User')
 end
 
 Before('@login_Ordered_User') do
