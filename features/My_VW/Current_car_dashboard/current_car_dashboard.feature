@@ -1,4 +1,4 @@
-@login_current_car @my_vw @Current-Car-Dashboard @my-vw-test
+@login_current_car @my_vw @Current-Car-Dashboard
 Feature: Current car dashboard
   As a user logged in the My VW site
   I want to see a page with important information about my current car
@@ -13,7 +13,7 @@ Feature: Current car dashboard
     Scenario: My car hero module
       When i check the content of the hero module
       Then i should see a hero tagline with my car name
-      And i should also see a camera icon
+      And i should also see a camera icon on the page
 
     Scenario: My Service Retailer Module
       When i check the content of the service retailer module
@@ -24,9 +24,14 @@ Feature: Current car dashboard
       | Phone        | Fax          | Email                   |
       | 01473 240800 | 01473 240088 | tribalddbtech@gmail.com |
 
+    Scenario: My Retailer Link
+      When i click on the link to view my retailers website
+      Then i should see the retailer page for "Ipswich Volkswagen" load in my browser
+
+    @my-vw-test
     Scenario Outline: My Service gurantee module
       When i click on a <gurantee> link in the service guarantee module
-      Then i should be taken to the relevant <page>
+      Then the <page> page should load successfully in my browser
 
       Examples:
         | gurantee                               | page                     |

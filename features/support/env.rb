@@ -7,6 +7,7 @@ require 'require_all'
 require 'securerandom'
 require 'fileutils'
 require 'json'
+require 'rspec/expectations'
 
 screenshot_dir = "html-results/screenshots"
 FileUtils.mkdir_p screenshot_dir
@@ -34,14 +35,14 @@ ffprofile['browser.cache.disk.capacity'] = 0
 # Firefox performance settings
 ffprofile['network.http.pipelining'] = true
 ffprofile['network.http.pipelining.maxrequests'] = 8
-#ffprofile['network.http.pipelining.aggressive'] = true
+ffprofile['network.http.pipelining.aggressive'] = true
 ffprofile['nglayout.initialpaint.delay'] = 0
 ffprofile['browser.cache.use_new_backend'] = 1
-#ffprofile['network.prefetch-next'] = true
+ffprofile['network.prefetch-next'] = true
 ffprofile['browser.tabs.animate'] = false
 ffprofile['browser.display.show_image_placeholders'] = false
 ffprofile['network.dns.disableIPv6'] = true
-#ffprofile['content.notify.backoffcount'] = 5
+ffprofile['content.notify.backoffcount'] = 5
 ffprofile['gfx.direct2d.disabled'] = true
 ffprofile['layers.acceleration.disabled'] = true
 

@@ -5,49 +5,85 @@ Given /^that i have logged in to my account$/ do
 end
 
 When /^the current car dashboard page has loaded$/ do
-  #Nothing to do here
+  pending("Missing Username on login currently...")
 end
 
 Then /^I should be greeted with my current car dashboard and my name$/ do
   raise AssertionError, "My name not present" unless @current_car.my_name_present?
 end
 
-When /^I click on the camera icon$/ do
-  #@current_car.click_camera_icon
-  pending
+
+When /^i check the content of the hero module$/ do
+  @current_car.wait_for_load
+  @hero_present = @current_car.hero_text_present?
 end
 
-Then /^the system file selector is displayed to choose a photo$/ do
-  #@current_car.upload_image_prompt
-  pending
+Then /^i should see a hero tagline with my car name$/ do
+  expect(@hero_present).to be true
 end
 
-Given /^the service gurantee module is present on the page$/ do
-  #Nothing to do here
+And /^i should also see a camera icon on the page$/ do
+  expect(@current_car.camera_icon_present?).to be true
 end
 
-When /^i click on a (.*) link$/ do |gurantee|
+When /^i check the content of the service retailer module$/ do
+  @current_car.wait_for_load
+end
+
+Then /^i should see a map loaded displaying my retailer location$/ do
+  expect(@current_car.retailer_map_present?).to be true
+end
+
+And /^i should also see the following retailer address details displayed:$/ do |table|
+  data = table.raw
+  retailer_address = @current_car.get_retailer_address
+  data.each do |column|
+    expect(retailer_address).to match(/#{column}/i)
+  end
+end
+
+And /^i should see the following contact details:$/ do |table|
+  data = table.raw
+  phone_details = @current_car.get_retailer_contact('Phone')
+  fax_details = @current_car.get_retailer_contact('Fax')
+  email_details = @current_car.get_retailer_contact('Email')
+
+  expect(phone_details).to match(data[1][0])
+  expect(fax_details).to match(data[1][1])
+  expect(email_details).to match(data[1][2])
+end
+
+When /^i click on the link to view my retailers website$/ do
+  @current_car.click_my_retailer_link
+end
+
+Then /^i should see the retailer page for "(.*)" load in my browser$/ do |retailer_name|
+  #sleep(5)
+  #site.retailer_pages.dismiss_google_maps_modal
+  site_name = site.retailer_pages.get_retailer_name
+  expect(site_name).to eq(retailer_name)
+end
+
+When /^i click on a (.*) link in the service guarantee module$/ do |gurantee|
   @current_car.click_a_gurantee(gurantee)
 end
 
-Then /^i should be taken to the relevant (.*)$/ do |page|
-  raise AssertionError, "Page not relevant" unless @current_car.check_page_url(page)
+Then /^the (.*) page should load successfully in my browser$/ do |page|
+  case page
+  when 'service-promise'
+    expect{site.owners.servicing.service_promise.page_loaded?}.not_to raise_error
+  when 'what-we-check-and-why'
+    expect{site.owners.servicing.what_we_check_and_why.page_loaded?}.not_to raise_error
+  when 'volkswagen-genuine-parts'
+    expect{site.owners.servicing.volkswagen_genuine_parts.page_loaded?}.not_to raise_error
+  end
 end
 
-When /^i am on the service history module$/ do
-  #Nothing to do here
+When /^i check the service history and plans section of my account$/ do
+
 end
 
-Then /^i should see my vehicles service history$/ do
-  raise AssertionError, "My service information not present" unless @current_car.my_service_history_table_present?
-end
-
-When /^i am on the my plans section$/ do
-  #Nothing to do here
-end
-
-Then /^i should see any plans that i have$/ do
-  raise AssertionError, "My Plan table not present" unless @current_car.my_plans_present?
+Then /^i should see a message prompting me to enter my postcode for more information$/ do
 end
 
 When /^i am on the promo modules section$/ do

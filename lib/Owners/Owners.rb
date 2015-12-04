@@ -22,7 +22,7 @@ class Owners < BrowserContainer
   end
 
   def servicing
-    Servicing.new(@browser)
+    ServiceBase.new(@browser)
   end
 
   def orders_status
