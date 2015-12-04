@@ -28,7 +28,6 @@ Feature: Current car dashboard
       When i click on the link to view my retailers website
       Then i should see the retailer page for "Ipswich Volkswagen" load in my browser
 
-    @my-vw-test
     Scenario Outline: My Service gurantee module
       When i click on a <gurantee> link in the service guarantee module
       Then the <page> page should load successfully in my browser
@@ -40,13 +39,14 @@ Feature: Current car dashboard
         | /owners/volkswagengenuine-parts        | volkswagen-genuine-parts |
 
     Scenario: My Service History Notification
+      Given my account is not validated with DBG
       When i check the service history and plans section of my account
       Then i should see a message prompting me to enter my postcode for more information
 
     Scenario Outline: Promo Module
       When i am on the promo modules section
       Then i should see the <promotions> promotion
-      And the promotion headline
+      And the promotion headline should also be displayed
 
       Examples:
         | promotions            |
@@ -58,6 +58,8 @@ Feature: Current car dashboard
       When i am on need help module
       Then i should see the need help search bar
       And the following <useful_links> section appears
+      But when i click on the link inside the section
+      Then the correct page related to <useful_links> should load
 
       Examples:
         | useful_links            |
@@ -66,6 +68,7 @@ Feature: Current car dashboard
         | How tos                 |
         | Breakdown and insurance |
 
+    @my-vw-test
     Scenario Outline: Need help search
       When i search for <help> in the need help section
       Then i should get a <result> from my need help search

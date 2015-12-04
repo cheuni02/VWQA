@@ -79,11 +79,16 @@ Then /^the (.*) page should load successfully in my browser$/ do |page|
   end
 end
 
-When /^i check the service history and plans section of my account$/ do
+Given /^my account is not validated with DBG$/ do
+  # Padding so scenario makes sense
+end
 
+When /^i check the service history and plans section of my account$/ do
+  @service_history_field = @current_car.dbg_data_needed_present?
 end
 
 Then /^i should see a message prompting me to enter my postcode for more information$/ do
+  expect(@service_history_field).to be true
 end
 
 When /^i am on the promo modules section$/ do
@@ -94,7 +99,7 @@ Then /^i should see the (.*) promotion$/ do |promotions|
   raise AssertionError, "promotion not present" unless @current_car.promotions_present?(promotions)
 end
 
-And /^the promotion headline$/ do
+And /^the promotion headline should also be displayed$/ do
   raise AssertionError, "promotion headline is not there" unless @current_car.promo_headline_offer_present?
 end
 
@@ -107,7 +112,26 @@ Then /^i should see the need help search bar$/ do
 end
 
 And /^the following (.*) section appears$/ do |useful_links|
-  raise AssertionError, "Link not present" unless @current_car.check_useful_link_present?(useful_links)
+  @link = useful_links
+  raise AssertionError, "Link not present" unless @current_car.check_useful_link_present?(@link)
+end
+
+But /^when i click on the link inside the section$/ do
+  @current_car.click_useful_link(@link)
+end
+
+Then /^the correct page related to (.*) should load$/ do |page_name|
+  case page_name
+  when 'Owner\'s manual'
+    expect{site.owners.owners_manuals.page_loaded?}.not_to raise_error
+  when 'Warning lights'
+    expect{site.owners.warning_lights.page_loaded?}.not_to raise_error
+  when 'How tos'
+    expect{site.owners.how_to_guides.page_loaded?}.not_to raise_error
+  when 'Breakdown and insurance'
+    expect{site.owners.breakdown_insurance.page_loaded?}.not_to raise_error
+  end
+
 end
 
 When /^i search for (.*) in the need help section$/ do |help|

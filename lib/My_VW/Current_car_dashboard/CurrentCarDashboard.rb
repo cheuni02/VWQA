@@ -103,7 +103,11 @@ class CurrentCarDashboard < MyVW
   end
 
   def check_useful_link_present?(useful_links)
-    @browser.h5(:text => "#{useful_links}").present?
+    useful_link(useful_links).present?
+  end
+
+  def click_useful_link(text)
+    useful_link(text).when_present.click
   end
 
   def my_vw_page_present?
@@ -138,10 +142,11 @@ class CurrentCarDashboard < MyVW
 
   def dbg_data_needed_present?
     owner_postcode_field.present?
-    last_name_field.present?
+    #last_name_field.present?
   end
 
-private
+
+  private
 
   def page_url
     "/vw-authentication/login/auth?targetUrl=/owners/my/cars"
@@ -157,6 +162,10 @@ private
 
   def my_cars_link
     @browser.ul(:class => "welcome-stripe__menu-list", :index => 1).li(:class => "welcome-stripe__menu-list-item").a(:href => "#")
+  end
+
+  def useful_link(text)
+    @browser.h5(:text => "#{text}").parent.link
   end
 
   def my_car_hero

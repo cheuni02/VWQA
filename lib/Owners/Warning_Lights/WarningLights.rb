@@ -5,7 +5,7 @@ class WarningLights < Owners
   end
 
   def page_loaded?
-    warning_lights_all.present?
+    warning_lights_all.wait_until_present(10)
   end
 
   def get_lights(colour)
@@ -74,12 +74,12 @@ class WarningLights < Owners
 
   def yellow_lights
     @browser.ul(:id => "yellow-lights").lis
-  end  
+  end
 
   def green_lights
     @browser.ul(:id => "green-lights").lis
   end
-  
+
   def page_title
     @browser.div(:id => "page").div(:class => "grid-6").h1
   end
