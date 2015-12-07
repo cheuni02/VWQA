@@ -26,6 +26,27 @@ DEFAULT_ACCOUNT = {
   :password => "Abcd!2345" ,
   }
 
+ffprofile = Selenium::WebDriver::Firefox::Profile.new
+# Disable Disk Caching in firefox because of problems with display on windows
+ffprofile['browser.cache.disk.enable'] = false
+ffprofile['browser.cache.disk.capacity'] = 0
+
+# Firefox performance settings
+ffprofile['network.http.pipelining'] = true
+ffprofile['network.http.pipelining.maxrequests'] = 8
+#ffprofile['network.http.pipelining.aggressive'] = true
+ffprofile['nglayout.initialpaint.delay'] = 0
+ffprofile['browser.cache.use_new_backend'] = 1
+#ffprofile['network.prefetch-next'] = true
+ffprofile['browser.tabs.animate'] = false
+ffprofile['browser.display.show_image_placeholders'] = false
+ffprofile['network.dns.disableIPv6'] = true
+#ffprofile['content.notify.backoffcount'] = 5
+ffprofile['gfx.direct2d.disabled'] = true
+ffprofile['layers.acceleration.disabled'] = true
+
+
+
 require_all 'lib'
 
 if ENV['HEADLESS'] =~ /true/i
@@ -36,25 +57,16 @@ end
 
 case ENV['BROWSER']
 when /chrome/i
-  browser = Watir::Browser.new :chrome
+  browser = Watir::Browser.start(ENV['HOST'], :chrome)
   browser.window.resize_to 1024, 768
 when /ie/i
   browser = Watir::Browser.new :ie
   browser.window.resize_to 1024, 768
 when /firefox/i
   profile = Selenium::WebDriver::Firefox::Profile.new
-  profile['browser.cache.disk.enable'] = false
-  profile['browser.cache.disk.capacity'] = 0
-  profile['network.http.pipelining'] = true
-  profile['network.http.pipelining.maxrequests'] = 8
-  browser = Watir::Browser.new :firefox, :profile => profile
+  browser = Watir::Browser.new :firefox, :profile => ffprofile
 else # Default to Firefox if we don't know exactly what we're using
-  profile = Selenium::WebDriver::Firefox::Profile.new
-  profile['browser.cache.disk.enable'] = false
-  profile['browser.cache.disk.capacity'] = 0
-  profile['network.http.pipelining'] = true
-  profile['network.http.pipelining.maxrequests'] = 8
-  browser = Watir::Browser.new :firefox, :profile => profile
+  browser = Watir::Browser.new :firefox, :profile => ffprofile
   browser.window.resize_to 1024, 768
 end
 

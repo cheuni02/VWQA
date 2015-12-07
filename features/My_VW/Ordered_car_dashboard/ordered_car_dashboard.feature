@@ -1,4 +1,4 @@
-@ordered_car @Daily @login_Ordered_User @my_vw
+@login_Ordered_User @my_vw @Ordered-Car-Dashboard
 Feature: Ordered car dashboard
   As a user who has just orderded a new Volkswagen car
   I want to be able to track my car and see its progress
@@ -12,12 +12,11 @@ Feature: Ordered car dashboard
     And  i should see step <step> active
 
     Examples:
-      | step_number | status                          | step                 |
-      | Step1       | Your order is being processed   | Order processing     |
-      | Step2       | Your order is with the factory  | With the factory     |
-      | Step3       | Your build week is confirmed    | Build week confirmed |
-      | Step4       | Your Golf is being built        | Build in progress    |
-      | Step5       | Your Golf is on its way         | In transit           |
-      | Step6       | Your Golf has landed in the UK  | Arrived in the UK    |
-      | Step7a      | Your Golf is nearly ready       | Nearly there         |
-      | Step7b      | Your model is with the retailer | Nearly there         |
+      | step_number        | status                          | step                      |
+      | OrderedStep1       | Your order is being processed   | Processing your order     |
+      | OrderedStep2       | Your order is with the factory  | With the factory          |
+      | OrderedStep3       | Your build week is confirmed    | Build week confirmed      |
+      | OrderedStep4       | Your Polo is being built        | Build in progress         |
+      | OrderedStep5       | Your Polo is on its way         | In transit                |
+      | OrderedStep6       | Your Polo has landed in the UK  | Arrived in the UK         |
+      | OrderedStep7       | Your Polo is nearly ready       | Nearly there              |

@@ -16,12 +16,19 @@ class BookAService2 < VWBase
     BookAService2Step3.new(@browser)
   end
 
+  def step4
+    BookAService2Step4.new(@browser)
+  end
+
+  def step5
+    BookAService2Step5.new(@browser)
+  end
+
   def expand_detail_panels
     detail_panels.each do |panel|
       panel.click if panel.present?
     end
   end
-
 
   private
 

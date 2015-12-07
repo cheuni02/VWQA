@@ -1,4 +1,4 @@
-Given /^i am on the Contact Us email page$/ do
+Given /^i am on the Contact Us section of the website$/ do
   @contactUs = site.special_pages.contact_us
   @contactUs.visit
 end
@@ -6,6 +6,10 @@ end
 And /^i reveal the email panel on the page$/ do
   @contactUs.all_contact_options
   #@contactUs.show_email_panel
+end
+
+Given /^i select options to reveal the contact us form$/ do
+  @contactUs.show_email_form
 end
 
 When /^i enter my name as (.*) (.*) (.*)$/ do |title, first_name, surname|
@@ -36,10 +40,16 @@ Then /^i should see (success|failed) detailing me about the success of my messag
   else
     raise unless (result =~ /failed/i && errors.length >= 0)
   end
+  sleep(1) # 1 second pause to assist with browser loading too fast and getting stuck
+end
+
+
+Given /^i select contact options to show the retailer find by location section$/ do
+  #step "i select options to reveal the contact us form"
+  @contactUs.retailer_search_page
 end
 
 When /^i enter my local postcode as "(.*)" to the find by location field$/ do |postcode|
-  @contactUs.retailer_search_page
   @contactUs.set_retailer_postcode(postcode)
 end
 
