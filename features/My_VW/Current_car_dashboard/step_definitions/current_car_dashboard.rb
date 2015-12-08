@@ -75,7 +75,7 @@ Then /^the (.*) page should load successfully in my browser$/ do |page|
   when 'what-we-check-and-why'
     expect{site.owners.servicing.what_we_check_and_why.page_loaded?}.not_to raise_error
   when 'volkswagen-genuine-parts'
-    expect{site.owners.servicing.volkswagen_genuine_parts.page_loaded?}.not_to raise_error
+    expect{site.owners.servicing.genuine_parts.page_loaded?}.not_to raise_error
   end
 end
 

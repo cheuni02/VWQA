@@ -35,7 +35,7 @@ Feature: Current car dashboard
       Examples:
         | gurantee                               | page                     |
         | /owners/service-promise                | service-promise          |
-        | /owners/servicing/what-wecheck-and-why | what-we-check-and-why    |
+        | /owners/servicing/what-we-check-and-why | what-we-check-and-why    |
         | /owners/volkswagengenuine-parts        | volkswagen-genuine-parts |
 
     Scenario: My Service History Notification
@@ -78,16 +78,6 @@ Feature: Current car dashboard
       | breakdown | pass   |
       | insurance | pass   |
       | b34f      | fail   |
-
-    Scenario Outline: Preferred Retailer
-      When i am on the Current dashboard
-      Then i should see my preferred retailer
-      And the <links> link in the box
-
-      Examples:
-        | links            |
-        | View in maps     |
-        | Retailer website |
 
     Scenario Outline: Recovery zone
       When i scroll to the bottom of the page
