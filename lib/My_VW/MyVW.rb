@@ -41,4 +41,8 @@ class MyVW < VWBase
     OrderedCarDashboard.new(@browser)
   end
 
+  def my_vw_api
+    MyVWAPI.new
+  end
+
 end
