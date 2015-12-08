@@ -2,14 +2,14 @@ Before('@login') do
   @account = site.my_vw.login.get_login_details('General')
 end
 
-
-After('@login, @login_unvalid_user, @add_car_user, @login_Ordered_User, @login_current_car', '~@logout-force') do
-  begin
-    site.my_vw.primary_nav.click_logout
-    site.owners.wait_for_page
-  rescue Watir::Exception::UnknownObjectException #We might already be logged out
-    #
-  end
+After('@login, @login_unvalid_user, @add_car_user, @login_Ordered_User, @login_Current_User', '~@logout-force') do
+  site.visit_page('/logout?postLogoutPage=/owners/my/account/index')
+  #begin
+  #  site.my_vw.primary_nav.click_logout
+  #  site.owners.wait_for_page
+  #rescue Watir::Exception::UnknownObjectException #We might already be logged out
+#    #
+  #end
 end
 
 Before('@add_car_user') do
@@ -28,6 +28,10 @@ Before('@login_Ordered_User') do
   @account = site.my_vw.login.get_login_details('Ordered_Car_User')
 end
 
+Before('@login_Current_User') do
+  @account = site.my_vw.login.get_login_details('Current_car_User')
+end
+
 # Hook to force logout without clicking on the header link
 After('@logout-force') do
   site.visit_page('/logout?postLogoutPage=/owners/my/account/index')
@@ -43,6 +47,6 @@ Before('@Register_temp') do
 end
 
 After ('@logout') do
-  site.my_vw.primary_nav.click_logout
+  site.visit_page('/logout?postLogoutPage=/owners/my/account/index')
   #site.owners.wait_for_page
 end
