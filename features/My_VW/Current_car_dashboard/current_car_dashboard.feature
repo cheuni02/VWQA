@@ -33,10 +33,10 @@ Feature: Current car dashboard
       Then the <page> page should load successfully in my browser
 
       Examples:
-        | gurantee                               | page                     |
-        | /owners/service-promise                | service-promise          |
+        | gurantee                                | page                     |
+        | /owners/service-promise                 | service-promise          |
         | /owners/servicing/what-we-check-and-why | what-we-check-and-why    |
-        | /owners/volkswagengenuine-parts        | volkswagen-genuine-parts |
+        | /owners/volkswagen-genuine-parts        | volkswagen-genuine-parts |
 
     Scenario: My Service History Notification
       Given my account is not validated with DBG
@@ -53,7 +53,7 @@ Feature: Current car dashboard
         | Fixed price servicing |
         | Extended warranty     |
         | Accessories           |
-
+ 
     Scenario Outline: Need help module
       When i am on need help module
       Then i should see the need help search bar
@@ -68,7 +68,6 @@ Feature: Current car dashboard
         | How tos                 |
         | Breakdown and insurance |
 
-    @my-vw-test
     Scenario Outline: Need help search
       When i search for <help> in the need help section
       Then i should get a <result> from my need help search

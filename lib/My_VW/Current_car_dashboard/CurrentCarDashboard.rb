@@ -102,6 +102,14 @@ class CurrentCarDashboard < MyVW
     need_help_search_bar.present?
   end
 
+  def enter_need_help_search(text)
+    need_help_search_bar.when_present.set(text)
+  end
+
+  def search_need_help
+    need_help_search_button.when_present.click
+  end
+
   def check_useful_link_present?(useful_links)
     useful_link(useful_links).present?
   end
