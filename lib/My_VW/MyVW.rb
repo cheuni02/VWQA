@@ -41,4 +41,7 @@ class MyVW < VWBase
     OrderedCarDashboard.new(@browser)
   end
 
+  def delete_car
+    DeleteCar.new(@browser)
+  end
 end
