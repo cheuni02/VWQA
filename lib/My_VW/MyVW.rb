@@ -45,4 +45,7 @@ class MyVW < VWBase
     MyVWAPI.new
   end
 
+  def delete_car
+    DeleteCar.new(@browser)
+  end
 end
