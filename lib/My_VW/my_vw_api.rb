@@ -37,7 +37,7 @@ class MyVWAPI < MyVW
     return JSON.parse(login)['access_token']
   end
 
-  def add_new_car(uuid, access_token, car_name)
+  def add_new_current_car(uuid, access_token, car_name)
     car_data = {
         :displayName => car_name,
         :carStatus => "CURRENT",
@@ -47,7 +47,7 @@ class MyVWAPI < MyVW
             :derivative => "GOLF GTI",
             :registrationDate => "2014-02-12",
             :fuelType => "Petrol",
-            :vin => "WVWZZZ1KZCW0550001",
+            #:vin => "WVWZZZ1KZCW0550001",
             :year => "2014",
             :engineCapacity => "1.2",
             :transmission => "Manual"
@@ -59,6 +59,20 @@ class MyVWAPI < MyVW
 
     auth_header = {:Authorization => "Bearer #{access_token}"}
     @user_api["/users/#{uuid}/cars"].post car_data, auth_header
+  end
+
+  def add_new_ordered_car(uuid, access_token, order_number)
+    car_data = {
+      :orderNumber => order_number,
+      :displayName => "ORDER_CAR_TEST"
+    }.to_json
+
+    auth_header = {:Authorization => "Bearer #{access_token}"}
+    begin
+      @user_api["/users/#{uuid}/cars/order"].post car_data, auth_header
+    rescue RestClient::Exception => e
+      STDOUT.puts e.response
+    end
   end
 
 

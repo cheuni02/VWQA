@@ -13,6 +13,12 @@ end
 
 # Delete current car
 
+Given /^i have added a current car to my account$/ do
+  token = site.my_vw.my_vw_api.get_login_token(@account[0],@account[1])
+  site.my_vw.my_vw_api.add_new_current_car(@account[2],token,"MyTestCar")
+  site.refresh
+end
+
 When /^i click delete icon to remove current car from my account$/ do
   @delete_car.delete_current_car
 end
@@ -27,6 +33,12 @@ And /^current car is removed from My cars$/ do
 end
 
 # Delete ordered car
+
+Given /^i have added an ordered car to my account$/ do
+  token = site.my_vw.my_vw_api.get_login_token(@account[0],@account[1])
+  site.my_vw.my_vw_api.add_new_ordered_car(@account[2],token,"25274505")
+  site.refresh
+end
 
 When /^i click delete icon to remove ordered car from my account$/ do
   @delete_car.delete_ordered_car

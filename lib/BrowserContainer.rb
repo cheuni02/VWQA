@@ -14,6 +14,10 @@ class BrowserContainer
     @browser.html
   end
 
+  def refresh
+    @browser.refresh
+  end
+
   def visit_page(page_url = "")
     @browser.goto(URLS + page_url)
   end

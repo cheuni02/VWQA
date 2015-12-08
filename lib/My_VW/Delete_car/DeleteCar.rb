@@ -17,11 +17,11 @@ class DeleteCar < MyVW
   end
 
   def delete_ordered_car
-    del_ordered_car.click
+    del_ordered_car.when_present.click
   end
 
   def delete_current_car
-    del_current_car.click
+    del_current_car.when_present.click
   end
 
   def popup_alert_present
@@ -29,11 +29,11 @@ class DeleteCar < MyVW
   end
 
   def popup_alert_confirm
-    popup_alert_ok.click
+    popup_alert_ok.when_present.click
   end
 
   def popup_alert_cancel
-    popup_alert_canc.click
+    popup_alert_canc.when_present.click
   end
 
   private
