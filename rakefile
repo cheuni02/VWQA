@@ -44,7 +44,7 @@ task :tagged_build, [:host, :tag_string, :env_tag] do |t, args|
     ENV['HOST'] = args[:host]
     ENV['TAG'] = args[:env_tag]
     #t.cucumber_opts = "--tags #{tag_string} --format junit -o results"
-    t.cucumber_opts = "--tags #{tag_string} --format junit -o results/#{ENV['ALL_TAGS'].sub('@', '')}"
+    t.cucumber_opts = "-c --tags #{tag_string} --format junit -o results/#{ENV['ALL_TAGS'].sub('@', '')}"
     t.profile = "tagged_build"
   end
   Rake::Task[:run].invoke()
