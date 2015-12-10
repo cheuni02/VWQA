@@ -1,7 +1,7 @@
 class UsedCars < BrowserContainer
 
   def page_loaded?
-    page_header.present?
+    page_header.text =~ /used cars/i
   end
 
   def visit
@@ -75,7 +75,8 @@ class UsedCars < BrowserContainer
   end
 
   def page_header
-    @browser.div(:class => "used-cars-header")
+    @browser.li(:class => "title current")
+    #@browser.div(:class => "used-cars-header")
   end
 
   def youtube_thumbnail_images
@@ -98,7 +99,7 @@ class UsedCars < BrowserContainer
   end
 
   def das_welt_auto_button
-    @browser.link(:href => "/used/our-programme")
+    @browser.li(:class => "vw-btn grid-2", :index => 1).link(:href => "/used/our-programme")
   end
 
   def das_weltauto_benefit_s
@@ -108,19 +109,19 @@ class UsedCars < BrowserContainer
   end
 
   def road_assistance_offer_link
-    @browser.link(:href => "/owners/assistance")
+    @browser.div(:id => "used-cars-container").link(:href => "/owners/assistance")
   end
 
   def seven_d_volkswagen_insurance_link
-    @browser.link(:href => "/used/used-car-insurance")
+    @browser.div(:id => "used-cars-container").link(:href => "/used/used-car-insurance")
   end
 
   def buying_guide_finance_explained
-    @browser.link(:href => "/buying-guide/finance-options-explained")
+    @browser.div(:id => "used-cars-container").link(:href => "/buying-guide/finance-options-explained")
   end
 
   def solutions_link
-    @browser.link(:href => "/buying-guide/solutions")
+    @browser.div(:id => "used-cars-container").link(:href => "/buying-guide/solutions")
   end
 
   def all_benefits_images
@@ -133,5 +134,5 @@ class UsedCars < BrowserContainer
 end
 
   def search_used_cars_url
-    @browser.link(:href => "http://usedcars.volkswagen.co.uk/")
+    @browser.li(:class => "vw-btn grid-2", :index => 0).link(:href => "http://usedcars.volkswagen.co.uk/")
   end

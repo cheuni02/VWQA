@@ -26,7 +26,7 @@
   end
 
   When /^i click on the Das WeltAuto benefits button$/ do
-    @das_button = @used_cars_page.das_benefits_b.click
+    @used_cars_page.das_benefits_b.span.when_present.click
   end
 
   Then /^the benefits sections should have loaded on the page sucessfully$/ do
