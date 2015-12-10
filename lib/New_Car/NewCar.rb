@@ -63,7 +63,7 @@ class NewCars < BrowserContainer
   end
 
   def page_loaded?
-    horizontal_view_button.present?
+    horizontal_view_button.wait_until_present
   end
 
   def set_horizontal_view
