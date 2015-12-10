@@ -1,4 +1,4 @@
-@Daily @vw-plugin-cps-vw-section-new-cars @vw-configurator
+@Daily @vw-plugin-cps-vw-section-new-cars @vw-configurator @test-bau
 Feature: New Car Configurator Page
   As the owner of the VW Website
   We want to make sure that customers can select varients of a new car they want to buy

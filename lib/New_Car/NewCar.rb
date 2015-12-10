@@ -4,7 +4,7 @@ class NewCars < BrowserContainer
   def select_model(model_name)
     car_range.lis.each do |li|
       if li.span.h2.text =~ /#{model_name}/i
-	li.link.click
+	li.link.when_present.click
 	break
       end
     end
