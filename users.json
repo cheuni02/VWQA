@@ -4,77 +4,40 @@
       {
         "username": "automatedtestdragon@example.com",
         "password": "Abcd!2345",
-        "purpose": "General"
+        "purpose": "General",
+        "uuid": null
       }
     ],
     "origin.volkswagen.co.uk": [
       {
         "username": "automatedtestdragon@example.com",
         "password": "Abcd!2345",
-        "purpose": "General"
+        "purpose": "General",
+        "uuid": null
       }
     ],
     "cms-preview.volkswagen.co.uk": [
       {
         "username": "automatedtestdragon@example.com",
         "password": "Abcd!2345",
-        "purpose": "General"
+        "purpose": "General",
+        "uuid": null
+      }
+    ],
+    "10.69.102.120": [
+      {
+        "username": "automatedtestdragon@example.com",
+        "password": "Abcd!2345",
+        "purpose": "General",
+        "uuid": null
       }
     ],
     "10.69.104.120": [
       {
-        "title": "Mr",
-        "firstname": "General",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1448886992@example.com",
+        "username": "automatedtestdragon@example.com",
         "password": "Abcd!2345",
         "purpose": "General",
-        "uuid": "6a6d2974-d167-473a-ad68-fbc51cd810c2"
-      },
-      {
-        "title": "Mr",
-        "firstname": "DBG_User",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1448886991@example.com",
-        "password": "Abcd!2345",
-        "purpose": "DBG_User",
-        "uuid": "c6877345-3178-47c8-8eac-91f686b8d672"
-      },
-      {
-        "title": "Mr",
-        "firstname": "DBG_User_Invalid",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1448886990@example.com",
-        "password": "Abcd!2345",
-        "purpose": "DBG_User_Invalid",
-        "uuid": "05a0a683-e575-4111-847f-95c1d75d5943"
-      },
-      {
-        "title": "Mr",
-        "firstname": "Current_car_User",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1448886989@example.com",
-        "password": "Abcd!2345",
-        "purpose": "Current_car_User",
-        "uuid": "de6ebcce-1f0c-42b9-bf4e-ff3d34b17141"
-      },
-      {
-        "title": "Mr",
-        "firstname": "Ordered_Car_User",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1448886988@example.com",
-        "password": "Abcd!2345",
-        "purpose": "Ordered_Car_User",
-        "uuid": "d6df8759-3dc2-4002-963a-30e84834aab4"
-      },
-      {
-        "title": "Mr",
-        "firstname": "Max_Car_User",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1448886987@example.com",
-        "password": "Abcd!2345",
-        "purpose": "Max_Car_User",
-        "uuid": "0d43bd8e-0ffe-484c-a98f-f6310bddabe7"
+        "uuid": null
       }
     ],
     "10.69.101.120": [

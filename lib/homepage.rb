@@ -23,7 +23,7 @@ class VWHomepage < BrowserContainer
  end
 
  def carousel_header_present?(index)
-   homepage_item_content(index - 1).present?
+   homepage_item_content(index - 1).wait_until_present(10)
  end
 
  def vw_logo_present?

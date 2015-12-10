@@ -55,7 +55,7 @@ end
 
 # Use this for development on windows machines so you dont get the evil ansi
 # text output all over the place
-task :tagged_build_wip, [:host, :tag_string] do |t, args|
+task :tagged_build_wip, [:host, :tag_string, :env_tag] do |t, args|
   tag_string = "#{args[:tag_string]}"
 
   ENV['ALL_TAGS'] = tag_string

@@ -1,4 +1,4 @@
-@vw-plugin-cps-vw-section-used-cars
+@vw-plugin-cps-vw-section-used-cars @Daily
   Feature: Used Cars Page
     As a potential used car buyer
     I want to be able to see why i should buy a Volkswagen used car
@@ -36,7 +36,6 @@
         |img-excl-mark.png |
         |img-7.png         |
         |img-money.png     |
-
 
       Scenario: Checking the external link to used cars is present
         When I check if the Search used cars link is present on the page
