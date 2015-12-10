@@ -25,7 +25,12 @@ class BookAService < BrowserContainer
   end
 
   def click_next_step
-    next_step_button.when_present.click
+    begin
+      next_step_button.when_present.click
+    rescue Selenium::WebDriver::Error::UnhandledAlertError
+      browser.execute_script("window.alert = function() {}")
+      retry
+    end
   end
 
   def getFormErrors
