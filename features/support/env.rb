@@ -97,6 +97,19 @@ World do
   CustomWorld.new
 end
 
+Before do
+  browser.execute_script("window.alert = function() {}")
+end
+
+AfterStep do
+  begin
+    browser.execute_script("window.alert = function() {}")
+  rescue Selenium::WebDriver::Error::UnhandledAlertError
+    browser.execute_script("window.alert = function() {}")
+    retry
+  end
+end
+
 
 
 

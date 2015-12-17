@@ -10,11 +10,11 @@ Feature: Homepage
     Then i should see the correct <section> page load in my browser window
 
     Examples:
-    | text                           | section       |
-    | I Want a new Volkswagen        | New Cars      |
-    | I Own a Volkswagen             | Owners        |
-    | I Want a used Volkswagen       | Used Cars     |
-    | I Want a Volkswgen Company Car | New Cars      |
+    | text                            | section       |
+    | I Want a new Volkswagen         | New Cars      |
+    | I Own a Volkswagen              | Owners        |
+    | I Want a used Volkswagen        | Used Cars     |
+    | I Want a Volkswagen Company Car | New Cars      |
 
   Scenario Outline: Carousel Items
     When i click on the carousel item at the index <index>

@@ -1,4 +1,4 @@
-@Daily @vw-web-site
+@Daily @vw-retailers-site
 Feature: Searching for Retailers
   As we have the ability to allow our users to search for specific VW Dealers
   We need to make sure that this search functionality works as expected
