@@ -133,8 +133,7 @@ Feature: Booking A Car Service Step 1 car details
       | Model | Trim       | Engine size | Year of manufacture | Transmission | Fuel type |
       | Bora  | BORA S TDI | 1.9         | 2001                | Automatic    | Diesel    |
 
-
-  Scenario Outline: Guest adds their car's approximate mileage
+  Scenario Outline: Guest adds incorrectly their car's approximate mileage
     When I fill in the approximate <Mileage> under more info
     And I select Next - My details
     Then I will see feedback for more info Please enter a valid number
@@ -147,3 +146,12 @@ Feature: Booking A Car Service Step 1 car details
       | -20000  |
       | 123abc  |
 
+    Scenario: Guest adds correctly their car's approximate mileage
+      When I fill in the approximate mileage with 20000 under more info
+      And I select Next - My details
+      Then I will see my car details summary populated with:
+        | Trim       | Year of manufacture | Registration | Engine size | Fuel type | Transmission |
+        | BORA S TDI | 2001                | V5VWU        | 1.9         | Diesel    | Automatic    |
+      And I will see more info details in summary as:
+        | Service Plan | Extended warranty | Leased with     |
+        | yes          | yes               | Leasing Company |
