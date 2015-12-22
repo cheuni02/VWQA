@@ -1,107 +1,149 @@
 @my_vw @Service-Booking-2
-Feature: Booking A Car Service Step 1
-  As part of ensuring that our new service booking flow works as expected
+Feature: Booking A Car Service Step 1 car details
   We need to ensure we can enter our car details on the first step of registration
   So that customers can enter all the required details for a new car service
 
-  Background: Navigating to the new book a service pages
-    Given i navigate to the book a service page
-    And i expand the Information Panels
+  Scenario: Guest books a service
+    Given I am on the Volkswagen Homepage
+    When I click the book a service button in the navigation
+    Then I should see step 1 of book a service
+    And I can not continue until I enter a vehicle registration
 
-  Scenario: Get to Step 1 - Common Navigation
-    Given i am on the Volkswagen Homepage
-    When i click the book a service button in the navigation
-    Then i should see step 1 of the new book a service flow loads in my browser
-
-  Scenario: Get to Step 1 - My Car (Logged in)
-    Given i login to my Volkswagen Account with a valid car saved
-    When i visit the book a service section of the site
-    Then i should see the details of my car are present on the page
-
-  Scenario Outline: More Info card - Mileage Validation
-    When i fill in the approximate <mileage> value in the more details form
-    And i attempt to proceed to continue with my service booking
-    Then i should get a <error> message if it is not valid
+  Scenario Outline: Guest adds invalid registration
+    Given I enter a vehicle invalid <Registration>
+    When I click lookup button to find my registration
+    Then I will see feedback that my car details are incorrect with:
+      | Feedback                                                                                        |
+      | Sorry, we couldn't find that registration. Please try again or enter your vehicle details below |
+    And I will see a form to enter my car details
 
     Examples:
-      | mileage | error      |
-      | 20000   | should not |
-      |         | should     |
-      | dfffee  | should     |
+      | Registration |
+      | CV54 VDF     |
+      | XXXXXXX      |
 
-  Scenario: More Info card - I am interested in service plan
-    When i set my expanded details to state i am interested in a service plan
-    And i proceed to the next step of service booking
-    Then i should see the following simple text message in my summary
-      """
-      Service plan: I am interested in a service plan. Please call me to discuss options so I can start saving straight away.
-      """
+  Scenario: Guest tries to move onto next step without completing all their car details form
+    Given I clear the vehicle Registration field
+    When I select Next - My details
+    Then I will see feedback that my car details are incomplete with:
+      | Feedback                                       |
+      | Please provide your registration number        |
+      | Please let us know what model of car you drive |
+      | Please let us know your car derivative         |
+      | Please complete engine size                    |
+      | Please let us know the year of the car         |
+      | Please let us know the cars transmission       |
+      | Please let us know the cars fuel type          |
 
-  Scenario: More Info Card - I Have Extended Warrenty
-    When i set my expanded details to state that i have an extended warrenty
-    And i continue to the next step of my service booking
-    Then i should see the summary panel on the next step state that i have extended warrenty
-
-  Scenario: More Info Card - Setting i have a Service plan
-    When i set my expanded details as i already have a service plan
-    Then i should no longer see the option to set that i want a service plan
-
-  Scenario Outline: More Info card - I lease this car
-    When i enable the I lease this car radio button in the more info box
-    Then i should be able to type the lease <company> in the field
-    And an error message <get> be displayed if it is not valid and i try to proceed
-
-    Examples:
-      | company    | get        |
-      | rent a car | should not |
-      |            | should     |
-      | 24324£45   | should     |
-
-  Scenario: More Info Card - Entered Leased Car Details
-    Given my car has been leased to me by another company
-    When i enter the name of the company into the leased car field
-    And i proceed to the next page of service booking
-    Then i should see my leased car details contained in my current booking summary
-
-  Scenario: Edit car details - Account with multiple cars configured
-    Given i log into an account with multiple cars saved
-    When i return to the service booking page
-    And i expand the car details panel
-    Then i should see a dropdown allowing me to select which car i want to book for a service
-    And if i change the dropdown the values in the car details panel should change
-
-  Scenario Outline: Registration lookup - Valid
-    Given i click on the "Registration Lookup" Button
-    When i enter a vehicle registration <registration> into the registration field
-    And i click on the lookup button to find my registration
-    Then i should see my car details get filled in automatically with data
+  Scenario Outline: Guest tries to move onto next step without completing some of their car details form
+    Given I enter a vehicle valid <Registration>
+    When I add the Model field with <Model>
+    When I add the Trim field with <Trim>
+    And I add the Engine size field with <Engine size>
+    And I add the Year of manufacture field with <Year of manufacture>
+    And I set the transmission to <transmission>
+    And I set the fuel type to <fuel type>
+    When I select Next - My details
+    Then I will see car details are incomplete with <Feedback>
 
     Examples:
-      | registration |
-      | VU12WGE      |
-      | FE06KHO      |
-      | YM14YOX      |
+      | Registration | Model | Trim    | Engine size | Year of manufacture | transmission | fuel type | Feedback                                       |
+      | VU12WGE      | Up    | MOVE UP | 1           | 2012                |              |           | Please let us know the cars transmission       |
+      | VU12WGE      | Up    | MOVE UP | 1           | 2012                | Manual       |           | Please let us know the cars fuel type          |
+      |              | Up    | MOVE UP | 1           | 2012                | Manual       | Petrol    | Please provide your registration number        |
+      | VU12WGE      |       | MOVE UP | 1           | 2012                | Manual       | Petrol    | Please let us know what model of car you drive |
+      | VU12WGE      | Up    |         | 1           | 2012                | Manual       | Petrol    | Please let us know your car derivative         |
+      | VU12WGE      | Up    | MOVE UP |             | 2012                | Manual       | Petrol    | Please complete engine size                    |
+      | VU12WGE      | Up    | MOVE UP | 1           |                     | Manual       | Petrol    | Please let us know the year of the car         |
 
-  Scenario: Registration Lookup - Invalid
-    Given i am attempting to look up my car registration
-    When i enter an invalid registration number "1234567"
-    And i click on the lookup button to find this registration
-    Then i should not see any data in the car details fields
-
-  Scenario Outline: Car Details Validation
-    When i complete the Car information by entering my <model> and <trim>
-    And i also enter my engine size of <engine_size> with manufacture year <year>
-    And i set the transmission to <transmission> with fuel type <fuel>
-    And i attempt to proceed with the next step of booking a service
-    Then i <proceed> be able to continue with booking a service
+  Scenario Outline: Guest adds valid registration
+    Given I enter a vehicle valid <Registration>
+    When I click lookup button to find my registration
+    Then I will see a form to update my car details
+    And I will see my car <Model>, <Trim>, <Engine size>, <Year of manufacture>, <Transmission>, <Fuel type>
 
     Examples:
-      | model | trim          | engine_size | year | transmission | fuel   | proceed |
-      | Golf  | SE Bluemotion | 2.0         | 1997 | Manual       | Petrol | Should  |
-      | Up!   | Rock Up!      | 1.3         | 1970 | Automatic    | Diesel | Should  |
-      |       | Rocky Up!     | 1.0         | 1008 | Automatic    | Diesel | Should Not |
-      | Golf  |               | 1.2         | 1990 | Manual       | Petrol | Should Not |
-      | Golf  | SE PinkMotion |             | 1990 | Manual       | Petrol | Should Not |
-      | Golf  | SE PinkMotion | 1.2         |      | Manual       | Petrol | Should Not |
-      | Golf  | SE PinkMotion | 1.2         | 1990 |              | Petrol | Should Not |
-      | Golf  | SE PinkMotion | 1.2         | 1990 | Manual       |        | Should Not |
+      | Registration | Model | Trim                      | Engine size | Year of manufacture | Transmission | Fuel type |
+      | VU12WGE      | Up    | MOVE UP BLUEMOTION TECHNO | 1           | 2012                | Manual       | Petrol    |
+      | FE06KHO      | Golf  | GOLF PLUS SE TDI          | 1.9         | 2006                | Manual       | Diesel    |
+      | YM14YOX      | Golf  | GOLF GTI PERFORMANCE      | 2           | 2014                | Manual       | Petrol    |
+      | V5VWU        | Bora  | BORA V5                   | 2           | 2000                | Manual       | Petrol    |
+
+  Scenario: Guest updates populated car details
+    Given I will see a form to update my car details
+    When I update the Trim field with BORA S TDI
+    And I update the Engine size field with 1.9
+    And I update the Year of manufacture field with 2001
+    And I set the transmission to Automatic
+    And I set the fuel type to Diesel
+    Then I will see my car details form populated with:
+      | Model | Trim       | Engine size | Year of manufacture | Transmission | Fuel type |
+      | Bora  | BORA S TDI | 1.9         | 2001                | Automatic    | Diesel    |
+
+  Scenario: Guest selects next
+    When I select Next - My details
+    Then I will see my car details summary populated with:
+      | Trim       | Year of manufacture | Registration | Engine size | Fuel type | Transmission |
+      | BORA S TDI | 2001                | V5VWU        | 1.9         | Diesel    | Automatic    |
+
+  Scenario: Guest is interested in a service plan
+    Given I select change my car details
+    And I will see a form to update my car details
+    When I select that I'm interested in a service plan
+    And I select Next - My details
+    Then I will see more info details in summary as:
+      | Service Plan                                                                                             | Extended warranty | Leased with |
+      | I'm interested in a service plan. Please call me to discuss options so I can start saving straight away. | no                | no          |
+
+  Scenario: Guest adds a service plan
+    Given I select change my car details
+    And I will see a form to update my car details
+    When I select that I have a service plan
+    Then the option for I'm interested in a service plan will disappear
+    And I select Next - My details
+    Then I will see more info details in summary as:
+      | Service Plan | Extended warranty | Leased with |
+      | yes          | no                | no          |
+
+  Scenario: Guest adds extended warranty
+    Given I select change my car details
+    And I will see a form to update my car details
+    When I select that I have a extended warranty
+    And I select Next - My details
+    Then I will see more info details in summary as:
+      | Service Plan | Extended warranty | Leased with |
+      | yes          | yes               | no          |
+
+  Scenario: Guest adds that they lease their car
+    Given I select change my car details
+    And I will see a form to update my car details
+    When I select that I lease my car
+    And I select Next - My details
+    Then I will see feedback for more info Please enter a lease company
+    When I provide a lease company Leasing Company
+    And I select Next - My details
+    Then I will see more info details in summary as:
+      | Service Plan | Extended warranty | Leased with     |
+      | yes          | yes               | Leasing Company |
+
+  Scenario: Guest car details are still populated
+    When I select change my car details
+    Then I will see a form to update my car details
+    And I will see my car details form populated with:
+      | Model | Trim       | Engine size | Year of manufacture | Transmission | Fuel type |
+      | Bora  | BORA S TDI | 1.9         | 2001                | Automatic    | Diesel    |
+
+
+  Scenario Outline: Guest adds their car's approximate mileage
+    When I fill in the approximate <Mileage> under more info
+    And I select Next - My details
+    Then I will see feedback for more info Please enter a valid number
+
+    Examples:
+      | Mileage |
+      | 20,000  |
+      | 20.000  |
+      | 20_000  |
+      | -20000  |
+      | 123abc  |
+

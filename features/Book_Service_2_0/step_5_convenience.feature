@@ -1,4 +1,4 @@
-@my_vw @Service-Booking-2
+#@my_vw @Service-Booking-2
 Feature: Book a Service Convenience Options
   As a service booking customer that has entered all their previous details
   Once i reach step 5 of booking a service for my car
