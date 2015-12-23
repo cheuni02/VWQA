@@ -1,4 +1,4 @@
-@my_vw @Service-Booking-2
+#@my_vw @Service-Booking-2
 Feature: Service booking Step 4 Select Work
   As a Volkswagen car owner i want to be able to book a service
   I should be able to complete Step 1 - 3 in book a service and be taken to Step 4

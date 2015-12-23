@@ -84,7 +84,45 @@ class BookAService2Step2 < BookAService2
     step3_button.when_present.click
   end
 
-  private
+  def car_trim_details
+    car_details_section.li(index: 0).span(index: 0).text
+  end
+
+  def car_year_made_details
+    car_details_section.li(index: 0).span(index: 1).text
+  end
+
+  def car_reg_details
+    car_details_section.li(index: 1).text
+  end
+
+  def engine_size_details
+    car_details_section.li(index: 2).span(index: 0).text
+  end
+
+  def fuel_type_details
+    car_details_section.li(index: 2).span(index: 1).text
+  end
+
+  def transmission_details
+    car_details_section.li(index: 2).span(index: 2).text
+  end
+
+  def service_plan_summary
+    more_info_section.li(index: 0).p.text
+  end
+
+  def extended_warranty_summary
+    more_info_section.li(index: 1).p.text
+  end
+
+  def leased_with_summary
+    more_info_section.li(index: 2).p.text
+  end
+
+  def update_car_details
+    @browser.button(id: 'change-carDetails')
+  end
 
   def service_plan_info
     car_details_panel_right.li(:id => "myCarDetailsDerivative")
@@ -94,9 +132,14 @@ class BookAService2Step2 < BookAService2
     @browser.div(:id => "carDetailsViewRight")
   end
 
-  def car_details_section
-    @browser.section(:id => "sb-carDetails-section")
+  def more_info_section
+    @browser.element(class: "car-more-info-data")
   end
+
+  def car_details_section
+    @browser.element(class: "car-details-data")
+  end
+
 
   def personal_details_panel
     @browser.div(:id => "myDetailsEditLeft")
