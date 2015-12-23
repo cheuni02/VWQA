@@ -60,7 +60,7 @@ Feature: Booking A Car Service Step 1 car details
     Given I enter a vehicle valid <Registration>
     When I click lookup button to find my registration
     Then I will see a form to update my car details
-    And I will see my car <Model>, <Trim>, <Engine size>, <Year of manufacture>, <Transmission>, <Fuel type>
+    And I will see my car <Model>, <Trim>, <Engine size>, <Year of manufacture>, <Transmission>, <Fuel type> populated
 
     Examples:
       | Registration | Model | Trim                      | Engine size | Year of manufacture | Transmission | Fuel type |

@@ -27,12 +27,12 @@ Given /^I clear the vehicle Registration field$/ do
 end
 
 And /^I click lookup button to find my registration$/ do
-  @service_booking = site.service_booking.step1
-  @service_booking.registration_lookup.when_present.click
-  Watir::Wait.while { @service_booking.loading_wheel.visible? }
+  service_booking = site.service_booking.step1
+  service_booking.registration_lookup.when_present.click
+  Watir::Wait.while { service_booking.loading_wheel.visible? }
 end
 
-Then /^I will see my car (.*), (.*), (.*), (.*), (.*), (.*)$/ do |model, trim, engine, year, trans, fuel|
+Then /^I will see my car (.*), (.*), (.*), (.*), (.*), (.*) populated$/ do |model, trim, engine, year, trans, fuel|
   steps %Q{
 And I will see my car details form populated with:
 | Model | Trim | Engine size | Year of manufacture | Transmission | Fuel type |
@@ -41,27 +41,27 @@ And I will see my car details form populated with:
 end
 
 Then /^I will see my car details form populated with:$/ do |table|
-  @service_booking = site.service_booking.step1
+  service_booking = site.service_booking.step1
   table.hashes.each do |hash|
-    expect(@service_booking.model_field.when_present.value).to eq(hash['Model'])
-    expect(@service_booking.trim_field.when_present.value).to eq(hash['Trim'])
-    expect(@service_booking.engine_size_field.when_present.value).to eq(hash['Engine size'])
-    expect(@service_booking.year_made_field.when_present.value).to eq(hash['Year of manufacture'])
+    expect(service_booking.model_field.when_present.value).to eq(hash['Model'])
+    expect(service_booking.trim_field.when_present.value).to eq(hash['Trim'])
+    expect(service_booking.engine_size_field.when_present.value).to eq(hash['Engine size'])
+    expect(service_booking.year_made_field.when_present.value).to eq(hash['Year of manufacture'])
 
     if hash['Transmission'] =~ /Manual/
-      expect(@service_booking.manual_transmission_radio.set?).to eq(true)
-      expect(@service_booking.auto_transmission_radio.set?).to eq(false)
+      expect(service_booking.manual_transmission_radio.set?).to eq(true)
+      expect(service_booking.auto_transmission_radio.set?).to eq(false)
     else
-      expect(@service_booking.manual_transmission_radio.set?).to eq(false)
-      expect(@service_booking.auto_transmission_radio.set?).to eq(true)
+      expect(service_booking.manual_transmission_radio.set?).to eq(false)
+      expect(service_booking.auto_transmission_radio.set?).to eq(true)
     end
 
     if hash['Fuel type'] =~ /Petrol/
-      expect(@service_booking.fuel_petrol_radio.set?).to eq(true)
-      expect(@service_booking.fuel_diesel_radio.set?).to eq(false)
+      expect(service_booking.fuel_petrol_radio.set?).to eq(true)
+      expect(service_booking.fuel_diesel_radio.set?).to eq(false)
     else
-      expect(@service_booking.fuel_petrol_radio.set?).to eq(false)
-      expect(@service_booking.fuel_diesel_radio.set?).to eq(true)
+      expect(service_booking.fuel_petrol_radio.set?).to eq(false)
+      expect(service_booking.fuel_diesel_radio.set?).to eq(true)
     end
   end
 end
@@ -75,19 +75,19 @@ Then I will see feedback that my car details are incorrect with:
 end
 
 Then /^I will see feedback that my car details are (?:incomplete|incorrect) with:$/ do |table|
-  @service_booking = site.service_booking.step1
-  expect(@service_booking.registration_error_box.exists?).to eq(true)
+  service_booking = site.service_booking.step1
+  expect(service_booking.registration_error_box.exists?).to eq(true)
   table.hashes.each_with_index do |hash, index|
-    expect(@service_booking.registration_error_box.li(index: index).text).to eq(hash['Feedback'])
+    expect(service_booking.registration_error_box.li(index: index).text).to eq(hash['Feedback'])
   end
 end
 
 Then /^I will see more info details in summary as:$/ do |table|
-  @service_booking2 = site.service_booking.step2
+  service_booking2 = site.service_booking.step2
   table.hashes.each do |hash|
-    expect(@service_booking2.service_plan_summary).to eq(hash['Service Plan'])
-    expect(@service_booking2.extended_warranty_summary).to eq(hash['Extended warranty'])
-    expect(@service_booking2.leased_with_summary).to eq(hash['Leased with'])
+    expect(service_booking2.service_plan_summary).to eq(hash['Service Plan'])
+    expect(service_booking2.extended_warranty_summary).to eq(hash['Extended warranty'])
+    expect(service_booking2.leased_with_summary).to eq(hash['Leased with'])
   end
 end
 
@@ -126,52 +126,52 @@ Then /^the option for I'm interested in a service plan will disappear$/ do
 end
 
 Then /^I (?:update|add) the (.*) field with (.*)$/ do |car_detail_field, value|
-  @service_booking = site.service_booking.step1
+  service_booking = site.service_booking.step1
   case car_detail_field
     when 'Model'
-      @service_booking.model_field.when_present.set(value)
+      service_booking.model_field.when_present.set(value)
     when 'Trim'
-      @service_booking.trim_field.when_present.set(value)
+      service_booking.trim_field.when_present.set(value)
     when 'Engine size'
-      @service_booking.engine_size_field.when_present.set(value)
+      service_booking.engine_size_field.when_present.set(value)
     when 'Year of manufacture'
-      @service_booking.year_made_field.when_present.set(value)
+      service_booking.year_made_field.when_present.set(value)
   end
 end
 
 Then /^I set the transmission to (.*)$/ do |trans_type|
-  @service_booking = site.service_booking.step1
+  service_booking = site.service_booking.step1
   if trans_type =~ /Manual/
-    @service_booking.set_manual_transmission.click
+    service_booking.set_manual_transmission.click
   elsif trans_type =~ /Automatic/
-    @service_booking.set_auto_transmission.click
+    service_booking.set_auto_transmission.click
   end
 end
 
 Then /^I set the fuel type to (.*)$/ do |fuel_type|
-  @service_booking = site.service_booking.step1
+  service_booking = site.service_booking.step1
   if fuel_type =~ /Petrol/
-    @service_booking.set_fuel_petrol.click
+    service_booking.set_fuel_petrol.click
   elsif fuel_type =~ /Diesel/
-    @service_booking.set_fuel_diesel.click
+    service_booking.set_fuel_diesel.click
   end
 end
 
 When /^I select Next - My details$/ do
-  @service_booking = site.service_booking.step1
-  @service_booking.step2_button.when_present.click
-  Watir::Wait.while { @service_booking.loading_wheel.visible? }
+  service_booking = site.service_booking.step1
+  service_booking.step2_button.when_present.click
+  Watir::Wait.while { service_booking.loading_wheel.visible? }
 end
 
 Then /^I will see my car details summary populated with:$/ do |table|
-  @service_booking2 = site.service_booking.step2
+  service_booking2 = site.service_booking.step2
   table.hashes.each do |hash|
-    expect(@service_booking2.car_trim_details).to eq(hash['Trim'])
-    expect(@service_booking2.car_year_made_details).to eq(hash['Year of manufacture'])
-    expect(@service_booking2.car_reg_details).to eq(hash['Registration'])
-    expect(@service_booking2.engine_size_details).to eq(hash['Engine size'])
-    expect(@service_booking2.fuel_type_details).to eq(hash['Fuel type'])
-    expect(@service_booking2.transmission_details).to eq(hash['Transmission'])
+    expect(service_booking2.car_trim_details).to eq(hash['Trim'])
+    expect(service_booking2.car_year_made_details).to eq(hash['Year of manufacture'])
+    expect(service_booking2.car_reg_details).to eq(hash['Registration'])
+    expect(service_booking2.engine_size_details).to eq(hash['Engine size'])
+    expect(service_booking2.fuel_type_details).to eq(hash['Fuel type'])
+    expect(service_booking2.transmission_details).to eq(hash['Transmission'])
   end
 end
 
