@@ -8,6 +8,38 @@ class BookAService2Step1 < BookAService2
     Watir::Wait.while { loading_wheel.visible? }
   end
 
+  def car_trim_details
+    car_details_section.li(index: 0).span(index: 0).text
+  end
+
+  def car_year_made_details
+    car_details_section.li(index: 0).span(index: 1).text
+  end
+
+  def car_reg_details
+    car_details_section.li(index: 1).text
+  end
+
+  def engine_size_details
+    car_details_section.li(index: 2).span(index: 0).text
+  end
+
+  def fuel_type_details
+    car_details_section.li(index: 2).span(index: 1).text
+  end
+
+  def transmission_details
+    car_details_section.li(index: 2).span(index: 2).text
+  end
+
+  def car_details_section
+    @browser.element(id: 'carDetailsEditLeft-viewer')
+  end
+
+  def edit_user_car_details
+    @browser.element(id: 'changeTo_carDetailsEditLeft-editor')
+  end
+
   def registration_lookup
     @browser.button(id: 'button-regLookup-submit')
   end

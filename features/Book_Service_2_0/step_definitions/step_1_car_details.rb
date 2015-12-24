@@ -2,6 +2,12 @@ Given /^I am on the Volkswagen Homepage$/ do
   site.homepage.visit
 end
 
+When /^I login into my account$/ do
+  account = site.my_vw.login.get_login_details('Current_car_User')
+  site.my_vw.login.login_link.when_present.click
+  site.my_vw.login.login(account[0], account[1])
+end
+
 When /^I click the book a service button in the navigation$/ do
   site.primary_nav.book_service
 end
@@ -12,6 +18,7 @@ end
 
 And /^I can not continue until I enter a vehicle registration$/ do
   expect(site.service_booking.step1.registration_lookup.enabled?).to eq(false)
+  expect(site.service_booking.step1.step2_button.enabled?).to eq(false)
 end
 
 When /^I fill in the approximate(?: mileage with | )(.*) under more info$/ do |mileage|
@@ -174,6 +181,24 @@ Then /^I will see my car details summary populated with:$/ do |table|
     expect(service_booking2.transmission_details).to eq(hash['Transmission'])
   end
 end
+
+Then /^I will see my car details summary on step 1 with:$/ do |table|
+  service_booking = site.service_booking.step1
+  table.hashes.each do |hash|
+    expect(service_booking.car_trim_details).to eq(hash['Trim'])
+    expect(service_booking.car_year_made_details).to eq(hash['Year of manufacture'])
+    expect(service_booking.car_reg_details).to eq(hash['Registration'])
+    expect(service_booking.engine_size_details).to eq(hash['Engine size'])
+    expect(service_booking.fuel_type_details).to eq(hash['Fuel type'])
+    expect(service_booking.transmission_details).to eq(hash['Transmission'])
+  end
+end
+
+
+Then(/^my car details are editable$/) do
+  site.service_booking.step1.edit_user_car_details.when_present.click
+end
+
 
 When /^I select change my car details$/ do
   site.service_booking.step2.update_car_details.click

@@ -20,6 +20,10 @@ class MyVWLogin < MyVW
     login_button.click
   end
 
+  def login_link
+    @browser.element(class: 'user-link')
+  end
+
   def login(username, password)
     page_loaded?
     set_email(username)
