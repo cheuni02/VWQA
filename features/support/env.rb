@@ -112,7 +112,7 @@ AfterStep do
 end
 
 After('@clear_cookies') do
-  browser.cookies.clear
+  browser.cookies.clear 
 end
 
 After do |scenario|
