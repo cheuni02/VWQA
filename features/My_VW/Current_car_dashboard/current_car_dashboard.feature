@@ -6,10 +6,6 @@ Feature: Current car dashboard
     Background:
       Given that i have logged in to my account
 
-    Scenario: Current car dashboard
-      When the current car dashboard page has loaded
-      Then I should be greeted with my current car dashboard and my name
-
     Scenario: My car hero module
       When i check the content of the hero module
       Then i should see a hero tagline with my car name
@@ -28,16 +24,6 @@ Feature: Current car dashboard
       When i click on the link to view my retailers website
       Then i should see the retailer page for "Ipswich Volkswagen" load in my browser
 
-    Scenario Outline: My Service gurantee module
-      When i click on a <gurantee> link in the service guarantee module
-      Then the <page> page should load successfully in my browser
-
-      Examples:
-        | gurantee                                | page                     |
-        | /owners/service-promise                 | service-promise          |
-        | /owners/servicing/what-we-check-and-why | what-we-check-and-why    |
-        | /owners/volkswagen-genuine-parts        | volkswagen-genuine-parts |
-
     Scenario: My Service History Notification
       Given my account is not validated with DBG
       When i check the service history and plans section of my account
@@ -53,7 +39,7 @@ Feature: Current car dashboard
         | Fixed price servicing |
         | Extended warranty     |
         | Accessories           |
- 
+
     Scenario Outline: Need help module
       When i am on need help module
       Then i should see the need help search bar
