@@ -4,6 +4,50 @@ class BookAService2Step3 < BookAService2
     retailer_section.wait_until_present
   end
 
+  def summary_title
+    personal_details_summary.li(index: 0).span(index: 0).text
+  end
+
+  def summary_name
+    personal_details_summary.li(index: 0).span(index: 1).text
+  end
+
+  def summary_surname
+    personal_details_summary.li(index: 0).span(index: 2).text
+  end
+
+  def summary_mobile
+    personal_details_summary.li(index: 1).text
+  end
+
+  def summary_email
+    personal_details_summary.li(index: 2).text
+  end
+
+  def personal_details_summary
+    @browser.element(class: 'my-details-personal-data')
+  end
+
+  def summary_house_number
+    address_summary.li(index: 0).text
+  end
+
+  def summary_street
+    address_summary.li(index: 1).text
+  end
+
+  def summary_town
+    address_summary.li(index: 3).text
+  end
+
+  def summary_postcode
+    address_summary.li(index: 5).text
+  end
+
+  def address_summary
+    @browser.element(class: 'my-details-address-data')
+  end
+
   def retailer_selected_present?
     current_selected_retailer.present?
   end

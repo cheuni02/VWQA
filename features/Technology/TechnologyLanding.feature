@@ -1,3 +1,4 @@
+@vw-plugin-cps-vw-section-technology @Daily
 Feature: Technology Landing Page
   As part of the site features for users
   We need to provide details about the technology used
@@ -22,9 +23,9 @@ Feature: Technology Landing Page
     | proximity-sensing                   | Proximity sensing : Volkswagen UK                 |
     | think-blue                          | Think Blue. : Volkswagen UK                       |
     | passive-safety                      | Passive safety : Volkswagen UK                    |
-    | parking-and-manoeuvring             | Parking and manoeuvring : Volkswagen UK           |  
-    | driving                             | Driving : Volkswagen UK                           | 
-    | comfort-and-convenience             | Comfort and convenience : Volkswagen UK           | 
+    | parking-and-manoeuvring             | Parking and manoeuvring : Volkswagen UK           |
+    | driving                             | Driving : Volkswagen UK                           |
+    | comfort-and-convenience             | Comfort and convenience : Volkswagen UK           |
     | electric-technology                 | Electric Technology : Volkswagen UK               |
     | navigation-and-entertainment-systems| Navigation and Entertainment systems : Volkswagen UK  |
     | other-technologies                  | Other technologies : Volkswagen UK                |
@@ -34,4 +35,3 @@ Feature: Technology Landing Page
   Scenario: Checking the thumbnails are displayed on Technology page
     When i see the additional technology sections on the page
     Then i should see right content for each additional section
-

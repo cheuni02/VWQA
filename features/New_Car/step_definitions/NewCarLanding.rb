@@ -12,7 +12,7 @@ When /^i click on the New Cars link in the top level nav$/ do
 end
 
 Then /^i should see the list of Volkswagen car models appear in my browser$/ do
-  raise unless @newCarLanding.page_loaded?
+  expect{@newCarLanding.page_loaded?}.not_to raise_error
 end
 
 

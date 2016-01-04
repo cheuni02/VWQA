@@ -1,186 +1,180 @@
-Given /^i navigate to the book a service page$/ do
-  @service_booking = site.service_booking.step1
-  @service_booking.visit
-end
-
-And /^i expand the Information Panels$/ do
-  @service_booking.expand_detail_panels
-end
-
-
-Given /^i am on the Volkswagen Homepage$/ do
+Given /^I am on the Volkswagen Homepage$/ do
   site.homepage.visit
 end
 
-When /^i click the book a service button in the navigation$/ do
+When /^I click the book a service button in the navigation$/ do
   site.primary_nav.book_service
 end
 
-Then /^i should see step 1 of the new book a service flow loads in my browser$/ do
-  @service_booking.page_loaded?
+Then /^I should see step 1 of book a service$/ do
+  site.service_booking.step1.page_loaded?
 end
 
-Given /^i login to my Volkswagen Account with a valid car saved$/ do
-  pending("Required Account Details for these tests")
+And /^I can not continue until I enter a vehicle registration$/ do
+  expect(site.service_booking.step1.registration_lookup.enabled?).to eq(false)
 end
 
-When /^i visit the book a service section of the site$/ do
-  pending("Required Account Details for these tests")
+When /^I fill in the approximate(?: mileage with | )(.*) under more info$/ do |mileage|
+  site.service_booking.step1.mileage_field.when_present.set(mileage)
 end
 
-Then /^i should see the details of my car are present on the page$/ do
-  pending("Required Account Details for these tests")
+When /^I enter a vehicle (?:invalid|valid) (.*)$/ do |registration|
+  site.service_booking.step1.registration_field.when_present.set(registration)
 end
 
-When /^i fill in the approximate (.*) value in the more details form$/ do |mileage|
-  @service_booking.set_mileage_field(mileage)
+Given /^I clear the vehicle Registration field$/ do
+  site.service_booking.step1.registration_field.when_present.clear
 end
 
-And /^i attempt to proceed to continue with my service booking$/ do
-  @service_booking.click_step_2_button
+And /^I click lookup button to find my registration$/ do
+  service_booking = site.service_booking.step1
+  service_booking.registration_lookup.when_present.click
+  Watir::Wait.while { service_booking.loading_wheel.visible? }
 end
 
-Then /^i should get a (.*) message if it is not valid$/ do |error_message|
-  pending("Error Message Not Implemented")
+Then /^I will see my car (.*), (.*), (.*), (.*), (.*), (.*) populated$/ do |model, trim, engine, year, trans, fuel|
+  steps %Q{
+And I will see my car details form populated with:
+| Model | Trim | Engine size | Year of manufacture | Transmission | Fuel type |
+| #{model} | #{trim} | #{engine} | #{year} | #{trans} | #{fuel} |
+   }
 end
 
+Then /^I will see my car details form populated with:$/ do |table|
+  service_booking = site.service_booking.step1
+  table.hashes.each do |hash|
+    expect(service_booking.model_field.when_present.value).to eq(hash['Model'])
+    expect(service_booking.trim_field.when_present.value).to eq(hash['Trim'])
+    expect(service_booking.engine_size_field.when_present.value).to eq(hash['Engine size'])
+    expect(service_booking.year_made_field.when_present.value).to eq(hash['Year of manufacture'])
 
-When /^i set my expanded details to state i am interested in a service plan$/ do
-  @service_booking.set_interested_in_plan
+    if hash['Transmission'] =~ /Manual/
+      expect(service_booking.manual_transmission_radio.set?).to eq(true)
+      expect(service_booking.auto_transmission_radio.set?).to eq(false)
+    else
+      expect(service_booking.manual_transmission_radio.set?).to eq(false)
+      expect(service_booking.auto_transmission_radio.set?).to eq(true)
+    end
+
+    if hash['Fuel type'] =~ /Petrol/
+      expect(service_booking.fuel_petrol_radio.set?).to eq(true)
+      expect(service_booking.fuel_diesel_radio.set?).to eq(false)
+    else
+      expect(service_booking.fuel_petrol_radio.set?).to eq(false)
+      expect(service_booking.fuel_diesel_radio.set?).to eq(true)
+    end
+  end
 end
 
-And /^i proceed to the next step of service booking$/ do
-  step "i attempt to proceed to continue with my service booking"
+Then /^I will see car details are incomplete with (.*)/ do |feedback|
+  steps %Q{
+Then I will see feedback that my car details are incorrect with:
+                                                |   Feedback   |
+                                                | #{feedback}  |
+}
 end
 
-Then /^i should see the following simple text message in my summary$/ do |text|
-  service_booking_step_2 = site.service_booking.step2
-  service_booking_step_2.page_loaded?
-  service_text = service_booking_step_2.get_service_plan_info
-  raise AssertionError, "Could not locate matching text in panel on Book a Service Step 2" unless service_text =~ /#{text}/i
+Then /^I will see feedback that my car details are (?:incomplete|incorrect) with:$/ do |table|
+  service_booking = site.service_booking.step1
+  expect(service_booking.registration_error_box.exists?).to eq(true)
+  table.hashes.each_with_index do |hash, index|
+    expect(service_booking.registration_error_box.li(index: index).text).to eq(hash['Feedback'])
+  end
 end
 
-When /^i set my expanded details to state that i have an extended warrenty$/ do
-  @service_booking.set_extended_warrenty
+Then /^I will see more info details in summary as:$/ do |table|
+  service_booking2 = site.service_booking.step2
+  table.hashes.each do |hash|
+    expect(service_booking2.service_plan_summary).to eq(hash['Service Plan'])
+    expect(service_booking2.extended_warranty_summary).to eq(hash['Extended warranty'])
+    expect(service_booking2.leased_with_summary).to eq(hash['Leased with'])
+  end
 end
 
-And /^i continue to the next step of my service booking$/ do
-  step "i attempt to proceed to continue with my service booking"
+Then /^I will see a form to (?:enter|update) my car details$/ do
+  expect(site.service_booking.step1.edit_car_details_form.present?).to eq(true)
 end
 
-Then /^i should see the summary panel on the next step state that i have extended warrenty$/ do
-  pending("Currently just showing true/false... needs proper value and text")
+When /^I select that I have a service plan$/ do
+  site.service_booking.step1.service_plan_label.click
 end
 
-When /^i set my expanded details as i already have a service plan$/ do
-  @service_booking.set_already_have_plan
-  sleep(2) # Needs to have a brief pause here to allow the element to change state to hidden
+When /^I select that I'm interested in a service plan$/ do
+  site.service_booking.step1.interested_in_plan_label.click
 end
 
-Then /^i should no longer see the option to set that i want a service plan$/ do
-  raise ValidationError, "Interested in Service Plan Panel still present!" if @service_booking.interested_in_plan_present?
+When /^I select that I have a extended warranty$/ do
+  site.service_booking.step1.warranty_label.click
 end
 
-When /^i enable the I lease this car radio button in the more info box$/ do
-  @service_booking.set_leased_car
+When /^I select that I lease my car$/ do
+  site.service_booking.step1.leased_car_label.click
 end
 
-Then /^i should be able to type the lease (.*) in the field$/ do |car_lease|
-  @service_booking.set_leased_car_field(car_lease)
+Then /^I will see feedback for more info (.*)$/ do |feedback|
+  @service_booking = site.service_booking.step1
+  expect(@service_booking.registration_error_more_info.exists?).to eq(true)
+  expect(@service_booking.registration_error_more_info.text).to eq(feedback)
 end
 
-And /^an error message (.*) be displayed if it is not valid and i try to proceed$/ do |message|
-  pending("Error Messages not implemented")
+When /^I provide a lease company (.*)$/ do |lease_company|
+  site.service_booking.step1.leased_car_field.set(lease_company)
 end
 
-Given /^my car has been leased to me by another company$/ do
-  step "i enable the I lease this car radio button in the more info box"
+Then /^the option for I'm interested in a service plan will disappear$/ do
+  expect(site.service_booking.step1.interested_in_plan_label.present?).to eq(false)
 end
 
-When /^i enter the name of the company into the leased car field$/ do
-  step "i should be able to type the lease CostCarCo in the field"
+Then /^I (?:update|add) the (.*) field with (.*)$/ do |car_detail_field, value|
+  service_booking = site.service_booking.step1
+  case car_detail_field
+    when 'Model'
+      service_booking.model_field.when_present.set(value)
+    when 'Trim'
+      service_booking.trim_field.when_present.set(value)
+    when 'Engine size'
+      service_booking.engine_size_field.when_present.set(value)
+    when 'Year of manufacture'
+      service_booking.year_made_field.when_present.set(value)
+  end
 end
 
-And /^i proceed to the next page of service booking$/ do
-  step "i attempt to proceed to continue with my service booking"
+Then /^I set the transmission to (.*)$/ do |trans_type|
+  service_booking = site.service_booking.step1
+  if trans_type =~ /Manual/
+    service_booking.set_manual_transmission.click
+  elsif trans_type =~ /Automatic/
+    service_booking.set_auto_transmission.click
+  end
 end
 
-Then /^i should see my leased car details contained in my current booking summary$/ do
-  #service_booking_step_2 = site.service_booking.step2
-  #service_booking_step_2.page_loaded?
-  #service_text = service_booking_step_2.get_service_plan_info
-  pending("Display of leased car in second page info not implemented")
+Then /^I set the fuel type to (.*)$/ do |fuel_type|
+  service_booking = site.service_booking.step1
+  if fuel_type =~ /Petrol/
+    service_booking.set_fuel_petrol.click
+  elsif fuel_type =~ /Diesel/
+    service_booking.set_fuel_diesel.click
+  end
 end
 
-Given /^i log into an account with multiple cars saved$/ do
-  pending("Account with correct setup not available for these tests")
+When /^I select Next - My details$/ do
+  service_booking = site.service_booking.step1
+  service_booking.step2_button.when_present.click
+  Watir::Wait.while { service_booking.loading_wheel.visible? }
 end
 
-When /^i return to the service booking page$/ do
-  step "i click the book a service button in the navigation"
+Then /^I will see my car details summary populated with:$/ do |table|
+  service_booking2 = site.service_booking.step2
+  table.hashes.each do |hash|
+    expect(service_booking2.car_trim_details).to eq(hash['Trim'])
+    expect(service_booking2.car_year_made_details).to eq(hash['Year of manufacture'])
+    expect(service_booking2.car_reg_details).to eq(hash['Registration'])
+    expect(service_booking2.engine_size_details).to eq(hash['Engine size'])
+    expect(service_booking2.fuel_type_details).to eq(hash['Fuel type'])
+    expect(service_booking2.transmission_details).to eq(hash['Transmission'])
+  end
 end
 
-And /^i expand the car details panel$/ do
-  step "i expand the Information Panels"
-end
-
-Then /^i should see a dropdown allowing me to select which car i want to book for a service$/ do
-  # Pending - Enter code here
-end
-
-And /^if i change the dropdown the values in the car details panel should change$/ do
-  # Pending - Enter code here
-end
-
-Given /^i click on the "Registration Lookup" Button$/ do
-  @service_booking.click_registration_lookup
-end
-
-When /^i enter a vehicle registration (.*) into the registration field$/ do |registration|
-  @service_booking.set_registration_field(registration)
-end
-
-And /^i click on the lookup button to find my registration$/ do
-  @service_booking.do_registration_lookup
-  @service_booking.click_select_car # This is a temp hack to get it to work! Please remove later
-end
-
-Then /^i should see my car details get filled in automatically with data$/ do
-  raise AssertionError, "Car Details were not filled in with valid registration!" unless @service_booking.get_derivative_name.length > 0
-end
-
-Given /^i am attempting to look up my car registration$/ do
-  step "i click on the \"Registration Lookup\" Button"
-end
-
-When /^i enter an invalid registration number "(.*)"$/ do |registration|
-  step "i enter a vehicle registration #{registration} into the registration field"
-end
-
-And /^i click on the lookup button to find this registration$/ do
-  step "i click on the lookup button to find my registration"
-end
-
-Then /^i should not see any data in the car details fields$/ do
-  raise AssertionError, "Car Details were entered with invalid registration number!" unless @service_booking.get_derivative_name.length == 0
-end
-
-When /^i complete the Car information by entering my <model> and <trim>$/ do |model,trim|
-  pending("Model Field currently AWOL")
-end
-
-And /^i also enter my engine size of <engine_size> with manufacture year <year>$/ do  |engine_size,year|
-  # Pending - Enter code here later
-end
-
-And /^i set the transmission to <transmission> with fuel type <fuel>$/ do |transmission,fuel|
-  # Pending - Enter code here later
-end
-
-And /^i attempt to proceed with the next step of booking a service$/ do
-  step "i attempt to proceed to continue with my service booking"
-end
-
-Then /^i <proceed> be able to continue with booking a service$/ do |proceed|
-  # Pending - Enter code here later
+When /^I select change my car details$/ do
+  site.service_booking.step2.update_car_details.click
 end

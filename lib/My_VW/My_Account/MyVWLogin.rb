@@ -33,7 +33,7 @@ class MyVWLogin < MyVW
     accounts = JSON.parse(File.read('users.json'))['User_accounts'][host]
     accounts.each do |account|
       if account['purpose'] == purpose
-        return [account['username'], account['password']]
+        return [account['username'], account['password'], account['uuid']]
       end
     end
   end

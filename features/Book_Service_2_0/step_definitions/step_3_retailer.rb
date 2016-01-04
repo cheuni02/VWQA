@@ -16,7 +16,7 @@ When /^i am on the Step 3 retailer page$/ do
   @service_booking.page_loaded?
   @service_booking.click_step_2_button
   @service_booking_2.page_loaded?
-  @service_booking_2.click_step3_button
+  @service_booking_2.step3_button.click
   @service_booking_3.page_loaded?
 end
 

@@ -32,7 +32,30 @@ task :personalisation, [:host, :tag, :np_cookie, :p_cookie] do |t, args|
   Rake::Task[:run].invoke()
 end
 
+# This build is designed for use in the CI Environment as the -c tag will
+# force colour output. This will screw up the display on windows if you dont have
+# ansicon installed
 task :tagged_build, [:host, :tag_string, :env_tag] do |t, args|
+  tag_string = "#{args[:tag_string]}"
+
+  ENV['ALL_TAGS'] = tag_string
+
+  args.extras.each do |arg|
+    tag_string << " --tags #{arg}" unless arg.length == 0
+  end
+  Cucumber::Rake::Task.new(:run) do |t|
+    ENV['HOST'] = args[:host]
+    ENV['TAG'] = args[:env_tag]
+    #t.cucumber_opts = "--tags #{tag_string} --format junit -o results"
+    t.cucumber_opts = "-c --tags #{tag_string} --format junit -o results/#{ENV['ALL_TAGS'].sub('@', '')}"
+    t.profile = "tagged_build"
+  end
+  Rake::Task[:run].invoke()
+end
+
+# Use this for development on windows machines so you dont get the evil ansi
+# text output all over the place
+task :tagged_build_wip, [:host, :tag_string, :env_tag] do |t, args|
   tag_string = "#{args[:tag_string]}"
 
   ENV['ALL_TAGS'] = tag_string
@@ -49,6 +72,7 @@ task :tagged_build, [:host, :tag_string, :env_tag] do |t, args|
   end
   Rake::Task[:run].invoke()
 end
+
 
 task :generate_user_accounts, [:host, :db_host] do |t, args|
   ENV['HOST'] = args[:host]

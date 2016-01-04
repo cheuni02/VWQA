@@ -4,7 +4,7 @@ class NewCars < BrowserContainer
   def select_model(model_name)
     car_range.lis.each do |li|
       if li.span.h2.text =~ /#{model_name}/i
-	li.link.click
+	li.link.when_present.click
 	break
       end
     end
@@ -63,7 +63,7 @@ class NewCars < BrowserContainer
   end
 
   def page_loaded?
-    horizontal_view_button.present?
+    horizontal_view_button.wait_until_present
   end
 
   def set_horizontal_view

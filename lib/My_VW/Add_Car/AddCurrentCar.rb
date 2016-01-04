@@ -118,6 +118,18 @@ class AddCurrentCar < MyVW
     added_car.present?
   end
 
+  def max_car_alert_present?
+    max_cars_alert.present?
+  end
+
+  def max_alert_button_ok
+    max_alert_button.click
+  end
+
+  def reg_input_present?
+    reg_input.present?
+  end
+
   private
 
   def page_url
@@ -246,5 +258,17 @@ class AddCurrentCar < MyVW
 
   def added_car
     @browser.my_car_menu.div(:class => "my-cars-dropdown-cars").h2(:class => "my-cars-dropdown-car-detail-info__title", :text => "test")
+  end
+
+  def max_cars_alert
+    @browser.div(:class => "my-overlay__content--tiny").h2(:text => "Maximum number of cars reached")
+  end
+
+  def max_alert_button
+   @browser.button(:class => "my-overlay__no-more-cars-button")
+  end
+
+  def reg_input
+    @browser.input(:id => "registration-number")
   end
 end

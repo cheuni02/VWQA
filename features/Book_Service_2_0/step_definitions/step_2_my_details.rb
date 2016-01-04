@@ -1,65 +1,106 @@
-Given /^i have completed Step 1$/ do
-  @service_booking_2 = site.service_booking.step2
-  @service_booking = site.service_booking.step1
-  @service_booking.visit
-  @service_booking.page_loaded?
-end
-
-And /^click the next My details button$/ do
-  @service_booking.click_step_2_button
+Given /^I have completed Step 1$/ do
+  site.homepage.visit
+  site.primary_nav.book_service
+  service_booking = site.service_booking.step1
+  @reg = 'VU12WGE'
+  service_booking.registration_field.when_present.set('VU12WGE')
+  service_booking.registration_lookup.when_present.click
+  Watir::Wait.while { service_booking.loading_wheel.visible? }
 end
 
 When /^Step 2 of book a service has loaded$/ do
-  @service_booking_2.page_loaded?
+  site.service_booking.step2.page_loaded?
 end
 
-Then /^i should see the step 1 details above$/ do
-  raise AssertionError, "Step 1 details not present" unless @service_booking_2.car_details_section_present?  
+Then /^I will see step 1 details in summary/ do
+  service_booking = site.service_booking.step2
+  expect(service_booking.car_details_section.present?).to eq(true)
+  expect(service_booking.car_details_section.present?).to eq(true)
+  expect(service_booking.car_reg_details).to eq(@reg)
 end
 
-When /^i am on Step 2 of book a service$/ do
-  site.my_vw.login.visit
-  site.my_vw.login.login(@account[0],@account[1])
-  @service_booking.visit
-  @service_booking.click_step_2_button
-  @service_booking_2.page_loaded?
+When /^I select Next - Select retailer$/ do
+  site.service_booking.step2.step3_button.click
 end
 
-Then /^i should see my personal details and address cards already populated$/ do
-  @service_booking_2.click_edit_links
-  raise AssertionError, "Empty field present" unless @service_booking_2.personal_details_populated? == true && @service_booking_2.address_details_populated? == true
+Then /^I will see (.*) that my personal details are (?:incomplete|invalid)$/ do |feedback|
+  steps %(
+    Then  I will see feedback that my personal details are incomplete with:
+      | Feedback |
+      | #{feedback}  |
+        )
 end
 
-When /^the Step 2 page of book a service has loaded$/ do
-  @service_booking_2.page_loaded?
+Then /^I will see feedback that my personal details are incomplete with:$/ do |table|
+  service_booking = site.service_booking.step2
+  expect(service_booking.personal_details_errors.present?).to eq(true)
+  table.hashes.each_with_index do |hash, index|
+    expect(service_booking.personal_details_errors.li(index: index).text).to eq(hash['Feedback'])
+  end
 end
 
-Then /^i should be able to see Step 2 where i can fill in my personal details$/ do
-  raise AssertionError, "Personal details panel not present" unless @service_booking_2.page_loaded?
+Then /^I will see (.*) (?:that my address details are incomplete|error message)$/ do |feedback|
+  steps %(
+      And  I will see feedback that my address is incomplete with:
+      | Feedback |
+      | #{feedback} |
+        )
 end
 
-When /^i click the edit link on the personal details card$/ do
-  @service_booking_2.page_loaded?
-  @service_booking_2.click_edit_personal_details_link
+Then /^I will see feedback that my address is incomplete with:$/ do |table|
+  service_booking = site.service_booking.step2
+  expect(service_booking.address_errors.present?).to eq(true)
+  table.hashes.each_with_index do |hash, index|
+    expect(service_booking.address_errors.li(index: index).text).to eq(hash['Feedback'])
+  end
 end
 
-And /^i fill in the my (.*), (.*), (.*) and (.*)$/ do |first_name, last_name, mobile, email|
-  @service_booking_2.enter_personal_details(first_name, last_name, mobile, email)
+When /^I select my(?: title| )(.*)$/ do |title|
+  site.service_booking.step2.select_title(title)
 end
 
-Then /^i should get a (.*) message if any details are not valid$/ do |message|
-  pending #Validation not implemented yet
+And /^I fill in my personal details (.*), (.*), (.*) and (.*)$/ do |first_name, last_name, mobile, email|
+  site.service_booking.step2.enter_personal_details(first_name, last_name, mobile, email)
 end
 
-When /^i click the edit link on the Address card$/ do
-  @service_booking_2.page_loaded?
-  @service_booking_2.click_edit_address_details
+When /^I fill in the postcode with (.*)$/ do |postcode|
+  site.service_booking.step2.postcode_field.set(postcode)
 end
 
-And /^i fill in the required information such as (.*), (.*), (.*) and (.*)$/ do |house_no, postcode, address_line1, city|
-  @service_booking_2.enter_address_details(house_no, postcode, address_line1, city)
+When /^I select postcode lookup$/ do
+  site.service_booking.step2.postcode_lookup.click
 end
 
-Then /^i should see an (.*) message if details need to be completed$/ do |message|
-  pending #Validation not implemented yet
+And /^I fill in my address information (.*), (.*), (.*) and (.*)$/ do |postcode, house_no, address_line1, city|
+  site.service_booking.step2.enter_address_details(house_no, postcode, address_line1, city)
+end
+
+Then(/^my address details will be populated:$/) do |table|
+  service_booking = site.service_booking.step2
+  table.hashes.each do |hash|
+    expect(service_booking.address_line_1_field.value).to eq(hash['Address Line 1'])
+    expect(service_booking.city_field.value).to eq(hash['City'])
+    expect(service_booking.county_field.value).to eq(hash['County'])
+  end
+end
+
+Then(/^I will see my personal details in summary:$/) do |table|
+  service_booking = site.service_booking.step3
+  table.hashes.each do |hash|
+    expect(service_booking.summary_title).to eq(hash['Title'])
+    expect(service_booking.summary_name).to eq(hash['Name'])
+    expect(service_booking.summary_surname).to eq(hash['Surname'])
+    expect(service_booking.summary_mobile).to eq(hash['Mobile'])
+    expect(service_booking.summary_email).to eq(hash['Email'])
+  end
+end
+
+Then(/^I will see my address details in summary:$/) do |table|
+  service_booking = site.service_booking.step3
+  table.hashes.each do |hash|
+    expect(service_booking.summary_house_number).to eq(hash['House No'])
+    expect(service_booking.summary_street).to eq(hash['Street'])
+    expect(service_booking.summary_town).to eq(hash['City'])
+    expect(service_booking.summary_postcode).to eq(hash['Postcode'])
+  end
 end
