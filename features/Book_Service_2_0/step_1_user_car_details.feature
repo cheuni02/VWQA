@@ -1,4 +1,4 @@
-@my_vw @Service-Booking-2 @clear_cookies
+@my_vw @Service-Booking-2 @clear_cookies @login_Current_User
 Feature: Booking A Car Service Step 1 car details
   We need to ensure we can enter our car details on the first step of registration
   So that customers can enter all the required details for a new car service
@@ -27,7 +27,6 @@ Feature: Booking A Car Service Step 1 car details
     Then I will see my car details form populated with:
       | Model | Trim                      | Engine size | Year of manufacture | Transmission | Fuel type |
       | Up    | MOVE UP BLUEMOTION TECHNO | 1           | 2012                | Manual       | Petrol    |
-
 
     When I select from my cars
     And I select JETTA13 from my list of vehicles

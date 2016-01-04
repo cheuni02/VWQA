@@ -3,9 +3,8 @@ Given /^I am on the Volkswagen Homepage$/ do
 end
 
 When /^I login into my account$/ do
-  account = site.my_vw.login.get_login_details('Current_car_User')
   site.my_vw.login.login_link.when_present.click
-  site.my_vw.login.login(account[0], account[1])
+  site.my_vw.login.login(@account[0], @account[1])
 end
 
 When /^I click the book a service button in navigation$/ do
