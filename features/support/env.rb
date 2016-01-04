@@ -111,10 +111,6 @@ AfterStep do
   end
 end
 
-After('@clear_cookies') do
-  browser.cookies.clear
-end
-
 After do |scenario|
   if scenario.failed?
     time = Time.now.strftime("%Y-%m-%d-%H%M%S")
@@ -126,6 +122,9 @@ After do |scenario|
   end
 end
 
+After('@clear_cookies') do
+  browser.cookies.clear
+end
 
 at_exit do
   browser.close
