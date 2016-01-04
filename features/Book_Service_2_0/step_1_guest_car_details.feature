@@ -1,11 +1,11 @@
-#@my_vw @Service-Booking-2
+@my_vw @Service-Booking-2
 Feature: Booking A Car Service Step 1 car details
   We need to ensure we can enter our car details on the first step of registration
   So that customers can enter all the required details for a new car service
 
   Scenario: Guest books a service
     Given I am on the Volkswagen Homepage
-    When I click the book a service button in the navigation
+    When I click the book a service button in navigation
     Then I should see step 1 of book a service
     And I can not continue until I enter a vehicle registration
 

@@ -20,8 +20,11 @@ Then /^I will see step 1 details in summary/ do
 end
 
 When /^I select Next - Select retailer$/ do
-  site.service_booking.step2.step3_button.click
+  service_booking = site.service_booking.step2
+  service_booking.step2.step3_button.click
+  Watir::Wait.while { service_booking.loading_wheel.visible? }
 end
+
 
 Then /^I will see (.*) that my personal details are (?:incomplete|invalid)$/ do |feedback|
   steps %(
@@ -56,7 +59,7 @@ Then /^I will see feedback that my address is incomplete with:$/ do |table|
 end
 
 When /^I select my(?: title| )(.*)$/ do |title|
-  site.service_booking.step2.select_title(title)
+  site.service_booking.step2.select_title(title.strip)
 end
 
 And /^I fill in my personal details (.*), (.*), (.*) and (.*)$/ do |first_name, last_name, mobile, email|
@@ -68,7 +71,9 @@ When /^I fill in the postcode with (.*)$/ do |postcode|
 end
 
 When /^I select postcode lookup$/ do
-  site.service_booking.step2.postcode_lookup.click
+  service_booking = site.service_booking.step2
+  service_booking.postcode_lookup.click
+  Watir::Wait.while { service_booking.loading_wheel.visible? }
 end
 
 And /^I fill in my address information (.*), (.*), (.*) and (.*)$/ do |postcode, house_no, address_line1, city|

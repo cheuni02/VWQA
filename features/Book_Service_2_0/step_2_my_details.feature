@@ -1,4 +1,4 @@
-#@my_vw @Service-Booking-2
+@my_vw @Service-Booking-2
 Feature: Service booking Step 2 My details
   As a Volkswagen car owner i want to be able to book a service
   I should be able to complete Step 1 in book a service and be taken to Step 2
@@ -83,13 +83,13 @@ Feature: Service booking Step 2 My details
       | Newborough     | LLANFAIRPWLLGWYNGYLL | Gwynedd |
 
   Scenario: Guest successfully completes their personal details and address
-    Given I select my title Dr
+    Given I select my title Mr
     And I fill in my personal details John, Doe, 07889093223 and john_doe@tribalworldwide.com
     And I fill in my address information G2 3PS, 1, Hope Street and GLASGOW
     When I select Next - Select retailer
     Then I will see my personal details in summary:
       | Title | Name | Surname | Mobile      | Email                        |
-      | Dr    | John | Doe     | 07889093223 | john_doe@tribalworldwide.com |
+      | Mr    | John | Doe     | 07889093223 | john_doe@tribalworldwide.com |
     And I will see my address details in summary:
       | House No | Street      | City    | Postcode |
       | 1        | Hope Street | GLASGOW | G2 3PS   |

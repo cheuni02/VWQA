@@ -155,4 +155,17 @@ class BookAService2Step1 < BookAService2
   def fuel_diesel_radio
     @browser.radio(id: 'car-fuel-diesel')
   end
+
+  def select_vehicle_list(vehicle)
+    @browser.button(class: 'ui-button my-selectbox__button ui-combobox-button').click
+    @browser.li(text: vehicle).click
+  end
+
+  def search_for_another_car_button
+    @browser.button(id: 'button-regLookup')
+  end
+
+  def select_from_my_cars_button
+    @browser.button(id: 'button-selectCar')
+  end
 end

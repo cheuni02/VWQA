@@ -8,7 +8,7 @@ When /^I login into my account$/ do
   site.my_vw.login.login(account[0], account[1])
 end
 
-When /^I click the book a service button in the navigation$/ do
+When /^I click the book a service button in navigation$/ do
   site.primary_nav.book_service
 end
 
@@ -72,6 +72,23 @@ Then /^I will see my car details form populated with:$/ do |table|
     end
   end
 end
+
+When /^I select (.*) from my list of vehicles$/ do |vehicle|
+  service_booking = site.service_booking.step1
+  service_booking.select_vehicle_list(vehicle)
+  Watir::Wait.while { service_booking.loading_wheel.visible? }
+end
+
+When /^I search for another car$/ do
+  site.service_booking.step1.search_for_another_car_button.click
+end
+
+When /^I select from my cars$/ do
+  service_booking = site.service_booking.step1
+  service_booking.select_from_my_cars_button.click
+  Watir::Wait.while { service_booking.loading_wheel.visible? }
+end
+
 
 Then /^I will see car details are incomplete with (.*)/ do |feedback|
   steps %Q{
