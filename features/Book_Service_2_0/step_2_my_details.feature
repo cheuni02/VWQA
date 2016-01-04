@@ -83,13 +83,13 @@ Feature: Service booking Step 2 My details
       | Newborough     | LLANFAIRPWLLGWYNGYLL | Gwynedd |
 
   Scenario: Guest successfully completes their personal details and address
-    Given I select my title Dr
+    Given I select my title Mr
     And I fill in my personal details John, Doe, 07889093223 and john_doe@tribalworldwide.com
     And I fill in my address information G2 3PS, 1, Hope Street and GLASGOW
     When I select Next - Select retailer
     Then I will see my personal details in summary:
       | Title | Name | Surname | Mobile      | Email                        |
-      | Dr    | John | Doe     | 07889093223 | john_doe@tribalworldwide.com |
+      | Mr    | John | Doe     | 07889093223 | john_doe@tribalworldwide.com |
     And I will see my address details in summary:
       | House No | Street      | City    | Postcode |
       | 1        | Hope Street | GLASGOW | G2 3PS   |

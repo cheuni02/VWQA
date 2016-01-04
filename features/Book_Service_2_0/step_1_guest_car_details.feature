@@ -5,7 +5,7 @@ Feature: Booking A Car Service Step 1 car details
 
   Scenario: Guest books a service
     Given I am on the Volkswagen Homepage
-    When I click the book a service button in the navigation
+    When I click the book a service button in navigation
     Then I should see step 1 of book a service
     And I can not continue until I enter a vehicle registration
 

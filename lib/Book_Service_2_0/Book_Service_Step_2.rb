@@ -17,6 +17,10 @@ class BookAService2Step2 < BookAService2
     postcode_field.set(postcode)
   end
 
+  def loading_wheel
+    @browser.div(id: 'page').div(class: 'my-loading-shield')
+  end
+
   def car_trim_details
     car_details_section.li(index: 0).span(index: 0).text
   end
@@ -82,31 +86,8 @@ class BookAService2Step2 < BookAService2
   end
 
   def select_title(title)
-    case title
-    when /Mr/
-      title_list(0)
-    when /Mrs/
-      title_list(1)
-    when /Miss/
-      title_list(2)
-    when /Ms/
-      title_list(3)
-    when /Dr/
-      title_list(4)
-    when /Prof/
-      title_list(5)
-    when /Lord/
-      title_list(6)
-    when /Lady/
-      title_list(7)
-    when /Sir/
-      title_list(8)
-    end
-  end
-
-  def title_list(index)
     @browser.button(class: 'ui-button my-selectbox__button ui-combobox-button').click
-    @browser.element(id: 'ui-id-1').li(index: index).click
+    @browser.li(text: title).click unless title.empty?
   end
 
   def first_name_field
