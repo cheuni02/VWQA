@@ -75,7 +75,7 @@ Then /^the (.*) page should load successfully in my browser$/ do |page|
   when 'what-we-check-and-why'
     expect{site.owners.servicing.what_we_check_and_why.page_loaded?}.not_to raise_error
   when 'volkswagen-genuine-parts'
-    expect{site.owners.servicing.volkswagen_genuine_parts.page_loaded?}.not_to raise_error
+    expect{site.owners.servicing.genuine_parts.page_loaded?}.not_to raise_error
   end
 end
 
@@ -135,24 +135,16 @@ Then /^the correct page related to (.*) should load$/ do |page_name|
 end
 
 When /^i search for (.*) in the need help section$/ do |help|
-  #@current_car.search_help(help)
-  pending
+  @current_car.enter_need_help_search(help)
+  @current_car.search_need_help
 end
 
 Then /^i should get a (.*) from my need help search$/ do |result|
-  pending
-end
-
-When /^i am on the Current dashboard$/ do
-  #Nothing to do here
-end
-
-Then /^i should see my preferred retailer$/ do
-  raise AssertionError, "My preferred retailer not present" unless @current_car.my_retailer_present?
-end
-
-And /^the (.*) link in the box$/ do |links|
-  raise AssertionError, "link not present" unless @current_car.retailer_links_present?(links)
+  if result =~ /pass/i
+    expect(site.need_help.query_results_present?).to be true
+  else
+    expect(site.need_help.search_results_text).to match(/sorry/i)
+  end
 end
 
 When /^i scroll to the bottom of the page$/ do

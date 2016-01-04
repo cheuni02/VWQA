@@ -33,10 +33,10 @@ Feature: Current car dashboard
       Then the <page> page should load successfully in my browser
 
       Examples:
-        | gurantee                               | page                     |
-        | /owners/service-promise                | service-promise          |
-        | /owners/servicing/what-wecheck-and-why | what-we-check-and-why    |
-        | /owners/volkswagengenuine-parts        | volkswagen-genuine-parts |
+        | gurantee                                | page                     |
+        | /owners/service-promise                 | service-promise          |
+        | /owners/servicing/what-we-check-and-why | what-we-check-and-why    |
+        | /owners/volkswagen-genuine-parts        | volkswagen-genuine-parts |
 
     Scenario: My Service History Notification
       Given my account is not validated with DBG
@@ -53,7 +53,7 @@ Feature: Current car dashboard
         | Fixed price servicing |
         | Extended warranty     |
         | Accessories           |
-
+ 
     Scenario Outline: Need help module
       When i am on need help module
       Then i should see the need help search bar
@@ -68,7 +68,6 @@ Feature: Current car dashboard
         | How tos                 |
         | Breakdown and insurance |
 
-    @my-vw-test
     Scenario Outline: Need help search
       When i search for <help> in the need help section
       Then i should get a <result> from my need help search
@@ -78,16 +77,6 @@ Feature: Current car dashboard
       | breakdown | pass   |
       | insurance | pass   |
       | b34f      | fail   |
-
-    Scenario Outline: Preferred Retailer
-      When i am on the Current dashboard
-      Then i should see my preferred retailer
-      And the <links> link in the box
-
-      Examples:
-        | links            |
-        | View in maps     |
-        | Retailer website |
 
     Scenario Outline: Recovery zone
       When i scroll to the bottom of the page

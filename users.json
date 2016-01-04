@@ -122,7 +122,7 @@
         "username": "AutomatedToastUser1449673173@example.com",
         "password": "Abcd!2345",
         "purpose": "DBG_User_Invalid",
-        "uuid": "725a0bf8-ae1d-4742-87e5-407160cf0417"c
+        "uuid": "725a0bf8-ae1d-4742-87e5-407160cf0417"
       },
       {
         "title": "Mr",
@@ -149,7 +149,7 @@
         "username": "AutomatedToastUser1449673170@example.com",
         "password": "Abcd!2345",
         "purpose": "Max_Car_User",
-        "uuid": "f64bd944-a372-48c1-ae05-c0e4e93f92da"69c
+        "uuid": "f64bd944-a372-48c1-ae05-c0e4e93f92da"
       }
     ]
   }

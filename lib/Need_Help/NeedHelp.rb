@@ -7,17 +7,21 @@ class NeedHelp < BrowserContainer
   def wait_until_present_ask_question
     question_box.wait_until_present
   end
-  
+
   def set_query (query)
     question_box.set(query)
   end
-  
+
   def search_query
     question_search.click
   end
-    
+
+  def search_results_text
+    search_message.text
+  end
+
   def query_results_present?
-    question_results.present?  
+    question_results.present?
   end
 
   def category_dropdown
@@ -30,25 +34,29 @@ class NeedHelp < BrowserContainer
       option.click
       @browser.button(:id => "searchSubmit").when_present.click
       return true
-    else 
-      return false 
+    else
+      return false
     end
   end
 
   def visit
     visit_page(page_url)
   end
-  
+
   private
 
   def question_box
     @browser.text_field(:id => "searchTerm")
   end
-  
+
+  def search_message
+    @browser.p(:class => "search-message")
+  end
+
   def question_search
     @browser.button(:id => "searchSubmit")
   end
-  
+
   def question_results
      @browser.ul(:class => "module__list")
   end
@@ -56,7 +64,7 @@ class NeedHelp < BrowserContainer
   def category_links
     @browser.select_list(:id => "category")
   end
-  
+
   def page_url
     "/need-help"
   end

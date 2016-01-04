@@ -1,4 +1,4 @@
-class VolkswagenGenuinePartsPage < ServiceBase
+class VolkswagenGenuinePartsPage < Servicing
 
   def page_loaded?
     main_panel.wait_until_present(10)
