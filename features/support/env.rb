@@ -98,11 +98,11 @@ World do
   CustomWorld.new
 end
 
-Before do
+Before('@vw-plugin-cps-vw-section-owners, @vw-web-site, @vw-retailers-site') do
   browser.execute_script("window.alert = function() {}")
 end
 
-AfterStep do
+AfterStep('@vw-plugin-cps-vw-section-owners, @vw-web-site, @vw-retailers-site') do
   begin
     browser.execute_script("window.alert = function() {}")
   rescue Selenium::WebDriver::Error::UnhandledAlertError
@@ -110,10 +110,6 @@ AfterStep do
     retry
   end
 end
-
-
-
-
 
 After do |scenario|
   if scenario.failed?
