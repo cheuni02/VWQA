@@ -42,6 +42,11 @@ class MyVWLogin < MyVW
     end
   end
 
+  def get_account_details(purpose, host = ENV['HOST'])
+    accounts = JSON.parse(File.read('users.json'), symbolize_names: true)[:User_accounts][host.to_sym]
+    accounts.collect {|detail| detail if detail[:purpose] == purpose }.compact.first
+  end
+
   private
 
   def page_url

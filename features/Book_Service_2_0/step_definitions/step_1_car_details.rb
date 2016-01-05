@@ -4,7 +4,7 @@ end
 
 When /^I login into my account$/ do
   site.my_vw.login.login_link.when_present.click
-  site.my_vw.login.login(@account[0], @account[1])
+  site.my_vw.login.login(@account[:username], @account[:password])
 end
 
 When /^I click the book a service button in navigation$/ do
