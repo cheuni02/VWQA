@@ -42,6 +42,10 @@ class MyVWLogin < MyVW
     end
   end
 
+  def login_error_message
+    @browser.p(:class => "form-error")
+  end
+
   private
 
   def page_url

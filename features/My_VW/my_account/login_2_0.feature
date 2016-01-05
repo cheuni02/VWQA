@@ -8,7 +8,8 @@ Feature: My VW Login Version 2
 
   @login
   Scenario: Logging in with a validiated account
-    When i enter my correct username and password
+    When i enter my regsitered account email address
+    And i enter my accounts correct password
     And i submit my attempt to login
     Then i should be logged into the My Volkswagen section
 
@@ -23,8 +24,9 @@ Feature: My VW Login Version 2
 
   @Register_temp
   Scenario Outline: Attempted Incorrect Password Login to a registered account
+    Given i have previously submitted <number> invalid logins
     When i enter my regsitered account email address
-    But i enter an invalid password for the <number>th time
+    And i enter a random valid password for this account
     And i submit my attempt to login
     Then i should see one of these error messages in my browser:
     | Feedback                                                                                                       |
@@ -35,18 +37,19 @@ Feature: My VW Login Version 2
 
     Examples:
     | number |
+    |   0    |
     |   1    |
     |   2    |
     |   3    |
-    |   4    |
 
   @Register_temp
   Scenario: Account lockout after 5 incorrect password attempts
-    When i enter my regsitered account email address
+    When i enter my registered account email address
     But i enter an invalid password for the 5th time
     Then i should see an error page in my browser informing me that my account is locked
     And there should be a button to reset my existing password
 
+  @login
   Scenario: Login with remember me set
     When i enter my correct username and password
     And i check the Remember me box on the login form
