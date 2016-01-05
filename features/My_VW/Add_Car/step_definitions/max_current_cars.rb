@@ -3,7 +3,7 @@ Given /^i have logged into my VW account with max amount of current cars added$/
   @add_car = site.my_vw.add_current_car
   @current_car = site.my_vw.current_car_dashboard
   @current_car.visit
-  site.my_vw.login.login(@account[0],@account[1])
+  site.my_vw.login.login(@account[:username],@account[:password])
 end
 
 And /^i go to the add a car page$/ do
