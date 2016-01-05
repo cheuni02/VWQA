@@ -12,6 +12,22 @@ When /^Step 2 of book a service has loaded$/ do
   site.service_booking.step2.page_loaded?
 end
 
+Given /^Step 1 is complete after I have logged in$/ do
+  steps %(
+    Given I am on the Volkswagen Homepage
+    When I login into my account
+    And I click the book a service button in navigation
+        )
+end
+
+Then /^I will see my personal details pre-populated$/ do
+  service_booking = site.service_booking.step2
+  expect(service_booking.title_field.value).to eq(@account[:title])
+  expect(service_booking.first_name_field.value).to eq(@account[:firstname])
+  expect(service_booking.last_name_field.value).to eq(@account[:lastname])
+  expect(service_booking.email_field.value).to eq(@account[:username])
+end
+
 Then /^I will see step 1 details in summary/ do
   service_booking = site.service_booking.step2
   expect(service_booking.car_details_section.present?).to eq(true)

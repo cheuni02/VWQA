@@ -90,6 +90,10 @@ class BookAService2Step2 < BookAService2
     @browser.li(text: title).click unless title.empty?
   end
 
+  def title_field
+    @browser.element(id: 'title')
+  end
+
   def first_name_field
     @browser.text_field(id: 'firstName')
   end
