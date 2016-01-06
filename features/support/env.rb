@@ -98,11 +98,11 @@ World do
   CustomWorld.new
 end
 
-Before('@vw-plugin-cps-vw-section-owners, @vw-web-site, @vw-retailers-site') do
+Before('@vw-plugin-cps-vw-section-owners, @vw-web-site, @vw-retailers-site, @my_vw') do
   browser.execute_script("window.alert = function() {}")
 end
 
-AfterStep('@vw-plugin-cps-vw-section-owners, @vw-web-site, @vw-retailers-site') do
+AfterStep('@vw-plugin-cps-vw-section-owners, @vw-web-site, @vw-retailers-site, @my_vw') do
   begin
     browser.execute_script("window.alert = function() {}")
   rescue Selenium::WebDriver::Error::UnhandledAlertError
