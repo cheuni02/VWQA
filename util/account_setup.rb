@@ -57,7 +57,7 @@ DBI.connect("DBI:Mysql:vw_auth:#{ENV['DBHOST']}", 'vw_auth', 'vw_auth') do |dbh|
 end
 
 ordered_sql = "INSERT INTO my_customer_car_new (id, user_id, car_status, display_name, derivative, financed, model, order_number, delivery_phase_type, delivery_lead_time_statement) VALUES (?,?,?,?,?,?,?,?,?,?)"
-current_sql = "INSERT INTO my_customer_car_new (id, user_id, car_status, display_name, derivative, financed, model, ownership, purchase_type, registration_number, year, engine_capacity, fuel_type, transmission) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+current_sql = "INSERT INTO my_customer_car_new (id, user_id, car_status, display_name, derivative, financed, model, ownership, purchase_type, registration_number, serviced_by_retailer_building_name,serviced_by_retailer_contact_email, serviced_by_retailer_contact_name, serviced_by_retailer_county, serviced_by_retailer_dealer_no, serviced_by_retailer_name, serviced_by_retailer_postcode, serviced_by_retailer_street, serviced_by_retailer_telephone, serviced_by_retailer_town, serviced_by_retailer_department_type, year, engine_capacity, fuel_type, transmission) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
 
 DBI.connect("DBI:Mysql:vw_user:#{ENV['DBHOST']}", 'vw_user', 'vw_user') do |dbh|
 
@@ -75,7 +75,7 @@ DBI.connect("DBI:Mysql:vw_user:#{ENV['DBHOST']}", 'vw_user', 'vw_user') do |dbh|
       dbh.prepare(current_sql) do |sth|
         index = 0
         MODELS_LIST.each do |key, value|
-          sth.execute("#{Time.now.to_i}#{index}CTEST", "#{account['uuid']}", "CURRENT", "#{key.upcase}#{index}", "Test #{key.upcase} 999", "b'0'", "#{key.upcase}", "PRIVATE", "NEW_CAR", "#{value}", "2012", "1.80", "Petrol", "Manual")
+          sth.execute("#{Time.now.to_i}#{index}CTEST", "#{account['uuid']}", "CURRENT", "#{key.upcase}#{index}", "Test #{key.upcase} 999", "b'0'", "#{key.upcase}", "PRIVATE", "NEW_CAR", "#{value}", "Wolsey House", "tribalddbtech@gmail.com", "Victoria Loveday", "Suffolk", "00153", "Ipswich Volkswagen", "IP1 5AN", "Sproughton Road", "01473 240800", "Ipswich", "Service", "2012", "1.80", "Petrol", "Manual")
           index += 1
         end
       end
@@ -92,7 +92,7 @@ DBI.connect("DBI:Mysql:vw_user:#{ENV['DBHOST']}", 'vw_user', 'vw_user') do |dbh|
 
       dbh.prepare(current_sql) do |sth|
         MODELS_LIST.each do |key, value|
-          sth.execute("#{Time.now.to_i}#{limit}MCTEST", "#{account['uuid']}", "CURRENT", "#{key.upcase}#{limit}", "Test #{key.upcase} 999", "b'0'", "#{key.upcase}", "PRIVATE", "NEW_CAR", "#{value}", "2012", "1.80", "Petrol", "Manual")
+          sth.execute("#{Time.now.to_i}#{limit}MCTEST", "#{account['uuid']}", "CURRENT", "#{key.upcase}#{limit}", "Test #{key.upcase} 999", "b'0'", "#{key.upcase}", "PRIVATE", "NEW_CAR", "#{value}", "Wolsey House", "tribalddbtech@gmail.com", "Victoria Loveday", "Suffolk", "00153", "Ipswich Volkswagen", "IP1 5AN", "Sproughton Road", "01473 240800", "Ipswich", "Service", "2012", "1.80", "Petrol", "Manual")
           limit -= 1
           break if limit == 0
         end

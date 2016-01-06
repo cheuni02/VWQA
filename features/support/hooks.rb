@@ -2,22 +2,20 @@ Before('@login') do
   @account = site.my_vw.login.get_login_details('General')
 end
 
-After('@login, @login_unvalid_user, @add_car_user, @login_Ordered_User, @login_Current_User', '~@logout-force') do
+After('@login, @login_unvalid_user, @add_car_user, @login_Ordered_User, @login_current_car', '~@logout-force') do
   site.visit_page('/logout?postLogoutPage=/owners/my/account/index')
-  #begin
-  #  site.my_vw.primary_nav.click_logout
-  #  site.owners.wait_for_page
-  #rescue Watir::Exception::UnknownObjectException #We might already be logged out
-#    #
-  #end
 end
 
 Before('@add_car_user') do
-  @account = site.my_vw.login.get_login_details('General')
+  @account = site.my_vw.login.get_account_details('General')
 end
 
 Before('@login_unvalid_user') do
   @account = site.my_vw.login.get_login_details('DBG_User_Invalid')
+end
+
+Before('@login_current_car') do
+  @account = site.my_vw.login.get_login_details('Current_car_User')
 end
 
 Before('@login_Ordered_User') do

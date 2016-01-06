@@ -64,7 +64,12 @@ class VWBase < BrowserContainer
   end
 
   def retailer_pages
-    RetailerPages.new(@browser)
+    begin
+      RetailerPages.new(@browser)
+    rescue Selenium::WebDriver::Error::UnhandledAlertError
+      @browser.execute_script("window.alert = function() {}")
+      retry
+    end
   end
 
   def search

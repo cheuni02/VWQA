@@ -125,55 +125,60 @@
         "title": "Mr",
         "firstname": "General",
         "lastname": "Tester",
-        "username": "AutomatedToastUser1449673175@example.com",
+        "username": "AutomatedToastUser1451906348@example.com",
         "password": "Abcd!2345",
         "purpose": "General",
-        "uuid": "8b133d3b-00e8-4880-adbe-b1eea2309d4b"
+        "uuid": "dda39141-73ad-4a91-bf40-f0637d5cfce8"
       },
       {
         "title": "Mr",
         "firstname": "DBG_User",
         "lastname": "Tester",
-        "username": "AutomatedToastUser1449673174@example.com",
+        "username": "AutomatedToastUser1451906347@example.com",
         "password": "Abcd!2345",
         "purpose": "DBG_User",
-        "uuid": "462b1606-46d6-489e-b1cf-b3be701439a1"
+        "uuid": "496094fe-1973-475c-9d6b-dab9a9372d47"
       },
       {
         "title": "Mr",
         "firstname": "DBG_User_Invalid",
         "lastname": "Tester",
-        "username": "AutomatedToastUser1449673173@example.com",
+        "username": "AutomatedToastUser1451906346@example.com",
         "password": "Abcd!2345",
         "purpose": "DBG_User_Invalid",
-        "uuid": "725a0bf8-ae1d-4742-87e5-407160cf0417"
+        "uuid": "9f21a08c-ca7d-401d-97fa-a1370c087e4c"
       },
       {
         "title": "Mr",
         "firstname": "Current_car_User",
         "lastname": "Tester",
-        "username": "AutomatedToastUser1449673172@example.com",
+        "username": "AutomatedToastUser1451906345@example.com",
         "password": "Abcd!2345",
+        "mobile": "07000000000",
+        "postcode": "LL61 6SH",
+        "address1": "Newborough",
+        "city": "LLANFAIRPWLLGWYNGYLL",
+        "house_number": "12a",
         "purpose": "Current_car_User",
-        "uuid": "1278b970-ad9f-4df5-93b9-67ab32f3ef56"
+        "uuid": "fc5957f7-3f16-47e9-9650-ab9bb076545b"
       },
       {
         "title": "Mr",
         "firstname": "Ordered_Car_User",
         "lastname": "Tester",
-        "username": "AutomatedToastUser1449673171@example.com",
+        "username": "AutomatedToastUser1451906344@example.com",
         "password": "Abcd!2345",
         "purpose": "Ordered_Car_User",
-        "uuid": "b6231572-9278-40f7-96aa-49f4387964b1"
+        "uuid": "af39ce26-a3c7-489d-a77f-fb0d19d11ee0"
       },
       {
         "title": "Mr",
         "firstname": "Max_Car_User",
         "lastname": "Tester",
-        "username": "AutomatedToastUser1449673170@example.com",
+        "username": "AutomatedToastUser1451906343@example.com",
         "password": "Abcd!2345",
         "purpose": "Max_Car_User",
-        "uuid": "f64bd944-a372-48c1-ae05-c0e4e93f92da"
+        "uuid": "e1dd89ca-896e-4519-bcd5-b688dd30760c"
       }
     ]
   }

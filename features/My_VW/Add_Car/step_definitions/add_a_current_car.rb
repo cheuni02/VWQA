@@ -15,7 +15,7 @@ When /^i check that i am on the Add a car i own page$/ do
 end
 
 Then /^i should see the registration field appear$/ do
-  raise AssertionError, "registration field not present" unless @add_car.registration_field_present?
+  expect(@add_car.registration_field_present?).to be true
 end
 
 When /^i enter a (.*) in the input field$/ do |registration|
@@ -24,7 +24,7 @@ When /^i enter a (.*) in the input field$/ do |registration|
 end
 
 Then /^i should see a (.*) message if the registration needs to be reviewed$/ do |message|
-  raise AssertionError, "Error message not present" unless !@add_car.error_message_present?
+  expect(@add_car.error_message_present?).to be false
 end
 
 When /^i enter one of my (.*)$/ do |registrations|
@@ -36,7 +36,9 @@ And /^click the lookup button$/ do
 end
 
 Then /^i should see a message saying think we've found your car$/ do
-  raise AssertionError, "Found car message not present" unless !@add_car.found_car_text_present?
+  expect(@add_car.found_car_text_present?).to be false
+
+  #raise AssertionError, "Found car message not present" unless !@add_car.found_car_text_present?
 end
 
 When /^i have completed steps 1a and 1b$/ do

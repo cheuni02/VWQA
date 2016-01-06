@@ -10,7 +10,7 @@ class Servicing < Owners
   def page_loaded?
     options.present?
   end
-  
+
   def service_promise
     ServicePromise.new(@browser)
   end
@@ -23,6 +23,10 @@ class Servicing < Owners
     PartsGuarantee.new(@browser)
   end
 
+  def genuine_parts
+    VolkswagenGenuinePartsPage.new(@browser)
+  end
+
   def body_repair
     BodyRepair.new(@browser)
   end
@@ -30,8 +34,8 @@ class Servicing < Owners
   def express_fit
     ExpressFit.new(@browser)
   end
- 
-  def what_we_check
+
+  def what_we_check_and_why
     WhatWeCheck.new(@browser)
   end
 
