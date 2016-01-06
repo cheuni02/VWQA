@@ -24,6 +24,30 @@
         "uuid": null
       }
     ],
+    "origin-stage-vw.tribalddb.co.uk": [
+      {
+        "username": "automatedtestdragon@example.com",
+        "password": "Abcd!2345",
+        "purpose": "General",
+        "uuid": null
+      }
+    ],
+    "www-stage-vw.tribalddb.co.uk": [
+      {
+        "username": "automatedtestdragon@example.com",
+        "password": "Abcd!2345",
+        "purpose": "General",
+        "uuid": null
+      }
+    ],
+    "cms-preview-stage-vw.tribalddb.co.uk": [
+      {
+        "username": "automatedtestdragon@example.com",
+        "password": "Abcd!2345",
+        "purpose": "General",
+        "uuid": null
+      }
+    ],
     "10.69.102.120": [
       {
         "username": "automatedtestdragon@example.com",

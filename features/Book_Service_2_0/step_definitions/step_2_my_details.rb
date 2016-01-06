@@ -12,6 +12,22 @@ When /^Step 2 of book a service has loaded$/ do
   site.service_booking.step2.page_loaded?
 end
 
+Given /^Step 1 is complete after I have logged in$/ do
+  steps %(
+    Given I am on the Volkswagen Homepage
+    When I login into my account
+    And I click the book a service button in navigation
+        )
+end
+
+Then /^I will see my personal details pre-populated$/ do
+  service_booking = site.service_booking.step2
+  expect(service_booking.title_field.value).to eq(@account[:title])
+  expect(service_booking.first_name_field.value).to eq(@account[:firstname])
+  expect(service_booking.last_name_field.value).to eq(@account[:lastname])
+  expect(service_booking.email_field.value).to eq(@account[:username])
+end
+
 Then /^I will see step 1 details in summary/ do
   service_booking = site.service_booking.step2
   expect(service_booking.car_details_section.present?).to eq(true)
@@ -20,8 +36,11 @@ Then /^I will see step 1 details in summary/ do
 end
 
 When /^I select Next - Select retailer$/ do
-  site.service_booking.step2.step3_button.click
+  service_booking = site.service_booking.step2
+  service_booking.step2.step3_button.click
+  Watir::Wait.while { service_booking.loading_wheel.visible? }
 end
+
 
 Then /^I will see (.*) that my personal details are (?:incomplete|invalid)$/ do |feedback|
   steps %(
@@ -56,7 +75,7 @@ Then /^I will see feedback that my address is incomplete with:$/ do |table|
 end
 
 When /^I select my(?: title| )(.*)$/ do |title|
-  site.service_booking.step2.select_title(title)
+  site.service_booking.step2.select_title(title.strip)
 end
 
 And /^I fill in my personal details (.*), (.*), (.*) and (.*)$/ do |first_name, last_name, mobile, email|
@@ -68,7 +87,9 @@ When /^I fill in the postcode with (.*)$/ do |postcode|
 end
 
 When /^I select postcode lookup$/ do
-  site.service_booking.step2.postcode_lookup.click
+  service_booking = site.service_booking.step2
+  service_booking.postcode_lookup.click
+  Watir::Wait.while { service_booking.loading_wheel.visible? }
 end
 
 And /^I fill in my address information (.*), (.*), (.*) and (.*)$/ do |postcode, house_no, address_line1, city|

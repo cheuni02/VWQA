@@ -2,7 +2,12 @@ Given /^I am on the Volkswagen Homepage$/ do
   site.homepage.visit
 end
 
-When /^I click the book a service button in the navigation$/ do
+When /^I login into my account$/ do
+  site.my_vw.login.login_link.when_present.click
+  site.my_vw.login.login(@account[:username], @account[:password])
+end
+
+When /^I click the book a service button in navigation$/ do
   site.primary_nav.book_service
 end
 
@@ -12,6 +17,7 @@ end
 
 And /^I can not continue until I enter a vehicle registration$/ do
   expect(site.service_booking.step1.registration_lookup.enabled?).to eq(false)
+  expect(site.service_booking.step1.step2_button.enabled?).to eq(false)
 end
 
 When /^I fill in the approximate(?: mileage with | )(.*) under more info$/ do |mileage|
@@ -65,6 +71,23 @@ Then /^I will see my car details form populated with:$/ do |table|
     end
   end
 end
+
+When /^I select (.*) from my list of vehicles$/ do |vehicle|
+  service_booking = site.service_booking.step1
+  service_booking.select_vehicle_list(vehicle)
+  Watir::Wait.while { service_booking.loading_wheel.visible? }
+end
+
+When /^I search for another car$/ do
+  site.service_booking.step1.search_for_another_car_button.click
+end
+
+When /^I select from my cars$/ do
+  service_booking = site.service_booking.step1
+  service_booking.select_from_my_cars_button.click
+  Watir::Wait.while { service_booking.loading_wheel.visible? }
+end
+
 
 Then /^I will see car details are incomplete with (.*)/ do |feedback|
   steps %Q{
@@ -174,6 +197,24 @@ Then /^I will see my car details summary populated with:$/ do |table|
     expect(service_booking2.transmission_details).to eq(hash['Transmission'])
   end
 end
+
+Then /^I will see my car details summary on step 1 with:$/ do |table|
+  service_booking = site.service_booking.step1
+  table.hashes.each do |hash|
+    expect(service_booking.car_trim_details).to eq(hash['Trim'])
+    expect(service_booking.car_year_made_details).to eq(hash['Year of manufacture'])
+    expect(service_booking.car_reg_details).to eq(hash['Registration'])
+    expect(service_booking.engine_size_details).to eq(hash['Engine size'])
+    expect(service_booking.fuel_type_details).to eq(hash['Fuel type'])
+    expect(service_booking.transmission_details).to eq(hash['Transmission'])
+  end
+end
+
+
+Then(/^my car details are editable$/) do
+  site.service_booking.step1.edit_user_car_details.when_present.click
+end
+
 
 When /^I select change my car details$/ do
   site.service_booking.step2.update_car_details.click

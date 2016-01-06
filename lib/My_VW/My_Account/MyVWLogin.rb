@@ -20,6 +20,10 @@ class MyVWLogin < MyVW
     login_button.click
   end
 
+  def login_link
+    @browser.element(class: 'user-link')
+  end
+
   def login(username, password)
     page_loaded?
     set_email(username)
@@ -36,6 +40,11 @@ class MyVWLogin < MyVW
         return [account['username'], account['password'], account['uuid']]
       end
     end
+  end
+
+  def get_account_details(purpose, host = ENV['HOST'])
+    accounts = JSON.parse(File.read('users.json'), symbolize_names: true)[:User_accounts][host.to_sym]
+    accounts.collect {|detail| detail if detail[:purpose] == purpose }.compact.first
   end
 
   private

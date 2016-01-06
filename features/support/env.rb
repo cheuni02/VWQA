@@ -21,12 +21,12 @@ VW_PASSWORD = "sooT5wioAhxuiH0o"
 URLS = "http://#{ENV['HOST']}"
 
 DEFAULT_ACCOUNT = {
-  :title => "Mr",
-  :first_name => "AutomatedTestUser",
-  :surname => "AutomatedTestUser",
-  :email_base => "@example.com",
-  :password => "Abcd!2345" ,
-  }
+    :title => "Mr",
+    :first_name => "AutomatedTestUser",
+    :surname => "AutomatedTestUser",
+    :email_base => "@example.com",
+    :password => "Abcd!2345",
+}
 
 ffprofile = Selenium::WebDriver::Firefox::Profile.new
 # Disable Disk Caching in firefox because of problems with display on windows
@@ -48,7 +48,6 @@ ffprofile['gfx.direct2d.disabled'] = true
 ffprofile['layers.acceleration.disabled'] = true
 
 
-
 require_all 'lib'
 
 if ENV['HEADLESS'] =~ /true/i
@@ -58,18 +57,18 @@ if ENV['HEADLESS'] =~ /true/i
 end
 
 case ENV['BROWSER']
-when /chrome/i
-  browser = Watir::Browser.start(ENV['HOST'], :chrome)
-  browser.window.resize_to 1024, 768
-when /ie/i
-  browser = Watir::Browser.new :ie
-  browser.window.resize_to 1024, 768
-when /firefox/i
-  profile = Selenium::WebDriver::Firefox::Profile.new
-  browser = Watir::Browser.new :firefox, :profile => ffprofile
-else # Default to Firefox if we don't know exactly what we're using
-  browser = Watir::Browser.new :firefox, :profile => ffprofile
-  browser.window.resize_to 1024, 768
+  when /chrome/i
+    browser = Watir::Browser.start(ENV['HOST'], :chrome)
+    browser.window.resize_to 1024, 768
+  when /ie/i
+    browser = Watir::Browser.new :ie
+    browser.window.resize_to 1024, 768
+  when /firefox/i
+    profile = Selenium::WebDriver::Firefox::Profile.new
+    browser = Watir::Browser.new :firefox, :profile => ffprofile
+  else # Default to Firefox if we don't know exactly what we're using
+    browser = Watir::Browser.new :firefox, :profile => ffprofile
+    browser.window.resize_to 1024, 768
 end
 
 
@@ -83,8 +82,9 @@ end
 
 
 class CustomWorld
-  class << self; attr_accessor :browser end
-  #attr_accessor :browser
+  class << self;
+    attr_accessor :browser
+  end
 
   def site
     @site ||= (VWBase.new(CustomWorld::browser))
@@ -98,11 +98,11 @@ World do
   CustomWorld.new
 end
 
-Before do
+Before('@vw-plugin-cps-vw-section-owners, @vw-web-site, @vw-retailers-site') do
   browser.execute_script("window.alert = function() {}")
 end
 
-AfterStep do
+AfterStep('@vw-plugin-cps-vw-section-owners, @vw-web-site, @vw-retailers-site') do
   begin
     browser.execute_script("window.alert = function() {}")
   rescue Selenium::WebDriver::Error::UnhandledAlertError
@@ -110,10 +110,6 @@ AfterStep do
     retry
   end
 end
-
-
-
-
 
 After do |scenario|
   if scenario.failed?
@@ -126,15 +122,18 @@ After do |scenario|
   end
 end
 
+After('@clear_cookies') do
+  browser.cookies.clear
+end
 
 at_exit do
- browser.close
- if ENV['HEADLESS'] =~ /true/i
-   headless.destroy
- end
- begin
-   require_relative '../../HTMLReport.rb'
- rescue
-   puts "Unable to generate HTML Report - Skipping Report Generation"
- end
+  browser.close
+  if ENV['HEADLESS'] =~ /true/i
+    headless.destroy
+  end
+  begin
+    require_relative '../../HTMLReport.rb'
+  rescue
+    puts "Unable to generate HTML Report - Skipping Report Generation"
+  end
 end
