@@ -154,6 +154,11 @@
         "lastname": "Tester",
         "username": "AutomatedToastUser1451906345@example.com",
         "password": "Abcd!2345",
+        "mobile": "07000000000",
+        "postcode": "LL61 6SH",
+        "address1": "Newborough",
+        "city": "LLANFAIRPWLLGWYNGYLL",
+        "house_number": "12a",
         "purpose": "Current_car_User",
         "uuid": "fc5957f7-3f16-47e9-9650-ab9bb076545b"
       },
