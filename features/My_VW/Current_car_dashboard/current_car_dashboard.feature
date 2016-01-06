@@ -1,4 +1,4 @@
-@login @my_vw @Current-Car-Dashboard
+@login_current_car @my_vw @Current-Car-Dashboard
 Feature: Current car dashboard
   As a user logged in the My VW site
   I want to see a page with important information about my current car
@@ -6,37 +6,33 @@ Feature: Current car dashboard
     Background:
       Given that i have logged in to my account
 
-    Scenario: Current car dashboard
-      When the current car dashboard page has loaded
-      Then I should be greeted with my current car dashboard and my name
+    Scenario: My car hero module
+      When i check the content of the hero module
+      Then i should see a hero tagline with my car name
+      And i should also see a camera icon on the page
 
-    Scenario: Camera icon
-      When I click on the camera icon
-      Then the system file selector is displayed to choose a photo
+    Scenario: My Service Retailer Module
+      When i check the content of the service retailer module
+      Then i should see a map loaded displaying my retailer location
+      And i should also see the following retailer address details displayed:
+      | Ipswich Volkswagen | Sproughton Road | Ipswich | IP1 5AN |
+      And i should see the following contact details:
+      | Phone        | Fax          | Email                   |
+      | 01473 240800 | 01473 240088 | tribalddbtech@gmail.com |
 
-    Scenario Outline: My Service gurantee module
-      Given the service gurantee module is present on the page
-      When i click on a <gurantee> link
-      Then i should be taken to the relevant <page>
+    Scenario: My Retailer Link
+      When i click on the link to view my retailers website
+      Then i should see the retailer page for "Ipswich Volkswagen" load in my browser
 
-      Examples:
-        | gurantee                               | page                    |
-        | /owners/service-promise                | service-promise         |
-        | /owners/servicing/what-wecheck-and-why | what-we-check-and-why    |
-        | /owners/volkswagengenuine-parts        | volkswagen-genuine-parts |
-
-    Scenario: My Service history
-      When i am on the service history module
-      Then i should see my vehicles service history
-
-    Scenario: My Plans
-      When i am on the my plans section
-      Then i should see any plans that i have
+    Scenario: My Service History Notification
+      Given my account is not validated with DBG
+      When i check the service history and plans section of my account
+      Then i should see a message prompting me to enter my postcode for more information
 
     Scenario Outline: Promo Module
       When i am on the promo modules section
       Then i should see the <promotions> promotion
-      And the promotion headline
+      And the promotion headline should also be displayed
 
       Examples:
         | promotions            |
@@ -48,6 +44,8 @@ Feature: Current car dashboard
       When i am on need help module
       Then i should see the need help search bar
       And the following <useful_links> section appears
+      But when i click on the link inside the section
+      Then the correct page related to <useful_links> should load
 
       Examples:
         | useful_links            |
@@ -65,16 +63,6 @@ Feature: Current car dashboard
       | breakdown | pass   |
       | insurance | pass   |
       | b34f      | fail   |
-
-    Scenario Outline: Preferred Retailer
-      When i am on the Current dashboard
-      Then i should see my preferred retailer
-      And the <links> link in the box
-
-      Examples:
-        | links            |
-        | View in maps     |
-        | Retailer website |
 
     Scenario Outline: Recovery zone
       When i scroll to the bottom of the page

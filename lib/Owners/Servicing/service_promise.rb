@@ -1,11 +1,11 @@
-class ServicePromise < Servicing  
+class ServicePromise < Servicing
 
   def visit
    visit_page(page_url)
   end
-  
+
   def page_loaded?
-    promise_list.present?
+    promise_list.wait_until_present(10)
   end
 
   def get_links
@@ -16,22 +16,22 @@ class ServicePromise < Servicing
     promises_content
   end
 
-  def click_link(link)  
-    @arr = get_links  
+  def click_link(link)
+    @arr = get_links
     @arr[link.to_i-1].click
   end
 
   def check_promise(promise, link)
-    @promises = get_promises    
+    @promises = get_promises
     @promises[link.to_i-1].h2.text.include?(promise)
   end
-  
-  private 
-  
+
+  private
+
   def page_url
     "/owners/service-promise"
   end
-  
+
   def promise_list
     @browser.ol(:class => "tabbed-content-list")
   end
@@ -44,6 +44,6 @@ class ServicePromise < Servicing
     @browser.ul(:class => 'tabbed-content tabbed').lis(:class => "tab-content")
   end
 
-  
+
 
 end

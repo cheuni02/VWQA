@@ -33,6 +33,18 @@ class Owners < BrowserContainer
     WarningLights.new(@browser)
   end
 
+  def owners_manuals
+    OwnersManual.new(@browser)
+  end
+
+  def how_to_guides
+    HowToGuides.new(@browser)
+  end
+
+  def breakdown_insurance
+    BreakdownInsurance.new(@browser)
+  end
+
   def visit
     visit_page(page_url)
   end

@@ -5,7 +5,7 @@ class WhatWeCheck < Servicing
   end
 
   def page_loaded?
-    sections.present?
+    sections.wait_until_present(10)
   end
 
   def page_loaded_mot?
