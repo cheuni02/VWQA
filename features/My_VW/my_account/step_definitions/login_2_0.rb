@@ -30,14 +30,15 @@ Then /^i should see a login error appear in my browser:$/ do |error|
   expect(site.my_vw.login.login_error_message.when_present.text).to eq error
 end
 
-Given /^i have previously submitted (.*) invalid logins$/ do |number|
+Given /^i have previously submitted (\d+) invalid logins$/ do |number|
   number.to_i.times do
     step "i enter my registered account email address"
     step "i enter a random valid password for this account"
     step "i submit my attempt to login"
   end
+  @logins = number
 end
 
-Then /^i should see one of these error messages in my browser:$/ do |messages|
-
+Then /^i should see one of these error messages in my browser:$/ do |table|
+  STDOUT.puts table.hashes
 end

@@ -63,6 +63,10 @@ DBI.connect("DBI:Mysql:vw_user:#{ENV['DBHOST']}", 'vw_user', 'vw_user') do |dbh|
 
   active_accounts.each do |account|
     case account['purpose']
+    when "Single_current_car_user"
+      dbh.prepare(current_sql) do |sth|
+        sth.execute("#{Time.now.to_i}SCTEST", "#{account['uuid']}", "CURRENT", "GOLF", "Test GOLF", "b'0'", "GOLF", "PRIVATE", "NEW_CAR", "", "2012", "1.80", "Petrol", "Manual")
+      end
     when "DBG_User"
       dbh.do("UPDATE my_customer_contact SET dbg_id = 11033601 WHERE email = '#{account['username']}'")
     when "DBG_User_Invalid"
