@@ -11,7 +11,7 @@ end
 
 When /^i am on the Step 3 retailer page$/ do
   site.my_vw.login.visit
-  site.my_vw.login.login(@account[0],@account[1])
+  site.my_vw.login.login(@account[0], @account[1])
   @service_booking.visit
   @service_booking.page_loaded?
   @service_booking.click_step_2_button
@@ -20,8 +20,25 @@ When /^i am on the Step 3 retailer page$/ do
   @service_booking_3.page_loaded?
 end
 
+Then(/^I will be on step 3 with my personal details in summary$/) do
+  service_booking = site.service_booking.step3
+  expect(service_booking.summary_title).to eq(@account[:title])
+  expect(service_booking.summary_name).to eq(@account[:firstname])
+  expect(service_booking.summary_surname).to eq(@account[:lastname])
+  expect(service_booking.summary_mobile).to eq(@account[:mobile])
+  expect(service_booking.summary_email).to eq(@account[:username])
+end
+
+Then /^my address in summary$/ do
+  service_booking = site.service_booking.step3
+  expect(service_booking.summary_house_number).to eq(@account[:house_number])
+  expect(service_booking.summary_street).to eq(@account[:address1])
+  expect(service_booking.summary_town).to eq(@account[:city])
+  expect(service_booking.summary_postcode).to eq(@account[:postcode])
+end
+
 Then /^i should see my retailer already chosen in the retailer card$/ do
-  raise AssertionError, "Currently selected retailer not present" unless @service_booking_3.retailer_selected_present?
+  fail AssertionError, 'Currently selected retailer not present' unless @service_booking_3.retailer_selected_present?
 end
 
 When /^step 3 choose retailer page has loaded$/ do
@@ -29,7 +46,7 @@ When /^step 3 choose retailer page has loaded$/ do
 end
 
 Then /^i should be able to choose my retailer$/ do
-  raise AssertionError, "Retailer panel not present" unless @service_booking_3.retailer_panel_present?
+  fail AssertionError, 'Retailer panel not present' unless @service_booking_3.retailer_panel_present?
 end
 
 Given /^i am on the Step 3 page$/ do
@@ -49,11 +66,11 @@ And /^click lookup$/ do
 end
 
 Then /^i should be able to see a list of retailers appear$/ do
-  raise AssertionError, "Retailer list not present" unless @service_booking_3.retailer_list_present?
+  fail AssertionError, 'Retailer list not present' unless @service_booking_3.retailer_list_present?
 end
 
 And /^i should also be able to view a map view of the closest retailers$/ do
-  pending #not implemented yet
+  pending # Write code here that turns the phrase above into concrete actions
 end
 
 When /^i click on the edit link in the My retailer card$/ do
@@ -67,7 +84,7 @@ And /^i input a invalid location such as (.*) in the field$/ do |invalid_locatio
 end
 
 Then /^i should see an error message$/ do
-  raise AssertionError, "No error message present" unless @service_booking_3.no_retailer_error_message_present?
+  fail AssertionError, 'No error message present' unless @service_booking_3.no_retailer_error_message_present?
 end
 
 Given /^i am on the Step 3 page of book my service$/ do
@@ -83,7 +100,7 @@ When /^i enter a retailer (.*)$/ do |name|
 end
 
 Then /^i should be able to select a retailer in the dropdown$/ do
-  raise AssertionError, "no dropdown present" unless @service_booking_3.retailer_dropdown_visible
+  fail AssertionError, 'no dropdown present' unless @service_booking_3.retailer_dropdown_visible
   @service_booking_3.click_retailer_in_dropdown
 end
 

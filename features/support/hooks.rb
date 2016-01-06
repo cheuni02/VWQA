@@ -13,7 +13,7 @@ After('@login, @login_unvalid_user, @add_car_user, @login_Ordered_User, @login_C
 end
 
 Before('@add_car_user') do
-  @account = site.my_vw.login.get_login_details('General')
+  @account = site.my_vw.login.get_account_details('General')
 end
 
 Before('@login_unvalid_user') do

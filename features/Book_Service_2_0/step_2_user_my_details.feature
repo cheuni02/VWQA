@@ -11,5 +11,11 @@ Feature: Service booking Step 2 My details
     Then Step 2 of book a service has loaded
     And I will see my personal details pre-populated
 
+    When I update mobile number field in personal details
+    And I update postcode field in address section
+    And I select postcode lookup
+    And I update house name/number field in address section
+    And I select Next - Select retailer
 
-
+    Then I will be on step 3 with my personal details in summary
+    And my address in summary

@@ -28,7 +28,35 @@ Then /^I will see my personal details pre-populated$/ do
   expect(service_booking.email_field.value).to eq(@account[:username])
 end
 
-Then /^I will see step 1 details in summary/ do
+When /^I update (.*) field in personal details$/ do |field|
+  service_booking = site.service_booking.step2
+  case field
+  when /first name/
+    service_booking.first_name_field.set(@account[:firstname])
+  when /last name/
+    service_booking.last_name_field.set(@account[:lastname])
+  when /mobile/
+    service_booking.mobile_field.set(@account[:mobile])
+  when /email/
+    service_booking.email_field.set(@account[:username])
+  end
+end
+
+When /^I update (.*) field in address section$/ do |field|
+  service_booking = site.service_booking.step2
+  case field
+  when /house name\/number/
+    service_booking.house_no_field.set(@account[:house_number])
+  when /address1/
+    service_booking.address_line_1_field.set(@account[:address1])
+  when /city/
+    service_booking.city_field.set(@account[:city])
+  when /postcode/
+    service_booking.postcode_field.set(@account[:postcode])
+  end
+end
+
+Then /^I will see step 1 details in summary$/ do
   service_booking = site.service_booking.step2
   expect(service_booking.car_details_section.present?).to eq(true)
   expect(service_booking.car_details_section.present?).to eq(true)
@@ -40,7 +68,6 @@ When /^I select Next - Select retailer$/ do
   service_booking.step2.step3_button.click
   Watir::Wait.while { service_booking.loading_wheel.visible? }
 end
-
 
 Then /^I will see (.*) that my personal details are (?:incomplete|invalid)$/ do |feedback|
   steps %(
