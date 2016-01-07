@@ -8,7 +8,7 @@ Feature: Service booking Step 2 My details
     Given I have completed Step 1
     When I select Next - My details
     Then Step 2 of book a service has loaded
-    Then I will see step 1 details in summary
+    And I will see step 1 details in summary
 
   Scenario: Guest tries to move onto next step without completing all their personal details form
     Given I select Next - Select retailer
@@ -93,3 +93,5 @@ Feature: Service booking Step 2 My details
     And I will see my address details in summary:
       | House No | Street      | City    | Postcode |
       | 1        | Hope Street | GLASGOW | G2 3PS   |
+    And Step 3 of book a service has loaded
+
