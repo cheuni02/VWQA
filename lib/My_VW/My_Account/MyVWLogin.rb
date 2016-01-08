@@ -51,6 +51,38 @@ class MyVWLogin < MyVW
     accounts.collect {|detail| detail if detail[:purpose] == purpose }.compact.first
   end
 
+  def lockout_page
+    @browser.div(:id => "welcome-header", :text => /account locked/i)
+  end
+
+  def lockout_page_forgot_pw_link
+    @browser.link(:class => "vw-btn vw-btn-active vw-btn-spaced")
+  end
+
+  def remember_me_checkbox
+    @browser.checkbox(:id => "remember_me")
+  end
+
+  def remember_me_cookie_set
+    @browser.cookies['VW_AUTH_REMEMBER_ME']
+  end
+
+  def logged_in_cookie_set
+    @browser.cookies['VW_AUTH']
+  end
+
+  def forgot_password_link
+    @browser.link(:id => "forgot-password-link")
+  end
+
+  def forgot_password_email_field
+    @browser.text_field(:id => "email")
+  end
+
+  def create_account_link
+    @browser.link(:id => "create-accont-link")
+  end
+
   private
 
   def page_url
@@ -68,6 +100,7 @@ class MyVWLogin < MyVW
   def login_button
     @browser.button(:id => "login-button")
   end
+
 
 end
 
