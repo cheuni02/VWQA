@@ -106,6 +106,20 @@
         "password": "Abcd!2345",
         "purpose": "Current_car_User",
         "optional_details": {
+          "address_type": "home",
+          "house_number": "4000",
+          "postcode": "UB6 7HA",
+          "street": "Empire Road",
+          "street2": "Empire Place",
+          "city": "GREENFORD",
+          "county": "MIDDLESEX",
+          "phone1": "01234567890",
+          "phone2": "09876543210",
+          "phone_type": "home",
+          "work_phone": "54321098765",
+          "preferred_contact": "email",
+          "marital_status": "Single",
+          "date_of_birth": "1989-08-04 00:00:00"
         },
         "uuid": "9aa88b82-ef43-44e6-8431-552c646e6a75"
       },
@@ -210,6 +224,20 @@
         "password": "Abcd!2345",
         "purpose": "Current_car_User",
         "optional_details": {
+          "address_type": "home",
+          "house_number": "4000",
+          "postcode": "UB6 7HA",
+          "street": "Empire Road",
+          "street2": "Empire Place",
+          "city": "London",
+          "county": "MIDDLESEX",
+          "phone1": "01234567890",
+          "phone2": "09876543210",
+          "phone_type": "home",
+          "work_phone": "54321098765",
+          "preferred_contact": "email",
+          "marital_status": "Single",
+          "date_of_birth": "1989-08-04 00:00:00"
         },
         "uuid": "2f18bab0-6454-41e4-b31c-c0583a6b31e2"
       },

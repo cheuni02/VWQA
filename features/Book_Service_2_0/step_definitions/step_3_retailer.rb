@@ -3,16 +3,16 @@ Then (/^my personal details will be displayed in summary$/) do
   expect(service_booking.summary_title.text).to eq(@account[:title])
   expect(service_booking.summary_name.text).to eq(@account[:firstname])
   expect(service_booking.summary_surname.text).to eq(@account[:lastname])
-  expect(service_booking.summary_mobile.text).to eq(@account[:mobile])
+  expect(service_booking.summary_mobile.text).to eq(@account[:optional_details][:phone2])
   expect(service_booking.summary_email.text).to eq(@account[:username])
 end
 
 Then (/^my address details will be displayed in summary$/) do
   service_booking = site.service_booking.step3
-  expect(service_booking.summary_house_number.text).to eq(@account[:house_number])
-  expect(service_booking.summary_street.text).to eq(@account[:address1])
-  expect(service_booking.summary_town.text).to eq(@account[:city])
-  expect(service_booking.summary_postcode.text).to eq(@account[:postcode])
+  expect(service_booking.summary_house_number.text).to eq(@account[:optional_details][:house_number])
+  expect(service_booking.summary_street.text).to eq(@account[:optional_details][:street])
+  expect(service_booking.summary_town.text).to eq(@account[:optional_details][:city])
+  expect(service_booking.summary_postcode.text).to eq(@account[:optional_details][:postcode])
 end
 
 Given (/^I have completed Step 2$/) do
