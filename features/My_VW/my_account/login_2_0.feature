@@ -7,7 +7,7 @@ Feature: My VW Login Version 2
   Background: Visiting the Login Page
     Given i am on the My VW Login Page
 
-  @login
+  @login @clear_cookies
   Scenario: Logging in with a validiated account
     When i enter my registered account email address
     And i enter my accounts correct password
@@ -52,7 +52,7 @@ Feature: My VW Login Version 2
     Then i should see an error page in my browser informing me that my account is locked
     And there should be a button to reset my existing password
 
-  @login
+  @login @clear_cookies
   Scenario: Login with remember me set
     Given i enter my registered account email address
     And i enter my accounts correct password
@@ -69,6 +69,7 @@ Feature: My VW Login Version 2
     When i click on the link to go to the registration page
     Then i should see the registration form load in my browser
 
+  @clear_cookies @login
   Scenario: Logging out from my account
     Given i enter my registered account email address
     And i enter my accounts correct password

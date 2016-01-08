@@ -63,11 +63,11 @@ class MyVWLogin < MyVW
     @browser.checkbox(:id => "remember_me")
   end
 
-  def remember_me_cookie_set
+  def remember_me_cookie_set?
     @browser.cookies['VW_AUTH_REMEMBER_ME']
   end
 
-  def logged_in_cookie_set
+  def logged_in_cookie_set?
     @browser.cookies['VW_AUTH']
   end
 

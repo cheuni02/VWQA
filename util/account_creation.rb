@@ -37,7 +37,7 @@ begin
     hash['password'] = 'Abcd!2345'
     hash['purpose'] = purpose
     hash['optional_details'] = {}
-    if purpose == 'All_details_complete_user'
+    if (purpose == 'All_details_complete_user' || purpose == 'Current_car_User')
       hash['optional_details'] = {
         :address_type => 'home',
         :house_number => '4000',
