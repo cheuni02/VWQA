@@ -1,109 +1,90 @@
-Given /^i have completed Step 1 of book a service$/ do
-  @service_booking_3 = site.service_booking.step3
-  @service_booking = site.service_booking.step1
-  @service_booking.do_step_1
-end
-
-And /^completed Step 2 of service booking$/ do
-  @service_booking_2 = site.service_booking.step2
-  @service_booking_2.do_step_2
-end
-
-When /^i am on the Step 3 retailer page$/ do
-  site.my_vw.login.visit
-  site.my_vw.login.login(@account[0], @account[1])
-  @service_booking.visit
-  @service_booking.page_loaded?
-  @service_booking.click_step_2_button
-  @service_booking_2.page_loaded?
-  @service_booking_2.step3_button.click
-  @service_booking_3.page_loaded?
-end
-
-Then(/^I will be on step 3 with my personal details in summary$/) do
+Then (/^my personal details will be displayed in summary$/) do
   service_booking = site.service_booking.step3
-  expect(service_booking.summary_title).to eq(@account[:title])
-  expect(service_booking.summary_name).to eq(@account[:firstname])
-  expect(service_booking.summary_surname).to eq(@account[:lastname])
-  expect(service_booking.summary_mobile).to eq(@account[:mobile])
-  expect(service_booking.summary_email).to eq(@account[:username])
+  expect(service_booking.summary_title.text).to eq(@account[:title])
+  expect(service_booking.summary_name.text).to eq(@account[:firstname])
+  expect(service_booking.summary_surname.text).to eq(@account[:lastname])
+  expect(service_booking.summary_mobile.text).to eq(@account[:mobile])
+  expect(service_booking.summary_email.text).to eq(@account[:username])
 end
 
-Then /^my address in summary$/ do
+Then (/^my address details will be displayed in summary$/) do
   service_booking = site.service_booking.step3
-  expect(service_booking.summary_house_number).to eq(@account[:house_number])
-  expect(service_booking.summary_street).to eq(@account[:address1])
-  expect(service_booking.summary_town).to eq(@account[:city])
-  expect(service_booking.summary_postcode).to eq(@account[:postcode])
+  expect(service_booking.summary_house_number.text).to eq(@account[:house_number])
+  expect(service_booking.summary_street.text).to eq(@account[:address1])
+  expect(service_booking.summary_town.text).to eq(@account[:city])
+  expect(service_booking.summary_postcode.text).to eq(@account[:postcode])
 end
 
-Then /^i should see my retailer already chosen in the retailer card$/ do
-  fail AssertionError, 'Currently selected retailer not present' unless @service_booking_3.retailer_selected_present?
+Given (/^I have completed Step 2$/) do
+  steps %(
+  Given I select my title Mr
+  And I fill in my personal details John, Doe, 07889093223 and john_doe@tribalworldwide.com
+  And I fill in my address information G2 3PS, 1, Hope Street and GLASGOW
+        )
 end
 
-When /^step 3 choose retailer page has loaded$/ do
-  @service_booking_3.page_loaded?
+Then (/^Step 3 of book a service has loaded$/) do
+  site.service_booking.step3.page_loaded?
 end
 
-Then /^i should be able to choose my retailer$/ do
-  fail AssertionError, 'Retailer panel not present' unless @service_booking_3.retailer_panel_present?
+Then (/^I can not continue until I provide search criteria for my retailer$/) do
+  service_booking = site.service_booking.step3
+  expect(service_booking.location_lookup_button.enabled?).to eq(false)
+  service_booking.step4_button.click
+  expect(service_booking.retailer_form_errors.wait_until_present).to eq(true)
 end
 
-Given /^i am on the Step 3 page$/ do
-  step 'step 3 choose retailer page has loaded'
+When (/^I search for my local VW retailer by (location|name) with (.*)$/) do |search_type, search|
+  service_booking = site.service_booking.step3
+  if search_type == 'location'
+    service_booking.search_by_location_field.set(search)
+  else
+    service_booking.search_by_name_field.set(search)
+  end
 end
 
-And /^i have clicked on the edit link in the My retailer card$/ do
-  @service_booking_3.click_retailer_edit_link
+Then (/^I will (not see|see) search suggestions$/) do |drop_down|
+  service_booking = site.service_booking.step3
+  if drop_down == 'not see'
+    expect(service_booking.retailer_dropdown.present?).to eq(false)
+  else
+    expect(service_booking.retailer_dropdown.present?).to eq(true)
+  end
 end
 
-When /^i enter a location (.*) to see the closest retailer$/ do |location|
-  @service_booking_3.enter_retailer_location(location)
+When (/^I select the ([1-9])(?:st|rd|nd|th) option in the list of retailers$/) do |retailer|
+  service_booking = site.service_booking.step3
+  selected_retailer = service_booking.retailer_in_list(retailer.to_i - 1)
+  @retailer = selected_retailer.text
+  selected_retailer.click
+  Watir::Wait.while { service_booking.loading_wheel.visible? }
 end
 
-And /^click lookup$/ do
-  @service_booking_3.click_location_lookup_button
+Then (/^I'm presented with my choice of VW retailer$/) do
+  expect(site.service_booking.step3.current_selected_retailer.text).to eq(@retailer)
 end
 
-Then /^i should be able to see a list of retailers appear$/ do
-  fail AssertionError, 'Retailer list not present' unless @service_booking_3.retailer_list_present?
+And (/^I click lookup$/) do
+  service_booking = site.service_booking.step3
+  service_booking.location_lookup_button.when_present.click
+  Watir::Wait.while { service_booking.loading_wheel.visible? }
 end
 
-And /^i should also be able to view a map view of the closest retailers$/ do
-  pending # Write code here that turns the phrase above into concrete actions
+When (/^I select the ([1-5])(?:st|rd|nd|th) local retailer$/) do |retailer|
+  local_retailer = site.service_booking.step3.local_retailer(retailer.to_i - 1)
+  @retailer = local_retailer.h4.text
+  local_retailer.click
 end
 
-When /^i click on the edit link in the My retailer card$/ do
-  step 'step 3 choose retailer page has loaded'
-  step 'i have clicked on the edit link in the My retailer card'
+Then (/^my choice of retailer will be selected$/) do
+  expect(site.service_booking.step3.selected_retailer.h4.text).to eq(@retailer)
+  expect(site.service_booking.step3.selected_retailer.address.present?).to be(true)
 end
 
-And /^i input a invalid location such as (.*) in the field$/ do |invalid_location|
-  @service_booking_3.enter_invalid_inputs(invalid_location)
-  @service_booking_3.click_location_lookup_button
+Then (/^I'm presented with a list view of (.*) local VW dealers$/) do |list_length|
+  expect(site.service_booking.step3.number_of_retailers_in_list).to eq(list_length.to_i)
 end
 
-Then /^i should see an error message$/ do
-  fail AssertionError, 'No error message present' unless @service_booking_3.no_retailer_error_message_present?
-end
-
-Given /^i am on the Step 3 page of book my service$/ do
-  step 'step 3 choose retailer page has loaded'
-end
-
-And /^i am on the edit my retailer details view$/ do
-  step 'i have clicked on the edit link in the My retailer card'
-end
-
-When /^i enter a retailer (.*)$/ do |name|
-  @service_booking_3.enter_retailer_name(name)
-end
-
-Then /^i should be able to select a retailer in the dropdown$/ do
-  fail AssertionError, 'no dropdown present' unless @service_booking_3.retailer_dropdown_visible
-  @service_booking_3.click_retailer_in_dropdown
-end
-
-And /^see the option to select it$/ do
-  @service_booking_3.click_service_radio_button
+Then (/^I will see message that no retailers found matching my search$/) do
+  expect(site.service_booking.step3.retailer_error_message.present?).to eq(true)
 end
