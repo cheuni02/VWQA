@@ -18,11 +18,11 @@ Then /^i should be logged into the My Volkswagen section$/ do
   expect{site.my_vw.profile.page_loaded?}.to_not raise_error
 end
 
-When /^i enter the random unregistered email address "(.*)"$/ do |email|
+When /^i enter the random unregistered email address (.*)"$/ do |email|
   site.my_vw.login.set_email(email)
 end
 
-And /^i enter a random valid password for this account$/ do
+When /^i enter a random valid password for this account$/ do
   site.my_vw.login.set_password("Abcdefghghgh")
 end
 

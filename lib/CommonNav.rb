@@ -31,7 +31,7 @@ module CommonNav
     end
 
     def book_service
-      book_service_button.link.click
+      book_service_button.link.when_present.click
     end
 
     def retailer_search
