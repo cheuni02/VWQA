@@ -20,3 +20,20 @@ Feature: Service booking Step 2 My details
     Then Step 3 of book a service has loaded
     And my personal details will be displayed in summary
     And my address details will be displayed in summary
+
+  @login_complete_details_user @clear_cookies
+  Scenario: User has logged into service booking and Step 2 all details are pre populated
+    Given Step 1 is complete after I have logged in
+    And I enter a vehicle valid registration VU12WGE
+    And I click lookup button to find my registration
+
+    When I select Next - My details
+    Then my personal details will be displayed in summary
+    And my address details will be displayed in summary
+
+    When I select edit my personal details
+    Then I will see my personal details pre-populated
+
+    When I select Next - Select retailer
+    Then my personal details will be displayed in summary
+    And my address details will be displayed in summary
