@@ -65,11 +65,33 @@ DBI.connect("DBI:Mysql:vw_user:#{ENV['DBHOST']}", 'vw_user', 'vw_user') do |dbh|
     case account['purpose']
     when "Single_current_car_user"
       dbh.prepare(current_sql) do |sth|
-        sth.execute("#{Time.now.to_i}SCTEST", "#{account['uuid']}", "CURRENT", "GOLF", "Test GOLF", "b'0'", "GOLF", "PRIVATE", "NEW_CAR", "", "2012", "1.80", "Petrol", "Manual")
+        sth.execute("#{Time.now.to_i}SCTEST", "#{account['uuid']}", "CURRENT", "GOLF", "Test GOLF 999", "b'0'", "GOLF", "PRIVATE", "NEW_CAR", "#{MODELS_LIST['golf']}", "Wolsey House", "tribalddbtech@gmail.com", "Victoria Loveday", "Suffolk", "00153", "Ipswich Volkswagen", "IP1 5AN", "Sproughton Road", "01473 240800", "Ipswich", "Service", "2012", "1.80", "Petrol", "Manual")
       end
+    when "All_details_complete_user"
+      my_id = dbh.select_one("SELECT id FROM my_customer_contact WHERE email='#{account['username']}'")
+      dbh.do(%(
+          UPDATE my_customer_details
+          SET address_type = '#{account['optional_details']['address_type']}',
+          house_number = '#{account['optional_details']['house_number']}',
+          postcode = '#{account['optional_details']['postcode']}',
+          street = '#{account['optional_details']['street']}',
+          street2 = '#{account['optional_details']['street2']}',
+          city = '#{account['optional_details']['city']}',
+          county = '#{account['optional_details']['county']}',
+          phone1 = '#{account['optional_details']['phone1']}',
+          phone2 = '#{account['optional_details']['phone2']}',
+          phone_type = '#{account['optional_details']['phone_type']}',
+          work_phone = '#{account['optional_details']['work_phone']}',
+          preferred_contact = '#{account['optional_details']['preferred_contact']}',
+          marital_status = '#{account['optional_details']['marital_status']}',
+          date_of_birth = '#{account['optional_details']['date_of_birth']}'
+          WHERE contact_id = '#{my_id[0]}'
+      ))
     when "DBG_User"
       dbh.do("UPDATE my_customer_contact SET dbg_id = 11033601 WHERE email = '#{account['username']}'")
     when "DBG_User_Invalid"
+      dbh.do("UPDATE my_customer_contact SET dbg_id = 999999999999999 WHERE email = '#{account['username']}'")
+    when "All_details_complete_user"
       dbh.do("UPDATE my_customer_contact SET dbg_id = 999999999999999 WHERE email = '#{account['username']}'")
     when "Current_car_User"
       dbh.prepare(current_sql) do |sth|

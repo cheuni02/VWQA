@@ -36,7 +36,28 @@ begin
     hash['username'] = "AutomatedToastUser#{ctime - index}@example.com"
     hash['password'] = 'Abcd!2345'
     hash['purpose'] = purpose
+    hash['optional_details'] = {}
+    if purpose == 'All_details_complete_user'
+      hash['optional_details'] = {
+        :address_type => 'home',
+        :house_number => '4000',
+        :postcode => 'UB6 7HA',
+        :street => 'Empire Road',
+        :street2 => "Empire Place",
+        :city => 'LONDON',
+        :county => 'MIDDLESEX',
+        :phone1 => '01234567890',
+        :phone2 => '09876543210',
+        :phone_type => 'home',
+        :work_phone => '54321098765',
+        :preferred_contact => 'email',
+        :marital_status => 'Single',
+        :date_of_birth => '1989-08-04 00:00:00'
+      }
+    end
     index += 1
+    #puts hash
+    #sleep(3)
     new_users.push(hash)
   end
 
@@ -56,6 +77,7 @@ begin
   new_users.each do |user|
     my_user = user.clone
     my_user.delete('purpose')
+    my_user.delete('optional_details')
 
     res = resource['/api/auth/2.0/register'].post my_user.to_json
     user['uuid'] = JSON.parse(res)['uuid']

@@ -16,7 +16,7 @@ Feature: Buying Guide
 
   Scenario: VW Small Business Link
     When i click the page link to view VW Small business offers
-    Then i should see a information page with a header "Contract hire"
+    Then i should see a information page with a header "Small Business Leasing Offers"
     And there should be an image and text information on the page
 
   Scenario: VW Insurance Link

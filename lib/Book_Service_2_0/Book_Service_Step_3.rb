@@ -1,27 +1,26 @@
 class BookAService2Step3 < BookAService2
-
   def page_loaded?
     retailer_section.wait_until_present
   end
 
   def summary_title
-    personal_details_summary.li(index: 0).span(index: 0).text
+    personal_details_summary.li(index: 0).span(index: 0)
   end
 
   def summary_name
-    personal_details_summary.li(index: 0).span(index: 1).text
+    personal_details_summary.li(index: 0).span(index: 1)
   end
 
   def summary_surname
-    personal_details_summary.li(index: 0).span(index: 2).text
+    personal_details_summary.li(index: 0).span(index: 2)
   end
 
   def summary_mobile
-    personal_details_summary.li(index: 1).text
+    personal_details_summary.li(index: 1)
   end
 
   def summary_email
-    personal_details_summary.li(index: 2).text
+    personal_details_summary.li(index: 2)
   end
 
   def personal_details_summary
@@ -29,151 +28,87 @@ class BookAService2Step3 < BookAService2
   end
 
   def summary_house_number
-    address_summary.li(index: 0).text
+    address_summary.li(index: 0)
   end
 
   def summary_street
-    address_summary.li(index: 1).text
+    address_summary.li(index: 1)
   end
 
   def summary_town
-    address_summary.li(index: 3).text
+    address_summary.li(index: 3)
   end
 
   def summary_postcode
-    address_summary.li(index: 5).text
+    address_summary.li(index: 5)
   end
 
   def address_summary
     @browser.element(class: 'my-details-address-data')
   end
 
-  def retailer_selected_present?
-    current_selected_retailer.present?
-  end
-
-  def retailer_panel_present?
-    my_retailer_panel.present?
-  end
-
-  def click_retailer_edit_link
-    retailer_edit_link.when_present.click
-  end
-
-  def enter_retailer_location(location)
-    search_by_location_field.set("#{location}")
-  end
-
-  def click_location_lookup_button
-    location_lookup_button.when_present.click
-  end
-
-  def enter_retailer_name(name)
-    search_by_name_field.set("#{name}")
-  end
-
-  def click_retailer_in_dropdown
-    retailer_drop_down_link.click
-  end
-
-  def no_retailer_error_message_present?
-    retailer_error_message.wait_until_present
-  end
-
-  def enter_invalid_inputs(invalid_location)
-    search_by_location_field.set("#{invalid_location}")
-  end
-
-  def retailer_dropdown_visible
-     retailer_dropdown.when_present
-  end
-
-  def retailer_list_present?
-    retailer_selection.wait_until_present
-    retailer_list.present?
-  end
-
-  def click_map_view_button
-    map_view_button.click
-  end
-
-  def click_service_radio_button
-    retailer_selection.wait_until_present
-    service_radio_button.set
-  end
-
-  def click_step4_button
-    step4_button.when_present.click
-  end
-
-  def do_step_3
-    page_loaded?
-    click_retailer_edit_link
-    search_by_name_field.set("birmingham")
-    click_retailer_in_dropdown
-    click_service_radio_button
-    click_step4_button
-  end
-
-  private
-
   def retailer_section
-    @browser.section(:id => "sb-retailer-section")
-  end
-
-  def my_retailer_panel
-    @browser.div(:id => "retailerEditLeft")
-  end
-
-  def retailer_edit_link
-    my_retailer_panel.span(:class => "fa-edit")
+    @browser.section(id: 'sb-retailer-section')
   end
 
   def search_by_location_field
-    @browser.text_field(:id => "retailer-location-search")
+    @browser.text_field(id: 'retailer-location-search')
   end
 
   def location_lookup_button
-    @browser.button(:id => "retailer-location-search-submit")
+    @browser.button(id: 'retailer-location-search-submit')
   end
 
   def search_by_name_field
-    @browser.text_field(:id => "retailer-name-search")
+    @browser.text_field(id: 'retailer-name-search')
   end
 
-  def current_selected_retailer
-    @browser.div(:id => "retailerEditLeft-viewer").ul(:class => "my-car-form__summary").li
+  def retailer_in_list(position)
+    retailer_dropdown.element(class: 'ui-corner-all', index: position)
   end
 
   def retailer_dropdown
-    @browser.ul(:id => "ui-id-3")
-  end
-
-  def retailer_drop_down_link
-    retailer_dropdown.li(:class => "ui-menu-item").a
+    @browser.ul(id: 'ui-id-3')
   end
 
   def retailer_error_message
-    @browser.div(:id => "retailer-selection").p(:class => "form-error")
+    @browser.div(id: 'retailer-selection').p(class: 'form-error')
   end
 
-  def retailer_selection
-    @browser.div(:id => "retailer-selection")
+  def local_retailer(position)
+    @browser.element(id: 'retailer-group').element(class: 'retailer', index: position)
   end
 
-  def retailer_list
-    retailer_selection.div(:id => "retailer-list")
+  def selected_retailer
+    @browser.element(id: 'retailer-list').li(class: 'retailer selected')
   end
 
-  def map_view_button
-    retailer_list.p(:id => "show-retailer-map")
-  end
-
-  def service_radio_button
-    @browser.div(:id => "retailer-list").ul(:id => "retailer-group").li.div(:class => "serviced-by").span.radio(:class => "vw-radio")
+  def loading_wheel
+    @browser.div(id: 'page').div(class: 'my-loading-shield')
   end
 
   def step4_button
-    @browser.button(:id => "goto-work")
+    @browser.button(id: 'goto-work')
+  end
+
+  def retailer_form_errors
+    @browser.element(id: 'retailerEditLeft-editor').element(class: 'my-car-form__errors')
+  end
+
+  def retailer_group_list
+    @browser.element(id: 'retailer-group')
+  end
+
+  def current_selected_retailer
+    retailer_group_list.element(class: 'retailer').h4
+  end
+
+  def number_of_retailers_in_list
+    list_length = 0
+    loop do
+      list_length += 1
+      break if retailer_group_list.li(class: 'retailer', index: list_length).present? == false
+    end
+    list_length
   end
 end
