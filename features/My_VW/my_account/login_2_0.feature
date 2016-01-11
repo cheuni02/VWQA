@@ -1,4 +1,4 @@
-@login_2_0
+@my_vw @Login-2
 Feature: My VW Login Version 2
   As the owner of the new My Volkswagen login section
   We need to ensure that existing and new users can access the login form
