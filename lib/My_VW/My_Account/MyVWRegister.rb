@@ -17,12 +17,12 @@ class MyVWRegister < MyVW
     self.visit
 
     title_select_list.select(DEFAULT_ACCOUNT[:title])
-    set_first_name(DEFAULT_ACCOUNT[:first_name] + "#{timestamp}")
-    set_surname(DEFAULT_ACCOUNT[:surname] + "#{timestamp}")
-    set_email(email)
-    set_password(DEFAULT_ACCOUNT[:password])
+    first_name_field.set(DEFAULT_ACCOUNT[:first_name] + "#{timestamp}")
+    surname_field.set(DEFAULT_ACCOUNT[:surname] + "#{timestamp}")
+    email_field.set(email)
+    password_field.set(DEFAULT_ACCOUNT[:password])
     set_password_confirm(DEFAULT_ACCOUNT[:password])
-    submit_registration
+    registration_button.click
 
     self.primary_nav.click_logout
 
@@ -36,12 +36,12 @@ class MyVWRegister < MyVW
 
     self.visit
     title_select_list.select(DEFAULT_ACCOUNT[:title])
-    set_first_name(DEFAULT_ACCOUNT[:first_name] + "#{timestamp}")
-    set_surname(DEFAULT_ACCOUNT[:surname] + "#{timestamp}")
-    set_email(email)
-    set_password(DEFAULT_ACCOUNT[:password])
+    first_name_field.set(DEFAULT_ACCOUNT[:first_name] + "#{timestamp}")
+    surname_field.set(DEFAULT_ACCOUNT[:surname] + "#{timestamp}")
+    email_field.set(email)
+    password_field.set(DEFAULT_ACCOUNT[:password])
     password_confirm_new.set (DEFAULT_ACCOUNT[:password])
-    submit_registration
+    registration_button.click
 
     return [email, DEFAULT_ACCOUNT[:password]]
 
@@ -55,29 +55,20 @@ class MyVWRegister < MyVW
     @browser.execute_script("return document.getElementById('title')")
   end
 
-  #def set_title(name)
-  #  title.select(name)
-  #end
-
-
-  def set_title(name)
-    title.select(name)
+  def first_name_field
+    @browser.text_field(:id => "firstName")
   end
 
-  def set_first_name(name)
-    first_name.when_present.set(name)
+  def surname_field
+    @browser.text_field(:id => "surname")
   end
 
-  def set_surname(name)
-    surname.when_present.set(name)
+  def email_field
+    @browser.text_field(:id => "email")
   end
 
-  def set_email(address)
-    email.set(address)
-  end
-
-  def set_password(my_password)
-    password.set(my_password)
+  def password_field
+    @browser.text_field(:id => "password")
   end
 
   def set_password_confirm(my_password)
@@ -86,6 +77,19 @@ class MyVWRegister < MyVW
 
   def password_confirm_new
     @browser.text_field(:id => "repeat-password")
+  end
+
+  def registration_button
+    @browser.button(:class => "vw-btn-active")
+  end
+
+  def get_error_messages
+    messages = @browser.ps(:class => "form-error")
+    arr = []
+    messages.each do |message|
+      arr.push(message.text) if message.present?
+    end
+    return arr
   end
 
   def submit_registration
@@ -106,27 +110,6 @@ class MyVWRegister < MyVW
     "/vw-authentication/register/index?targetUrl=%2Fowners%2Fmy%2Fcars"
   end
 
-  def title
-    #@browser.select(:id => "title")
-
-  end
-
-  def first_name
-    @browser.text_field(:id => "firstName")
-  end
-
-  def surname
-    @browser.text_field(:id => "surname")
-  end
-
-  def email
-    @browser.text_field(:id => "email")
-  end
-
-  def password
-    @browser.text_field(:id => "password")
-  end
-
   def password_verify
     @browser.text_field(:id => "repeatPassword")
   end
@@ -136,7 +119,7 @@ class MyVWRegister < MyVW
   end
 
   def validation_message
-    @browser.ps(:class => "form-error")
+
   end
 
   def register_form_locator
