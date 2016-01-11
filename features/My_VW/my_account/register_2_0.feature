@@ -1,4 +1,4 @@
-@Register-2 @my_vw
+@Registration-2 @my_vw
 Feature: Volkswagen Account Registration
   Since we have a Volkswagen Customer account section
   We should ensure that new customers can sign up and register for an account
