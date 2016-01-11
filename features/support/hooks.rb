@@ -45,6 +45,10 @@ Before('@Register_temp') do
   @account = site.my_vw.register.register_default_account
 end
 
+Before('@Register_temp_2') do
+  @account = site.my_vw.register.register_default_account_new
+end
+
 After ('@logout') do
   site.visit_page('/logout?postLogoutPage=/owners/my/account/index')
   #site.owners.wait_for_page

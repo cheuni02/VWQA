@@ -4,20 +4,18 @@ class MyVWRegister < MyVW
     visit_page(page_url)
   end
 
+  def page_loaded?
+    @browser.text_field(:id => "firstName").wait_until_present
+  end
 
+
+  ### Remove me later (Once My VW Released)
   def register_default_account
     timestamp = Time.now.to_i
     email = DEFAULT_ACCOUNT[:first_name] + "#{timestamp}" + DEFAULT_ACCOUNT[:email_base]
 
-    #begin
     self.visit
-      #@browser.div(:id => "uniform-title").click
-    #  title.wait_until_present(10)
-    #rescue Watir::Wait::TimeoutError
-    #  retry
-    #end
 
-    #@browser.div(:id => "uniform-title").click
     title_select_list.select(DEFAULT_ACCOUNT[:title])
     set_first_name(DEFAULT_ACCOUNT[:first_name] + "#{timestamp}")
     set_surname(DEFAULT_ACCOUNT[:surname] + "#{timestamp}")
@@ -31,6 +29,28 @@ class MyVWRegister < MyVW
     return [email, DEFAULT_ACCOUNT[:password]]
   end
 
+  def register_default_account_new
+
+    timestamp = Time.now.to_i
+    email = DEFAULT_ACCOUNT[:first_name] + "#{timestamp}" + DEFAULT_ACCOUNT[:email_base]
+
+    self.visit
+    title_select_list.select(DEFAULT_ACCOUNT[:title])
+    set_first_name(DEFAULT_ACCOUNT[:first_name] + "#{timestamp}")
+    set_surname(DEFAULT_ACCOUNT[:surname] + "#{timestamp}")
+    set_email(email)
+    set_password(DEFAULT_ACCOUNT[:password])
+    password_confirm_new.set (DEFAULT_ACCOUNT[:password])
+    submit_registration
+
+    return [email, DEFAULT_ACCOUNT[:password]]
+
+
+
+
+  end
+
+
   def title_select_list
     @browser.execute_script("return document.getElementById('title')")
   end
@@ -38,6 +58,11 @@ class MyVWRegister < MyVW
   #def set_title(name)
   #  title.select(name)
   #end
+
+
+  def set_title(name)
+    title.select(name)
+  end
 
   def set_first_name(name)
     first_name.when_present.set(name)
@@ -57,6 +82,10 @@ class MyVWRegister < MyVW
 
   def set_password_confirm(my_password)
     password_verify.set(my_password)
+  end
+
+  def password_confirm_new
+    @browser.text_field(:id => "repeat-password")
   end
 
   def submit_registration

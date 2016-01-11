@@ -1,4 +1,4 @@
-@login_2_0
+@my_vw @Login-2
 Feature: My VW Login Version 2
   As the owner of the new My Volkswagen login section
   We need to ensure that existing and new users can access the login form
@@ -7,9 +7,9 @@ Feature: My VW Login Version 2
   Background: Visiting the Login Page
     Given i am on the My VW Login Page
 
-  @login
+  @login @clear_cookies
   Scenario: Logging in with a validiated account
-    When i enter my regsitered account email address
+    When i enter my registered account email address
     And i enter my accounts correct password
     And i submit my attempt to login
     Then i should be logged into the My Volkswagen section
@@ -20,16 +20,16 @@ Feature: My VW Login Version 2
     And i submit my attempt to login
     Then i should see a login error appear in my browser:
     """
-      Please enter an email address and password.
+    Please enter an email address and password.
     """
 
-  @Register_temp
+  @Register_temp_2
   Scenario Outline: Attempted Incorrect Password Login to a registered account
     Given i have previously submitted <number> invalid logins
-    When i enter my regsitered account email address
+    When i enter my registered account email address
     And i enter a random valid password for this account
     And i submit my attempt to login
-    Then i should see one of these error messages in my browser:
+    Then i should see this error message for <number> incorrect login attempts:
     | Feedback                                                                                                       |
     | Sorry your login doesnt match our data. You have 4 more attempts before your account is locked for 30 minutes. |
     | Sorry your login doesnt match our data. You have 3 more attempts before your account is locked for 30 minutes. |
@@ -43,31 +43,36 @@ Feature: My VW Login Version 2
     |   2    |
     |   3    |
 
-  @Register_temp
+  @Register_temp_2
   Scenario: Account lockout after 5 incorrect password attempts
+    Given i have previously submitted 4 invalid logins
     When i enter my registered account email address
-    But i enter an invalid password for the 5th time
+    And i enter a random valid password for this account
+    And i submit my attempt to login
     Then i should see an error page in my browser informing me that my account is locked
     And there should be a button to reset my existing password
 
-  @login
+  @login @clear_cookies
   Scenario: Login with remember me set
-    When i enter my correct username and password
-    And i check the Remember me box on the login form
+    Given i enter my registered account email address
+    And i enter my accounts correct password
+    When i check the Remember me box on the login form
     And i submit my attempt to login
     Then i should be logged into the My Volkswagen section
     And the remember me cookie should be set in my browser
 
   Scenario: Link to reset my password
     When i click on the link to go to the reset password form
-    Then i should see the form fields load in my browser window
+    Then i should see the forgot password form load in my browser
 
   Scenario: Link to register a new account
     When i click on the link to go to the registration page
     Then i should see the registration form load in my browser
 
+  @clear_cookies @login
   Scenario: Logging out from my account
-    When i enter my correct username and password
-    And i submit my attempt to login
+    Given i enter my registered account email address
+    And i enter my accounts correct password
+    When i submit my attempt to login
     But i then log out from my Volkswagen account
     Then i should find i am no longer signed into my account
