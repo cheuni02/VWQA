@@ -122,10 +122,6 @@ class MyVWRegister < MyVW
     @browser.button(:class => "vw-btn-active")
   end
 
-  def validation_message
-
-  end
-
   def register_form_locator
     @browser.form(:id => 'register-form')
   end

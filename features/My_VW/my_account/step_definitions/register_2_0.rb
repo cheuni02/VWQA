@@ -9,7 +9,6 @@ Given /^i enter my name details as (.*) (.*) (.*)$/ do |title, first_name, surna
 end
 
 When /^i set the email account field to (.*)$/ do |email|
-  #site.my_vw.register.email_field.when_present.clear
   site.my_vw.register.email_field.when_present.send_keys(email)
 end
 
