@@ -24,7 +24,11 @@ class BookAService2Step3 < BookAService2
   end
 
   def personal_details_summary
-    @browser.element(class: 'my-details-personal-data')
+    if @browser.element(id: 'myDetailsEditLeft').text.empty?
+      @browser.element(id: 'myDetailsViewLeft')
+    else
+      @browser.element(id: 'myDetailsEditLeft')
+    end
   end
 
   def summary_house_number
@@ -44,7 +48,11 @@ class BookAService2Step3 < BookAService2
   end
 
   def address_summary
-    @browser.element(class: 'my-details-address-data')
+    if @browser.element(id: 'myDetailsEditRight').text.empty?
+      @browser.element(id: 'myDetailsViewRight')
+    else
+      @browser.element(id: 'myDetailsEditRight')
+    end
   end
 
   def retailer_section
@@ -110,5 +118,9 @@ class BookAService2Step3 < BookAService2
       break if retailer_group_list.li(class: 'retailer', index: list_length).present? == false
     end
     list_length
+  end
+
+  def edit_details_button
+    @browser.element(id: 'changeTo_myDetailsEditLeft-editor')
   end
 end

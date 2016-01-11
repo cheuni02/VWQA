@@ -3,7 +3,7 @@ Then (/^my personal details will be displayed in summary$/) do
   expect(service_booking.summary_title.text).to eq(@account[:title])
   expect(service_booking.summary_name.text).to eq(@account[:firstname])
   expect(service_booking.summary_surname.text).to eq(@account[:lastname])
-  expect(service_booking.summary_mobile.text).to eq(@account[:optional_details][:phone2])
+  expect(service_booking.summary_mobile.text).to eq(@account[:optional_details][:phone1])
   expect(service_booking.summary_email.text).to eq(@account[:username])
 end
 
@@ -87,4 +87,8 @@ end
 
 Then (/^I will see message that no retailers found matching my search$/) do
   expect(site.service_booking.step3.retailer_error_message.present?).to eq(true)
+end
+
+When(/^I select edit my personal details$/) do
+  site.service_booking.step3.edit_details_button.click
 end

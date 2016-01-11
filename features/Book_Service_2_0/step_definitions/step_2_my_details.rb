@@ -36,7 +36,7 @@ When (/^I update (.*) field in personal details$/) do |field|
     when 'last name'
       service_booking.last_name_field.set(@account[:lastname])
     when 'mobile'
-      service_booking.mobile_field.set(@account[:optional_details][:phone2])
+      service_booking.mobile_field.set(@account[:optional_details][:phone1])
     when 'email'
       service_booking.email_field.set(@account[:username])
   end

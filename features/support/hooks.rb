@@ -26,6 +26,11 @@ Before('@login_Current_User') do
   @account = site.my_vw.login.get_account_details('Current_car_User')
 end
 
+Before('@login_complete_details_user') do
+  @account = site.my_vw.login.get_account_details('All_details_complete_user')
+end
+
+
 # Hook to force logout without clicking on the header link
 After('@logout-force') do
   site.visit_page('/logout?postLogoutPage=/owners/my/account/index')
