@@ -1,4 +1,4 @@
-@login_Current_User @Cars_Thumbnail
+@login_current_car @Cars_Thumbnail
 Feature: Cars thumbnails in My account
   As a Volkswagen vehicle owner
   I want to be able to see correct cars thumbnails
@@ -13,28 +13,29 @@ Feature: Cars thumbnails in My account
 
 
     Examples:
-      | type              | thumbnail |
-      | FOX               | http://www.volkswagen.co.uk/assets/content/mobile/low/fox.jpg       |
-      | BEETLE            | http://www.volkswagen.co.uk/assets/content/mobile/low/beetle.jpg    |
-      | BEETLE CABRIOLET  | http://www.volkswagen.co.uk/assets/content/mobile/low/beetlecab.jpg |
-      | PASSAT R-LINE    | http://www.volkswagen.co.uk/assets/content/mobile/low/passat.jpg    |
-      | PASSAT ESTATE    | http://www.volkswagen.co.uk/assets/content/mobile/low/passat.jpg    |
-      | VOLKSWAGEN CC    | http://www.volkswagen.co.uk/assets/content/mobile/low/volkswagencc.jpg |
-      | PASSAT R-LINE    | http://www.volkswagen.co.uk/assets/content/mobile/low/passat.jpg    |
-      | PASSAT ALLTRACK  | http://www.volkswagen.co.uk/assets/content/mobile/low/passat.jpg    |
-      | SCIROCCO         | http://www.volkswagen.co.uk/assets/content/mobile/low/scirocco.jpg  |
-      | TIGUAN           | http://www.volkswagen.co.uk/assets/content/mobile/low/tiguan.jpg    |
-      | E-UP!            | http://www.volkswagen.co.uk/assets/content/mobile/low/eup.jpg       |
-      | EOS              | http://www.volkswagen.co.uk/assets/content/mobile/low/eos.jpg       |
-      | TOURAN           | http://www.volkswagen.co.uk/assets/content/mobile/low/touran.jpg    |
-      | SHARAN           | http://www.volkswagen.co.uk/assets/content/mobile/low/sharan.jpg    |
-      | TOUAREG          | http://www.volkswagen.co.uk/assets/content/mobile/low/touareg.jpg   |
-      | E-GOLF           | http://www.volkswagen.co.uk/assets/content/mobile/low/e_golf.jpg    |
-      | PHAETON          | http://www.volkswagen.co.uk/assets/content/mobile/low/phaeton.jpg   |
-      | UP!              | http://www.volkswagen.co.uk/assets/content/mobile/low/up.jpg        |
-      | POLO             | http://www.volkswagen.co.uk/assets/content/mobile/low/polo.jpg      |
-      | GOLF             | http://www.volkswagen.co.uk/assets/content/mobile/low/golf.jpg      |
-      | GOLF GTD         | http://www.volkswagen.co.uk/assets/content/mobile/low/golfgtd.jpg   |
-      | GOLF CABRIOLET   | http://www.volkswagen.co.uk/assets/content/mobile/low/default.jpg   |
-      | GOLF PLUS        | http://www.volkswagen.co.uk/assets/content/mobile/low/golfplus.jpg  |
-      | GOLF ESTATE      | http://www.volkswagen.co.uk/assets/content/mobile/low/golfestate.jpg|
+      | type             | thumbnail |
+      | FOX              | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/fox.jpg       |
+      | BEETLE           | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/beetle.jpg    |
+      | BEETLE CABRIOLET | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/beetle-cab.jpg|
+      | PASSAT R-LINE    | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/passat.jpg    |
+      | PASSAT ESTATE    | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/passat-estate.jpg|
+      | VOLKSWAGEN CC    | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/cc.jpg        |
+      | PASSAT R-LINE    | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/passat.jpg    |
+      | PASSAT ALLTRACK  | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/passat.jpg    |
+      | SCIROCCO         | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/scirocco.jpg  |
+      | TIGUAN           | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/tiguan.jpg    |
+      | E-UP!            | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/default.jpg   |
+      | EOS              | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/eos.jpg       |
+      | TOURAN           | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/touran.jpg    |
+      | SHARAN           | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/sharan.jpg    |
+      | TOUAREG          | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/touareg.jpg   |
+      | E-GOLF           | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/e_golf.jpg    |
+      | PHAETON          | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/phaeton.jpg   |
+      | UP!              | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/up.jpg        |
+      | POLO             | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/polo.jpg      |
+      | GOLF             | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/golf.jpg      |
+      | GOLF GTD         | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/golfgtd.jpg   |
+      | GOLF CABRIOLET   | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/golf-cab.jpg  |
+      | GOLF PLUS        | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/golf-plus.jpg |
+      | GOLF ESTATE      | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/golf-estate.jpg|
+      | GOLF SV          | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/golf-sv.jpg   |
