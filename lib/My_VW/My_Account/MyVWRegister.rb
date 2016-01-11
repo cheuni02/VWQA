@@ -92,6 +92,10 @@ class MyVWRegister < MyVW
     return arr
   end
 
+  def thank_you_page_link
+    @browser.link(:id => "login-link")
+  end
+
   def submit_registration
     submit_registration_button.click
   end

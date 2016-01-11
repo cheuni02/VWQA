@@ -10,7 +10,8 @@ Feature: Volkswagen Account Registration
   Scenario Outline: New User Tries to Register without valid details
     Given i enter my name details as <title> <firstname> <surname>
     When i set the email account field to <email>
-    And i enter a valid registration Password "Abcd!2345"
+    And i set the password field to Abcd!2345
+    And i set the confirm password field to Abcd!2345
     Then i should not be able to complete my registration
     And i should see my a message on the page stating <feedback>
 
@@ -28,7 +29,7 @@ Feature: Volkswagen Account Registration
 
   Scenario Outline: New User Tries to Register with invalid Password
     Given i enter my name details as Mr Toasty Tester
-    And i set the email account field to 'testtesttest992@example.com'
+    And i set the email account field to testtesttest992@example.com
     When i set the password field to <password>
     And i set the confirm password field to <repeat_password>
     Then i should not be able to complete my registration
@@ -40,6 +41,7 @@ Feature: Volkswagen Account Registration
     | homer                        | homer                        |
     | HOMER                        | HOMER                        |
     | 12345                        | 12345                        |
+    | %%%%%%%%                     | %%%%%%%%                     |
     | 12345678                     | 12345678                     |
     | HOMERSIMPSON1                | HOMERSIMPSON1                |
     | homersimpson1                | homersimpson1                |
@@ -48,17 +50,16 @@ Feature: Volkswagen Account Registration
 
   Scenario: User Tries to register with a duplicate email address
     Given i enter my name details as Mr Toasty Tester
-    And i set the email account field to 'craig.merrilees@tribalworldwide.co.uk'
-    And i enter a valid registration Password "Abcd!2345"
+    And i set the email account field to craig.merrilees@tribalworldwide.co.uk
+    And i set the password field to Abcd!2345
+    And i set the confirm password field to Abcd!2345
     When i submit my new account registration
-    Then i should be returned to the registration form with the following error:
-    """
-    Sorry, that email is already in use.
-    """
+    Then i should see my a message on the page stating Sorry, that email is already in use.
 
   Scenario: User Successfully registers an account
     Given i enter my name details as Mr Toasty Tester
-    And i set the email account field to a random unused value
-    And i enter a valid registration Password "Abcd!2345"
+    And i set my email to a random unused address
+    And i set the password field to Abcd!2345
+    And i set the confirm password field to Abcd!2345
     When i submit my new account registration
     Then i should see the registration thank you page in my browser
