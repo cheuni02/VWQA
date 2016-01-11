@@ -9,7 +9,7 @@ class MyVWRegister < MyVW
   end
 
 
-  ### Remove me later (Once My VW Released) ###
+  ### Remove me later (Once My VW Released)
   def register_default_account
     timestamp = Time.now.to_i
     email = DEFAULT_ACCOUNT[:first_name] + "#{timestamp}" + DEFAULT_ACCOUNT[:email_base]

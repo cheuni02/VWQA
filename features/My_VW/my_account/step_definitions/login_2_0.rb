@@ -78,7 +78,7 @@ When /^i click on the link to go to the registration page$/ do
 end
 
 Then /^i should see the registration form load in my browser$/ do
-  expect{site.my_vw.register.page_loaded?}.to_not raise_error
+  expect{site.my_vw.register.password_confirm_new.wait_until_present}.to_not raise_error
 end
 
 But /^i then log out from my Volkswagen account$/ do
