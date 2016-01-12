@@ -20,7 +20,6 @@ Feature: Cars thumbnails in My account
       | PASSAT R-LINE    | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/passat.jpg    |
       | PASSAT ESTATE    | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/passat-estate.jpg|
       | VOLKSWAGEN CC    | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/cc.jpg        |
-      | PASSAT R-LINE    | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/passat.jpg    |
       | PASSAT ALLTRACK  | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/passat.jpg    |
       | SCIROCCO         | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/scirocco.jpg  |
       | TIGUAN           | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/tiguan.jpg    |
@@ -39,3 +38,4 @@ Feature: Cars thumbnails in My account
       | GOLF PLUS        | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/golf-plus.jpg |
       | GOLF ESTATE      | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/golf-estate.jpg|
       | GOLF SV          | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/golf-sv.jpg   |
+      | JETTA            | http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/jetta.jpg     |
