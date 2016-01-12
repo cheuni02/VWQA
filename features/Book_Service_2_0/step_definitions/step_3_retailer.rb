@@ -17,10 +17,54 @@ end
 
 Given (/^I have completed Step 2$/) do
   steps %(
-  Given I select my title Mr
-  And I fill in my personal details John, Doe, 07889093223 and john_doe@tribalworldwide.com
-  And I fill in my address information G2 3PS, 1, Hope Street and GLASGOW
+    Given I select my title Mr
+    And I fill in my personal details John, Doe, 07889093223 and john_doe@tribalworldwide.com
+    And I fill in my address information G2 3PS, 1, Hope Street and GLASGOW
         )
+end
+
+Given (/^as a logged in user without a registered car I have completed steps 1 and 2$/) do
+  steps %(
+    Given Step 1 is complete after I have logged in
+    And I enter a vehicle valid registration VU12WGE
+    And I click lookup button to find my registration
+    And I select Next - My details
+    And I select Next - Select retailer
+    And Step 3 of book a service has loaded
+        )
+end
+
+Given (/^as a logged in user with a registered car I have completed steps 1 and 2$/) do
+  steps %(
+    Given Step 1 is complete after I have logged in
+    When I select Next - My details
+    Then Step 2 of book a service has loaded
+    When I update mobile field in personal details
+    And I update postcode field in address section
+    And I select postcode lookup
+    And I update house name/number field in address section
+    And I select Next - Select retailer
+    And Step 3 of book a service has loaded
+        )
+end
+
+Then(/^my previously saved retailer is presented$/) do
+  service_booking = site.service_booking.step3
+  expect(service_booking.saved_retailer.present?).to be(true)
+  @saved_retailer_name = service_booking.saved_retailer_name.text
+  expect(@saved_retailer_name).to eq('Ipswich Volkswagen')
+end
+
+When (/^I select edit my retailer$/) do
+  site.service_booking.step3.edit_saved_retailer.click
+end
+
+Then(/^my previously saved retailer is still selected$/) do
+  expect(site.service_booking.step3.prefered_retailer_name.text).to eq(@saved_retailer_name)
+end
+
+Given(/^my postcode is pre-populated in search$/) do
+  expect(site.service_booking.step3.search_by_location_field.value).to eq(@account[:optional_details][:postcode])
 end
 
 Then (/^Step 3 of book a service has loaded$/) do
@@ -29,9 +73,9 @@ end
 
 Then (/^I can not continue until I provide search criteria for my retailer$/) do
   service_booking = site.service_booking.step3
-  expect(service_booking.location_lookup_button.enabled?).to eq(false)
+  expect(service_booking.location_lookup_button.enabled?).to be(false)
   service_booking.step4_button.click
-  expect(service_booking.retailer_form_errors.wait_until_present).to eq(true)
+  expect(service_booking.retailer_form_errors.wait_until_present).to be(true)
 end
 
 When (/^I search for my local VW retailer by (location|name) with (.*)$/) do |search_type, search|
@@ -46,9 +90,9 @@ end
 Then (/^I will (not see|see) search suggestions$/) do |drop_down|
   service_booking = site.service_booking.step3
   if drop_down == 'not see'
-    expect(service_booking.retailer_dropdown.present?).to eq(false)
+    expect(service_booking.retailer_dropdown.present?).to be(false)
   else
-    expect(service_booking.retailer_dropdown.present?).to eq(true)
+    expect(service_booking.retailer_dropdown.present?).to be(true)
   end
 end
 
@@ -62,6 +106,10 @@ end
 
 Then (/^I'm presented with my choice of VW retailer$/) do
   expect(site.service_booking.step3.current_selected_retailer.text).to eq(@retailer)
+end
+
+And (/^I select the map tab$/) do
+  site.service_booking.step3.map_tab.click
 end
 
 And (/^I click lookup$/) do
@@ -85,8 +133,18 @@ Then (/^I'm presented with a list view of (.*) local VW dealers$/) do |list_leng
   expect(site.service_booking.step3.number_of_retailers_in_list).to eq(list_length.to_i)
 end
 
+Then (/^I'm presented with a map view of local VW dealers$/) do
+  expect(site.service_booking.step3.retailer_map.present?).to be(true)
+end
+
+Then (/^the map has a pin where my nearest retailer is located$/) do
+  local_retailer = site.service_booking.step3
+  expect(local_retailer.pin_on_map_latitude).to eq '51.55582'
+  expect(local_retailer.pin_on_map_longitude).to eq '-0.39043'
+end
+
 Then (/^I will see message that no retailers found matching my search$/) do
-  expect(site.service_booking.step3.retailer_error_message.present?).to eq(true)
+  expect(site.service_booking.step3.retailer_error_message.present?).to be(true)
 end
 
 When(/^I select edit my personal details$/) do
