@@ -18,7 +18,11 @@ class MyAccount < MyVW
     end
   end
   return nil
-end
+  end
+
+  def thumbnail_url(thumbnail)
+    "http://www.volkswagen.co.uk/assets/content/mobile/thumbnails/%s.jpg" % [thumbnail]
+  end
 
   private
 
