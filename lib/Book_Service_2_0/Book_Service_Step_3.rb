@@ -123,4 +123,36 @@ class BookAService2Step3 < BookAService2
   def edit_details_button
     @browser.element(id: 'changeTo_myDetailsEditLeft-editor')
   end
+
+  def map_tab
+    @browser.element(text: 'Map')
+  end
+
+  def retailer_map
+    @browser.element(id: 'searched-retailers-map')
+  end
+
+  def pin_on_map_latitude
+    @browser.image(class: 'searched-retailer-map').src.split('|')[2].split(',')[0]
+  end
+
+  def pin_on_map_longitude
+    @browser.image(class: 'searched-retailer-map').src.split('|')[2].split(',')[1]
+  end
+
+  def saved_retailer
+    @browser.element(id: 'retailerEditLeft-viewer').element(class: 'my-car-form__summary')
+  end
+
+  def saved_retailer_name
+    saved_retailer.li(index: 1)
+  end
+
+  def edit_saved_retailer
+    @browser.element(id: 'changeTo_retailerEditLeft-editor')
+  end
+
+  def prefered_retailer_name
+    @browser.element(id: 'preferedRetailerName')
+  end
 end

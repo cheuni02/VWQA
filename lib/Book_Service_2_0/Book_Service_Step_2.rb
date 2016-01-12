@@ -86,7 +86,7 @@ class BookAService2Step2 < BookAService2
   end
 
   def select_title(title)
-    @browser.button(class: 'ui-button my-selectbox__button ui-combobox-button').click
+    @browser.button(class: 'ui-button my-selectbox__button ui-combobox-button').when_present.click
     @browser.li(text: title).click unless title.empty?
   end
 
