@@ -48,4 +48,8 @@ class MyVW < VWBase
   def delete_car
     DeleteCar.new(@browser)
   end
+
+  def my_account
+    MyAccount.new(@browser)
+  end
 end
