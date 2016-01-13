@@ -6,9 +6,10 @@ PURPOSES = [
   'DBG_User',
   'DBG_User_Invalid',
   'Current_car_User',
+  'Current_car_User_Ext',
   'Ordered_Car_User',
-  'Max_Car_User',
   'All_details_complete_user',
+  'Delete_Car_User',
   'Single_current_car_user']
 
 users = JSON.parse(File.read("../users.json"))
