@@ -19,7 +19,7 @@ MODELS_LIST = {
   'passat r-line' => 'KS15LLR',
   'passat estate' => 'GD64WFV',
   'passat alltrack' => 'DE64GZK',
-  'volkwagen cc' => 'LP15OVM',
+  'volkswagen cc' => 'LP15OVM',
   'scirocco' => 'KE15WLX',
   'tiguan' => 'LR62XHL',
   'eos' => 'RJ11TNL',
@@ -27,6 +27,17 @@ MODELS_LIST = {
   'sharan' => 'LC15NDO',
   'touareg' => 'KM15HZL',
   'phaeton' => 'HF64KPU'
+}
+
+MODELS_LIST_EXT = {
+  'bora' => 'AJ02AXD',
+  'lupo' => 'RF05PXN',
+  'passat cc' => 'KUIOLKN',
+  'corrado' => 'N92KAP',
+  'vento' => 'L867RFG',
+  'derby' => 'L867RFG',
+  'santana' => 'L867RFG',
+  'xl1' => 'L867RFG'
 }
 
 ORDER_MESSAGES = {
@@ -67,7 +78,47 @@ DBI.connect("DBI:Mysql:vw_user:#{ENV['DBHOST']}", 'vw_user', 'vw_user') do |dbh|
       dbh.prepare(current_sql) do |sth|
         sth.execute("#{Time.now.to_i}SCTEST", "#{account['uuid']}", "CURRENT", "GOLF", "Test GOLF 999", "b'0'", "GOLF", "PRIVATE", "NEW_CAR", "#{MODELS_LIST['golf']}", "Wolsey House", "tribalddbtech@gmail.com", "Victoria Loveday", "Suffolk", "00153", "Ipswich Volkswagen", "IP1 5AN", "Sproughton Road", "01473 240800", "Ipswich", "Service", "2012", "1.80", "Petrol", "Manual")
       end
-    when "All_details_complete_user"
+    when "All_details_complete_user", "DBG_User"
+      if account['purpose'] == "DBG_User"
+        dbh.do("UPDATE my_customer_contact SET dbg_id = 11033601 WHERE email = '#{account['username']}'")
+        dbh.prepare(current_sql) do |sth|
+          sth.execute("#{Time.now.to_i}DBVTEST", "#{account['uuid']}", "CURRENT", "GOLF", "Test GOLF 999", "b'0'", "GOLF", "PRIVATE", "NEW_CAR", "#{MODELS_LIST['golf']}", "Wolsey House", "tribalddbtech@gmail.com", "Victoria Loveday", "Suffolk", "00153", "Ipswich Volkswagen", "IP1 5AN", "Sproughton Road", "01473 240800", "Ipswich", "Service", "2012", "1.80", "Petrol", "Manual")
+        end
+      end
+    when "Current_car_User", "Delete_Car_User"
+      dbh.prepare(current_sql) do |sth|
+         acc_type = "CTEST"
+         acc_type = "DCTEST" if account['purpose'] == "Delete_Car_User"
+
+
+        index = 0
+        MODELS_LIST.each do |key, value|
+          sth.execute("#{Time.now.to_i}#{index}#{acc_type}", "#{account['uuid']}", "CURRENT", "#{key.upcase}#{index}", "Test #{key.upcase} 999", "b'0'", "#{key.upcase}", "PRIVATE", "NEW_CAR", "#{value}", "Wolsey House", "tribalddbtech@gmail.com", "Victoria Loveday", "Suffolk", "00153", "Ipswich Volkswagen", "IP1 5AN", "Sproughton Road", "01473 240800", "Ipswich", "Service", "2012", "1.80", "Petrol", "Manual")
+          index += 1
+        end
+      end
+    when "Current_car_User_Ext", "DBG_User_Invalid"
+      dbh.prepare(current_sql) do |sth|
+        acc_type = "CETEST"
+        acc_type = "DGUI" if account['purpose'] == "DBG_User_Invalid"
+        index = 0
+        MODELS_LIST_EXT.each do |key, value|
+          sth.execute("#{Time.now.to_i}#{index}#{acc_type}", "#{account['uuid']}", "CURRENT", "#{key.upcase}#{index}", "Test #{key.upcase} 999", "b'0'", "#{key.upcase}", "PRIVATE", "NEW_CAR", "#{value}", "Wolsey House", "tribalddbtech@gmail.com", "Victoria Loveday", "Suffolk", "00153", "Ipswich Volkswagen", "IP1 5AN", "Sproughton Road", "01473 240800", "Ipswich", "Service", "2012", "1.80", "Petrol", "Manual")
+          index += 1
+        end
+      end
+    when "Ordered_Car_User"
+      dbh.prepare(ordered_sql) do |sth|
+        my_step = "step_"
+        1.upto(7) do |i|
+          my_step = "step_#{i}".to_sym
+          sth.execute("#{Time.now.to_i + 1}#{i}OTEST", "#{account['uuid']}", "ORDERED", "OrderedStep#{i}", "Polo", "b'0'", "Polo", "86557#{i}", "#{ORDER_MESSAGES[my_step][0]}", "#{ORDER_MESSAGES[my_step][1]}")
+        end
+      end
+    end
+
+    case account['purpose']
+    when 'Current_car_User', 'DBG_User', 'All_details_complete_user'
       my_id = dbh.select_one("SELECT id FROM my_customer_contact WHERE email='#{account['username']}'")
       dbh.do(%(
           UPDATE my_customer_details
@@ -87,47 +138,7 @@ DBI.connect("DBI:Mysql:vw_user:#{ENV['DBHOST']}", 'vw_user', 'vw_user') do |dbh|
           date_of_birth = '#{account['optional_details']['date_of_birth']}'
           WHERE contact_id = '#{my_id[0]}'
       ))
-    when "DBG_User"
-      dbh.do("UPDATE my_customer_contact SET dbg_id = 11033601 WHERE email = '#{account['username']}'")
-    when "DBG_User_Invalid"
-      dbh.do("UPDATE my_customer_contact SET dbg_id = 999999999999999 WHERE email = '#{account['username']}'")
-    when "All_details_complete_user"
-      dbh.do("UPDATE my_customer_contact SET dbg_id = 999999999999999 WHERE email = '#{account['username']}'")
-    when "Current_car_User"
-      dbh.prepare(current_sql) do |sth|
-        index = 0
-        MODELS_LIST.each do |key, value|
-          sth.execute("#{Time.now.to_i}#{index}CTEST", "#{account['uuid']}", "CURRENT", "#{key.upcase}#{index}", "Test #{key.upcase} 999", "b'0'", "#{key.upcase}", "PRIVATE", "NEW_CAR", "#{value}", "Wolsey House", "tribalddbtech@gmail.com", "Victoria Loveday", "Suffolk", "00153", "Ipswich Volkswagen", "IP1 5AN", "Sproughton Road", "01473 240800", "Ipswich", "Service", "2012", "1.80", "Petrol", "Manual")
-          index += 1
-        end
-      end
-    when "Max_Car_User"
-      dbh.prepare(ordered_sql) do |sth|
-        my_step = "step_"
-        1.upto(7) do |i|
-          my_step = "step_#{i}".to_sym
-          sth.execute("#{Time.now.to_i + 1}#{i}MOTEST", "#{account['uuid']}", "ORDERED", "OrderedStep#{i}", "Polo", "b'0'", "Polo", "86557#{i}", "#{ORDER_MESSAGES[my_step][0]}", "#{ORDER_MESSAGES[my_step][1]}")
-        end
-      end
-
-      limit = 25 - 7
-
-      dbh.prepare(current_sql) do |sth|
-        MODELS_LIST.each do |key, value|
-          sth.execute("#{Time.now.to_i}#{limit}MCTEST", "#{account['uuid']}", "CURRENT", "#{key.upcase}#{limit}", "Test #{key.upcase} 999", "b'0'", "#{key.upcase}", "PRIVATE", "NEW_CAR", "#{value}", "Wolsey House", "tribalddbtech@gmail.com", "Victoria Loveday", "Suffolk", "00153", "Ipswich Volkswagen", "IP1 5AN", "Sproughton Road", "01473 240800", "Ipswich", "Service", "2012", "1.80", "Petrol", "Manual")
-          limit -= 1
-          break if limit == 0
-        end
-      end
-
-    when "Ordered_Car_User"
-      dbh.prepare(ordered_sql) do |sth|
-        my_step = "step_"
-        1.upto(7) do |i|
-          my_step = "step_#{i}".to_sym
-          sth.execute("#{Time.now.to_i + 1}#{i}OTEST", "#{account['uuid']}", "ORDERED", "OrderedStep#{i}", "Polo", "b'0'", "Polo", "86557#{i}", "#{ORDER_MESSAGES[my_step][0]}", "#{ORDER_MESSAGES[my_step][1]}")
-        end
-      end
     end
+
   end
 end
