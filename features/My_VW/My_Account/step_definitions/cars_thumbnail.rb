@@ -11,7 +11,7 @@ end
 
 When /^i check particular car (.*) i want to see correct (.*) present$/ do |type, thumbnail|
   test = @my_account.get_car_type(type)
-  model =@my_account.thumbnail_url(thumbnail)
+  model = @my_account.thumbnail_url(thumbnail)
   expect(test).to eq(model), "Thumbnail for car #{type} is not correct"
 end
 
@@ -28,6 +28,6 @@ end
 
 When /^i check car (.*) i want to see correct (.*) present$/ do |type, thumbnail|
   test = @my_account1.get_car_type(type)
-  model =@my_account1.thumbnail_url(thumbnail)
+  model = @my_account1.thumbnail_url(thumbnail)
   expect(test).to eq(model), "Thumbnail for car #{type} is not correct"
 end
