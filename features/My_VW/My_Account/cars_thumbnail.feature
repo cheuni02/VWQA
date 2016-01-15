@@ -16,7 +16,7 @@ Feature: Cars thumbnails in My account
       | FOX              | fox       |
       | BEETLE           | beetle    |
       | BEETLE CABRIOLET | beetle-cab|
-      | PASSAT R-LINE    | default   |
+      | PASSAT           | passat    |
       | PASSAT ESTATE    | passat-estate|
       | VOLKSWAGEN CC    | cc        |
       | PASSAT ALLTRACK  | default   |
