@@ -15,7 +15,7 @@ Feature: Cars thumbnails in My account
       | type             | thumbnail |
       | FOX              | fox       |
       | BEETLE           | beetle    |
-      | BEETLE CABRIOLET | beetle-cab|
+#      | BEETLE CABRIOLET | beetle-cab|
       | PASSAT           | passat    |
       | PASSAT ESTATE    | passat-estate|
       | VOLKSWAGEN CC    | cc        |
@@ -33,7 +33,7 @@ Feature: Cars thumbnails in My account
       | POLO             | polo      |
       | GOLF             | golf      |
       | GOLF GTD         | default   |
-      | GOLF CABRIOLET   | golf-cab  |
+#      | GOLF CABRIOLET   | golf-cab  |
       | GOLF PLUS        | golf-plus |
       | GOLF ESTATE      | golf-estate|
       | GOLF SV          | golf-sv   |

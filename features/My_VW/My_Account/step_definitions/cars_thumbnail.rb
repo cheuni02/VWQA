@@ -19,7 +19,7 @@ Given /^i have logged into my VW account with 5 different types of cars added$/ 
   @my_account1 = site.my_vw.my_account
   @my_account1.visit
   @login1 = site.my_vw.login
-  @login1.login(@account[:username],@account[:password])
+  @login1.login(@account[0],@account[1])
 end
 
 And /^i am on the My account page with 5 cars added$/ do
