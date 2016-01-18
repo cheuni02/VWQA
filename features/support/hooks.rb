@@ -23,7 +23,7 @@ Before('@login_Ordered_User') do
 end
 
 Before('@login_Current_User') do
-  @account = site.my_vw.login.get_login_details('Current_car_User')
+  @account = site.my_vw.login.get_account_details('Current_car_User')
 end
 
 Before('@login_Current_User_Ext') do
