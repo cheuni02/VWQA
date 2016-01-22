@@ -80,15 +80,20 @@ class BookAService2Step3 < BookAService2
   end
 
   def retailer_error_message
-    @browser.div(id: 'retailer-selection').p(class: 'form-error')
+    @browser.element(id: 'retailer-lookup-error')
   end
 
   def local_retailer(position)
-    @browser.element(id: 'retailer-group').element(class: 'retailer', index: position)
+    retailer_group_list.element(class: 'radio__list-cell', index: position)
   end
 
   def selected_retailer
-    @browser.element(id: 'retailer-list').li(class: 'retailer selected')
+    i = 0
+    loop do
+      i += 1
+      break if retailer_group_list.element(class: 'radio__list-cell', index: i).h3.style('color') == 'rgba(0, 177, 235, 1)' || i == 10
+    end
+    retailer_group_list.element(class: 'radio__list-cell', index: i)
   end
 
   def loading_wheel
@@ -104,24 +109,29 @@ class BookAService2Step3 < BookAService2
   end
 
   def retailer_group_list
-    @browser.element(id: 'retailer-group')
+    @browser.element(id: 'searched-retailers-list')
   end
 
-  def current_selected_retailer
-    retailer_group_list.element(class: 'retailer').h4
-  end
+  # def current_selected_retailer
+  #   binding.pry
+  #   retailer_group_list.h4
+  # end
 
   def number_of_retailers_in_list
     list_length = 0
     loop do
       list_length += 1
-      break if retailer_group_list.li(class: 'retailer', index: list_length).present? == false
+      break if retailer_group_list.element(class: 'radio__list-cell', index: list_length).present? == false || list_length == 10
     end
     list_length
   end
 
-  def edit_details_button
+  def edit_personal_button
     @browser.element(id: 'changeTo_myDetailsEditLeft-editor')
+  end
+
+  def edit_address_button
+    @browser.element(id: 'changeTo_myDetailsEditRight-editor')
   end
 
   def map_tab
@@ -152,7 +162,7 @@ class BookAService2Step3 < BookAService2
     @browser.element(id: 'changeTo_retailerEditLeft-editor')
   end
 
-  def prefered_retailer_name
-    @browser.element(id: 'preferedRetailerName')
+  def preferred_retailer_name
+    @browser.element(id: 'preferred-retailer')
   end
 end
