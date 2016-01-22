@@ -99,7 +99,6 @@ end
 
 Then (/^I will see feedback that my car details are (?:incomplete|incorrect) with:$/) do |table|
   service_booking = site.service_booking.step1
-  binding.pry
   expect(service_booking.registration_error_box.visible?).to eq(true)
   table.hashes.each_with_index do |hash, index|
     expect(service_booking.registration_error_box.li(index: index).text).to eq(hash['Feedback'])
