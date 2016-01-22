@@ -31,6 +31,10 @@ class MyVWLogin < MyVW
     do_login
   end
 
+  def account_navigation_bar
+    @browser.element(class: 'welcome-stripe__menu')
+  end
+
   # Gets the Login Details for a specified user account purpose
   # These are defined in user.json by hostname
   def get_login_details(purpose, host = ENV['HOST'])
@@ -48,7 +52,7 @@ class MyVWLogin < MyVW
 
   def get_account_details(purpose, host = ENV['HOST'])
     accounts = JSON.parse(File.read('users.json'), symbolize_names: true)[:User_accounts][host.to_sym]
-    accounts.collect {|detail| detail if detail[:purpose] == purpose }.compact.first
+    accounts.collect { |detail| detail if detail[:purpose] == purpose }.compact.first
   end
 
   def lockout_page

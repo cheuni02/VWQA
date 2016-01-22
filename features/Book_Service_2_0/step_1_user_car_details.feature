@@ -1,4 +1,4 @@
-@my_vw @Service-Booking-2 @clear_cookies
+@my_vw @Service-Booking-2
 Feature: Booking A Car Service Step 1 car details
   We need to ensure we can enter our car details on the first step of registration
   So that customers can enter all the required details for a new car service
@@ -40,7 +40,7 @@ Feature: Booking A Car Service Step 1 car details
       | Trim           | Year of manufacture | Registration | Engine size | Fuel type | Transmission |
       | Test JETTA 999 | 2012                | LP15OVN      | 1.8         | Petrol    | Manual       |
 
-  @add_car_user
+  @add_car_user @clear_cookies
   Scenario: A user with no registered car books a service
     Given I am on the Volkswagen Homepage
     When I login into my account

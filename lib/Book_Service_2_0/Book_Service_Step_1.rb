@@ -125,7 +125,7 @@ class BookAService2Step1 < BookAService2
   end
 
   def registration_error_box
-    @browser.element(class: 'my-car-form__errors')
+    @browser.element(id: 'carDetailsEditLeft-editor').element(class: 'my-car-form__errors')
   end
 
   def edit_car_details_form
