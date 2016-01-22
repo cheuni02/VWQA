@@ -3,7 +3,7 @@ Feature: Booking A Car Service Step 1 car details
   We need to ensure we can enter our car details on the first step of registration
   So that customers can enter all the required details for a new car service
 
-  @login_Current_User
+  @login_Current_User @clear_cookies
   Scenario: A user with many registered car books a service
     Given I am on the Volkswagen Homepage
     When I login into my account

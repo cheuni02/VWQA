@@ -112,11 +112,6 @@ class BookAService2Step3 < BookAService2
     @browser.element(id: 'searched-retailers-list')
   end
 
-  # def current_selected_retailer
-  #   binding.pry
-  #   retailer_group_list.h4
-  # end
-
   def number_of_retailers_in_list
     list_length = 0
     loop do
