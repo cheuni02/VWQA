@@ -31,28 +31,28 @@ end
 When (/^I update (.*) field in personal details$/) do |field|
   service_booking = site.service_booking.step2
   case field
-    when 'first name'
-      service_booking.first_name_field.set(@account[:firstname])
-    when 'last name'
-      service_booking.last_name_field.set(@account[:lastname])
-    when 'mobile'
-      service_booking.mobile_field.set(@account[:optional_details][:phone1])
-    when 'email'
-      service_booking.email_field.set(@account[:username])
+  when 'first name'
+    service_booking.first_name_field.set(@account[:firstname])
+  when 'last name'
+    service_booking.last_name_field.set(@account[:lastname])
+  when 'mobile'
+    service_booking.mobile_field.set(@account[:optional_details][:phone1])
+  when 'email'
+    service_booking.email_field.set(@account[:username])
   end
 end
 
 When (/^I update (.*) field in address section$/) do |field|
   service_booking = site.service_booking.step2
   case field
-    when 'house name/number'
-      service_booking.house_no_field.set(@account[:optional_details][:house_number])
-    when 'address1'
-      service_booking.address_line_1_field.set(@account[:optional_details][:address1])
-    when 'city'
-      service_booking.city_field.set(@account[:optional_details][:city])
-    when 'postcode'
-      service_booking.postcode_field.set(@account[:optional_details][:postcode])
+  when 'house name/number'
+    service_booking.house_no_field.set(@account[:optional_details][:house_number])
+  when 'address1'
+    service_booking.address_line_1_field.set(@account[:optional_details][:street])
+  when 'city'
+    service_booking.city_field.set(@account[:optional_details][:city])
+  when 'postcode'
+    service_booking.postcode_field.set(@account[:optional_details][:postcode])
   end
 end
 
