@@ -1,17 +1,3 @@
-Given (/^I am on the Volkswagen Homepage$/) do
-  site.homepage.visit
-end
-
-When (/^I login into my account$/) do
-  site.my_vw.login.login_link.when_present.click
-  site.my_vw.login.login(@account[:username], @account[:password])
-  expect(site.my_vw.login.account_navigation_bar.present?).to be(true)
-end
-
-When (/^I click the book a service button in navigation$/) do
-  site.primary_nav.book_service
-end
-
 Then (/^I should see step 1 of book a service$/) do
   site.service_booking.step1.page_loaded?
 end

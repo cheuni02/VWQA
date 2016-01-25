@@ -1,106 +1,97 @@
-@my_vw @Add-Current-Car @login
+@my_vw @Add-Current-Car
 Feature: Add a current car
   As a Volkswagen vehicle owner
   I want to be able to add my current car to my account
   So that i can track and interact with my vehicle
 
-    Background:
-      Given i have logged into my VW account and am on the My VW page
-      And i go to the add a car page and click on the "A car i own" button
+  @login_single_car_user
+  Scenario: Select add a car to my account
+    Given I am on the Volkswagen Homepage
+    When I login into my account
+    And I go to add a new car
+    Then I will be on add a car section with options:
+      | I'd like to add  |
+      | A car I own      |
+      | A car I ordered  |
+      | A configured car |
+    But none will be set
 
-    Scenario: Add a car option - Step 1a
-      When i check that i am on the Add a car i own page
-      Then i should see the registration field appear
+  Scenario: when I select A car I own and search for my registration
+    When I select the A car I own button
+    Then I will see a registration field
+    But the Lookup button is disabled
 
-    Scenario Outline: Add A car i own - Step 1b error validation
-      When i enter a <registration> in the input field
-      Then i should see a <message> message if the registration needs to be reviewed
+    When I add a into the registration field
+    Then the Lookup button is enabled
 
-      Examples:
-        | registration | message |
-        | VUDGE23      | error   |
-        |              | error   |
-        | gf35"3$%     | error   |
+    When I lookup the registration
+    Then I will see error message:
+      | Feedback                                                                                         |
+      | Sorry, but we don’t recognise that registration number. Please check it’s correct and try again. |
 
-    Scenario Outline: Add a car i own - Step 1b
-      When i enter one of my <registrations>
-      And click the lookup button
-      Then i should see a message saying think we've found your car
+    When I add aa into the registration field
+    And I lookup the registration
+    Then I will see error message:
+      | Feedback                                                                                            |
+      | Looks like your registration doesn’t belong to a Volkswagen. You can only add Volkswagens to My VW. |
 
-      Examples:
-         | registrations |
-         |  WM12GWG      |
-         |  HFZ9540      |
-         |  DV62GRK      |
+    When I add CV54 VDF into the registration field
+    And I lookup the registration
+    Then I will see error message:
+      | Feedback                                                                                            |
+      | Looks like your registration doesn’t belong to a Volkswagen. You can only add Volkswagens to My VW. |
 
-    Scenario: Add a car i own - Step 1c
-      When i have completed steps 1a and 1b
-      And have selected the used car button and given it a name
-      Then after i click continue i should be taken to a page asking me to select a retailer
+    When I add VU12WGE into the registration field
+    And I lookup the registration
+    Then I will see my car details in summary:
+      | Registration number | Model | Details                                           |
+      | VU12WGE             | Up    | MOVE UP BLUEMOTION TECHNO, 2012, 1 Petrol, Manual |
+    And acquired as will be set to A new car
+    And my car will be called My Up by default
 
-    Scenario Outline: Add a car i own - Step 1c edit mode
-      When i have completed steps 1a, b and click on the edit link in the My cars box
-      And i fill in the required details such as <day>, <month>, <year>, <engine_size>
-      Then i should see a error message to let me know if i need to review any details
+    When I select edit my car details
+    Then I will see my car details in editable form:
+      | Model | Derivative                | Year of Manufacture | Engine size | Fuel type | Transmission |
+      | Up    | MOVE UP BLUEMOTION TECHNO | 2012                | 1           | Petrol    | Manual       |
 
-      Examples:
-        | day | month     | year | engine_size |
-        | 2   | September | 2015 |             |
-        |     | October   | 2015 | 1.4         |
-        | 2   | October   | 2015 | 1.4         |
+    When I update model to Golf
+    And I update derivative to GTD
+    And I update year of manufacture to 2015
+#    And I update date of registration to 20 March 2012
+    And I update engine size to 2.0
+    And I update fuel type to Diesel
+    And I update transmission to Automatic
+    And I update my car name to My Diesel Golf
 
-    Scenario Outline: Add an owned car - Step 2a search by postcode
-      When i finish completing step 1 fully
-      And i enter a <postcode> in the search field and click the lookup button
-      Then i should see a list of retailers in a list or an error message if input is invalid
+    Then I will see my car details in editable form:
+      | Model | Derivative | Year of Manufacture | Engine size | Fuel type | Transmission |
+      | Golf  | GTD        | 2015                | 2.0         | Diesel    | Automatic    |
 
-      Examples:
-        | postcode |
-        | df$dsg£3 |
-        |          |
-        | NW9 9JR  |
-        | W2 6AA   |
 
-    Scenario Outline: Add an owned car - Step 2a search by retailer name
-      When i have completed Step 1a, b, c
-      And search for a retailer using a <retailer_name>
-      Then i should be able to select that retailer
-      And see the options to select it for Delivery and Servicing
+  Scenario: my searched for registration returns only partial details for my car
+    When I add MM07AYJ into the registration field
+    And I lookup the registration
 
-      Examples:
-        | retailer_name    |
-        | Blackpool        |
-        | Hampstead        |
-        | Citygate Watford |
+    Then I will see my car details in editable form:
+      | Model | Derivative      | Year of Manufacture | Engine size | Fuel type | Transmission |
+      | Eos   | EOS SPORT T FSI |                     | 2           | Petrol    | Manual       |
 
-    Scenario: Add an owned car - Step 2a
-      When i have finished all the steps until selecting a retailer
-      And i select my retailer and click the continue button
-      Then i should be able to see Step 3 Registered owner details
+    When I clear my car name
+    And I select continue
+    Then I will see my car name validation feedback Please enter a name for your car
 
-    Scenario: Add an owned car - Step 3 Skip & finish
-      When i have completed Steps 1 and 2
-      And i click the Skip & finish button
-      Then i should see the car in the my cars dropdown section
 
-    Scenario Outline: Add an owned car - Step 3 Validation
-      When i have completed Steps 1 and 2 for adding a car i own
-      And i enter <last_name> and <postcode> into the fields
-      Then i should get an error message if no record is present
+  Scenario: when I search for a car I have already added then I will not be able to add the car again
+    When I add NL62CZM into the registration field
+    And I lookup the registration
+    Then I will see error message:
+      | Feedback                                                                                                        |
+      | Looks like you have this car added already. Go to My Cars to view it or search for another registration number. |
 
-      Examples:
-        | last_name | postcode |
-        | patrick   | SE168tW  |
-        |           | W2 6AA   |
-        | patrick   |          |
-
-    Scenario: Add an owned car - Step 3
-      When i have complete Steps 1 and 2 for adding my car
-      And i enter my last name and postcode
-      Then after i click finish i should see my car in the my cars menu
-
-    Scenario: Delete cars
-      When i have added a car
-      And i hover over the my cars nav bar
-      Then i should be able to click on the bin icon on the cars
-      And the car should be deleted
+  @clear_cookies
+  Scenario: when I search for a commercial vehicle I will not be able to add this to my account
+    When I add SY64UCW into the registration field
+    And I lookup the registration
+    Then I will see error message:
+      | Feedback                                                                                                        |
+      | We're sorry we could not match your registration, the My Volkswagen login is only for passenger cars, if you have a Commercial Vehicle, Camper Van or Passenger Carrier, please visit https://volkswagen-vans.co.uk/ |

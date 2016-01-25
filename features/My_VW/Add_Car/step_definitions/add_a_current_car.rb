@@ -1,167 +1,177 @@
-Given /^i have logged into my VW account and am on the My VW page$/ do
-  @current_car = site.my_vw.current_car_dashboard
-  @add_car = site.my_vw.add_current_car
-  @current_car.visit
-  site.my_vw.login.login(@account[0],@account[1])
+Then (/^I will be on add a car section with options:$/) do |table|
+  expect(site.my_vw.add_current_car.add_a_car_choices.present?).to be(true)
+  option = []
+  table.hashes.each do |options|
+    option << site.my_vw.add_current_car.add_a_car_options(options["I'd like to add"])
+  end
+  expect(option.flatten.count).to eq(0), "The following option #{option.flatten} is not present"
 end
 
-And /^i go to the add a car page and click on the "A car i own" button$/ do
-  @add_car.visit
-  @add_car.click_i_own_car_button
+Then(/^none will be set$/) do
+  add_car = site.my_vw.add_current_car
+  expect(add_car.car_i_own_radio.set?).to be(false)
+  expect(add_car.car_i_ordered_radio.set?).to be(false)
+  expect(add_car.car_i_configured_radio.set?).to be(false)
 end
 
-When /^i check that i am on the Add a car i own page$/ do
-  #nothing to do
+When(/^I select the (A car I own|A car I ordered|A configured car) button$/) do |button|
+  add_car = site.my_vw.add_current_car
+  if button =~ /A car I own/
+    add_car.car_i_own_button.when_present.click
+  elsif button =~ /A car I ordered/
+    add_car.car_i_ordered_button.when_present.click
+  elsif button =~ /A configured car/
+    add_car.car_configured_button.when_present.click
+  end
 end
 
-Then /^i should see the registration field appear$/ do
-  expect(@add_car.registration_field_present?).to be true
+Then(/^I will see a pop up informing me (.*)$/) do |feedback|
+  add_car = site.my_vw.add_current_car
+  expect(add_car.max_car_limit.present?).to be true
+  expect(add_car.max_car_limit.h2.text).to eq(feedback)
 end
 
-When /^i enter a (.*) in the input field$/ do |registration|
-  @add_car.enter_registrations(registration)
-  @add_car.click_registration_lookup_button
+When (/^I select ok$/) do
+  site.my_vw.add_current_car.max_car_limit_button.click
 end
 
-Then /^i should see a (.*) message if the registration needs to be reviewed$/ do |message|
-  expect(@add_car.error_message_present?).to be false
+Then /^I will see a registration field/ do
+  expect(site.my_vw.add_current_car.registration_text_field.present?).to be true
 end
 
-When /^i enter one of my (.*)$/ do |registrations|
-  @add_car.enter_valid_registrations(registrations)
+Then(/^the Lookup button is (disabled|enabled)$/) do |button|
+  if button =~ /disabled/
+    expect(site.my_vw.add_current_car.reg_lookup_button.enabled?).to be false
+  else
+    expect(site.my_vw.add_current_car.reg_lookup_button.enabled?).to be true
+  end
 end
 
-And /^click the lookup button$/ do
-  @add_car.click_registration_lookup_button
+When(/^I lookup the registration$/) do
+  site.my_vw.add_current_car.reg_lookup_button.click
 end
 
-Then /^i should see a message saying think we've found your car$/ do
-  expect(@add_car.found_car_text_present?).to be false
-
-  #raise AssertionError, "Found car message not present" unless !@add_car.found_car_text_present?
+Then(/^I will see error message:$/) do |table|
+  add_car_error_message = site.my_vw.add_current_car.error_message
+  table.hashes.each do |hash|
+    Timeout.timeout(3) { sleep 0.5 unless add_car_error_message.text == hash['Feedback'] }
+    expect(add_car_error_message.text).to eq(hash['Feedback'])
+  end
 end
 
-When /^i have completed steps 1a and 1b$/ do
-  @add_car.step_1a_b
+Then (/^I will see my car details in summary:$/) do |table|
+  add_car = site.my_vw.add_current_car
+  Timeout.timeout(3) { sleep 0.5 unless add_car.success_message.visible? }
+  expect(add_car.success_message.visible?).to be true
+  table.hashes.each do |hash|
+    expect(add_car.searched_car_reg.text).to eq(hash['Registration number'])
+    expect(add_car.searched_car_model.text).to eq(hash['Model'])
+    expect(add_car.searched_car_detail.text).to eq(hash['Details'])
+  end
 end
 
-And /^have selected the used car button and given it a name$/ do
-  @add_car.click_used_car_button
-  @add_car.enter_car_name
+Then (/^I will see my car details in editable form:$/) do |table|
+  add_car = site.my_vw.add_current_car
+  Timeout.timeout(3) { sleep 0.5 unless add_car.edit_car_form.present? }
+  Timeout.timeout(3) { sleep 0.5 unless add_car.details_registration_number.text == @reg_num }
+  table.hashes.each do |hash|
+    expect(add_car.model_field.value).to eq(hash['Model'])
+    expect(add_car.derivative_field.value).to eq(hash['Derivative'])
+    expect(add_car.engine_size_field.value).to eq(hash['Engine size'])
+    expect(add_car.year_manufacture.value).to eq(hash['Year of Manufacture'])
+
+    fuel_type = hash['Fuel type']
+    if fuel_type =~ /Petrol/
+      expect(add_car.fuel_type_petrol_radio.set?).to be(true)
+    elsif fuel_type =~ /Diesel/
+      expect(add_car.fuel_type_diesel_radio.set?).to be(true)
+    elsif fuel_type =~ /Hybrid/
+      expect(add_car.fuel_type_hybrid_radio.set?).to be(true)
+    elsif fuel_type =~ /Electric/
+      expect(add_car.fuel_type_electric_radio.set?).to be(true)
+    end
+
+    if hash['Transmission'] =~ /Manual/
+      expect(add_car.transmission_manual_radio.set?).to be(true)
+    else
+      expect(add_car.transmission_automatic_radio.set?).to be(true)
+    end
+  end
 end
 
-Then /^after i click continue i should be taken to a page asking me to select a retailer$/ do
-  raise AssertionError, "Continue button not present" unless !@add_car.continue_to_step_2
+Then (/^acquired as will be set to (A new car|A used car)$/) do |car_age|
+  add_car = site.my_vw.add_current_car
+  if car_age =~ /A new car/
+    expect(add_car.car_age_new.set?).to be(true)
+  else
+    expect(add_car.car_age_used.set?).to be(true)
+  end
 end
 
-When /^i have completed steps 1a, b and click on the edit link in the My cars box$/ do
-  step "i have completed steps 1a and 1b"
-  @add_car.click_edit_link
+Then (/^my car will be called (.*) by default$/) do |nickname|
+  expect(site.my_vw.add_current_car.my_car_name_input_box.value).to eq(nickname)
 end
 
-And /^i fill in the required details such as (.*), (.*), (.*), (.*)$/ do |day, month, year, engine_size|
-  @add_car.fill_in_car_details(day, month, year, engine_size)
+When(/^I select edit my car details$/) do
+  site.my_vw.add_current_car.edit_my_car_details.click
 end
 
-Then /^i should see a error message to let me know if i need to review any details$/ do
-  pending
+When(/^I clear my car name$/) do
+  site.my_vw.add_current_car.my_car_name_input_box.clear
 end
 
-When /^i finish completing step 1 fully$/ do
-  step "i have completed steps 1a and 1b"
-  step 'have selected the used car button and given it a name'
-  @add_car.continue_to_step_2
+And(/^I select continue$/) do
+  site.my_vw.add_current_car.goto_section2.click
 end
 
-And /^i enter a (.*) in the search field and click the lookup button$/ do |postcode|
-  @add_car.page_loaded
-  @add_car.search_by_postcode(postcode)
-  @add_car.click_postcode_lookup_button
+Then(/^I will see my car name validation feedback (.*)$/) do |feedback|
+  expect(site.my_vw.add_current_car.car_name_validation_message.when_present.text).to eq(feedback)
 end
 
-Then /^i should see a list of retailers in a list or an error message if input is invalid$/ do
-  raise AssertionError, "no retailers or error" unless @add_car.validate_postcode_field == true
+When(/^I update (model|derivative|engine size|my car name) to (.*)/) do |field, value|
+  add_car = site.my_vw.add_current_car
+  if field =~ /model/
+    add_car.model_field.when_present.set(value)
+  elsif field =~ /derivative/
+    add_car.derivative_field.when_present.set(value)
+  elsif field =~ /engine size/
+    add_car.engine_size_field.when_present.set(value)
+  else
+    add_car.my_car_name_input_box.when_present.set(value)
+  end
 end
 
-When /^i have completed Step 1a, b, c$/ do
-  step 'i finish completing step 1 fully'
+When(/^I update year of manufacture to (\d+)$/) do |year|
+  site.my_vw.add_current_car.year_manufacture_options(year)
 end
 
-And /^search for a retailer using a (.*)$/ do |retailer_name|
-  @add_car.search_by_retailer_name(retailer_name)
+When(/^I update date of registration to (\d+) March (\d+)$/) do |_arg1, _arg2|
+  pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then /^i should be able to select that retailer$/ do
-  @add_car.click_retailer_name
-  @add_car.retailer_list_present?
+When(/^I update fuel type to (Petrol|Diesel|Hybrid|Electric)$/) do |fuel_type|
+  add_car = site.my_vw.add_current_car
+  if fuel_type =~ /Petrol/
+    add_car.fuel_type_petrol.click
+  elsif fuel_type =~ /Diesel/
+    add_car.fuel_type_diesel.click
+  elsif fuel_type =~ /Hybrid/
+    add_car.fuel_type_hybrid.click
+  elsif fuel_type =~ /Electric/
+    add_car.fuel_type_electric.click
+  end
 end
 
-And /^see the options to select it for Delivery and Servicing$/ do
-  raise AssertionError, "preferred retailer options not present" unless @add_car.preferred_retailer_options_present?
+When(/^I update transmission to (Manual|Automatic)$/) do |transmission|
+  add_car = site.my_vw.add_current_car
+  if transmission =~ /Manual/
+    add_car.transmission_manual.click
+  elsif transmission =~ /Automatic/
+    add_car.transmission_automatic.click
+  end
 end
 
-When /^i have finished all the steps until selecting a retailer$/ do
-  step 'i finish completing step 1 fully'
-end
-
-And /^i select my retailer and click the continue button$/ do
-  @add_car.choose_my_retailer
-  @add_car.click_finish_button
-end
-
-Then /^i should be able to see Step 3 Registered owner details$/ do
-  pending
-end
-
-When /^i have completed Steps 1 and 2$/ do
-  step 'i finish completing step 1 fully'
-  @add_car.choose_my_retailer
-end
-
-And /^i click the Skip & finish button$/ do
-  pending
-end
-
-Then /^i should see the car in the my cars dropdown section$/ do
-  pending
-end
-
-When /^i have completed Steps 1 and 2 for adding a car i own$/ do
-  step 'i have completed Steps 1 and 2'
-end
-
-And /^i enter (.*) and (.*) into the fields$/ do |last_name, postcode|
-  pending
-end
-
-Then /^i should get an error message if no record is present$/ do
-  pending
-end
-
-When /^i have complete Steps 1 and 2 for adding my car$/ do
-  step 'i have completed Steps 1 and 2'
-end
-
-And /^i enter my last name and postcode$/ do
-  pending
-end
-
-Then /^after i click finish i should see my car in the my cars menu$/ do
-  pending
-end
-
-When /^i have added a car$/ do
-  pending
-end
-
-And /^i hover over the my cars nav bar$/ do
-  pending
-end
-
-Then /^i should be able to click on the bin icon on the cars$/ do
-  pending
-end
-
-And /^the car should be deleted$/ do
-  pending
+When(/^I add (.*) into the registration field$/) do |registration|
+  @reg_num = registration
+  site.my_vw.add_current_car.registration_text_field.set(@reg_num)
 end

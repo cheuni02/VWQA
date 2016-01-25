@@ -1,20 +1,28 @@
-@login_Current_User @Max_Current_Cars
+@my_vw @Add-Current-Car
 Feature: Maximum amount of current cars
   As the VW site owner
   I want to set maximum amount of cars to be added to user account
   So user is alerted and advised to remove a car before adding another
 
-  Background:
-    Given i have logged into my VW account with max amount of current cars added
-    And i go to the add a car page
+  @login_Current_User @clear_cookies
+  Scenario: I have logged into my VW account with max amount of current cars added
+    Given I am on the Volkswagen Homepage
+    When I login into my account
+    And I go to add a new car
+    Then I will be on add a car section with options:
+      | I'd like to add  |
+      | A car I own      |
+      | A car I ordered  |
+      | A configured car |
+    But none will be set
 
-  Scenario: Popup alert
-    When i click on the button to add car I own
-    Then i should see pop up message about reaching max number of current cars added
-    And i can click on confirm alert to return back
+    When I select the A car I own button
+    Then I will see a pop up informing me Car limit reached
 
-  Scenario: Remove and add car
-    When i remove current car from my account
-    Then i can add current car successfully
-    And no pop up alert appears
-
+    When I select ok
+    Then I will be on add a car section with options:
+      | I'd like to add  |
+      | A car I own      |
+      | A car I ordered  |
+      | A configured car |
+    But none will be set
