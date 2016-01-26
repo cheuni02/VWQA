@@ -1,10 +1,10 @@
 Then (/^I will be on add a car section with options:$/) do |table|
   expect(site.my_vw.add_current_car.add_a_car_choices.present?).to be(true)
-  option = []
-  table.hashes.each do |options|
-    option << site.my_vw.add_current_car.add_a_car_options(options["I'd like to add"])
+  options = []
+  table.hashes.each do |option|
+    options << site.my_vw.add_current_car.add_a_car_options(option["I'd like to add"])
   end
-  expect(option.flatten.count).to eq(0), "The following option #{option.flatten} is not present"
+  expect(options.flatten.count).to eq(0), "The following option #{options.flatten} is not present"
 end
 
 Then(/^none will be set$/) do
@@ -143,10 +143,6 @@ end
 
 When(/^I update year of manufacture to (\d+)$/) do |year|
   site.my_vw.add_current_car.year_manufacture_options(year)
-end
-
-When(/^I update date of registration to (\d+) March (\d+)$/) do |_arg1, _arg2|
-  pending # Write code here that turns the phrase above into concrete actions
 end
 
 When(/^I update fuel type to (Petrol|Diesel|Hybrid|Electric)$/) do |fuel_type|

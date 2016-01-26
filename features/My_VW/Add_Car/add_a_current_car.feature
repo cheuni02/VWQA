@@ -57,7 +57,6 @@ Feature: Add a current car
     When I update model to Golf
     And I update derivative to GTD
     And I update year of manufacture to 2015
-#    And I update date of registration to 20 March 2012
     And I update engine size to 2.0
     And I update fuel type to Diesel
     And I update transmission to Automatic
@@ -76,6 +75,7 @@ Feature: Add a current car
       | Model | Derivative      | Year of Manufacture | Engine size | Fuel type | Transmission |
       | Eos   | EOS SPORT T FSI |                     | 2           | Petrol    | Manual       |
 
+  Scenario: I clear my car's name and attempt to move to the next step
     When I clear my car name
     And I select continue
     Then I will see my car name validation feedback Please enter a name for your car
