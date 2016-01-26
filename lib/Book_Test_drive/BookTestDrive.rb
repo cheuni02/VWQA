@@ -126,9 +126,7 @@ class BookTestDrive < BrowserContainer
   def confirmation_page_loaded?
     test_drive_confirm.present?
   end
-  
-  private
-  
+
   def page_url
     "/book-a-test-drive/chooseModel"
   end

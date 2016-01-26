@@ -1,274 +1,200 @@
 require 'json'
 class AddCurrentCar < MyVW
-
   def visit
     visit_page(page_url)
   end
 
-  def page_loaded
-    my_retailer_box.wait_until_present
+  def success_message
+    @browser.element(id: 'car-detail-text')
   end
 
-  def step_1_present?
-    add_car_title.present?
+  def searched_car_reg
+    success_message.li(index: 0).span(index: 1)
   end
 
-  def click_i_own_car_button
-    car_i_own_button.when_present.click
+  def searched_car_model
+    success_message.li(index: 1).span(index: 1)
   end
 
-  def registration_field_present?
-    registration_text_field.present?
+  def searched_car_detail
+    success_message.li(index: 2).span(index: 1)
   end
 
-  def enter_registrations(registrations)
-    registration_text_field.set("#{registrations}")
+  def car_age_new
+    @browser.radio(id: 'car-age-new')
   end
 
-  def error_message_present?
-    error_message.present?
+  def car_age_used
+    @browser.radio(id: 'car-age-used')
   end
 
-  def enter_valid_registrations(registrations)
-    registration_text_field.set("#{registrations}")
+  def edit_car_form
+    @browser.element(id: 'car-detail-edit')
   end
 
-  def click_registration_lookup_button
-    registration_lookup_button.click
+  def add_a_car_choices
+    @browser.element(id: 'add-car-main')
   end
 
-  def found_car_text_present?
-    found_car_message.present?
+  def car_i_own_radio
+    @browser.radio(id: 'car-status-own')
   end
 
-  def step_1a_b
-    registration_text_field.when_present.set("DV62GRK")
-    registration_lookup_button.click
+  def car_i_ordered_radio
+    @browser.radio(id: 'car-status-ordered')
   end
 
-  def click_used_car_button
-    used_car_button.when_present.click
+  def car_i_configured_radio
+    @browser.radio(id: 'car-status-configured')
   end
 
-  def enter_car_name
-    my_car_name_input_box.set("TEST")
-  end
-
-  def continue_to_step_2
-    goto_section2.when_present.click
-  end
-
-  def click_edit_link
-    edit_my_car_details.when_present.click
-  end
-
-  def fill_in_car_details(day, month, year, engine_size)
-    registration_month.option(:text => "#{month}").click
-    registration_year.option(:value => "#{year}").click
-    registration_date.option(:value => "#{day}").click
-  end
-
-  def search_by_postcode(postcode)
-    retailer_location_search.set("#{postcode}")
-  end
-
-  def click_postcode_lookup_button
-    retailer_location_lookup_button.click
-  end
-
-  def validate_postcode_field
-    retailer_selection.wait_until_present
-    if retailer_list.present?
-      return true
-    elsif error_message_retailer.present?
-      return true
-    else
-      return false
+  def add_a_car_options(options)
+    missing_option = []
+    case options
+    when /A car I own/
+      missing_option << 'A car I own' unless car_i_own_radio.exists?
+    when /A car I ordered/
+      missing_option << 'A car I ordered' unless car_i_ordered_radio.exists?
+    when /A configured car/
+      missing_option << 'A configured car' unless car_i_configured_radio.exists?
     end
+    missing_option
   end
 
-  def search_by_retailer_name(retailer_name)
-    retailer_name_search.set("#{retailer_name}")
-  end
-
-  def click_retailer_name
-    select_retailer_name.click
-  end
-
-  def preferred_retailer_options_present?
-    preferred_retailer_options.present?
-  end
-
-  def retailer_list_present?
-    retailer_list.wait_until_present
-  end
-
-  def choose_my_retailer
-    retailer_name_search.set("Hampstead")
-    click_retailer_name
-    retailer_list_present?
-    serviced_by_button.click
-  end
-
-  def click_finish_button
-    finish_button.click
-  end
-
-  def added_car_present?
-    added_car.present?
-  end
-
-  def max_car_alert_present?
-    max_cars_alert.present?
-  end
-
-  def max_alert_button_ok
-    max_alert_button.click
-  end
-
-  def reg_input_present?
-    reg_input.present?
-  end
-
-  private
-
-  def page_url
-    "/owners/my/cars/add"
-  end
-
-  def my_car_menu
-    @browser.ul(:class => "welcome-stripe__menu-list", :index => 1).li(:class => "welcome-stripe__menu-list-item")
-  end
-
-  def add_car_title
-    @browser.h1(:class => "full-hero__title")
-  end
-
-  def car_i_own_button
-    @browser.div(:id => "car-status-select").label(:for => "car-status-own")
-  end
-
-  def registration_text_field
-    @browser.text_field(:id => "registration-number")
-  end
-
-  def registration_lookup_button
-    @browser.button(:class => "js-registration-submit")
-  end
-
-  def found_car_message
-    @browser.div(:id => "car-detail-text").h3(:class => "my-car-form__editor-subtitle--black", :text => "We think we've found your car")
+  def reg_lookup_button
+    @browser.element(id: 'button-regLookup-submit')
   end
 
   def error_message
-    @browser.div(:id => "section-registration-number").div(:class => "error-label", :text => "Sorry your details could not be found. Please enter your details manually below.")
+    @browser.div(class: 'error-label')
+  end
+
+  def page_url
+    '/owners/my/cars/add'
+  end
+
+  def fuel_type_petrol_radio
+    @browser.radio(id: 'fuel-petrol')
+  end
+
+  def fuel_type_diesel_radio
+    @browser.radio(id: 'fuel-diesel')
+  end
+
+  def fuel_type_hybrid_radio
+    @browser.radio(id: 'fuel-hybrid')
+  end
+
+  def fuel_type_electric_radio
+    @browser.radio(id: 'fuel-electric')
+  end
+
+  def fuel_type_petrol
+    @browser.elements(class: 'radio__buttons')[1].element(text: 'Petrol')
+  end
+
+  def fuel_type_diesel
+    @browser.elements(class: 'radio__buttons')[1].element(text: 'Diesel')
+  end
+
+  def fuel_type_hybrid
+    @browser.elements(class: 'radio__buttons')[1].element(text: 'Hybrid')
+  end
+
+  def fuel_type_electric
+    @browser.elements(class: 'radio__buttons')[1].element(text: 'Electric')
+  end
+
+  def transmission_manual_radio
+    @browser.radio(id: 'transmission-manual')
+  end
+
+  def transmission_automatic_radio
+    @browser.radio(id: 'transmission-automatic')
+  end
+
+  def transmission_manual
+    @browser.elements(class: 'radio__buttons')[2].element(text: 'Manual')
+  end
+
+  def transmission_automatic
+    @browser.elements(class: 'radio__buttons')[2].element(text: 'Automatic')
+  end
+
+  def car_i_own_button
+    @browser.div(id: 'car-status-select').label(for: 'car-status-own')
+  end
+
+  def car_i_ordered_button
+    @browser.div(id: 'car-status-select').label(for: 'car-status-ordered')
+  end
+
+  def car_configured_button
+    @browser.div(id: 'car-status-select').label(for: 'car-status-configured')
+  end
+
+  def max_car_limit
+    @browser.element(id: 'no-more-cars-dialog')
+  end
+
+  def max_car_limit_button
+    @browser.button(class: 'my-vw-button my-vw-button--blue my-overlay__no-more-cars-button')
+  end
+
+  def registration_text_field
+    @browser.text_field(id: 'registration-number')
   end
 
   def edit_my_car_details
-    @browser.div(:id => "car-detail-toggle")
+    @browser.div(id: 'car-detail-toggle')
   end
 
-  def new_car_button
-    @browser.div(:class => "radio__buttons").label(:for => "car-age-new")
+  def details_registration_number
+    @browser.element(id: 'details-registration-number')
   end
 
-  def used_car_button
-    @browser.div(:id => "car-details-step-1").label(:for => "car-age-used")
+  def model_field
+    @browser.text_field(id: 'details-model')
+  end
+
+  def derivative_field
+    @browser.text_field(id: 'details-derivative')
+  end
+
+  def year_manufacture_options(year)
+    @browser.button(class: 'ui-button my-selectbox__button ui-combobox-button').when_present.click
+    @browser.li(text: year).click
+  end
+
+  def year_manufacture
+    @browser.element(class: 'my-selectbox__input')
   end
 
   def my_car_name_input_box
-    @browser.text_field(:id => "car-name")
+    @browser.text_field(id: 'car-name')
+  end
+
+  def car_name_validation_message
+    @browser.element(xpath: "//*[@id='car-details-step-1']/div[4]/div/div/div/p")
   end
 
   def goto_section2
-    @browser.button(:id => "goto-section-2")
-  end
-
-  def my_retailer_box
-    @browser.form(:id => "section-2-edit")
-  end
-
-  def step_2_title
-    @browser.span(:text => "2").text
-  end
-
-  def retailers_from_previous_car
-    @browser.h3(:text => "From your other cars")
+    @browser.button(id: 'goto-section-2')
   end
 
   def retailer_location_search
-    @browser.text_field(:id => "retailer-location-search")
-  end
-
-  def retailer_location_lookup_button
-    @browser.button(:id => "retailer-location-search-submit")
+    @browser.text_field(id: 'retailer-location-search')
   end
 
   def retailer_name_search
-    @browser.text_field(:id => "retailer-name-search")
+    @browser.text_field(id: 'retailer-name-search')
   end
 
-  def finish_button
-    @browser.button(:id => "submit-no-owner")
-  end
-
-  def registration_month
-    @browser.select_list(:id => "registrationDate_month")
-  end
-
-  def registration_date
-    @browser.select_list(:id => "registrationDate_day")
-  end
-
-  def registration_year
-    @browser.select_list(:id => "registrationDate_year")
-  end
-
-  def engine_size_box
-    @browser.text_field(:id => "details-engineCapacity")
-  end
-
-  def error_message_retailer
-    @browser.div(:class => "js-preferred-retailers").div(:id => "retailer-selection").p(:class => "form-error")
-  end
-
-  def retailer_list
-    @browser.div(:id => "retailer-list")
-  end
-
-  def retailer_selection
-    @browser.div(:id => "retailer-selection")
-  end
-
-  def select_retailer_name
-    @browser.ul(:id => "ui-id-2").li(:index => 0)
-  end
-
-  def preferred_retailer_options
-    @browser.ul(:id => "retailer-group").li(:class => "retailer")
-  end
-
-  def finish_button
-    @browser.button(:id => "submit-no-owner")
-  end
-
-  def serviced_by_button
-    @browser.div(:class => "serviced-by").radio(:name => "suppliedBy")
-  end
-
-  def added_car
-    @browser.my_car_menu.div(:class => "my-cars-dropdown-cars").h2(:class => "my-cars-dropdown-car-detail-info__title", :text => "test")
-  end
-
-  def max_cars_alert
-    @browser.div(:class => "my-overlay__content--tiny").h2(:text => "Maximum number of cars reached")
-  end
-
-  def max_alert_button
-   @browser.button(:class => "my-overlay__no-more-cars-button")
+  def engine_size_field
+    @browser.text_field(id: 'details-engineCapacity')
   end
 
   def reg_input
-    @browser.input(:id => "registration-number")
+    @browser.input(id: 'registration-number')
   end
 end
