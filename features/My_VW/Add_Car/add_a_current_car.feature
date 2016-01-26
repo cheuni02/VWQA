@@ -35,12 +35,14 @@ Feature: Add a current car
       | Feedback                                                                                            |
       | Looks like your registration doesn’t belong to a Volkswagen. You can only add Volkswagens to My VW. |
 
+  Scenario: I search for a non VW car's registration
     When I add CV54 VDF into the registration field
     And I lookup the registration
     Then I will see error message:
       | Feedback                                                                                            |
       | Looks like your registration doesn’t belong to a Volkswagen. You can only add Volkswagens to My VW. |
 
+  Scenario: I search for a VW car's registration
     When I add VU12WGE into the registration field
     And I lookup the registration
     Then I will see my car details in summary:
@@ -66,7 +68,6 @@ Feature: Add a current car
       | Model | Derivative | Year of Manufacture | Engine size | Fuel type | Transmission |
       | Golf  | GTD        | 2015                | 2.0         | Diesel    | Automatic    |
 
-
   Scenario: my searched for registration returns only partial details for my car
     When I add MM07AYJ into the registration field
     And I lookup the registration
@@ -75,11 +76,47 @@ Feature: Add a current car
       | Model | Derivative      | Year of Manufacture | Engine size | Fuel type | Transmission |
       | Eos   | EOS SPORT T FSI |                     | 2           | Petrol    | Manual       |
 
+    And I select continue
+    Then I will see that my car details are incomplete with:
+      | Feedback                            |
+      | Please complete year of manufacture |
+    
+  Scenario: I clear all my other car details I will be given feedback
+    When I clear model
+    And I clear derivative
+    And I clear engine size
+    And I select continue
+    Then I will see that my car details are incomplete with:
+      | Feedback                            |
+      | Please complete trim                |
+      | Please complete model               |
+      | Please complete year of manufacture |
+      | Please complete engine size         |
+
+  Scenario Outline: I partially update my car details I will be given feedback
+    When I update model to <Model>
+    And I update derivative to <Derivative>
+    And I update engine size to <Engine size>
+    And I update year of manufacture to <Year>
+    And I select continue
+    Then I will see that my car details are incomplete with <Feedback>
+
+    Examples:
+      | Model | Derivative         | Engine size | Year | Feedback                            |
+      | Up    | MOVE UP BLUEMOTION | 1           |      | Please complete year of manufacture |
+      | Up    | MOVE UP BLUEMOTION |             | 2015 | Please complete engine size         |
+      | Up    |                    | 1           | 2015 | Please complete trim                |
+      |       | MOVE UP BLUEMOTION | 1           | 2015 | Please complete model               |
+
   Scenario: I clear my car's name and attempt to move to the next step
     When I clear my car name
     And I select continue
     Then I will see my car name validation feedback Please complete car name
 
+  Scenario: I set my car's name to one used for another car on my account
+    When I update my car name to GOLF
+    And I select continue
+    Then I will see my car name validation feedback Looks like you have a car with this name already. Please enter a different name.
 
   Scenario: when I search for a car I have already added then I will not be able to add the car again
     When I add NL62CZM into the registration field
@@ -93,5 +130,5 @@ Feature: Add a current car
     When I add SY64UCW into the registration field
     And I lookup the registration
     Then I will see error message:
-      | Feedback                                                                                                        |
+      | Feedback                                                                                                                                                                                                             |
       | We're sorry we could not match your registration, the My Volkswagen login is only for passenger cars, if you have a Commercial Vehicle, Camper Van or Passenger Carrier, please visit https://volkswagen-vans.co.uk/ |

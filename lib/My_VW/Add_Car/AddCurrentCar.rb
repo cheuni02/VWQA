@@ -162,6 +162,7 @@ class AddCurrentCar < MyVW
   end
 
   def year_manufacture_options(year)
+    return false if year.empty?
     @browser.button(class: 'ui-button my-selectbox__button ui-combobox-button').when_present.click
     @browser.li(text: year).click
   end
@@ -176,6 +177,10 @@ class AddCurrentCar < MyVW
 
   def car_name_validation_message
     @browser.element(xpath: "//*[@id='car-details-step-1']/div[4]/div/div/div/p")
+  end
+
+  def my_car_details_errors
+    @browser.element(id: 'car-detail-edit-error-sum')
   end
 
   def goto_section2

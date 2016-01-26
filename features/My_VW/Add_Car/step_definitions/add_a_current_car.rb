@@ -1,4 +1,4 @@
-Then (/^I will be on add a car section with options:$/) do |table|
+Then(/^I will be on add a car section with options:$/) do |table|
   expect(site.my_vw.add_current_car.add_a_car_choices.present?).to be(true)
   options = []
   table.hashes.each do |option|
@@ -31,11 +31,11 @@ Then(/^I will see a pop up informing me (.*)$/) do |feedback|
   expect(add_car.max_car_limit.h2.text).to eq(feedback)
 end
 
-When (/^I select ok$/) do
+When(/^I select ok$/) do
   site.my_vw.add_current_car.max_car_limit_button.click
 end
 
-Then /^I will see a registration field/ do
+Then(/^I will see a registration field$/)do
   expect(site.my_vw.add_current_car.registration_text_field.present?).to be true
 end
 
@@ -59,7 +59,7 @@ Then(/^I will see error message:$/) do |table|
   end
 end
 
-Then (/^I will see my car details in summary:$/) do |table|
+Then(/^I will see my car details in summary:$/) do |table|
   add_car = site.my_vw.add_current_car
   Timeout.timeout(3) { sleep 0.5 unless add_car.success_message.visible? }
   expect(add_car.success_message.visible?).to be true
@@ -70,7 +70,7 @@ Then (/^I will see my car details in summary:$/) do |table|
   end
 end
 
-Then (/^I will see my car details in editable form:$/) do |table|
+Then(/^I will see my car details in editable form:$/) do |table|
   add_car = site.my_vw.add_current_car
   Timeout.timeout(3) { sleep 0.5 unless add_car.edit_car_form.present? }
   Timeout.timeout(3) { sleep 0.5 unless add_car.details_registration_number.text == @reg_num }
@@ -99,7 +99,7 @@ Then (/^I will see my car details in editable form:$/) do |table|
   end
 end
 
-Then (/^acquired as will be set to (A new car|A used car)$/) do |car_age|
+Then(/^acquired as will be set to (A new car|A used car)$/) do |car_age|
   add_car = site.my_vw.add_current_car
   if car_age =~ /A new car/
     expect(add_car.car_age_new.set?).to be(true)
@@ -108,7 +108,7 @@ Then (/^acquired as will be set to (A new car|A used car)$/) do |car_age|
   end
 end
 
-Then (/^my car will be called (.*) by default$/) do |nickname|
+Then(/^my car will be called (.*) by default$/) do |nickname|
   expect(site.my_vw.add_current_car.my_car_name_input_box.value).to eq(nickname)
 end
 
@@ -116,15 +116,35 @@ When(/^I select edit my car details$/) do
   site.my_vw.add_current_car.edit_my_car_details.click
 end
 
-When(/^I clear my car name$/) do
-  site.my_vw.add_current_car.my_car_name_input_box.clear
-end
-
 And(/^I select continue$/) do
   site.my_vw.add_current_car.goto_section2.click
 end
 
+Then(/^I will see that my car details are incomplete with (.*)$/) do |feedback|
+  steps %(
+      Then I will see that my car details are incomplete with:
+      | Feedback    |
+      | #{feedback} |
+        )
+end
+
+Then (/^I will see that my car details are (?:incomplete|incorrect) with:$/) do |table|
+  add_car = site.my_vw.add_current_car
+  Timeout.timeout(3) { sleep 0.5 unless add_car.my_car_details_errors.visible? }
+  expect(add_car.my_car_details_errors.visible?).to eq(true)
+  table.hashes.each_with_index do |hash, index|
+    Timeout.timeout(3) { sleep 0.5 unless add_car.my_car_details_errors.li(index: index).text == hash['Feedback'] }
+    expect(add_car.my_car_details_errors.li(index: index).text).to eq(hash['Feedback'])
+  end
+end
+
 Then(/^I will see my car name validation feedback (.*)$/) do |feedback|
+  add_car = site.my_vw.add_current_car
+  Timeout.timeout(3) { sleep 0.5 unless add_car.car_name_validation_message.text == feedback }
+  expect(add_car.car_name_validation_message.when_present.text).to eq(feedback)
+end
+
+Then(/^I will see form validation feedback (.*)$/) do |feedback|
   expect(site.my_vw.add_current_car.car_name_validation_message.when_present.text).to eq(feedback)
 end
 
@@ -141,7 +161,20 @@ When(/^I update (model|derivative|engine size|my car name) to (.*)/) do |field, 
   end
 end
 
-When(/^I update year of manufacture to (\d+)$/) do |year|
+When(/^I clear (model|derivative|engine size|my car name)$/) do |field|
+  add_car = site.my_vw.add_current_car
+  if field =~ /model/
+    add_car.model_field.when_present.clear
+  elsif field =~ /derivative/
+    add_car.derivative_field.when_present.clear
+  elsif field =~ /engine size/
+    add_car.engine_size_field.when_present.clear
+  else
+    add_car.my_car_name_input_box.when_present.clear
+  end
+end
+
+When(/^I update year of manufacture to (.*)$/) do |year|
   site.my_vw.add_current_car.year_manufacture_options(year)
 end
 
