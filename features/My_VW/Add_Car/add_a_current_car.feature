@@ -78,7 +78,7 @@ Feature: Add a current car
   Scenario: I clear my car's name and attempt to move to the next step
     When I clear my car name
     And I select continue
-    Then I will see my car name validation feedback Please enter a name for your car
+    Then I will see my car name validation feedback Please complete car name
 
 
   Scenario: when I search for a car I have already added then I will not be able to add the car again
