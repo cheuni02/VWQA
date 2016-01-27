@@ -5,7 +5,7 @@ Given /^I have loaded the My VW section$/ do
 end
 
 And /^i have logged into my VW account$/ do
-  site.my_vw.login.login(@account[0],@account[1])
+  site.my_vw.login.login(@account[:username],@account[:password])
 end
 
 When /^i am on the My cars page$/ do

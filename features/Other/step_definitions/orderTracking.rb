@@ -61,8 +61,8 @@ end
 
 And /^i click on the link to sign up for alerts on my order$/ do
   @orders.click_alert_signup
-  site.my_vw.login.set_email(@account[0])
-  site.my_vw.login.set_password(@account[1])
+  site.my_vw.login.set_email(@account[:username])
+  site.my_vw.login.set_password(@account[:password])
   site.my_vw.login.do_login
 end
 

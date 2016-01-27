@@ -9,11 +9,11 @@ class MyVWLogin < MyVW
   end
 
   def set_email(email)
-    username_field.set(email)
+    username_field.when_present.set(email)
   end
 
   def set_password(password)
-    password_field.set(password)
+    password_field.when_present.set(password)
   end
 
   def do_login
@@ -35,21 +35,12 @@ class MyVWLogin < MyVW
     @browser.element(class: 'welcome-stripe__menu')
   end
 
-  # Gets the Login Details for a specified user account purpose
-  # These are defined in user.json by hostname
-  def get_login_details(purpose, host = ENV['HOST'])
-    accounts = JSON.parse(File.read('users.json'))['User_accounts'][host]
-    accounts.each do |account|
-      if account['purpose'] == purpose
-        return [account['username'], account['password'], account['uuid']]
-      end
-    end
-  end
-
   def login_error_message
     @browser.p(:class => "form-error")
   end
 
+  # Gets the Login Details for a specified user account purpose
+  # These are defined in user.json by hostname
   def get_account_details(purpose, host = ENV['HOST'])
     accounts = JSON.parse(File.read('users.json'), symbolize_names: true)[:User_accounts][host.to_sym]
     accounts.collect { |detail| detail if detail[:purpose] == purpose }.compact.first
@@ -102,7 +93,12 @@ class MyVWLogin < MyVW
   end
 
   def login_button
-    @browser.button(:id => "login-button")
+    case ENV['HOST']
+    when /(105\.120|vw05)/
+      @browser.button(:class => "my-vw-button", :text => /login/i)
+    else
+      @browser.button(:id => "login-button")
+    end
   end
 
 

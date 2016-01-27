@@ -1,7 +1,7 @@
 Given /^that i have logged in to my account$/ do
   @current_car = site.my_vw.current_car_dashboard
   @current_car.visit
-  site.my_vw.login.login(@account[0],@account[1])
+  site.my_vw.login.login(@account[:username],@account[:password])
 end
 
 When /^the current car dashboard page has loaded$/ do

@@ -9,7 +9,7 @@ end
 
 When /^i am on Step 4$/ do
   site.my_vw.login.visit
-  site.my_vw.login.login(@account[0],@account[1])
+  site.my_vw.login.login(@account[:username],@account[:password])
   @service_booking.step1.visit
   #@service_booking.page_loaded?
   @service_booking.step1.click_step_2_button
