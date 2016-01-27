@@ -3,11 +3,11 @@ Given /^i am on the My VW Login Page$/ do
 end
 
 When /^i enter my registered account email address$/ do
-  site.my_vw.login.set_email(@account[0])
+  site.my_vw.login.set_email(@account[:username])
 end
 
 And /^i enter my accounts correct password$/ do
-  site.my_vw.login.set_password(@account[1])
+  site.my_vw.login.set_password(@account[:password])
 end
 
 And /^i submit my attempt to login$/ do

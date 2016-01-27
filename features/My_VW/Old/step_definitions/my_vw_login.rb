@@ -14,11 +14,11 @@ When /^i enter my email into the email field on the page$/ do
   #sleep(3)
   site.primary_nav.click_login
   #sleep(3)
-  site.my_vw.login.set_email(@account[0])
+  site.my_vw.login.set_email(@account[:username])
 end
 
 And /^i enter my password into the password box$/ do
-  site.my_vw.login.set_password(@account[1])
+  site.my_vw.login.set_password(@account[:password])
 end
 
 And /^i try to log into my account$/ do

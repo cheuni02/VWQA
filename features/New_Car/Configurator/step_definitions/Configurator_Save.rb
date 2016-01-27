@@ -67,8 +67,8 @@ end
 Given /^i log into my VW Personal account$/ do
   @login = site.my_vw.login
   @login.visit
-  @login.set_email(@account[0])
-  @login.set_password(@account[1])
+  @login.set_email(@account[:username])
+  @login.set_password(@account[:password])
   @login.do_login
 end
 
