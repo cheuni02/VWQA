@@ -4,6 +4,29 @@ Feature: Add a current car
   I want to be able to add my current car to my account
   So that i can track and interact with my vehicle
 
+  @login_Current_User @clear_cookies
+  Scenario: I have logged into my VW account with max amount of current cars added
+    Given I am on the Volkswagen Homepage
+    When I login into my account
+    And I go to add a new car
+    Then I will be on add a car section with options:
+      | I'd like to add  |
+      | A car I own      |
+      | A car I ordered  |
+      | A configured car |
+    But none will be set
+
+    When I select the A car I own button
+    Then I will see a pop up informing me Car limit reached
+
+    When I select ok
+    Then I will be on add a car section with options:
+      | I'd like to add  |
+      | A car I own      |
+      | A car I ordered  |
+      | A configured car |
+    But none will be set
+
   @login_single_car_user
   Scenario: Select add a car to my account
     Given I am on the Volkswagen Homepage
@@ -43,18 +66,18 @@ Feature: Add a current car
       | Looks like your registration doesn’t belong to a Volkswagen. You can only add Volkswagens to My VW. |
 
   Scenario: I search for a VW car's registration
-    When I add VU12WGE into the registration field
+    When I add KS64FVZ into the registration field
     And I lookup the registration
     Then I will see my car details in summary:
-      | Registration number | Model | Details                                           |
-      | VU12WGE             | Up    | MOVE UP BLUEMOTION TECHNO, 2012, 1 Petrol, Manual |
+      | Registration number | Model  | Details                                              |
+      | KS64FVZ             | Passat | PASSAT SE BUSINESS TDI BM, 2014, 2 Diesel, Automatic |
     And acquired as will be set to A new car
-    And my car will be called My Up by default
+    And my car will be called My Passat by default
 
     When I select edit my car details
     Then I will see my car details in editable form:
-      | Model | Derivative                | Year of Manufacture | Engine size | Fuel type | Transmission |
-      | Up    | MOVE UP BLUEMOTION TECHNO | 2012                | 1           | Petrol    | Manual       |
+      | Model  | Derivative                | Year of Manufacture | Engine size | Fuel type | Transmission |
+      | Passat | PASSAT SE BUSINESS TDI BM | 2014                | 2           | Diesel    | Automatic    |
 
     When I update model to Golf
     And I update derivative to GTD
@@ -80,7 +103,7 @@ Feature: Add a current car
     Then I will see that my car details are incomplete with:
       | Feedback                            |
       | Please complete year of manufacture |
-    
+
   Scenario: I clear all my other car details I will be given feedback
     When I clear model
     And I clear derivative
@@ -88,8 +111,8 @@ Feature: Add a current car
     And I select continue
     Then I will see that my car details are incomplete with:
       | Feedback                            |
-      | Please complete trim                |
       | Please complete model               |
+      | Please complete trim                |
       | Please complete year of manufacture |
       | Please complete engine size         |
 
@@ -114,7 +137,7 @@ Feature: Add a current car
     Then I will see my car name validation feedback Please complete car name
 
   Scenario: I set my car's name to one used for another car on my account
-    When I update my car name to GOLF
+    When I update my car name to My Golf
     And I select continue
     Then I will see my car name validation feedback Looks like you have a car with this name already. Please enter a different name.
 
@@ -124,6 +147,7 @@ Feature: Add a current car
     Then I will see error message:
       | Feedback                                                                                                        |
       | Looks like you have this car added already. Go to My Cars to view it or search for another registration number. |
+
 
   @clear_cookies
   Scenario: when I search for a commercial vehicle I will not be able to add this to my account

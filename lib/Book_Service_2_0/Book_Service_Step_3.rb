@@ -76,7 +76,7 @@ class BookAService2Step3 < BookAService2
   end
 
   def retailer_dropdown
-    @browser.ul(id: 'ui-id-3')
+    @browser.ul(id: 'ui-id-2')
   end
 
   def retailer_error_message
@@ -135,6 +135,10 @@ class BookAService2Step3 < BookAService2
 
   def retailer_map
     @browser.element(id: 'searched-retailers-map')
+  end
+
+  def retailer_map_selected
+    retailer_map.text.match(/\n.*/).to_s.delete("\n")
   end
 
   def pin_on_map_latitude

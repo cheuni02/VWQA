@@ -121,6 +121,30 @@ class AddCurrentCar < MyVW
     @browser.elements(class: 'radio__buttons')[2].element(text: 'Automatic')
   end
 
+  def step_1_summary
+    @browser.element(class: 'my-car-form__text')
+  end
+
+  def step_1_summary_reg
+    step_1_summary.li(index: 0).span(index: 1)
+  end
+
+  def step_1_summary_model
+    step_1_summary.li(index: 1).span(index: 1)
+  end
+
+  def step_1_summary_details
+    step_1_summary.li(index: 2).span(index: 1)
+  end
+
+  def step_1_summary_acquired_as
+    step_1_summary.li(index: 3).text.match(/\:(.*)[a-zA-Z0-9]/).to_s.gsub(':  ', '')
+  end
+
+  def step_1_summary_car_name
+    step_1_summary.li(index: 4).text.match(/\:(.*)[a-zA-Z0-9]/).to_s.gsub(':  ', '')
+  end
+
   def car_i_own_button
     @browser.div(id: 'car-status-select').label(for: 'car-status-own')
   end
@@ -201,5 +225,17 @@ class AddCurrentCar < MyVW
 
   def reg_input
     @browser.input(id: 'registration-number')
+  end
+
+  def preselected_retailer
+    @browser.element(class: 'radio__list')
+  end
+
+  def preselected_retailer_radio
+    preselected_retailer.radio(index: 0)
+  end
+
+  def change_section_1
+    @browser.button(id: 'change-section-1')
   end
 end
