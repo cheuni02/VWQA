@@ -138,11 +138,11 @@ class AddCurrentCar < MyVW
   end
 
   def step_1_summary_acquired_as
-    step_1_summary.li(index: 3).text.match(/\:(.*)[a-zA-Z0-9]/).to_s.gsub(':  ', '')
+    step_1_summary.li(index: 3).text.match(/\:(.*)[a-zA-Z0-9]/).to_s.delete(':').strip
   end
 
   def step_1_summary_car_name
-    step_1_summary.li(index: 4).text.match(/\:(.*)[a-zA-Z0-9]/).to_s.gsub(':  ', '')
+    step_1_summary.li(index: 4).text.match(/\:(.*)[a-zA-Z0-9]/).to_s.delete(':').strip
   end
 
   def car_i_own_button
