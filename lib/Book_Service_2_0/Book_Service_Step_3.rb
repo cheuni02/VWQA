@@ -91,9 +91,9 @@ class BookAService2Step3 < BookAService2
     i = 0
     loop do
       i += 1
-      break if retailer_group_list.element(class: 'radio__list-cell', index: i).h3.style('color') == 'rgba(0, 177, 235, 1)' || i == 10
+      break if retailer_group_list.element(id: 'searched-retailers-list').radio(index: i).set? || i == 10
     end
-    retailer_group_list.element(class: 'radio__list-cell', index: i)
+    retailer_group_list.element(id: 'searched-retailers-list').div(index: i)
   end
 
   def loading_wheel
