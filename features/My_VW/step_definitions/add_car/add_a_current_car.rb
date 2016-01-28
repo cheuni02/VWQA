@@ -35,7 +35,7 @@ When(/^I select ok$/) do
   site.my_vw.add_current_car.max_car_limit_button.click
 end
 
-Then(/^I will see a registration field$/)do
+Then(/^I will see a registration field$/) do
   expect(site.my_vw.add_current_car.registration_text_field.present?).to be true
 end
 
@@ -48,7 +48,7 @@ Then(/^the Lookup button is (disabled|enabled)$/) do |button|
 end
 
 When(/^I lookup the registration$/) do
-  site.my_vw.add_current_car.reg_lookup_button.click
+  site.my_vw.add_current_car.reg_lookup_button.when_present.click
 end
 
 Then(/^I will see error message:$/) do |table|
@@ -61,7 +61,7 @@ end
 
 Then(/^I will see my car details in summary:$/) do |table|
   add_car = site.my_vw.add_current_car
-  Timeout.timeout(3) { sleep 0.5 unless add_car.success_message.visible? }
+  Timeout.timeout(3) { sleep 1 unless add_car.success_message.visible? }
   expect(add_car.success_message.visible?).to be true
   table.hashes.each do |hash|
     expect(add_car.searched_car_reg.text).to eq(hash['Registration number'])
@@ -116,8 +116,12 @@ When(/^I select edit my car details$/) do
   site.my_vw.add_current_car.edit_my_car_details.click
 end
 
+Given (/^I select change step 1 details$/) do
+  site.my_vw.add_current_car.change_section_1.when_present.click
+end
+
 And(/^I select continue$/) do
-  site.my_vw.add_current_car.goto_section2.click
+  site.my_vw.add_current_car.goto_section2.when_present.click
 end
 
 Then(/^I will see that my car details are incomplete with (.*)$/) do |feedback|
@@ -202,5 +206,41 @@ end
 
 When(/^I add (.*) into the registration field$/) do |registration|
   @reg_num = registration
-  site.my_vw.add_current_car.registration_text_field.set(@reg_num)
+  site.my_vw.add_current_car.registration_text_field.when_present.set(@reg_num)
+end
+
+Then(/^I will see a summary of step 1:$/) do |table|
+  add_car = site.my_vw.add_current_car
+  Timeout.timeout(3) { sleep 1 unless add_car.step_1_summary.visible? }
+  expect(add_car.step_1_summary.when_present.present?).to be true
+  table.hashes.each do |hash|
+    expect(add_car.step_1_summary_reg.text).to eq(hash['Registration number'])
+    expect(add_car.step_1_summary_model.text).to eq(hash['Model'])
+    expect(add_car.step_1_summary_details.text).to eq(hash['Details'])
+  end
+end
+
+Then(/^that my car was acquired as: (.*)$/) do |acquired_as|
+  expect(site.my_vw.add_current_car.step_1_summary_acquired_as).to eq(acquired_as)
+end
+
+Then(/^that I named my car: (.*)$/) do |car_name|
+  expect(site.my_vw.add_current_car.step_1_summary_car_name).to eq(car_name)
+end
+
+Then(/^my previously chosen retail (.*) is preselected$/) do |retailer|
+  add_car = site.my_vw.add_current_car
+  expect(add_car.preselected_retailer.h3.text).to eq(retailer)
+  expect(add_car.preselected_retailer_radio.set?).to be(true)
+end
+
+Given(/^I have successfully completed step 1 with registration (.*)$/) do |reg|
+  steps %(
+    Given I am on the Volkswagen Homepage
+    And I login into my account
+    And I go to add a new car
+    And I select the A car I own button
+    And I add #{reg} into the registration field
+    And I lookup the registration
+        )
 end
