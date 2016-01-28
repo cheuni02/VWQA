@@ -120,7 +120,6 @@ Given (/^I select change step 1 details$/) do
   site.my_vw.add_current_car.change_section_1.when_present.click
 end
 
-
 And(/^I select continue$/) do
   site.my_vw.add_current_car.goto_section2.when_present.click
 end
