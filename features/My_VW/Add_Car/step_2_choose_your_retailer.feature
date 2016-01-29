@@ -118,5 +118,5 @@ Feature: Add a current car
     When I select the back button
     Then I will see popup asking Are you sure you want to leave?
 
-    When I select the Cancel button
+    When I select the I'm sure button
     Then I will be on the dashboard
