@@ -54,7 +54,7 @@ end
 Then(/^I will see error message:$/) do |table|
   add_car_error_message = site.my_vw.add_current_car.error_message
   table.hashes.each do |hash|
-    Timeout.timeout(3) { sleep 0.5 unless add_car_error_message.text == hash['Feedback'] }
+    Timeout.timeout(3) { sleep 1 unless add_car_error_message.text == hash['Feedback'] }
     expect(add_car_error_message.text).to eq(hash['Feedback'])
   end
 end
@@ -72,8 +72,7 @@ end
 
 Then(/^I will see my car details in editable form:$/) do |table|
   add_car = site.my_vw.add_current_car
-  Timeout.timeout(3) { sleep 0.5 unless add_car.edit_car_form.present? }
-  Timeout.timeout(3) { sleep 0.5 unless add_car.details_registration_number.text == @reg_num }
+  Timeout.timeout(3) { sleep 1 unless add_car.edit_car_form.present? && add_car.details_registration_number.text == @reg_num }
   table.hashes.each do |hash|
     expect(add_car.model_field.value).to eq(hash['Model'])
     expect(add_car.derivative_field.value).to eq(hash['Derivative'])
@@ -228,10 +227,29 @@ Then(/^that I named my car: (.*)$/) do |car_name|
   expect(site.my_vw.add_current_car.step_1_summary_car_name).to eq(car_name)
 end
 
-Then(/^my previously chosen retail (.*) is preselected$/) do |retailer|
+Then(/^my previously chosen retailer (.*) is preselected$/) do |retailer|
   add_car = site.my_vw.add_current_car
   expect(add_car.preselected_retailer.h3.text).to eq(retailer)
   expect(add_car.preselected_retailer_radio.set?).to be(true)
+end
+
+When(/^I select the back button$/) do
+  site.my_vw.add_current_car.back_button.when_present.click
+end
+
+Then(/^I will see popup asking (.*$)/) do |overlay_title|
+  add_car = site.my_vw.add_current_car
+  expect(add_car.leave_overlay.visible?).to be true
+  expect(add_car.leave_overlay_title.text).to eq(overlay_title)
+end
+
+When(/^I select the (Cancel|I'm sure) button$/) do |button|
+  if button =~ /Cancel/
+    site.my_vw.add_current_car.cancel_back_button.when_present.click
+  else
+    site.my_vw.add_current_car.confirm_back_button.when_present.click
+
+  end
 end
 
 Given(/^I have successfully completed step 1 with registration (.*)$/) do |reg|

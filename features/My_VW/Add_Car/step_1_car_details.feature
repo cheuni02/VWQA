@@ -74,6 +74,16 @@ Feature: Add a current car
     And acquired as will be set to A new car
     And my car will be called My Passat by default
 
+    When I select the back button
+    Then I will see popup asking Are you sure you want to leave?
+
+    When I select the Cancel button
+    Then I will see my car details in summary:
+      | Registration number | Model  | Details                                              |
+      | KS64FVZ             | Passat | PASSAT SE BUSINESS TDI BM, 2014, 2 Diesel, Automatic |
+    And acquired as will be set to A new car
+    And my car will be called My Passat by default
+
     When I select edit my car details
     Then I will see my car details in editable form:
       | Model  | Derivative                | Year of Manufacture | Engine size | Fuel type | Transmission |
@@ -137,7 +147,7 @@ Feature: Add a current car
     Then I will see my car name validation feedback Please complete car name
 
   Scenario: I set my car's name to one used for another car on my account
-    When I update my car name to My Golf
+    When I update my car name to GOLF
     And I select continue
     Then I will see my car name validation feedback Looks like you have a car with this name already. Please enter a different name.
 
@@ -148,11 +158,17 @@ Feature: Add a current car
       | Feedback                                                                                                        |
       | Looks like you have this car added already. Go to My Cars to view it or search for another registration number. |
 
-
-  @clear_cookies
   Scenario: when I search for a commercial vehicle I will not be able to add this to my account
     When I add SY64UCW into the registration field
     And I lookup the registration
     Then I will see error message:
       | Feedback                                                                                                                                                                                                             |
       | We're sorry we could not match your registration, the My Volkswagen login is only for passenger cars, if you have a Commercial Vehicle, Camper Van or Passenger Carrier, please visit https://volkswagen-vans.co.uk/ |
+
+  @clear_cookies
+  Scenario: I leave the add a car flow
+    When I select the back button
+    Then I will see popup asking Are you sure you want to leave?
+
+    When I select the Cancel button
+    Then I will be on the dashboard

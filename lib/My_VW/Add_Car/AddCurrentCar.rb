@@ -4,6 +4,20 @@ class AddCurrentCar < MyVW
     visit_page(page_url)
   end
 
+  def scroll_to_bottom
+    if @browser.divs(class: 'my-cars-delete-confirm').size > 5
+      scroll_to(:bottom)
+    end
+  end
+
+  def select_my_cars
+    @browser.element(class: 'welcome-stripe__body').element(class: 'welcome-stripe__menu-list', index: 1)
+  end
+
+  def select_add_a_car
+    @browser.element(class: 'my-cars-dropdown-car-add-cta__content')
+  end
+
   def success_message
     @browser.element(id: 'car-detail-text')
   end
@@ -237,5 +251,25 @@ class AddCurrentCar < MyVW
 
   def change_section_1
     @browser.button(id: 'change-section-1')
+  end
+
+  def back_button
+    @browser.element(id: 'my-go-back-button')
+  end
+
+  def leave_overlay
+    @browser.element(id: 'leaving-dialog')
+  end
+
+  def leave_overlay_title
+    leave_overlay.element(class: 'my-overlay__title')
+  end
+
+  def cancel_back_button
+    leave_overlay.element(class: 'my-overlay__cancel-button')
+  end
+
+  def confirm_back_button
+    leave_overlay.element(id: 'leaving-dialog-confirm')
   end
 end
