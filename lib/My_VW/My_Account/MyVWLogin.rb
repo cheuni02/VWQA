@@ -26,8 +26,10 @@ class MyVWLogin < MyVW
 
   def login(username, password)
     page_loaded?
-    set_email(username)
-    set_password(password)
+    until username_field.value == username && password_field.value == password
+      set_email(username)
+      set_password(password)
+    end
     do_login
   end
 
@@ -94,14 +96,10 @@ class MyVWLogin < MyVW
 
   def login_button
     case ENV['HOST']
-    when /(105\.120|vw05)/
-      @browser.button(:class => "my-vw-button", :text => /login/i)
-    else
-      @browser.button(:id => "login-button")
+      when /(105\.120|vw05)/
+        @browser.button(:class => "my-vw-button", :text => /login/i)
+      else
+        @browser.button(:id => "login-button")
     end
   end
-
-
 end
-
-#AutomatedToastUser1411049431@example.com

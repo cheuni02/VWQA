@@ -209,6 +209,30 @@ class AddCurrentCar < MyVW
     @browser.element(class: 'my-selectbox__input')
   end
 
+  def date_registered_day
+    @browser.element(id: 'details-registrationDate_day')
+  end
+
+  def clear_date_registered_day
+    date_registered_day.when_present.send_keys(:backspace) until date_registered_day.value.empty?
+  end
+
+  def date_registered_month
+    @browser.element(id: 'details-registrationDate_month')
+  end
+
+  def clear_date_registered_month
+    date_registered_month.when_present.send_keys(:backspace) until date_registered_month.value.empty?
+  end
+
+  def date_registered_year
+    @browser.element(id: 'details-registrationDate_year')
+  end
+
+  def clear_date_registered_year
+    date_registered_year.when_present.send_keys(:backspace) until date_registered_year.value.empty?
+  end
+
   def my_car_name_input_box
     @browser.text_field(id: 'car-name')
   end
@@ -271,5 +295,73 @@ class AddCurrentCar < MyVW
 
   def confirm_back_button
     leave_overlay.element(id: 'leaving-dialog-confirm')
+  end
+
+  def date_picker
+    @browser.element(id: 'registrationDate-datepicker-trigger')
+  end
+
+  def date_picker_years
+    @browser.element(class: 'datepicker-years')
+  end
+
+  def date_picker_current_year_range
+    date_picker_years.element(class: 'datepicker-switch')
+  end
+
+  def go_back_to_year_range(range)
+    date_picker_years.element(class: 'chevron', index: 0).when_present.click until date_picker_current_year_range.text == range
+  end
+
+  def check_years_range
+    years = []
+    12.times { |i| years << date_picker_years.span(class: 'year', index: i).text }
+    years
+  end
+
+  def year_of_registration(year)
+    date_picker_years.span(class: 'year', text: year)
+  end
+
+  def date_picker_month
+    @browser.element(class: 'datepicker-months')
+  end
+
+  def date_picker_current_year
+    date_picker_month.element(class: 'datepicker-switch')
+  end
+
+  def check_months_range
+    months = []
+    12.times { |i| months << date_picker_month.span(class: 'month', index: i).text }
+    months
+  end
+
+  def month_of_registration(month)
+    date_picker_month.span(class: 'month', text: month)
+  end
+
+  def date_picker_days
+    @browser.element(class: 'datepicker-days')
+  end
+
+  def date_picker_current_month
+    date_picker_days.element(class: 'datepicker-switch')
+  end
+
+  def check_month_days_range
+    days = []
+    31.times do |i|
+      begin
+        days << date_picker_days.td(class: /^day$/, index: i).text
+      rescue Watir::Exception::UnknownObjectException
+        next
+      end
+    end
+    days
+  end
+
+  def day_of_registration(day)
+    date_picker_days.td(class: /^day$/, text: day)
   end
 end

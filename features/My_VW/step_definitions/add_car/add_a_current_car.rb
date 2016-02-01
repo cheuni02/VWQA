@@ -78,6 +78,9 @@ Then(/^I will see my car details in editable form:$/) do |table|
     expect(add_car.derivative_field.value).to eq(hash['Derivative'])
     expect(add_car.engine_size_field.value).to eq(hash['Engine size'])
     expect(add_car.year_manufacture.value).to eq(hash['Year of Manufacture'])
+    expect(add_car.date_registered_day.value).to eq(hash['Date of registration'].split(%r{/}).collect(&:strip)[0])
+    expect(add_car.date_registered_month.value).to eq(hash['Date of registration'].split(%r{/}).collect(&:strip)[1])
+    expect(add_car.date_registered_year.value).to eq(hash['Date of registration'].split(%r{/}).collect(&:strip)[2])
 
     fuel_type = hash['Fuel type']
     if fuel_type =~ /Petrol/
@@ -115,7 +118,7 @@ When(/^I select edit my car details$/) do
   site.my_vw.add_current_car.edit_my_car_details.click
 end
 
-Given (/^I select change step 1 details$/) do
+Given(/^I select change step 1 details$/) do
   site.my_vw.add_current_car.change_section_1.when_present.click
 end
 
@@ -133,10 +136,10 @@ end
 
 Then (/^I will see that my car details are (?:incomplete|incorrect) with:$/) do |table|
   add_car = site.my_vw.add_current_car
-  Timeout.timeout(3) { sleep 0.5 unless add_car.my_car_details_errors.visible? }
+  Timeout.timeout(3) { sleep 1 unless add_car.my_car_details_errors.visible? }
   expect(add_car.my_car_details_errors.visible?).to eq(true)
   table.hashes.each_with_index do |hash, index|
-    Timeout.timeout(3) { sleep 0.5 unless add_car.my_car_details_errors.li(index: index).text == hash['Feedback'] }
+    Timeout.timeout(3) { sleep 1 unless add_car.my_car_details_errors.li(index: index).text == hash['Feedback'] }
     expect(add_car.my_car_details_errors.li(index: index).text).to eq(hash['Feedback'])
   end
 end
@@ -151,7 +154,7 @@ Then(/^I will see form validation feedback (.*)$/) do |feedback|
   expect(site.my_vw.add_current_car.car_name_validation_message.when_present.text).to eq(feedback)
 end
 
-When(/^I update (model|derivative|engine size|my car name) to (.*)/) do |field, value|
+When(/^I update (model|derivative|date of registration|engine size|my car name) to (.*)/) do |field, value|
   add_car = site.my_vw.add_current_car
   if field =~ /model/
     add_car.model_field.when_present.set(value)
@@ -159,12 +162,20 @@ When(/^I update (model|derivative|engine size|my car name) to (.*)/) do |field, 
     add_car.derivative_field.when_present.set(value)
   elsif field =~ /engine size/
     add_car.engine_size_field.when_present.set(value)
+  elsif field =~ /date of registration/
+    date_reg = value.split(%r{/}).collect(&:strip)
+    add_car.clear_date_registered_day
+    add_car.date_registered_day.when_present.send_keys(date_reg[0])
+    add_car.clear_date_registered_month
+    add_car.date_registered_month.when_present.send_keys(date_reg[1])
+    add_car.clear_date_registered_year
+    add_car.date_registered_year.when_present.send_keys(date_reg[2])
   else
     add_car.my_car_name_input_box.when_present.set(value)
   end
 end
 
-When(/^I clear (model|derivative|engine size|my car name)$/) do |field|
+When(/^I clear (model|derivative|date of registration|engine size|my car name)$/) do |field|
   add_car = site.my_vw.add_current_car
   if field =~ /model/
     add_car.model_field.when_present.clear
@@ -172,6 +183,10 @@ When(/^I clear (model|derivative|engine size|my car name)$/) do |field|
     add_car.derivative_field.when_present.clear
   elsif field =~ /engine size/
     add_car.engine_size_field.when_present.clear
+  elsif field =~ /date of registration/
+    add_car.clear_date_registered_day
+    add_car.clear_date_registered_month
+    add_car.clear_date_registered_year
   else
     add_car.my_car_name_input_box.when_present.clear
   end
@@ -248,8 +263,63 @@ When(/^I select the (Cancel|I'm sure) button$/) do |button|
     site.my_vw.add_current_car.cancel_back_button.when_present.click
   else
     site.my_vw.add_current_car.confirm_back_button.when_present.click
-
   end
+end
+
+When(/^I click the calender date picker$/) do
+  site.my_vw.add_current_car.date_picker.click
+end
+
+When(/^I choose year range (.*)$/) do |range|
+  site.my_vw.add_current_car.go_back_to_year_range(range)
+end
+
+Then(/^I'm presented with all the years between (\d+)\-(\d+)$/) do |first_year, last_year|
+  add_car = site.my_vw.add_current_car
+  expect(add_car.check_years_range.first).to eq(first_year)
+  expect(add_car.check_years_range.last).to eq(last_year)
+end
+
+When(/^I choose year (\d+)$/) do |year|
+  site.my_vw.add_current_car.year_of_registration(year).click
+end
+
+Then(/^I'm presented with all the months of (\d+)$/) do |year|
+  add_car = site.my_vw.add_current_car
+  expect(add_car.date_picker_current_year.text).to eq(year)
+  expect(add_car.check_months_range).to eq(%w(Jan
+                                              Feb
+                                              Mar
+                                              Apr
+                                              May
+                                              Jun
+                                              Jul
+                                              Aug
+                                              Sep
+                                              Oct
+                                              Nov
+                                              Dec))
+end
+
+When(/^I choose the month of (.*)$/) do |month|
+  site.my_vw.add_current_car.month_of_registration(month).click
+end
+Then(/^I'm presented with all the days of (.*) between (\d+)\-(\d+)$/) do |month_year, first_day, last_day|
+  add_car = site.my_vw.add_current_car
+  expect(add_car.date_picker_current_month.text).to eq(month_year)
+  expect(add_car.check_month_days_range.first).to eq(first_day)
+  expect(add_car.check_month_days_range.last).to eq(last_day)
+end
+
+When(/^I choose the (\d+)(?:st|rd|nd|th)$/) do |day|
+  site.my_vw.add_current_car.day_of_registration(day).click
+end
+
+Then(/^I will see date of registration is set to (\d+)\/(\d+)\/(\d+)$/) do |day, month, year|
+  add_car = site.my_vw.add_current_car
+  expect(add_car.date_registered_day.value).to eq(day)
+  expect(add_car.date_registered_month.value).to eq(month)
+  expect(add_car.date_registered_year.value).to eq(year)
 end
 
 Given(/^I have successfully completed step 1 with registration (.*)$/) do |reg|
