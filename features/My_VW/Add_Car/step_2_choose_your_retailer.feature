@@ -12,7 +12,7 @@ Feature: Add a current car
       | KS64FVZ             | Passat | PASSAT SE BUSINESS TDI BM, 2014, 2 Diesel, Automatic |
     And that my car was acquired as: A new car
     And that I named my car: My Passat
-    And my previously chosen retail Ipswich Volkswagen is preselected
+    And my previously chosen retailer Ipswich Volkswagen is preselected
 
   Scenario: I try to find my local VW retailer by name
     Given I can not continue until I provide search criteria for my retailer
@@ -30,6 +30,9 @@ Feature: Add a current car
 
     When I select the 1st option in the list of retailers
     Then I'm presented with my choice of VW retailer
+
+    When I search for my local VW retailer by name with b
+    Then I will not see search suggestions
 
 
   Scenario: I select to view my search in map, then change step 1 details and then return to step 2 my previous selection will still selected
@@ -49,6 +52,13 @@ Feature: Add a current car
       | Passat | PASSAT SE BUSINESS TDI BM | 2014                | 2           | Diesel    | Automatic    |
 
     When I select continue
+    Then I'm presented with a map view of local VW dealers
+    And my choice of retailer is under the map
+
+    When I select the back button
+    Then I will see popup asking Are you sure you want to leave?
+
+    When I select the Cancel button
     Then I'm presented with a map view of local VW dealers
     And my choice of retailer is under the map
 
@@ -75,7 +85,7 @@ Feature: Add a current car
     When I select continue
     Then my choice of retailer will be selected
 
-  Scenario: I try to find my local VW retailer by postcode
+  Scenario: I try to find my local VW retailer by postcode and view in maps
     When I search for my local VW retailer by location with VX4 5BQ
     And I click lookup
     Then I will see message No results found. matching my search
@@ -94,7 +104,19 @@ Feature: Add a current car
     When I select the 4th local retailer
     Then my choice of retailer will be selected
 
-    And I select the map tab
-
+    When I select the map tab
     Then I'm presented with a map view of local VW dealers
     And my choice of retailer is under the map
+
+    When I select View in maps
+    Then I will see an enlarged map
+    When I close the large map
+    Then I'm presented with a map view of local VW dealers
+    And my choice of retailer is under the map
+
+  Scenario: I leave the add a car flow
+    When I select the back button
+    Then I will see popup asking Are you sure you want to leave?
+
+    When I select the I'm sure button
+    Then I will be on the dashboard
