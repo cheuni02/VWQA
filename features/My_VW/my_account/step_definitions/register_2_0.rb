@@ -25,7 +25,7 @@ Then /^i should not be able to complete my registration$/ do
   expect(site.my_vw.register.thank_you_page_present).to eq false
 end
 
-And /^i should see my a message on the page stating (.*)$/ do |feedback|
+And /^i should see a message on the page stating (.*)$/ do |feedback|
   expect(site.my_vw.register.get_error_messages).to include(feedback)
 end
 
