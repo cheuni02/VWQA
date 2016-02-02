@@ -50,8 +50,20 @@ Then (/^I'm presented with a map view of local VW dealers$/) do
   expect(add_car.retailer_map.present?).to be(true)
 end
 
-Then (/my choice of retailer is under the map$/) do
+Then (/^my choice of retailer is under the map$/) do
   expect(site.service_booking.step3.retailer_map_selected).to eq(@retailer)
+end
+
+When (/^I select View in maps$/) do
+  site.service_booking.step3.view_in_maps_button.click
+end
+
+When (/^I close the large map$/) do
+  site.service_booking.step3.close_maps_button.click
+end
+
+Then (/^I will see an enlarged map$/) do
+  expect(site.service_booking.step3.large_map.present?).to be(true)
 end
 
 Then (/^the map has a pin where my nearest retailer is located$/) do

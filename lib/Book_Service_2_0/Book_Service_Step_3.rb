@@ -141,6 +141,18 @@ class BookAService2Step3 < BookAService2
     retailer_map.text.match(/\n.*/).to_s.delete("\n")
   end
 
+  def view_in_maps_button
+    @browser.element(class: 'searched-retailer-map-wrapper').element(class: 'my-vw-button')
+  end
+
+  def close_maps_button
+    @browser.element(class: 'my-overlay__close-button')
+  end
+
+  def large_map
+    @browser.element(id: 'searched-retailer-map')
+  end
+
   def pin_on_map_latitude
     @browser.image(class: 'searched-retailer-map').src.split('|')[2].split(',')[0]
   end
