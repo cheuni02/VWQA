@@ -13,28 +13,29 @@ Feature: Volkswagen Account Registration
     And i set the password field to Abcd!2345
     And i set the confirm password field to Abcd!2345
     Then i should not be able to complete my registration
-    And i should see my a message on the page stating <feedback>
+    And i should see a message on the page stating <feedback>
 
-    Examples:
+  Examples:
     | title | firstname | surname | email                       | feedback                                                 |
-    |       | Toasty    | Tester  | testtesttest992@example.com | Please enter correct title.                              |
-    | Mr    |           | Tester  | testtesttest992@example.com | Please enter correct firstname.                          |
-    | Mr    | Toasty    |         | testtesttest992@example.com | Please enter correct surname.                            |
-    | Mr    | Toasty    | Tester  |                             | We need a contact email address                          |
-    | Mr    | Toasty    | Tester  | testtesttest992             | Please include an @ in your email address.               |
-    | Mr    | Toasty    | Tester  | testtesttest992@            | Please enter the part of your email that follows the @.  |
-    | Mr    | Toasty    | Tester  | testtesttest992@example     | Please enter a correctly formatted email address.        |
-    | Mr    | Toasty    | Tester  | @example.com                | Please enter the part of your email that precedes the @. |
-    | Mr    | Toasty    | Tester  | test@example.com@com        | Please enter a correctly formatted email address.        |
+    |       | Toasty    | Tester  | testtesttest992@example.com | Please complete title.      |
+    | Mr    |           | Tester  | testtesttest992@example.com | Please complete first name. |
+    | Mr    | Toasty    |         | testtesttest992@example.com | Please complete last name.  |
+    | Mr    | Toasty    | Tester  |                             | Please complete email |
+    | Mr    | Toasty    | Tester  | testtesttest992             | Please provide a valid email address. |
+    | Mr    | Toasty    | Tester  | testtesttest992@            | Please provide a valid email address. |
+    | Mr    | Toasty    | Tester  | testtesttest992@example     | Please provide a valid email address. |
+    | Mr    | Toasty    | Tester  | @example.com                | Please provide a valid email address. |
+    | Mr    | Toasty    | Tester  | test@example.com@com        | Please provide a valid email address. |
 
   Scenario Outline: New User Tries to Register with invalid Password
     Given i enter my name details as Mr Toasty Tester
     And i set the email account field to testtesttest992@example.com
-    When i set the password field to <password>
+    And i set the password field to <password>
     And i set the confirm password field to <repeat_password>
+    When i submit my new account registration
     Then i should not be able to complete my registration
 
-    Examples:
+  Examples:
     | password                     | repeat_password              |
     | Abcd!2345                    |                              |
     |                              | Abcd!2345                    |
@@ -54,7 +55,7 @@ Feature: Volkswagen Account Registration
     And i set the password field to Abcd!2345
     And i set the confirm password field to Abcd!2345
     When i submit my new account registration
-    Then i should see my a message on the page stating Sorry, that email is already in use.
+    Then i should see error message on the page stating Email taken, please choose another
 
   Scenario: User Successfully registers an account
     Given i enter my name details as Mr Toasty Tester

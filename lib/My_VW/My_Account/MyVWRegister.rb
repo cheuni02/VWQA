@@ -35,7 +35,8 @@ class MyVWRegister < MyVW
     email = DEFAULT_ACCOUNT[:first_name] + "#{timestamp}" + DEFAULT_ACCOUNT[:email_base]
 
     self.visit
-    title_select_list.select(DEFAULT_ACCOUNT[:title])
+    create_account_link.click
+    title_select_list.set(DEFAULT_ACCOUNT[:title])
     first_name_field.set(DEFAULT_ACCOUNT[:first_name] + "#{timestamp}")
     surname_field.set(DEFAULT_ACCOUNT[:surname] + "#{timestamp}")
     email_field.set(email)
@@ -46,13 +47,14 @@ class MyVWRegister < MyVW
     return [email, DEFAULT_ACCOUNT[:password]]
 
 
-
-
   end
 
+  def email_taken_message
+    email_taken_error.text
+  end
 
   def title_select_list
-    @browser.execute_script("return document.getElementById('title')")
+    @browser.text_field(:class =>"my-selectbox__input")
   end
 
   def first_name_field
@@ -68,7 +70,7 @@ class MyVWRegister < MyVW
   end
 
   def password_field
-    @browser.text_field(:id => "password")
+    @browser.text_field(:id => "registerPassword")
   end
 
   def set_password_confirm(my_password)
@@ -76,24 +78,19 @@ class MyVWRegister < MyVW
   end
 
   def password_confirm_new
-    @browser.text_field(:id => "repeat-password")
+    @browser.text_field(:name => "repeatPassword")
   end
 
   def registration_button
-    @browser.button(:class => "vw-btn-active")
+    @browser.button(:id => "register-button")
   end
 
   def get_error_messages
-    messages = @browser.ps(:class => "form-error")
     arr = []
-    messages.each do |message|
+    get_all_messages.each do |message|
       arr.push(message.text) if message.present?
     end
     return arr
-  end
-
-  def thank_you_page_link
-    @browser.link(:id => "login-link")
   end
 
   def submit_registration
@@ -108,6 +105,10 @@ class MyVWRegister < MyVW
     register_form_locator
   end
 
+  def thank_you_page_present
+    success_registration.present?
+  end
+
   private
 
   def page_url
@@ -119,11 +120,26 @@ class MyVWRegister < MyVW
   end
 
   def submit_registration_button
-    @browser.button(:class => "vw-btn-active")
+    @browser.button(:id => "register-button")
   end
 
   def register_form_locator
     @browser.form(:id => 'register-form')
   end
 
+  def create_account_link
+    @browser.a(:data_content => "my-registration-sign-up")
+  end
+
+  def success_registration
+    @browser.div(:class => "my-registration__login")
+  end
+
+  def get_all_messages
+    @browser.execute_script('return document.getElementsByClassName("error-label")')
+  end
+
+  def email_taken_error
+    @browser. ol(:class => "my-car-form__errors").li
+  end
 end
