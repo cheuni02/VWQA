@@ -45,7 +45,11 @@ class MyVWLogin < MyVW
   # These are defined in user.json by hostname
   def get_account_details(purpose, host = ENV['HOST'])
     accounts = JSON.parse(File.read('users.json'), symbolize_names: true)[:User_accounts][host.to_sym]
-    accounts.collect { |detail| detail if detail[:purpose] == purpose }.compact.first
+    if accounts.nil?
+      fail('There seems to be a problem with loading users.json, please check hostname')
+    else
+      accounts.collect { |detail| detail if detail[:purpose] == purpose }.compact.first
+    end
   end
 
   def lockout_page

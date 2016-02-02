@@ -8,7 +8,8 @@ Feature: Add a current car
   Scenario: I have logged into my VW account with max amount of current cars added
     Given I am on the Volkswagen Homepage
     When I login into my account
-    And I go to add a new car
+    Then I will be logged into my account
+    When I go to add a new car
     Then I will be on add a car section with options:
       | I'd like to add  |
       | A car I own      |
@@ -31,7 +32,8 @@ Feature: Add a current car
   Scenario: Select add a car to my account
     Given I am on the Volkswagen Homepage
     When I login into my account
-    And I go to add a new car
+    Then I will be logged into my account
+    When I go to add a new car
     Then I will be on add a car section with options:
       | I'd like to add  |
       | A car I own      |
@@ -149,7 +151,6 @@ Feature: Add a current car
     Then I'm presented with all the days of February 2004 between 1-29
     When I choose the 29th
     Then I will see date of registration is set to 29/02/2004
-
 
   Scenario Outline: I partially update my car details I will be given feedback
     When I update model to <Model>

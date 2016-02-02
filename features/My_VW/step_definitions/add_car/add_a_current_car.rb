@@ -326,6 +326,7 @@ Given(/^I have successfully completed step 1 with registration (.*)$/) do |reg|
   steps %(
     Given I am on the Volkswagen Homepage
     And I login into my account
+    And I will be logged into my account
     And I go to add a new car
     And I select the A car I own button
     And I add #{reg} into the registration field

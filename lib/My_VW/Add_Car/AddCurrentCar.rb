@@ -213,8 +213,12 @@ class AddCurrentCar < MyVW
     @browser.element(id: 'details-registrationDate_day')
   end
 
+  def clear_date_picker_field(field_object)
+    field_object.when_present.send_keys(:backspace) until field_object.value.empty?
+  end
+
   def clear_date_registered_day
-    date_registered_day.when_present.send_keys(:backspace) until date_registered_day.value.empty?
+    clear_date_picker_field(date_registered_day)
   end
 
   def date_registered_month
@@ -222,7 +226,7 @@ class AddCurrentCar < MyVW
   end
 
   def clear_date_registered_month
-    date_registered_month.when_present.send_keys(:backspace) until date_registered_month.value.empty?
+    clear_date_picker_field(date_registered_month)
   end
 
   def date_registered_year
@@ -230,7 +234,7 @@ class AddCurrentCar < MyVW
   end
 
   def clear_date_registered_year
-    date_registered_year.when_present.send_keys(:backspace) until date_registered_year.value.empty?
+    clear_date_picker_field(date_registered_year)
   end
 
   def my_car_name_input_box
