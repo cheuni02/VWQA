@@ -18,8 +18,8 @@ Then /^i should be logged into the My Volkswagen section$/ do
   expect{site.my_vw.profile.page_loaded?}.to_not raise_error
 end
 
-When /^i enter the random unregistered email address (.*)"$/ do |email|
-  site.my_vw.login.set_email(email)
+When /^i enter the random unregistered email address$/ do
+  site.my_vw.login.set_email("boxyboxyboxy@example.com")
 end
 
 When /^i enter a random valid password for this account$/ do
@@ -34,6 +34,7 @@ Given /^i have previously submitted (\d+) invalid logins$/ do |number|
   number.to_i.times do
     step "i enter my registered account email address"
     step "i enter a random valid password for this account"
+    sleep(2)
     step "i submit my attempt to login"
     site.my_vw.login.visit
   end
@@ -44,13 +45,9 @@ Then /^i should see this error message for (\d+) incorrect login attempts:$/ do 
 
   table.hashes.each_with_index do |hash, index|
     if index.to_i == attempts.to_i
-      expect(site.my_vw.login.login_error_message.when_present.text).to eq hash['Feedback']
+      expect(site.my_vw.login.account_not_recognised.when_present.text).to eq hash['Feedback']
     end
   end
-end
-
-Then /^i should see an error page in my browser informing me that my account is locked$/ do
-  expect{site.my_vw.login.lockout_page.wait_until_present}.to_not raise_error
 end
 
 And /^there should be a button to reset my existing password$/ do
@@ -86,5 +83,28 @@ But /^i then log out from my Volkswagen account$/ do
 end
 
 Then /^i should find i am no longer signed into my account$/ do
+  sleep(2)
   expect(site.my_vw.login.logged_in_cookie_set?).to be_nil
+end
+
+
+When /^i enter not valid email address(.*)$/ do |email_address|
+  site.my_vw.login.set_email(email_address.strip)
+end
+
+Then /^i should get the following (.*) under the email address field displayed$/ do |error_message|
+  expect(site.my_vw.login.email_validation_error.when_present.text).to eq (error_message)
+end
+
+When /^i enter not valid password$/ do
+  site.my_vw.login.set_password('')
+end
+
+Then /^i should get the following error under the password field displayed:$/ do |error_message|
+  expect(site.my_vw.login.password_validation_error.when_present.text).to eq (error_message)
+end
+
+And /^i press login but the validation is not met$/ do
+  sleep(2)
+  step "i submit my attempt to login"
 end
