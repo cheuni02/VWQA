@@ -6,9 +6,9 @@ end
 When (/^I search for my local VW retailer by (location|name) with (.*)$/) do |search_type, search|
   service_booking = site.service_booking.step3
   if search_type == 'location'
-    service_booking.search_by_location_field.set(search)
+    service_booking.search_by_location_field.when_present.set(search)
   else
-    service_booking.search_by_name_field.set(search)
+    service_booking.search_by_name_field.when_present.set(search)
   end
 end
 
@@ -38,6 +38,16 @@ end
 
 Then (/^I'm presented with my choice of VW retailer$/) do
   expect(site.service_booking.step3.retailer_group_list.h3.text).to eq(@retailer)
+end
+
+And (/^I select the ([1-9])(?:st|rd|nd|th) retailer by name (.*)$/) do |retailer, name|
+  steps %(
+    When I search for my local VW retailer by name with #{name}
+    And I will see search suggestions
+    And I select the #{retailer}st option in the list of retailers
+    And I'm presented with my choice of VW retailer
+    When I select the #{retailer}st local retailer
+        )
 end
 
 And (/^I select the map tab$/) do

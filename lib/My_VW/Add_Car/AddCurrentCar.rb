@@ -15,7 +15,11 @@ class AddCurrentCar < MyVW
   end
 
   def select_add_a_car
-    @browser.element(class: 'my-cars-dropdown-car-add-cta__content')
+    @browser.link(text: 'Add a car')
+  end
+
+  def loading_wheel
+    @browser.div(id: 'page').div(class: 'my-loading-shield')
   end
 
   def success_message
@@ -135,6 +139,22 @@ class AddCurrentCar < MyVW
     @browser.elements(class: 'radio__buttons')[2].element(text: 'Automatic')
   end
 
+  def step_2_summary
+    @browser.element(id: 'section-2-text')
+  end
+
+  def step_2_retailer_name
+    step_2_summary.li(class: 'summaryName')
+  end
+
+  def step_2_retailer_telephone
+    step_2_summary.li(class: 'summaryPhone')
+  end
+
+  def step_2_retailer_email
+    step_2_summary.li(class: 'summaryEmail')
+  end
+
   def step_1_summary
     @browser.element(class: 'my-car-form__text')
   end
@@ -191,6 +211,42 @@ class AddCurrentCar < MyVW
     @browser.element(id: 'details-registration-number')
   end
 
+  def car_form_fields_empty(field)
+    fields = []
+    case field
+    when /Model/
+      fields << 'Model field contains ' + model_field.value unless model_field.value.empty?
+    when /Trim/
+      fields << 'Trim field contains ' + derivative_field.value unless derivative_field.value.empty?
+    when /Date of registration/
+      fields << 'Date of registration day field contains ' + date_registered_day.value unless date_registered_day.value.empty?
+      fields << 'Date of registration month field contains ' + date_registered_month.value unless date_registered_month.value.empty?
+      fields << 'Date of registration year field contains ' + date_registered_year.value unless date_registered_year.value.empty?
+    when /Year of manufacture/
+      fields << 'Year of manufacture field contains ' + year_manufacture.value unless year_manufacture.value.empty?
+    when /Engine size/
+      fields << 'Engine size field contains ' + engine_size_field.value unless engine_size_field.value.empty?
+    when /I'd like to call my car/
+      fields << "I'd like to call my car field contains " + my_car_name_field.value unless my_car_name_field.value.empty?
+    end
+    fields
+  end
+
+  def car_form_options(radios)
+    options = []
+    case radios
+    when /Fuel type /
+      options << 'Fuel type Petrol is set' if fuel_type_petrol_radio.set?
+      options << 'Fuel type Diesel is set' if fuel_type_diesel_radio.set?
+      options << 'Fuel type Hybrid is set' if fuel_type_hybrid_radio.set?
+      options << 'Fuel type Electric is set' if fuel_type_electric_radio.set?
+    when /Transmission/
+      options << 'Transmission type Manual is set' if transmission_manual_radio.set?
+      options << 'Transmission type Automatic is set' if transmission_automatic_radio.set?
+    end
+    options
+  end
+
   def model_field
     @browser.text_field(id: 'details-model')
   end
@@ -237,7 +293,7 @@ class AddCurrentCar < MyVW
     clear_date_picker_field(date_registered_year)
   end
 
-  def my_car_name_input_box
+  def my_car_name_field
     @browser.text_field(id: 'car-name')
   end
 
@@ -249,8 +305,24 @@ class AddCurrentCar < MyVW
     @browser.element(id: 'car-detail-edit-error-sum')
   end
 
-  def goto_section2
-    @browser.button(id: 'goto-section-2')
+  def go_to_section_2
+    @browser.element(id: 'goto-section-2')
+  end
+
+  def go_to_section_3
+    @browser.element(id: 'goto-section-3')
+  end
+
+  def continue_to_next_step
+    @browser.element(class: 'my-vw-button', text: /Continue/)
+  end
+
+  def change_step_1
+    @browser.button(id: 'change-section-1')
+  end
+
+  def change_step_2
+    @browser.button(id: 'change-section-2')
   end
 
   def retailer_location_search
@@ -275,10 +347,6 @@ class AddCurrentCar < MyVW
 
   def preselected_retailer_radio
     preselected_retailer.radio(index: 0)
-  end
-
-  def change_section_1
-    @browser.button(id: 'change-section-1')
   end
 
   def back_button
@@ -367,5 +435,65 @@ class AddCurrentCar < MyVW
 
   def day_of_registration(day)
     date_picker_days.td(class: /^day$/, text: day)
+  end
+
+  def label_for_field(field)
+    @browser.element(id: 'section-3-edit').div(class: 'my-input', text: /#{field}/).text
+  end
+
+  def owner_address_field_values(field, value)
+    field_values = []
+    value = '' if value == 'empty'
+    case field
+    when 'Postcode'
+      field_values << 'Postcode contains ' + owner_postcode.value + ' expected ' + value unless owner_postcode.value == value
+    when 'House Name / no'
+      field_values << 'House Name contains ' + owner_house_number.value + ' expected ' + value unless owner_house_number.value == value
+    when 'Address 1'
+      field_values << 'Address 1 contains ' + owner_address_1.value + ' expected ' + value unless owner_address_1.value == value
+    when 'Address 2'
+      field_values << 'Address 2 contains ' + owner_address_2.value + ' expected ' + value unless owner_address_2.value == value
+    when 'Town / City'
+      field_values << 'City contains ' + owner_city.value + ' expected ' + value unless owner_city.value == value
+    when 'County'
+      field_values << 'County contains ' + owner_county.value + ' expected ' + value unless owner_county.value == value
+    end
+    field_values
+  end
+
+  def owner_postcode
+    @browser.text_field(id: 'owner-postcode')
+  end
+
+  def owner_house_number
+    @browser.text_field(id: 'owner-houseNumber')
+  end
+
+  def owner_address_1
+    @browser.text_field(id: 'owner-address1')
+  end
+
+  def owner_address_2
+    @browser.text_field(id: 'owner-address2')
+  end
+
+  def owner_city
+    @browser.text_field(id: 'owner-city')
+  end
+
+  def owner_county
+    @browser.text_field(id: 'owner-county')
+  end
+
+  def owner_postcode_lookup
+    @browser.element(class: 'postcode-lookup-submit')
+  end
+
+  def owner_address_error_feedback
+    @browser.element(id: 'owner-edit-error-sum')
+  end
+
+  def step_3_finish_button
+    @browser.button(id: 'submit-sections-123')
   end
 end
