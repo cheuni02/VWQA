@@ -76,7 +76,6 @@ Feature: Add a current car
     And acquired as will be set to A new car
     And my car will be called My Passat by default
 
-
     When I select the back button
     Then I will see popup asking Are you sure you want to leave?
 
@@ -130,7 +129,6 @@ Feature: Add a current car
       | Fuel type            |
       | Transmission         |
     But acquired as will be set to A new car
-
 
   Scenario: my searched for registration returns only partial details for my car
     When I add MM07AYJ into the registration field

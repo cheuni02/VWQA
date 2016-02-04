@@ -34,7 +34,6 @@ Feature: Add a current car
     When I search for my local VW retailer by name with b
     Then I will not see search suggestions
 
-
   Scenario: I select to view my search in map, then change step 1 details and then return to step 2 my previous selection will still selected
     When I search for my local VW retailer by name with edin
     Then I will see search suggestions
@@ -84,7 +83,6 @@ Feature: Add a current car
     When I select continue to step 2
     Then my choice of retailer will be selected
 
-  @clear_cookies
   Scenario: I try to find my local VW retailer by postcode and view in maps
     When I search for my local VW retailer by location with VX4 5BQ
     And I click lookup
@@ -114,10 +112,10 @@ Feature: Add a current car
     Then I'm presented with a map view of local VW dealers
     And my choice of retailer is under the map
 
-#  @clear_cookies
-#  Scenario: I leave the add a car flow
-#    When I select the back button
-#    Then I will see popup asking Are you sure you want to leave?
-#
-#    When I select the I'm sure button
-#    Then I will be on the dashboard
+  @clear_cookies
+  Scenario: I leave the add a car flow
+    When I select the back button
+    Then I will see popup asking Are you sure you want to leave?
+
+    When I select the I'm sure button
+    Then I will be on the dashboard
