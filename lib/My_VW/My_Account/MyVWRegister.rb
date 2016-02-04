@@ -8,6 +8,9 @@ class MyVWRegister < MyVW
     @browser.text_field(:id => "firstName").wait_until_present
   end
 
+  def page_not_found
+    visit_page(page_url_broken)
+  end
 
   ### Remove me later (Once My VW Released)
   def register_default_account
@@ -111,10 +114,18 @@ class MyVWRegister < MyVW
     success_registration.present?
   end
 
+  def page_not_available
+    @browser.h1(:class => "error-title-static")
+  end
+
   private
 
   def page_url
     "/vw-authentication/register/index?targetUrl=%2Fowners%2Fmy%2Fcars"
+  end
+
+  def page_url_broken
+    "/vw-authentication/verification/verify?token=YTgzNTNhNjMtMzE2YS00ZjJjLWI4ODgtN2QwOWM5Mjc4YjczOjXXXXXXXXX******"
   end
 
   def password_verify
