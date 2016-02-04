@@ -54,7 +54,7 @@ Feature: Add a current car
       | Retailer name    | Telephone number | Email address           |
       | Leeds Volkswagen | 0113 382 7600    | tribalddbtech@gmail.com |
     And a change step 2 button is present
-    
+
   Scenario: I try to continue with no address details
     Given I will see a form to add my address details:
       | Field           | Mandatory | Value |
@@ -78,8 +78,8 @@ Feature: Add a current car
     Then I postcode lookup is enabled
     When I select lookup
     Then I will see address error message:
-      | Feedback                       |
-      | Please enter a valid postcode. |
+      | Feedback                      |
+      | Please enter a valid postcode |
 
     Examples:
       | postcode |
