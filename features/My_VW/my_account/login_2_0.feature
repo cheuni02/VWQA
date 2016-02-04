@@ -38,10 +38,10 @@ Feature: My VW Login Version 2
 
     Examples:
     | number |
+    |   0    |
     |   1    |
     |   2    |
     |   3    |
-    |   4    |
 
   @Register_temp_2
   Scenario: Account lockout after 5 incorrect password attempts
@@ -73,7 +73,7 @@ Feature: My VW Login Version 2
   @clear_cookies
   Scenario Outline: Email address field validation
     When i enter not valid email address <email_address>
-    And i press login but the validation is not met
+    And i submit my attempt to login
     Then i should get the following <error_message> under the email address field displayed
 
   Examples:
@@ -89,7 +89,7 @@ Feature: My VW Login Version 2
   Scenario: Password field validation
     When i enter the random unregistered email address
     And i enter not valid password
-    And i press login but the validation is not met
+    And i submit my attempt to login
     Then i should get the following error under the password field displayed:
     """
     Please complete password.

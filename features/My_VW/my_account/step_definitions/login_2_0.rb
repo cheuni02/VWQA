@@ -34,7 +34,7 @@ Given /^i have previously submitted (\d+) invalid logins$/ do |number|
   number.to_i.times do
     step "i enter my registered account email address"
     step "i enter a random valid password for this account"
-    sleep(2)
+    Timeout.timeout(3) { sleep 1 unless site.my_vw.login.page_loaded?}
     step "i submit my attempt to login"
     site.my_vw.login.visit
   end
@@ -83,7 +83,6 @@ But /^i then log out from my Volkswagen account$/ do
 end
 
 Then /^i should find i am no longer signed into my account$/ do
-  sleep(2)
   expect(site.my_vw.login.logged_in_cookie_set?).to be_nil
 end
 
@@ -104,7 +103,3 @@ Then /^i should get the following error under the password field displayed:$/ do
   expect(site.my_vw.login.password_validation_error.when_present.text).to eq (error_message)
 end
 
-And /^i press login but the validation is not met$/ do
-  sleep(2)
-  step "i submit my attempt to login"
-end
