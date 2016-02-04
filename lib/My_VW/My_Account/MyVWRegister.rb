@@ -36,15 +36,17 @@ class MyVWRegister < MyVW
 
     self.visit
     create_account_link.click
-    title_select_list.set(DEFAULT_ACCOUNT[:title])
-    first_name_field.set(DEFAULT_ACCOUNT[:first_name] + "#{timestamp}")
-    surname_field.set(DEFAULT_ACCOUNT[:surname] + "#{timestamp}")
-    email_field.set(email)
-    password_field.set(DEFAULT_ACCOUNT[:password])
-    password_confirm_new.set (DEFAULT_ACCOUNT[:password])
+    @browser.execute_script("document.getElementById('my-registration-title').value= 'Mr'")
+    @browser.execute_script("document.getElementById('firstName').value = '#{DEFAULT_ACCOUNT[:first_name]}#{timestamp}'")
+    @browser.execute_script("document.getElementById('surname').value = '#{DEFAULT_ACCOUNT[:surname]}#{timestamp}'")
+    @browser.execute_script("document.getElementById('email').value = '#{email}'")
+    @browser.execute_script("document.getElementById('registerPassword').value = '#{DEFAULT_ACCOUNT[:password]}'")
+    @browser.execute_script("document.getElementsByName('repeatPassword')[0].value = '#{DEFAULT_ACCOUNT[:password]}'")
+
+    #sleep(10)
     registration_button.click
 
-    return [email, DEFAULT_ACCOUNT[:password]]
+    return {:username => email, :password => DEFAULT_ACCOUNT[:password]}
 
 
   end
