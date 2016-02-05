@@ -48,7 +48,9 @@ Then(/^the Lookup button is (disabled|enabled)$/) do |button|
 end
 
 When(/^I lookup the registration$/) do
-  site.my_vw.add_current_car.reg_lookup_button.when_present.click
+  add_car = site.my_vw.add_current_car
+  add_car.reg_lookup_button.when_present.click
+  Watir::Wait.while { add_car.loading_wheel.visible? }
 end
 
 Then(/^I will see error message:$/) do |table|
@@ -68,6 +70,26 @@ Then(/^I will see my car details in summary:$/) do |table|
     expect(add_car.searched_car_model.text).to eq(hash['Model'])
     expect(add_car.searched_car_detail.text).to eq(hash['Details'])
   end
+end
+
+Then(/^I will see my car details in editable form with no details:$/) do |table|
+  add_car = site.my_vw.add_current_car
+  Timeout.timeout(3) { sleep 1 unless add_car.edit_car_form.visible? }
+  expect(add_car.edit_car_form.visible?).to be true
+  fields = []
+  table.hashes.each do |hash|
+    fields << add_car.car_form_fields_empty(hash['in the these fields'])
+  end
+  expect(fields.flatten.count).to eq(0), "Failed due to the following: #{fields.flatten}"
+end
+
+Then(/^I will see that none of these:$/) do |table|
+  add_car = site.my_vw.add_current_car
+  radios = []
+  table.hashes.each do |hash|
+    radios << add_car.car_form_options(hash['options are selected'])
+  end
+  expect(radios.flatten.count).to eq(0), "Failed due to the following: #{radios.flatten}"
 end
 
 Then(/^I will see my car details in editable form:$/) do |table|
@@ -93,9 +115,10 @@ Then(/^I will see my car details in editable form:$/) do |table|
       expect(add_car.fuel_type_electric_radio.set?).to be(true)
     end
 
-    if hash['Transmission'] =~ /Manual/
+    transmission = hash['Transmission']
+    if transmission =~ /Manual/
       expect(add_car.transmission_manual_radio.set?).to be(true)
-    else
+    elsif transmission =~ /Automatic/
       expect(add_car.transmission_automatic_radio.set?).to be(true)
     end
   end
@@ -111,19 +134,47 @@ Then(/^acquired as will be set to (A new car|A used car)$/) do |car_age|
 end
 
 Then(/^my car will be called (.*) by default$/) do |nickname|
-  expect(site.my_vw.add_current_car.my_car_name_input_box.value).to eq(nickname)
+  expect(site.my_vw.add_current_car.my_car_name_field.value).to eq(nickname)
 end
 
 When(/^I select edit my car details$/) do
   site.my_vw.add_current_car.edit_my_car_details.click
 end
 
-Given(/^I select change step 1 details$/) do
-  site.my_vw.add_current_car.change_section_1.when_present.click
+And(/^I select continue$/) do
+  site.my_vw.add_current_car.continue_to_next_step.when_present.click
 end
 
-And(/^I select continue$/) do
-  site.my_vw.add_current_car.goto_section2.when_present.click
+And(/^I select continue to step (\d+)$/) do |step|
+  add_car = site.my_vw.add_current_car
+  case step
+  when '2'
+    add_car.go_to_section_2.when_present.click
+  when '3'
+    add_car.go_to_section_3.when_present.click
+  else
+    add_car.continue_to_next_step.when_present.click
+  end
+end
+
+When(/^I select change step (\d+)$/) do |step|
+  add_car = site.my_vw.add_current_car
+  case step
+  when '1'
+    add_car.change_step_1.when_present.click
+  when '2'
+    add_car.change_step_2.when_present.click
+  end
+end
+
+Then(/^a change step (\d+) button is present$/) do |step|
+  add_car = site.my_vw.add_current_car
+  case step
+  when '1'
+    expect(add_car.change_step_1.present?).to be true
+  when '2'
+    expect(add_car.change_step_2.present?).to be true
+  end
 end
 
 Then(/^I will see that my car details are incomplete with (.*)$/) do |feedback|
@@ -136,7 +187,7 @@ end
 
 Then (/^I will see that my car details are (?:incomplete|incorrect) with:$/) do |table|
   add_car = site.my_vw.add_current_car
-  Timeout.timeout(3) { sleep 1 unless add_car.my_car_details_errors.visible? }
+  Timeout.timeout(5) { sleep 0.5 unless add_car.my_car_details_errors.visible? }
   expect(add_car.my_car_details_errors.visible?).to eq(true)
   table.hashes.each_with_index do |hash, index|
     Timeout.timeout(3) { sleep 1 unless add_car.my_car_details_errors.li(index: index).text == hash['Feedback'] }
@@ -171,7 +222,7 @@ When(/^I update (model|derivative|date of registration|engine size|my car name) 
     add_car.clear_date_registered_year
     add_car.date_registered_year.when_present.send_keys(date_reg[2])
   else
-    add_car.my_car_name_input_box.when_present.set(value)
+    add_car.my_car_name_field.when_present.set(value)
   end
 end
 
@@ -188,7 +239,7 @@ When(/^I clear (model|derivative|date of registration|engine size|my car name)$/
     add_car.clear_date_registered_month
     add_car.clear_date_registered_year
   else
-    add_car.my_car_name_input_box.when_present.clear
+    add_car.my_car_name_field.when_present.clear
   end
 end
 
@@ -223,28 +274,9 @@ When(/^I add (.*) into the registration field$/) do |registration|
   site.my_vw.add_current_car.registration_text_field.when_present.set(@reg_num)
 end
 
-Then(/^I will see a summary of step 1:$/) do |table|
-  add_car = site.my_vw.add_current_car
-  Timeout.timeout(3) { sleep 1 unless add_car.step_1_summary.visible? }
-  expect(add_car.step_1_summary.when_present.present?).to be true
-  table.hashes.each do |hash|
-    expect(add_car.step_1_summary_reg.text).to eq(hash['Registration number'])
-    expect(add_car.step_1_summary_model.text).to eq(hash['Model'])
-    expect(add_car.step_1_summary_details.text).to eq(hash['Details'])
-  end
-end
-
-Then(/^that my car was acquired as: (.*)$/) do |acquired_as|
-  expect(site.my_vw.add_current_car.step_1_summary_acquired_as).to eq(acquired_as)
-end
-
-Then(/^that I named my car: (.*)$/) do |car_name|
-  expect(site.my_vw.add_current_car.step_1_summary_car_name).to eq(car_name)
-end
-
 Then(/^my previously chosen retailer (.*) is preselected$/) do |retailer|
   add_car = site.my_vw.add_current_car
-  expect(add_car.preselected_retailer.h3.text).to eq(retailer)
+  expect(add_car.preselected_retailer.when_present.h3.text).to eq(retailer)
   expect(add_car.preselected_retailer_radio.set?).to be(true)
 end
 
@@ -320,16 +352,4 @@ Then(/^I will see date of registration is set to (\d+)\/(\d+)\/(\d+)$/) do |day,
   expect(add_car.date_registered_day.value).to eq(day)
   expect(add_car.date_registered_month.value).to eq(month)
   expect(add_car.date_registered_year.value).to eq(year)
-end
-
-Given(/^I have successfully completed step 1 with registration (.*)$/) do |reg|
-  steps %(
-    Given I am on the Volkswagen Homepage
-    And I login into my account
-    And I will be logged into my account
-    And I go to add a new car
-    And I select the A car I own button
-    And I add #{reg} into the registration field
-    And I lookup the registration
-        )
 end
