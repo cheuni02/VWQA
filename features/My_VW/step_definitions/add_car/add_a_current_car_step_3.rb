@@ -1,5 +1,5 @@
 Then(/^I will see a summary of my retailer - step 2:$/) do |table|
-  add_car = site.my_vw.add_current_car
+  add_car = site.my_vw.add_current_car_step_3
   Timeout.timeout(3) { sleep 1 unless add_car.step_2_summary.visible? }
   expect(add_car.step_2_summary.present?).to be true
   table.hashes.each do |hash|
@@ -9,9 +9,10 @@ Then(/^I will see a summary of my retailer - step 2:$/) do |table|
   end
 end
 
-Then(/^I will see a form to add my address details:$/) do |table|
-  add_car = site.my_vw.add_current_car
+Then(/^I will see a form (?:to add|with) my address details:$/) do |table|
+  add_car = site.my_vw.add_current_car_step_3
   field_value = []
+  Timeout.timeout(3) { sleep 1 unless add_car.owner_postcode_lookup.present? }
   table.hashes.each do |hash|
     field_value << add_car.owner_address_field_values(hash['Field'], hash['Value'])
     if hash['Mandatory'] == '✓'
@@ -24,7 +25,7 @@ Then(/^I will see a form to add my address details:$/) do |table|
 end
 
 Given(/^I postcode lookup is (disabled|enabled)$/) do |lookup|
-  add_car = site.my_vw.add_current_car
+  add_car = site.my_vw.add_current_car_step_3
   if lookup == 'disabled'
     expect(add_car.owner_postcode_lookup.enabled?).to be false
   else
@@ -33,15 +34,15 @@ Given(/^I postcode lookup is (disabled|enabled)$/) do |lookup|
 end
 
 When(/^I select lookup$/) do
-  site.my_vw.add_current_car.owner_postcode_lookup.click
+  site.my_vw.add_current_car_step_3.owner_postcode_lookup.click
 end
 
 When(/^I select Finish$/) do
-  site.my_vw.add_current_car.step_3_finish_button.when_present.click
+  site.my_vw.add_current_car_step_3.step_3_finish_button.when_present.click
 end
 
 Then(/^I will see address error message:$/) do |table|
-  add_car = site.my_vw.add_current_car
+  add_car = site.my_vw.add_current_car_step_3
   Timeout.timeout(3) { sleep 1 unless add_car.owner_address_error_feedback.visible? }
   table.hashes.each_with_index do |hash, index|
     expect(add_car.owner_address_error_feedback.li(index: index).text).to eq(hash['Feedback'])
@@ -49,7 +50,7 @@ Then(/^I will see address error message:$/) do |table|
 end
 
 When(/^I enter (.*) into (Postcode|House Name|Address 1|Address 2|Town|County)$/) do |value, field|
-  add_car = site.my_vw.add_current_car
+  add_car = site.my_vw.add_current_car_step_3
   case field
   when 'Postcode'
     add_car.owner_postcode.set(value)
@@ -64,4 +65,15 @@ When(/^I enter (.*) into (Postcode|House Name|Address 1|Address 2|Town|County)$/
   when 'County'
     add_car.owner_county.set(value)
   end
+end
+
+When(/^I select change step (\d+)$/) do |step|
+  add_car = site.my_vw
+  case step
+  when '1'
+    add_car.add_current_car_step_2.change_step_1.when_present.click
+  when '2'
+    add_car.add_current_car_step_3.change_step_2.when_present.click
+  end
+  Watir::Wait.while { site.my_vw.add_current_car.loading_wheel.visible? }
 end

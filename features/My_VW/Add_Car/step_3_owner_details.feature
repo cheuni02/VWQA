@@ -89,7 +89,7 @@ Feature: Add a current car
   Scenario: I attempt valid postcode lookup
     When I enter W2 6AA into Postcode
     And I select lookup
-    Then I will see a form to add my address details:
+    Then I will see a form with my address details:
       | Field           | Mandatory | Value               |
       | Postcode        | ✓         | W2 6AA              |
       | House Name / no | ✓         | empty               |
@@ -102,3 +102,23 @@ Feature: Add a current car
     Then I will see address error message:
       | Feedback                     |
       | Please complete house number |
+
+  Scenario: I change my retailer - step 2 and my previous details for step 3 are present
+    When I select change step 2
+    And I select continue
+    Then I will see a form with my address details:
+      | Field           | Mandatory | Value               |
+      | Postcode        | ✓         | W2 6AA              |
+      | House Name / no | ✓         | empty               |
+      | Address 1       | ✓         | Bishops Bridge Road |
+      | Address 2       |           | empty               |
+      | Town / City     | ✓         | LONDON              |
+      | County          |           | empty               |
+
+  @clear_cookies
+  Scenario: I leave the add a car flow
+    When I select the back button
+    Then I will see popup asking Are you sure you want to leave?
+
+    When I select the I'm sure button
+    Then I will be on the dashboard

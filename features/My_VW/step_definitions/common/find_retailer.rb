@@ -46,7 +46,7 @@ And (/^I select the ([1-9])(?:st|rd|nd|th) retailer by name (.*)$/) do |retailer
     And I will see search suggestions
     And I select the #{retailer}st option in the list of retailers
     And I'm presented with my choice of VW retailer
-    When I select the #{retailer}st local retailer
+    And I select the #{retailer}st local retailer
         )
 end
 
@@ -92,6 +92,10 @@ Then (/^I'm presented with a list view of (.*) local VW dealers$/) do |list_leng
   expect(site.service_booking.step3.number_of_retailers_in_list).to eq(list_length.to_i)
 end
 
+Then (/^the first retailer is selected$/) do
+  expect(site.service_booking.step3.first_retailer_selection.set?).to be true
+end
+
 When (/^I select the ([1-5])(?:st|rd|nd|th) local retailer$/) do |retailer|
   local_retailer = site.service_booking.step3.local_retailer(retailer.to_i - 1)
   @retailer = local_retailer.h3.text
@@ -102,4 +106,10 @@ Then (/^my choice of retailer will be selected$/) do
   add_car = site.service_booking.step3
   Timeout.timeout(3) { sleep 1 unless add_car.selected_retailer.h3.text == @retailer }
   expect(add_car.selected_retailer.h3.text).to eq(@retailer)
+end
+
+Then(/^my previously chosen retailer (.*) is preselected$/) do |retailer|
+  add_car = site.my_vw.add_current_car_step_2
+  expect(add_car.preselected_retailer.when_present.h3.text).to eq(retailer)
+  expect(add_car.preselected_retailer_radio.set?).to be(true)
 end
