@@ -63,11 +63,11 @@ And /^the remember me cookie should be set in my browser$/ do
 end
 
 When /^i click on the link to go to the reset password form$/ do
-  site.my_vw.login.forgot_password_link.when_present.click
+  site.my_vw.login.forgotten_password_link.when_present.click
 end
 
 Then /^i should see the forgot password form load in my browser$/ do
-  expect{site.my_vw.login.forgot_password_email_field}.to_not raise_error
+  expect{site.my_vw.forgotten_password.page_loaded?}.to_not raise_error
 end
 
 When /^i click on the link to go to the registration page$/ do
