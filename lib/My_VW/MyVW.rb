@@ -13,10 +13,6 @@ class MyVW < VWBase
     MyVWProfile.new(@browser)
   end
 
-  def add_car
-    MyVWAddCar.new(@browser)
-  end
-
   def my_configurations
     MyVWConfigs.new(@browser)
   end
@@ -27,6 +23,18 @@ class MyVW < VWBase
 
   def add_current_car
     AddCurrentCar.new(@browser)
+  end
+
+  def add_current_car_step_1
+    AddCurrentCarStep1.new(@browser)
+  end
+
+  def add_current_car_step_2
+    AddCurrentCarStep2.new(@browser)
+  end
+
+  def add_current_car_step_3
+    AddCurrentCarStep3.new(@browser)
   end
 
   def configured_car_dashboard

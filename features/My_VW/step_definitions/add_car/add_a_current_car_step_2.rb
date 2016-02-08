@@ -11,7 +11,7 @@ Given(/^I have successfully completed step 1 with registration (.*)$/) do |reg|
 end
 
 Then(/^I will see a summary of my car - step 1:$/) do |table|
-  add_car = site.my_vw.add_current_car
+  add_car = site.my_vw.add_current_car_step_2
   Timeout.timeout(3) { sleep 1 unless add_car.step_1_summary.visible? }
   expect(add_car.step_1_summary.present?).to be true
   table.hashes.each do |hash|
@@ -22,9 +22,19 @@ Then(/^I will see a summary of my car - step 1:$/) do |table|
 end
 
 Then(/^that my car was acquired as: (.*)$/) do |acquired_as|
-  expect(site.my_vw.add_current_car.step_1_summary_acquired_as).to eq(acquired_as)
+  expect(site.my_vw.add_current_car_step_2.step_1_summary_acquired_as).to eq(acquired_as)
 end
 
 Then(/^that I named my car: (.*)$/) do |car_name|
-  expect(site.my_vw.add_current_car.step_1_summary_car_name).to eq(car_name)
+  expect(site.my_vw.add_current_car_step_2.step_1_summary_car_name).to eq(car_name)
+end
+
+Then(/^a change step (\d+) button is present$/) do |step|
+  add_car = site.my_vw.add_current_car
+  case step
+  when '1'
+    expect(site.my_vw.add_current_car_step_2.change_step_1.present?).to be true
+  when '2'
+    expect(site.my_vw.add_current_car_step_3.change_step_2.present?).to be true
+  end
 end

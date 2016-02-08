@@ -68,6 +68,7 @@ Feature: Add a current car
     When I search for my local VW retailer by location with bath
     And I click lookup
     Then I'm presented with a list view of 5 local VW dealers
+    And the first retailer is selected
 
     When I select the 2nd local retailer
     Then my choice of retailer will be selected
@@ -91,6 +92,7 @@ Feature: Add a current car
     When I search for my local VW retailer by location with M34 5GH
     And I click lookup
     Then I'm presented with a list view of 5 local VW dealers
+    And the first retailer is selected
 
     When I select the 5th local retailer
     Then my choice of retailer will be selected
