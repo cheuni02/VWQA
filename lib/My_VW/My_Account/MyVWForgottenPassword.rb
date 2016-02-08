@@ -46,7 +46,11 @@ class MyVWForgottenPassword < MyVW
   end
 
   def success_page_title
-    @browser.h1(:class => "full-hero__title", :text =>"Success! Please verify your email.")
+    @browser.h1(:class => "my-auth-hero__title", :text =>"Success! Please verify your email.")
+  end
+
+  def verification_link
+    @browser.link(:id => "send-email-link")
   end
 
 end
