@@ -60,4 +60,9 @@ class MyVW < VWBase
   def my_account
     MyAccount.new(@browser)
   end
+
+  def forgotten_password
+    MyVWForgottenPassword.new(@browser)
+  end
+
 end
