@@ -48,8 +48,8 @@ Feature: Add a current car
 
     When I select change step 1 details
     Then I will see my car details in editable form:
-      | Model  | Derivative                | Year of Manufacture | Engine size | Fuel type | Transmission |
-      | Passat | PASSAT SE BUSINESS TDI BM | 2014                | 2           | Diesel    | Automatic    |
+      | Model  | Derivative                | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
+      | Passat | PASSAT SE BUSINESS TDI BM | 2014                | 9/12/2014            | 2           | Diesel    | Automatic    |
 
     When I select continue
     Then I'm presented with a map view of local VW dealers
@@ -79,8 +79,8 @@ Feature: Add a current car
 
     When I select change step 1 details
     Then I will see my car details in editable form:
-      | Model  | Derivative                | Year of Manufacture | Engine size | Fuel type | Transmission |
-      | Passat | PASSAT SE BUSINESS TDI BM | 2014                | 2           | Diesel    | Automatic    |
+      | Model  | Derivative                | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
+      | Passat | PASSAT SE BUSINESS TDI BM | 2014                | 9/12/2014            | 2           | Diesel    | Automatic    |
 
     When I select continue
     Then my choice of retailer will be selected

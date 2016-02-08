@@ -9,15 +9,15 @@ class MyVWLogin < MyVW
   end
 
   def set_email(email)
-    username_field.when_present.set(email)
+    @browser.execute_script("document.getElementById('username').value = '#{email}'")
   end
 
   def set_password(password)
-    password_field.when_present.set(password)
+    @browser.execute_script("document.getElementById('password').value = '#{password}'")
   end
 
   def do_login
-    login_button.click
+    login_button.when_present.click
   end
 
   def login_link
@@ -26,24 +26,42 @@ class MyVWLogin < MyVW
 
   def login(username, password)
     page_loaded?
-    set_email(username)
-    set_password(password)
+    until username_field.value == username && password_field.value == password
+      set_email(username)
+      set_password(password)
+    end
     do_login
   end
 
   def account_navigation_bar
-    @browser.element(class: 'welcome-stripe__menu')
+    @browser.element(:class => 'welcome-stripe__menu')
   end
 
   def login_error_message
-    @browser.p(:class => "form-error")
+    @browser.div(:id => "passwd-form")
+  end
+
+  def email_validation_error
+    @browser.div(:class => "my-input my-car-form__top-spacer").div(:class => "my-input__input").div(:class => "error-label")
+  end
+
+  def password_validation_error
+    @browser.div(:class => "my-input my-car-form__top-spacer", :index => 1).div(:class => "my-input__input").div(:class => "error-label")
+  end
+
+  def account_not_recognised
+    @browser.div(:class => "my-input my-car-form__top-spacer", :index => 1).div(:class => "my-input__input").p(:class => "error-label")
   end
 
   # Gets the Login Details for a specified user account purpose
   # These are defined in user.json by hostname
   def get_account_details(purpose, host = ENV['HOST'])
     accounts = JSON.parse(File.read('users.json'), symbolize_names: true)[:User_accounts][host.to_sym]
-    accounts.collect { |detail| detail if detail[:purpose] == purpose }.compact.first
+    if accounts.nil?
+      fail('There seems to be a problem with loading users.json, please check hostname')
+    else
+      accounts.collect { |detail| detail if detail[:purpose] == purpose }.compact.first
+    end
   end
 
   def lockout_page
@@ -75,7 +93,7 @@ class MyVWLogin < MyVW
   end
 
   def create_account_link
-    @browser.link(:id => "create-accont-link")
+    @browser.a(:data_content => "my-registration-sign-up")
   end
 
   private
@@ -93,15 +111,7 @@ class MyVWLogin < MyVW
   end
 
   def login_button
-    case ENV['HOST']
-    when /(105\.120|vw05)/
-      @browser.button(:class => "my-vw-button", :text => /login/i)
-    else
-      @browser.button(:id => "login-button")
-    end
+     @browser.button(:id => "login-button")
   end
 
-
 end
-
-#AutomatedToastUser1411049431@example.com

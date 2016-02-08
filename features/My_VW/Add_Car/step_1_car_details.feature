@@ -8,7 +8,8 @@ Feature: Add a current car
   Scenario: I have logged into my VW account with max amount of current cars added
     Given I am on the Volkswagen Homepage
     When I login into my account
-    And I go to add a new car
+    Then I will be logged into my account
+    When I go to add a new car
     Then I will be on add a car section with options:
       | I'd like to add  |
       | A car I own      |
@@ -31,7 +32,8 @@ Feature: Add a current car
   Scenario: Select add a car to my account
     Given I am on the Volkswagen Homepage
     When I login into my account
-    And I go to add a new car
+    Then I will be logged into my account
+    When I go to add a new car
     Then I will be on add a car section with options:
       | I'd like to add  |
       | A car I own      |
@@ -86,11 +88,12 @@ Feature: Add a current car
 
     When I select edit my car details
     Then I will see my car details in editable form:
-      | Model  | Derivative                | Year of Manufacture | Engine size | Fuel type | Transmission |
-      | Passat | PASSAT SE BUSINESS TDI BM | 2014                | 2           | Diesel    | Automatic    |
+      | Model  | Derivative                | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
+      | Passat | PASSAT SE BUSINESS TDI BM | 2014                | 9/12/2014            | 2           | Diesel    | Automatic    |
 
     When I update model to Golf
     And I update derivative to GTD
+    And I update date of registration to 01/01/14
     And I update year of manufacture to 2015
     And I update engine size to 2.0
     And I update fuel type to Diesel
@@ -98,16 +101,16 @@ Feature: Add a current car
     And I update my car name to My Diesel Golf
 
     Then I will see my car details in editable form:
-      | Model | Derivative | Year of Manufacture | Engine size | Fuel type | Transmission |
-      | Golf  | GTD        | 2015                | 2.0         | Diesel    | Automatic    |
+      | Model | Derivative | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
+      | Golf  | GTD        | 2015                | 01/01/14             | 2.0         | Diesel    | Automatic    |
 
   Scenario: my searched for registration returns only partial details for my car
     When I add MM07AYJ into the registration field
     And I lookup the registration
 
     Then I will see my car details in editable form:
-      | Model | Derivative      | Year of Manufacture | Engine size | Fuel type | Transmission |
-      | Eos   | EOS SPORT T FSI |                     | 2           | Petrol    | Manual       |
+      | Model | Derivative      | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
+      | Eos   | EOS SPORT T FSI |                     | 29/06/2007           | 2           | Petrol    | Manual       |
 
     And I select continue
     Then I will see that my car details are incomplete with:
@@ -118,28 +121,53 @@ Feature: Add a current car
     When I clear model
     And I clear derivative
     And I clear engine size
+    And I clear date of registration
     And I select continue
     Then I will see that my car details are incomplete with:
-      | Feedback                            |
-      | Please complete model               |
-      | Please complete trim                |
-      | Please complete year of manufacture |
-      | Please complete engine size         |
+      | Feedback                             |
+      | Please complete model                |
+      | Please complete trim                 |
+      | Please complete year of manufacture  |
+      | Please complete date of registration |
+      | Please complete engine size          |
+
+  Scenario: I use the calender picker to select date of registration
+    When I click the calender date picker
+    And I choose year range 1930-1939
+    Then I'm presented with all the years between 1929-1940
+    When I choose year 1938
+    Then I'm presented with all the months of 1938
+    When I choose the month of Jan
+    Then I'm presented with all the days of January 1938 between 1-31
+    When I choose the 1st
+    Then I will see date of registration is set to 01/01/1938
+
+    When I click the calender date picker
+    And I choose year range 2000-2009
+    Then I'm presented with all the years between 1999-2010
+    When I choose year 2004
+    Then I'm presented with all the months of 2004
+    When I choose the month of Feb
+    Then I'm presented with all the days of February 2004 between 1-29
+    When I choose the 29th
+    Then I will see date of registration is set to 29/02/2004
 
   Scenario Outline: I partially update my car details I will be given feedback
     When I update model to <Model>
     And I update derivative to <Derivative>
     And I update engine size to <Engine size>
     And I update year of manufacture to <Year>
+    And I update date of registration to <Date of registration>
     And I select continue
     Then I will see that my car details are incomplete with <Feedback>
 
     Examples:
-      | Model | Derivative         | Engine size | Year | Feedback                            |
-      | Up    | MOVE UP BLUEMOTION | 1           |      | Please complete year of manufacture |
-      | Up    | MOVE UP BLUEMOTION |             | 2015 | Please complete engine size         |
-      | Up    |                    | 1           | 2015 | Please complete trim                |
-      |       | MOVE UP BLUEMOTION | 1           | 2015 | Please complete model               |
+      | Model | Derivative         | Date of registration | Engine size | Year | Feedback                             |
+      | Up    | MOVE UP BLUEMOTION | 29/06/2007           | 1           |      | Please complete year of manufacture  |
+      | Up    | MOVE UP BLUEMOTION |                      | 1           | 2015 | Please complete date of registration |
+      | Up    | MOVE UP BLUEMOTION | 29/06/2007           |             | 2015 | Please complete engine size          |
+      | Up    |                    | 29/06/2007           | 1           | 2015 | Please complete trim                 |
+      |       | MOVE UP BLUEMOTION | 29/06/2007           | 1           | 2015 | Please complete model                |
 
   Scenario: I clear my car's name and attempt to move to the next step
     When I clear my car name

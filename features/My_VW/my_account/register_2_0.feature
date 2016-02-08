@@ -13,7 +13,7 @@ Feature: Volkswagen Account Registration
     And i set the password field to Abcd!2345
     And i set the confirm password field to Abcd!2345
     Then i should not be able to complete my registration
-    And i should see my a message on the page stating <feedback>
+    And i should see a message on the page stating <feedback>
 
   Examples:
     | title | firstname | surname | email                       | feedback                                                 |
