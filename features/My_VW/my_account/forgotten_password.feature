@@ -11,8 +11,8 @@ Feature: My VW forgotten password
     When i click on the "Forgotten password" link
     Then the forgotten password page should be loaded
     And i should be able to enter the <email> for the account I want to recover the password for
-    And click on "Send" button to receive an email with link to reset my password
-    And i should see success page displayed
+    When click on "Send" button to receive an email with link to reset my password
+    Then i should see success page displayed
 
   Examples:
     | email |

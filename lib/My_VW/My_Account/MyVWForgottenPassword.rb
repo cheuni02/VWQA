@@ -9,15 +9,7 @@ class MyVWForgottenPassword < MyVW
     email_field.present?
   end
 
-  def success_page_loaded?
-    success_page_title.present?
-  end
-
-  def flash_visible?
-    email_sent_flash.visible?
-  end
-
-  def set_email (email)
+   def set_email (email)
     @browser.execute_script("document.getElementById('email').value = '#{email}'")
   end
 
@@ -41,8 +33,6 @@ class MyVWForgottenPassword < MyVW
     @browser.p(:class => "error-label")
   end
 
-  private
-
   def page_url
     "/vw-authentication/forgotPassword/index"
   end
@@ -59,8 +49,4 @@ class MyVWForgottenPassword < MyVW
     @browser.h1(:class => "full-hero__title", :text =>"Success! Please verify your email.")
   end
 
-
-  # def email_sent_flash
-  #   @browser.div(:id => "my-registration-flash")
-  # end
 end

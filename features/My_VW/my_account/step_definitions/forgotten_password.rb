@@ -15,13 +15,12 @@ And /^i should be able to enter the (.*) for the account I want to recover the p
   site.my_vw.forgotten_password.set_email(email)
 end
 
-Then /^click on "Send" button to receive an email with link to reset my password$/ do
+When /^click on "Send" button to receive an email with link to reset my password$/ do
   site.my_vw.forgotten_password.send_email.when_present.click
 end
 
-And /^i should see success page displayed$/ do
-  # Timeout.timeout(3) { sleep 1 unless site.my_vw.forgotten_password.flash_visible?}
-  expect(site.my_vw.forgotten_password.success_page_loaded?).to be true
+Then /^i should see success page displayed$/ do
+  expect(site.my_vw.forgotten_password.success_page_title.present?).to be true
 end
 
 When /^i enter invalid email address (.*)$/ do |email_address|
