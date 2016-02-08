@@ -87,6 +87,10 @@ class BookAService2Step3 < BookAService2
     retailer_group_list.element(class: 'radio__list-cell', index: position)
   end
 
+  def first_retailer_selection
+    retailer_group_list.element(id: 'searched-retailers-list').radio(index: 0)
+  end
+
   def selected_retailer
     i = 0
     loop do

@@ -34,7 +34,7 @@ class MyVWLogin < MyVW
   end
 
   def account_navigation_bar
-    @browser.element(:class => 'welcome-stripe__menu')
+    @browser.element(class: 'welcome-stripe__menu')
   end
 
   def login_error_message
@@ -42,11 +42,11 @@ class MyVWLogin < MyVW
   end
 
   def email_validation_error
-    @browser.div(:class => "my-input my-car-form__top-spacer").div(:class => "my-input__input").div(:class => "error-label")
+    @browser.div(:class => "my-input my-car-form__top-spacer").div(:class => "my-input__input").p(:class => "error-label")
   end
 
   def password_validation_error
-    @browser.div(:class => "my-input my-car-form__top-spacer", :index => 1).div(:class => "my-input__input").div(:class => "error-label")
+    @browser.div(:class => "my-input my-car-form__top-spacer", :index => 1).div(:class => "my-input__input").p(:class => "error-label")
   end
 
   def account_not_recognised
@@ -84,16 +84,12 @@ class MyVWLogin < MyVW
     @browser.cookies['VW_AUTH']
   end
 
-  def forgot_password_link
-    @browser.link(:id => "forgot-password-link")
-  end
-
-  def forgot_password_email_field
-    @browser.text_field(:id => "email")
-  end
-
   def create_account_link
     @browser.a(:data_content => "my-registration-sign-up")
+  end
+
+  def forgotten_password_link
+    @browser.link(:id => "forgot-password-link")
   end
 
   private
@@ -102,7 +98,7 @@ class MyVWLogin < MyVW
     "/vw-authentication/login/auth?targetUrl=/owners/my/cars"
   end
 
-  def username_field
+   def username_field
     @browser.text_field(:id => "username")
   end
 

@@ -86,6 +86,7 @@ Feature: Add a current car
     And acquired as will be set to A new car
     And my car will be called My Passat by default
 
+  Scenario: I manually change my car details
     When I select edit my car details
     Then I will see my car details in editable form:
       | Model  | Derivative                | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
@@ -104,6 +105,31 @@ Feature: Add a current car
       | Model | Derivative | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
       | Golf  | GTD        | 2015                | 01/01/14             | 2.0         | Diesel    | Automatic    |
 
+  Scenario: multiple registration searches with initial success, then non-successful registration lookup
+    When I add SA04BGW into the registration field
+    And I lookup the registration
+    Then I will see my car details in editable form:
+      | Model   | Derivative       | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
+      | Touareg | TOUAREG TDI AUTO | 2004                | 18/08/2004           | 2.5         | Diesel    | Automatic    |
+    And acquired as will be set to A new car
+    And my car will be called My Touareg by default
+
+    When I add KS63FVZA into the registration field
+    And I lookup the registration
+    Then I will see my car details in editable form with no details:
+      | in the these fields  |
+      | Model                |
+      | Trim                 |
+      | Date of registration |
+      | Year of manufacture  |
+      | Engine size          |
+
+    And I will see that none of these:
+      | options are selected |
+      | Fuel type            |
+      | Transmission         |
+    But acquired as will be set to A new car
+
   Scenario: my searched for registration returns only partial details for my car
     When I add MM07AYJ into the registration field
     And I lookup the registration
@@ -112,7 +138,7 @@ Feature: Add a current car
       | Model | Derivative      | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
       | Eos   | EOS SPORT T FSI |                     | 29/06/2007           | 2           | Petrol    | Manual       |
 
-    And I select continue
+    And I select continue to step 2
     Then I will see that my car details are incomplete with:
       | Feedback                            |
       | Please complete year of manufacture |
@@ -122,7 +148,7 @@ Feature: Add a current car
     And I clear derivative
     And I clear engine size
     And I clear date of registration
-    And I select continue
+    And I select continue to step 2
     Then I will see that my car details are incomplete with:
       | Feedback                             |
       | Please complete model                |
@@ -158,7 +184,7 @@ Feature: Add a current car
     And I update engine size to <Engine size>
     And I update year of manufacture to <Year>
     And I update date of registration to <Date of registration>
-    And I select continue
+    And I select continue to step 2
     Then I will see that my car details are incomplete with <Feedback>
 
     Examples:
@@ -171,12 +197,12 @@ Feature: Add a current car
 
   Scenario: I clear my car's name and attempt to move to the next step
     When I clear my car name
-    And I select continue
+    And I select continue to step 2
     Then I will see my car name validation feedback Please complete car name
 
   Scenario: I set my car's name to one used for another car on my account
     When I update my car name to GOLF
-    And I select continue
+    And I select continue to step 2
     Then I will see my car name validation feedback Looks like you have a car with this name already. Please enter a different name.
 
   Scenario: when I search for a car I have already added then I will not be able to add the car again
