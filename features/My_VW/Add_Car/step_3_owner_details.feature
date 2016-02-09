@@ -1,7 +1,7 @@
 @my_vw @Add-Current-Car @login_single_car_user
 Feature: Add a current car
   As a Volkswagen vehicle owner
-  I want to select a retailer to associate with my added car
+  I want to add my address to associate with my account
 
   Scenario: I have completed step 1 and 2 and will see details of these steps
     Given I have successfully completed step 1 with registration KS64FVZ

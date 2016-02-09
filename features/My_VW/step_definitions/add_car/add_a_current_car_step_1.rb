@@ -16,11 +16,17 @@ end
 
 When(/^I select the (A car I own|A car I ordered|A configured car) button$/) do |button|
   add_car = site.my_vw.add_current_car_step_1
-  if button =~ /A car I own/
-    add_car.car_i_own_button.when_present.click
-  elsif button =~ /A car I ordered/
+  if button == 'A car I own'
+    3.times do
+      begin
+        add_car.car_i_own_button.when_present.click
+      rescue Watir::Wait::TimeoutError
+        next
+      end
+    end
+  elsif button == 'A car I ordered'
     add_car.car_i_ordered_button.when_present.click
-  elsif button =~ /A configured car/
+  elsif button == 'A configured car'
     add_car.car_configured_button.when_present.click
   end
 end
