@@ -5,6 +5,7 @@ Given(/^I have successfully completed step 1 with registration (.*)$/) do |reg|
     And I will be logged into my account
     And I go to add a new car
     And I select the A car I own button
+    And I will see a registration field
     And I add #{reg} into the registration field
     And I lookup the registration
         )
@@ -31,9 +32,9 @@ end
 
 Then(/^a change step (\d+) button is present$/) do |step|
   case step
-  when '1'
-    expect(site.my_vw.add_current_car_step_2.change_step_1.present?).to be true
-  when '2'
-    expect(site.my_vw.add_current_car_step_3.change_step_2.present?).to be true
+    when '1'
+      expect(site.my_vw.add_current_car_step_2.change_step_1.present?).to be true
+    when '2'
+      expect(site.my_vw.add_current_car_step_3.change_step_2.present?).to be true
   end
 end

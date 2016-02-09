@@ -103,7 +103,7 @@ Feature: Add a current car
 
     Then I will see my car details in editable form:
       | Model | Derivative | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
-      | Golf  | GTD        | 2015                | 01/01/2014             | 2.0         | Diesel    | Automatic    |
+      | Golf  | GTD        | 2015                | 01/01/2014           | 2.0         | Diesel    | Automatic    |
 
   Scenario: multiple registration searches with initial success, then non-successful registration lookup
     When I add SA04BGW into the registration field
@@ -117,12 +117,13 @@ Feature: Add a current car
     When I add KS63FVZA into the registration field
     And I lookup the registration
     Then I will see my car details in editable form with no details:
-      | in the these fields  |
-      | Model                |
-      | Trim                 |
-      | Date of registration |
-      | Year of manufacture  |
-      | Engine size          |
+      | in the these fields     |
+      | Model                   |
+      | Trim                    |
+      | Date of registration    |
+      | Year of manufacture     |
+      | Engine size             |
+      | I'd like to call my car |
 
     And I will see that none of these:
       | options are selected |
@@ -212,12 +213,13 @@ Feature: Add a current car
       | Feedback                                                                                                        |
       | Looks like you have this car added already. Go to My Cars to view it or search for another registration number. |
     And I will see my car details in editable form with no details:
-      | in the these fields  |
-      | Model                |
-      | Trim                 |
-      | Date of registration |
-      | Year of manufacture  |
-      | Engine size          |
+      | in the these fields     |
+      | Model                   |
+      | Trim                    |
+      | Date of registration    |
+      | Year of manufacture     |
+      | Engine size             |
+      | I'd like to call my car |
     And I will see that none of these:
       | options are selected |
       | Fuel type            |
@@ -231,12 +233,13 @@ Feature: Add a current car
       | Feedback                                                                                                                                                                                                             |
       | We're sorry we could not match your registration, the My Volkswagen login is only for passenger cars, if you have a Commercial Vehicle, Camper Van or Passenger Carrier, please visit https://volkswagen-vans.co.uk/ |
     And I will see my car details in editable form with no details:
-      | in the these fields  |
-      | Model                |
-      | Trim                 |
-      | Date of registration |
-      | Year of manufacture  |
-      | Engine size          |
+      | in the these fields     |
+      | Model                   |
+      | Trim                    |
+      | Date of registration    |
+      | Year of manufacture     |
+      | Engine size             |
+      | I'd like to call my car |
 
     And I will see that none of these:
       | options are selected |
