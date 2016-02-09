@@ -166,7 +166,7 @@ end
 
 Then (/^I will see that my car details are (?:incomplete|incorrect) with:$/) do |table|
   add_car = site.my_vw.add_current_car_step_1
-  Timeout.timeout(5) { sleep 0.5 unless add_car.my_car_details_errors.visible? }
+  Timeout.timeout(5) { sleep 1 unless add_car.my_car_details_errors.visible? }
   expect(add_car.my_car_details_errors.visible?).to eq(true)
   table.hashes.each_with_index do |hash, index|
     Timeout.timeout(3) { sleep 1 unless add_car.my_car_details_errors.li(index: index).text == hash['Feedback'] }

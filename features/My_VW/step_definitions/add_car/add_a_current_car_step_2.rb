@@ -30,7 +30,6 @@ Then(/^that I named my car: (.*)$/) do |car_name|
 end
 
 Then(/^a change step (\d+) button is present$/) do |step|
-  add_car = site.my_vw.add_current_car
   case step
   when '1'
     expect(site.my_vw.add_current_car_step_2.change_step_1.present?).to be true

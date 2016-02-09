@@ -1,5 +1,5 @@
 require 'json'
-class AddCurrentCar < MyVW
+class AddCurrentCarCommon < MyVW
   def visit
     visit_page(page_url)
   end

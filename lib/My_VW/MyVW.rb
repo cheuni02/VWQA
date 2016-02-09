@@ -22,7 +22,7 @@ class MyVW < VWBase
   end
 
   def add_current_car
-    AddCurrentCar.new(@browser)
+    AddCurrentCarCommon.new(@browser)
   end
 
   def add_current_car_step_1
