@@ -109,5 +109,4 @@ class MyVWLogin < MyVW
   def login_button
     @browser.button(:id => "login-button")
   end
-
 end
