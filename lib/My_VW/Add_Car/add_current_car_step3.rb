@@ -72,11 +72,35 @@ class AddCurrentCarStep3 < MyVW
     @browser.button(id: 'submit-sections-123')
   end
 
+  def step_3_skip_finish_button
+    @browser.button(id: 'submit-sections-12')
+  end
+
   def label_for_field(field)
     @browser.element(id: 'section-3-edit').div(class: 'my-input', text: /#{field}/).text
   end
 
   def change_step_2
     @browser.button(id: 'change-section-2')
+  end
+
+  def car_id
+    @browser.url.split('/').last
+  end
+
+  def my_car_added
+    @browser.element(class: 'full-hero__body')
+  end
+
+  def my_car_name_in_summary
+    @browser.element(class: 'full-hero__title')
+  end
+
+  def my_retailer_in_summary
+    @browser.element(class: 'my-retailer__address')
+  end
+
+  def my_retailer_name
+    my_retailer_in_summary.div(class: 'org')
   end
 end

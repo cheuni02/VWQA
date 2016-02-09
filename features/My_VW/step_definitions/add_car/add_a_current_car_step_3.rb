@@ -15,7 +15,7 @@ Then(/^I will see a form (?:to add|with) my address details:$/) do |table|
   Timeout.timeout(3) { sleep 1 unless add_car.owner_postcode_lookup.present? }
   table.hashes.each do |hash|
     field_value << add_car.owner_address_field_values(hash['Field'], hash['Value'])
-    if hash['Mandatory'] == '✓'
+    if hash['Mandatory'] == 'Yes'
       expect(add_car.label_for_field(hash['Field']).include? '*').to be true
     else
       expect(add_car.label_for_field(hash['Field']).include? '*').to be false
@@ -37,19 +37,46 @@ When(/^I select lookup$/) do
   site.my_vw.add_current_car_step_3.owner_postcode_lookup.click
 end
 
-When(/^I select Finish$/) do
-  site.my_vw.add_current_car_step_3.step_3_finish_button.when_present.click
+When(/^I select (Skip & Finish|Finish)$/) do |finish_button|
+  add_car = site.my_vw.add_current_car_step_3
+  if finish_button == 'Finish'
+    add_car.step_3_finish_button.when_present.click
+  elsif finish_button == 'Skip & Finish'
+    add_car.step_3_skip_finish_button.when_present.click
+  end
+end
+
+Then(/^I will be on my car details summary$/) do
+  @car_id = site.my_vw.add_current_car_step_3.car_id
+  expect(site.my_vw.add_current_car_step_3.my_car_added.present?).to be true
+end
+
+Then(/^my car name (.*) is displayed$/) do |car_name|
+  expect(site.my_vw.add_current_car_step_3.my_car_name_in_summary.text).to eq(car_name)
+end
+
+Then(/^my retailer is (.*) is displayed$/) do |retailers_name|
+  expect(site.my_vw.add_current_car_step_3.my_retailer_name.text).to eq(retailers_name)
 end
 
 Then(/^I will see address error message:$/) do |table|
   add_car = site.my_vw.add_current_car_step_3
   Timeout.timeout(3) { sleep 1 unless add_car.owner_address_error_feedback.visible? }
   table.hashes.each_with_index do |hash, index|
+    Timeout.timeout(3) { sleep 1 unless add_car.owner_address_error_feedback.li(index: index).text == hash['Feedback'] }
     expect(add_car.owner_address_error_feedback.li(index: index).text).to eq(hash['Feedback'])
   end
 end
 
-When(/^I enter (.*) into (Postcode|House Name|Address 1|Address 2|Town|County)$/) do |value, field|
+Then(/^I will see address error message with (.*)$/) do |feedback|
+  steps %(
+      Then I will see address error message:
+      | Feedback    |
+      | #{feedback} |
+        )
+end
+
+When(/^I (?:update|enter) (Postcode|House Name|Address 1|Address 2|Town|County) with (.*)$/) do |field, value|
   add_car = site.my_vw.add_current_car_step_3
   case field
   when 'Postcode'

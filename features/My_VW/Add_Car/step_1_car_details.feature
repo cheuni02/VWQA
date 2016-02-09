@@ -94,7 +94,7 @@ Feature: Add a current car
 
     When I update model to Golf
     And I update derivative to GTD
-    And I update date of registration to 01/01/14
+    And I update date of registration to 01/01/2014
     And I update year of manufacture to 2015
     And I update engine size to 2.0
     And I update fuel type to Diesel
@@ -103,7 +103,7 @@ Feature: Add a current car
 
     Then I will see my car details in editable form:
       | Model | Derivative | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
-      | Golf  | GTD        | 2015                | 01/01/14             | 2.0         | Diesel    | Automatic    |
+      | Golf  | GTD        | 2015                | 01/01/2014             | 2.0         | Diesel    | Automatic    |
 
   Scenario: multiple registration searches with initial success, then non-successful registration lookup
     When I add SA04BGW into the registration field
@@ -211,6 +211,18 @@ Feature: Add a current car
     Then I will see error message:
       | Feedback                                                                                                        |
       | Looks like you have this car added already. Go to My Cars to view it or search for another registration number. |
+    And I will see my car details in editable form with no details:
+      | in the these fields  |
+      | Model                |
+      | Trim                 |
+      | Date of registration |
+      | Year of manufacture  |
+      | Engine size          |
+    And I will see that none of these:
+      | options are selected |
+      | Fuel type            |
+      | Transmission         |
+    But acquired as will be set to A new car
 
   Scenario: when I search for a commercial vehicle I will not be able to add this to my account
     When I add SY64UCW into the registration field
@@ -218,11 +230,23 @@ Feature: Add a current car
     Then I will see error message:
       | Feedback                                                                                                                                                                                                             |
       | We're sorry we could not match your registration, the My Volkswagen login is only for passenger cars, if you have a Commercial Vehicle, Camper Van or Passenger Carrier, please visit https://volkswagen-vans.co.uk/ |
+    And I will see my car details in editable form with no details:
+      | in the these fields  |
+      | Model                |
+      | Trim                 |
+      | Date of registration |
+      | Year of manufacture  |
+      | Engine size          |
 
-  @clear_cookies
+    And I will see that none of these:
+      | options are selected |
+      | Fuel type            |
+      | Transmission         |
+    But acquired as will be set to A new car
+
+  @logout @clear_cookies
   Scenario: I leave the add a car flow
     When I select the back button
     Then I will see popup asking Are you sure you want to leave?
-
     When I select the I'm sure button
     Then I will be on the dashboard
