@@ -114,7 +114,7 @@ Feature: Add a current car
     Then I'm presented with a map view of local VW dealers
     And my choice of retailer is under the map
 
-  @clear_cookies
+  @logout @clear_cookies
   Scenario: I leave the add a car flow
     When I select the back button
     Then I will see popup asking Are you sure you want to leave?

@@ -1,9 +1,8 @@
-@my_vw @Add-Current-Car
+@my_vw @Add-Current-Car @login_single_car_user
 Feature: Add a current car
   As a Volkswagen vehicle owner
   I want to select a retailer to associate with my added car
 
-  @login_single_car_user
   Scenario: I have completed step 1 and 2 and will see details of these steps
     Given I have successfully completed step 1 with registration KS64FVZ
     When I select continue to step 2
@@ -24,11 +23,11 @@ Feature: Add a current car
 
     And I will see a form to add my address details:
       | Field           | Mandatory | Value |
-      | Postcode        | ✓         | empty |
-      | House Name / no | ✓         | empty |
-      | Address 1       | ✓         | empty |
+      | Postcode        | Yes       | empty |
+      | House Name / no | Yes       | empty |
+      | Address 1       | Yes       | empty |
       | Address 2       |           | empty |
-      | Town / City     | ✓         | empty |
+      | Town / City     | Yes       | empty |
       | County          |           | empty |
 
   Scenario: I update my car - step 1 details
@@ -58,11 +57,11 @@ Feature: Add a current car
   Scenario: I try to continue with no address details
     Given I will see a form to add my address details:
       | Field           | Mandatory | Value |
-      | Postcode        | ✓         | empty |
-      | House Name / no | ✓         | empty |
-      | Address 1       | ✓         | empty |
+      | Postcode        | Yes       | empty |
+      | House Name / no | Yes       | empty |
+      | Address 1       | Yes       | empty |
       | Address 2       |           | empty |
-      | Town / City     | ✓         | empty |
+      | Town / City     | Yes       | empty |
       | County          |           | empty |
     And I postcode lookup is disabled
     When I select Finish
@@ -74,7 +73,7 @@ Feature: Add a current car
       | Please complete town          |
 
   Scenario Outline: I attempt invalid postcode lookup
-    When I enter <postcode> into Postcode
+    When I enter Postcode with <postcode>
     Then I postcode lookup is enabled
     When I select lookup
     Then I will see address error message:
@@ -87,15 +86,15 @@ Feature: Add a current car
       | AB1 1XC  |
 
   Scenario: I attempt valid postcode lookup
-    When I enter W2 6AA into Postcode
+    When I enter Postcode with W2 6AA
     And I select lookup
     Then I will see a form with my address details:
       | Field           | Mandatory | Value               |
-      | Postcode        | ✓         | W2 6AA              |
-      | House Name / no | ✓         | empty               |
-      | Address 1       | ✓         | Bishops Bridge Road |
+      | Postcode        | Yes       | W2 6AA              |
+      | House Name / no | Yes       | empty               |
+      | Address 1       | Yes       | Bishops Bridge Road |
       | Address 2       |           | empty               |
-      | Town / City     | ✓         | LONDON              |
+      | Town / City     | Yes       | LONDON              |
       | County          |           | empty               |
 
     When I select Finish
@@ -103,22 +102,66 @@ Feature: Add a current car
       | Feedback                     |
       | Please complete house number |
 
+  Scenario: I attempt to go back but cancel
+    When I select the back button
+    Then I will see popup asking Are you sure you want to leave?
+    When I select the Cancel button
+    Then I will see a form with my address details:
+      | Field           | Mandatory | Value               |
+      | Postcode        | Yes       | W2 6AA              |
+      | House Name / no | Yes       | empty               |
+      | Address 1       | Yes       | Bishops Bridge Road |
+      | Address 2       |           | empty               |
+      | Town / City     | Yes       | LONDON              |
+      | County          |           | empty               |
+
   Scenario: I change my retailer - step 2 and my previous details for step 3 are present
     When I select change step 2
     And I select continue
     Then I will see a form with my address details:
       | Field           | Mandatory | Value               |
-      | Postcode        | ✓         | W2 6AA              |
-      | House Name / no | ✓         | empty               |
-      | Address 1       | ✓         | Bishops Bridge Road |
+      | Postcode        | Yes       | W2 6AA              |
+      | House Name / no | Yes       | empty               |
+      | Address 1       | Yes       | Bishops Bridge Road |
       | Address 2       |           | empty               |
-      | Town / City     | ✓         | LONDON              |
+      | Town / City     | Yes       | LONDON              |
       | County          |           | empty               |
 
-  @clear_cookies
-  Scenario: I leave the add a car flow
-    When I select the back button
-    Then I will see popup asking Are you sure you want to leave?
+  Scenario: I enter a invalid postcode after successful postcode lookup
+    When I enter Postcode with AB1 1XC
+    And I select lookup
+    Then I will see address error message:
+      | Feedback                      |
+      | Please enter a valid postcode |
 
-    When I select the I'm sure button
-    Then I will be on the dashboard
+    And I will see a form with my address details:
+      | Field           | Mandatory | Value   |
+      | Postcode        | Yes       | AB1 1XC |
+      | House Name / no | Yes       | empty   |
+      | Address 1       | Yes       | empty   |
+      | Address 2       |           | empty   |
+      | Town / City     | Yes       | empty   |
+      | County          |           | empty   |
+
+  Scenario Outline: I attempt to complete my address with missing fields
+    When I enter Postcode with <postcode>
+    When I enter House Name with <house name>
+    When I enter Address 1 with <address 1>
+    When I enter Town with <town>
+    And I select Finish
+    Then I will see address error message with <feedback>
+
+    Examples:
+      | postcode | house name | address 1   | town      | feedback                      |
+      |          | 28         | High Street | Godalming | Please enter a valid postcode |
+      | GU7 1DZ  |            | High Street | Godalming | Please complete house number  |
+      | GU7 1DZ  | 28         |             | Godalming | Please complete address 1     |
+      | GU7 1DZ  | 28         | High Street |           | Please complete town          |
+
+  @delete_added_car @logout @clear_cookies
+  Scenario: I skip and finnish step 3, I have successful added my car
+    When I select Skip & Finish
+    Then I will be on my car details summary
+    And my car name My Passat is displayed
+    And my retailer is Leeds Volkswagen is displayed
+

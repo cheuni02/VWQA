@@ -38,6 +38,10 @@ Before('@login_single_car_user') do
   @account = site.my_vw.login.get_account_details('Single_current_car_user')
 end
 
+After('@delete_added_car') do
+  token = site.my_vw.my_vw_api.get_login_token(@account[:username], @account[:password])
+  site.my_vw.my_vw_api.remove_current_car(@account[:uuid], token, @car_id)
+end
 
 
 # Hook to force logout without clicking on the header link
@@ -58,7 +62,7 @@ Before('@Register_temp_2') do
   @account = site.my_vw.register.register_default_account_new
 end
 
-After ('@logout') do
+After('@logout') do
   site.visit_page('/logout?postLogoutPage=/owners/my/account/index')
   #site.owners.wait_for_page
 end
