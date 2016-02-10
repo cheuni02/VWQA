@@ -94,7 +94,7 @@ end
 
 Then(/^I will see my car details in editable form:$/) do |table|
   add_car = site.my_vw.add_current_car_step_1
-  Timeout.timeout(3) { sleep 1 unless add_car.edit_car_form.present? && add_car.details_registration_number.text == @reg_num }
+  Timeout.timeout(3) { sleep 1 unless add_car.edit_car_form.present? }
   table.hashes.each do |hash|
     expect(add_car.model_field.value).to eq(hash['Model'])
     expect(add_car.derivative_field.value).to eq(hash['Derivative'])

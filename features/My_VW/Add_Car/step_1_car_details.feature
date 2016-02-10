@@ -68,11 +68,11 @@ Feature: Add a current car
       | Looks like your registration doesn’t belong to a Volkswagen. You can only add Volkswagens to My VW. |
 
   Scenario: I search for a VW car's registration
-    When I add KS64FVZ into the registration field
+    When I add ML15XHR into the registration field
     And I lookup the registration
     Then I will see my car details in summary:
-      | Registration number | Model  | Details                                              |
-      | KS64FVZ             | Passat | PASSAT SE BUSINESS TDI BM, 2014, 2 Diesel, Automatic |
+      | Registration number | Model  | Details                                           |
+      | ML15XHR             | Passat | PASSAT SE BUSINESS TDI BM, 2015, 2 Diesel, Manual |
     And acquired as will be set to A new car
     And my car will be called My Passat by default
 
@@ -81,8 +81,8 @@ Feature: Add a current car
 
     When I select the Cancel button
     Then I will see my car details in summary:
-      | Registration number | Model  | Details                                              |
-      | KS64FVZ             | Passat | PASSAT SE BUSINESS TDI BM, 2014, 2 Diesel, Automatic |
+      | Registration number | Model  | Details                                           |
+      | ML15XHR             | Passat | PASSAT SE BUSINESS TDI BM, 2015, 2 Diesel, Manual |
     And acquired as will be set to A new car
     And my car will be called My Passat by default
 
@@ -90,7 +90,7 @@ Feature: Add a current car
     When I select edit my car details
     Then I will see my car details in editable form:
       | Model  | Derivative                | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
-      | Passat | PASSAT SE BUSINESS TDI BM | 2014                | 9/12/2014            | 2           | Diesel    | Automatic    |
+      | Passat | PASSAT SE BUSINESS TDI BM | 2015                | 27/04/2015           | 2           | Diesel    | Manual       |
 
     When I update model to Golf
     And I update derivative to GTD
@@ -197,11 +197,6 @@ Feature: Add a current car
       |         | MOVE UP BLUEMOTION | 29/06/2007           | 1           | 2015 | Please complete model                |
       | !@#%&^& | MOVE UP BLUEMOTION | 29/06/2007           | 1           | 2015 | Please enter a valid model           |
       | UP      | !@#%&^&            | 29/06/2007           | 1           | 2015 | Please enter a valid trim            |
-
-  Scenario: I set my car's name with invalid charectors
-    When I update my car name to 11@!@#%&^&()__/-?><?
-    And I select continue to step 2
-    Then I will see my car name validation feedback Please enter a valid car name
 
   Scenario: I clear my car's name and attempt to move to the next step
     When I clear my car name

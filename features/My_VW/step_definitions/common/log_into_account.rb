@@ -1,6 +1,7 @@
 When(/^I login into my account$/) do
-  site.my_vw.login.login_link.when_present.click
-  site.my_vw.login.login(@account[:username], @account[:password])
+  login = site.my_vw.login
+  login.visit
+  login.login(@account[:username], @account[:password])
 end
 
 Then(/^I will be logged into my account$/) do
