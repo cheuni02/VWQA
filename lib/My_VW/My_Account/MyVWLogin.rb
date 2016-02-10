@@ -90,7 +90,7 @@ class MyVWLogin < MyVW
   def forgotten_password_link
     @browser.link(id: 'forgot-password-link')
   end
-  
+
   def page_url
     '/vw-authentication/login/auth?targetUrl=/owners/my/cars'
   end
