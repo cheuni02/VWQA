@@ -177,7 +177,7 @@ end
 
 Then(/^I will see my car name validation feedback (.*)$/) do |feedback|
   add_car = site.my_vw.add_current_car_step_1
-  Timeout.timeout(3) { sleep 0.5 unless add_car.car_name_validation_message.text == feedback }
+  Timeout.timeout(3) { sleep 1 unless add_car.car_name_validation_message.text == feedback }
   expect(add_car.car_name_validation_message.when_present.text).to eq(feedback)
 end
 
