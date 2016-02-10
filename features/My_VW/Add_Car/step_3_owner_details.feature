@@ -72,6 +72,10 @@ Feature: Add a current car
       | Please complete address 1     |
       | Please complete town          |
 
+  Scenario: I attempt a short postcode lookup
+    When I enter Postcode with X
+    And I postcode lookup is disabled
+
   Scenario Outline: I attempt invalid postcode lookup
     When I enter Postcode with <postcode>
     Then I postcode lookup is enabled
@@ -82,7 +86,7 @@ Feature: Add a current car
 
     Examples:
       | postcode |
-      | X        |
+      | XX       |
       | AB1 1XC  |
 
   Scenario: I attempt valid postcode lookup
