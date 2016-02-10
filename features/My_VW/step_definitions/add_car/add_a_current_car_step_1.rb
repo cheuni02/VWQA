@@ -18,7 +18,9 @@ When(/^I select the (A car I own|A car I ordered|A configured car) button$/) do 
   add_car = site.my_vw.add_current_car_step_1
   Watir::Wait.until { add_car.car_i_own_button.present? }
   if button == 'A car I own'
-    add_car.car_i_own_button.when_present.click
+    while add_car.car_i_own_button.present?
+      add_car.car_i_own_button.when_present.click
+    end
   elsif button == 'A car I ordered'
     add_car.car_i_ordered_button.when_present.click
   elsif button == 'A configured car'
@@ -149,10 +151,10 @@ end
 
 And(/^I select continue to step (\d+)$/) do |step|
   case step
-    when '2'
-      site.my_vw.add_current_car_step_1.go_to_section_2.when_present.click
-    when '3'
-      site.my_vw.add_current_car_step_2.go_to_section_3.when_present.click
+  when '2'
+    site.my_vw.add_current_car_step_1.go_to_section_2.when_present.click
+  when '3'
+    site.my_vw.add_current_car_step_2.go_to_section_3.when_present.click
   end
   Watir::Wait.while { site.my_vw.add_current_car.loading_wheel.visible? }
 end
@@ -177,7 +179,7 @@ end
 
 Then(/^I will see my car name validation feedback (.*)$/) do |feedback|
   add_car = site.my_vw.add_current_car_step_1
-  Timeout.timeout(3) { sleep 0.5 unless add_car.car_name_validation_message.text == feedback }
+  Timeout.timeout(3) { sleep 1 unless add_car.car_name_validation_message.text == feedback }
   expect(add_car.car_name_validation_message.when_present.text).to eq(feedback)
 end
 

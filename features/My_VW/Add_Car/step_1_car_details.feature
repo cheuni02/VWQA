@@ -179,7 +179,7 @@ Feature: Add a current car
     When I choose the 29th
     Then I will see date of registration is set to 29/02/2004
 
-  Scenario Outline: I partially update my car details I will be given feedback
+  Scenario Outline: I partially update my car details or with invalid charectors I will be given feedback
     When I update model to <Model>
     And I update derivative to <Derivative>
     And I update engine size to <Engine size>
@@ -189,12 +189,19 @@ Feature: Add a current car
     Then I will see that my car details are incomplete with <Feedback>
 
     Examples:
-      | Model | Derivative         | Date of registration | Engine size | Year | Feedback                             |
-      | Up    | MOVE UP BLUEMOTION | 29/06/2007           | 1           |      | Please complete year of manufacture  |
-      | Up    | MOVE UP BLUEMOTION |                      | 1           | 2015 | Please complete date of registration |
-      | Up    | MOVE UP BLUEMOTION | 29/06/2007           |             | 2015 | Please complete engine size          |
-      | Up    |                    | 29/06/2007           | 1           | 2015 | Please complete trim                 |
-      |       | MOVE UP BLUEMOTION | 29/06/2007           | 1           | 2015 | Please complete model                |
+      | Model   | Derivative         | Date of registration | Engine size | Year | Feedback                             |
+      | Up      | MOVE UP BLUEMOTION | 29/06/2007           | 1           |      | Please complete year of manufacture  |
+      | Up      | MOVE UP BLUEMOTION |                      | 1           | 2015 | Please complete date of registration |
+      | Up      | MOVE UP BLUEMOTION | 29/06/2007           |             | 2015 | Please complete engine size          |
+      | Up      |                    | 29/06/2007           | 1           | 2015 | Please complete trim                 |
+      |         | MOVE UP BLUEMOTION | 29/06/2007           | 1           | 2015 | Please complete model                |
+      | !@#%&^& | MOVE UP BLUEMOTION | 29/06/2007           | 1           | 2015 | Please enter a valid model           |
+      | UP      | !@#%&^&            | 29/06/2007           | 1           | 2015 | Please enter a valid trim            |
+
+  Scenario: I set my car's name with invalid charectors
+    When I update my car name to 11@!@#%&^&()__/-?><?
+    And I select continue to step 2
+    Then I will see my car name validation feedback Please enter a valid car name
 
   Scenario: I clear my car's name and attempt to move to the next step
     When I clear my car name

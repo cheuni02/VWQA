@@ -1,5 +1,4 @@
 class MyVWLogin < MyVW
-
   def visit
     visit_page(page_url)
   end
@@ -30,7 +29,7 @@ class MyVWLogin < MyVW
       set_email(username)
       set_password(password)
     end
-    do_login
+    do_login while login_button.present?
   end
 
   def account_navigation_bar
@@ -38,19 +37,19 @@ class MyVWLogin < MyVW
   end
 
   def login_error_message
-    @browser.div(:id => "passwd-form")
+    @browser.div(id: 'passwd-form')
   end
 
   def email_validation_error
-    @browser.div(:class => "my-input my-car-form__top-spacer").div(:class => "my-input__input").p(:class => "error-label")
+    @browser.div(class: 'my-input my-car-form__top-spacer').div(class: 'my-input__input').p(class: 'error-label')
   end
 
   def password_validation_error
-    @browser.div(:class => "my-input my-car-form__top-spacer", :index => 1).div(:class => "my-input__input").p(:class => "error-label")
+    @browser.div(class: 'my-input my-car-form__top-spacer', index: 1).div(class: 'my-input__input').p(class: 'error-label')
   end
 
   def account_not_recognised
-    @browser.div(:class => "my-input my-car-form__top-spacer", :index => 1).div(:class => "my-input__input").p(:class => "error-label")
+    @browser.div(class: 'my-input my-car-form__top-spacer', index: 1).div(class: 'my-input__input').p(class: 'error-label')
   end
 
   # Gets the Login Details for a specified user account purpose
@@ -65,15 +64,15 @@ class MyVWLogin < MyVW
   end
 
   def lockout_page
-    @browser.div(:id => "welcome-header", :text => /account locked/i)
+    @browser.div(id: 'welcome-header', text: /account locked/i)
   end
 
   def lockout_page_forgot_pw_link
-    @browser.link(:class => "vw-btn vw-btn-active vw-btn-spaced")
+    @browser.link(class: 'vw-btn vw-btn-active vw-btn-spaced')
   end
 
   def remember_me_checkbox
-    @browser.checkbox(:id => "remember_me")
+    @browser.checkbox(id: 'remember_me')
   end
 
   def remember_me_cookie_set?
@@ -85,28 +84,26 @@ class MyVWLogin < MyVW
   end
 
   def create_account_link
-    @browser.a(:data_content => "my-registration-sign-up")
+    @browser.a(data_content: 'my-registration-sign-up')
   end
 
   def forgotten_password_link
-    @browser.link(:id => "forgot-password-link")
+    @browser.link(id: 'forgot-password-link')
   end
-
-  private
-
+  
   def page_url
-    "/vw-authentication/login/auth?targetUrl=/owners/my/cars"
+    '/vw-authentication/login/auth?targetUrl=/owners/my/cars'
   end
 
   def username_field
-    @browser.text_field(:id => "username")
+    @browser.text_field(id: 'username')
   end
 
   def password_field
-    @browser.text_field(:id => "password")
+    @browser.text_field(id: 'password')
   end
 
   def login_button
-    @browser.button(:id => "login-button")
+    @browser.button(id: 'login-button')
   end
 end
