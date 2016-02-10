@@ -98,7 +98,7 @@ class MyVWLogin < MyVW
     "/vw-authentication/login/auth?targetUrl=/owners/my/cars"
   end
 
-   def username_field
+  def username_field
     @browser.text_field(:id => "username")
   end
 
@@ -107,7 +107,6 @@ class MyVWLogin < MyVW
   end
 
   def login_button
-     @browser.button(:id => "login-button")
+    @browser.button(:id => "login-button")
   end
-
 end
