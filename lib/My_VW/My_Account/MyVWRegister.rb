@@ -1,40 +1,37 @@
 class MyVWRegister < MyVW
-
   def visit
     visit_page(page_url)
   end
 
   def page_loaded?
-    @browser.text_field(:id => "firstName").wait_until_present
+    @browser.text_field(id: 'firstName').wait_until_present
   end
-
 
   ### Remove me later (Once My VW Released)
   def register_default_account
     timestamp = Time.now.to_i
-    email = DEFAULT_ACCOUNT[:first_name] + "#{timestamp}" + DEFAULT_ACCOUNT[:email_base]
+    email = DEFAULT_ACCOUNT[:first_name] + timestamp.to_s + DEFAULT_ACCOUNT[:email_base]
 
-    self.visit
+    visit
 
     title_select_list.select(DEFAULT_ACCOUNT[:title])
-    first_name_field.set(DEFAULT_ACCOUNT[:first_name] + "#{timestamp}")
-    surname_field.set(DEFAULT_ACCOUNT[:surname] + "#{timestamp}")
+    first_name_field.set(DEFAULT_ACCOUNT[:first_name] + timestamp.to_s)
+    surname_field.set(DEFAULT_ACCOUNT[:surname] + timestamp.to_s)
     email_field.set(email)
     password_field.set(DEFAULT_ACCOUNT[:password])
     set_password_confirm(DEFAULT_ACCOUNT[:password])
     registration_button.click
 
-    self.primary_nav.click_logout
+    primary_nav.click_logout
 
-    return [email, DEFAULT_ACCOUNT[:password]]
+    [email, DEFAULT_ACCOUNT[:password]]
   end
 
   def register_default_account_new
-
     timestamp = Time.now.to_i
-    email = DEFAULT_ACCOUNT[:first_name] + "#{timestamp}" + DEFAULT_ACCOUNT[:email_base]
+    email = DEFAULT_ACCOUNT[:first_name] + timestamp.to_s + DEFAULT_ACCOUNT[:email_base]
 
-    self.visit
+    visit
     create_account_link.click
     @browser.execute_script("document.getElementById('my-registration-title').value= 'Mr'")
     @browser.execute_script("document.getElementById('firstName').value = '#{DEFAULT_ACCOUNT[:first_name]}#{timestamp}'")
@@ -43,12 +40,10 @@ class MyVWRegister < MyVW
     @browser.execute_script("document.getElementById('registerPassword').value = '#{DEFAULT_ACCOUNT[:password]}'")
     @browser.execute_script("document.getElementsByName('repeatPassword')[0].value = '#{DEFAULT_ACCOUNT[:password]}'")
 
-    #sleep(10)
+    # sleep(10)
     registration_button.click
 
-    return {:username => email, :password => DEFAULT_ACCOUNT[:password]}
-
-
+    { username: email, password: DEFAULT_ACCOUNT[:password] }
   end
 
   def email_taken_message
@@ -56,23 +51,23 @@ class MyVWRegister < MyVW
   end
 
   def title_select_list
-    @browser.text_field(:class =>"my-selectbox__input")
+    @browser.text_field(class: 'my-selectbox__input')
   end
 
   def first_name_field
-    @browser.text_field(:id => "firstName")
+    @browser.text_field(id: 'firstName')
   end
 
   def surname_field
-    @browser.text_field(:id => "surname")
+    @browser.text_field(id: 'surname')
   end
 
   def email_field
-    @browser.text_field(:id => "email")
+    @browser.text_field(id: 'email')
   end
 
   def password_field
-    @browser.text_field(:id => "registerPassword")
+    @browser.text_field(id: 'registerPassword')
   end
 
   def set_password_confirm(my_password)
@@ -80,11 +75,11 @@ class MyVWRegister < MyVW
   end
 
   def password_confirm_new
-    @browser.text_field(:name => "repeatPassword")
+    @browser.text_field(name: 'repeatPassword')
   end
 
   def registration_button
-    @browser.button(:id => "register-button")
+    @browser.button(id: 'register-button')
   end
 
   def get_error_messages
@@ -92,7 +87,7 @@ class MyVWRegister < MyVW
     get_all_messages.each do |message|
       arr.push(message.text) if message.present?
     end
-    return arr
+    arr
   end
 
   def submit_registration
@@ -114,27 +109,27 @@ class MyVWRegister < MyVW
   private
 
   def page_url
-    "/vw-authentication/register/index?targetUrl=%2Fowners%2Fmy%2Fcars"
+    '/vw-authentication/register/index?targetUrl=%2Fowners%2Fmy%2Fcars'
   end
 
   def password_verify
-    @browser.text_field(:id => "repeatPassword")
+    @browser.text_field(id: 'repeatPassword')
   end
 
   def submit_registration_button
-    @browser.button(:id => "register-button")
+    @browser.button(id: 'register-button')
   end
 
   def register_form_locator
-    @browser.form(:id => 'register-form')
+    @browser.form(id: 'register-form')
   end
 
   def create_account_link
-    @browser.a(:data_content => "my-registration-sign-up")
+    @browser.a(data_content: 'my-registration-sign-up')
   end
 
   def success_registration
-    @browser.div(:class => "my-registration__login")
+    @browser.div(class: 'my-registration__login')
   end
 
   def get_all_messages
@@ -142,6 +137,6 @@ class MyVWRegister < MyVW
   end
 
   def email_taken_error
-    @browser. ol(:class => "my-car-form__errors").li
+    @browser. ol(class: 'my-car-form__errors').li
   end
 end
