@@ -142,4 +142,7 @@ class VWBase < BrowserContainer
     BookAService2.new(@browser)
   end
 
+  def vw_emails
+    VWMail.new
+  end
 end

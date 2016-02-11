@@ -9,6 +9,7 @@ require 'fileutils'
 require 'json'
 require 'rspec/expectations'
 require 'pry'
+require 'mail'
 
 screenshot_dir = "html-results/screenshots"
 FileUtils.mkdir_p screenshot_dir
