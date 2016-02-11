@@ -78,12 +78,13 @@ Feature: My VW Login Version 2
 
   Examples:
     | email_address    |error_message |
-    |tes               | Please provide a valid email address.|
-    |tester            | Please provide a valid email address.|
-    |tester@test       | Please provide a valid email address.|
-    |tester@           | Please provide a valid email address.|
-    |@tester.com       | Please provide a valid email address.|
-    |                  | Please complete email.|
+    |tes               | Please provide a valid email address|
+    |tester            | Please provide a valid email address|
+    |tester@test       | Please provide a valid email address|
+    |tester@           | Please provide a valid email address|
+    |@tester.com       | Please provide a valid email address|
+    |***%%%!@%%%       | Please provide a valid email address|
+    |                  | Please complete email|
 
   @clear_cookies
   Scenario: Password field validation
@@ -92,5 +93,5 @@ Feature: My VW Login Version 2
     And i submit my attempt to login
     Then i should get the following error under the password field displayed:
     """
-    Please complete password.
+    Please complete password
     """

@@ -28,13 +28,13 @@ Feature: My VW forgotten password
 
   Examples:
     | email_address    |error_message |
-    |tes**             | Please provide a valid email address.|
-    |tester            | Please provide a valid email address.|
-    |tester123@test    | Please provide a valid email address.|
-    |tester@99         | Please provide a valid email address.|
-    |@tester.com       | Please provide a valid email address.|
-    |12_**+@99         | Please provide a valid email address.|
-    |                  | Please complete email.|
+    |tes**             | Please provide a valid email address|
+    |tester            | Please provide a valid email address|
+    |tester123@test    | Please provide a valid email address|
+    |tester@99         | Please provide a valid email address|
+    |@tester.com       | Please provide a valid email address|
+    |12_**+@99         | Please provide a valid email address|
+    |                  | Please complete email|
 
   @Register_temp_2
    Scenario: Recover password for an unvalidated email
