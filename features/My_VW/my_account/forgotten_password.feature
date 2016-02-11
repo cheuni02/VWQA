@@ -1,4 +1,4 @@
-@Forgotten_password @my_vw
+@Login-2 @my_vw
 Feature: My VW forgotten password
   As a forgetful user
   I want to be able to request a new password
