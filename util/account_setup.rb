@@ -78,6 +78,30 @@ DBI.connect("DBI:Mysql:vw_user:#{ENV['DBHOST']}", 'vw_user', 'vw_user') do |dbh|
       dbh.prepare(current_sql) do |sth|
         sth.execute("#{Time.now.to_i}SCTEST", "#{account['uuid']}", "CURRENT", "GOLF", "Test GOLF 999", "b'0'", "GOLF", "PRIVATE", "NEW_CAR", "#{MODELS_LIST['golf']}", "Wolsey House", "tribalddbtech@gmail.com", "Victoria Loveday", "Suffolk", "00153", "Ipswich Volkswagen", "IP1 5AN", "Sproughton Road", "01473 240800", "Ipswich", "Service", "2012", "1.80", "Petrol", "Manual")
       end
+    when /DBG/i
+      #dbg_sql = "INSERT INTO my_customer_car_new (id, user_id, car_status, display_name, derivative, financed, model, ownership, purchase_type, registration_number, serviced_by_retailer_building_name,serviced_by_retailer_contact_email, serviced_by_retailer_contact_name, serviced_by_retailer_county, serviced_by_retailer_dealer_no, serviced_by_retailer_name, serviced_by_retailer_postcode, serviced_by_retailer_street, serviced_by_retailer_telephone, serviced_by_retailer_town, serviced_by_retailer_department_type, year, engine_capacity, fuel_type, transmission, vin) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+      #case account['purpose']
+      #when 'DBG_User_History_Plan'
+      #  dbg_id = 2074806
+      #  vin = "WVWZZZ13ZCV003370"
+      #  reg = "NU61OJG"
+      #when 'DBG_User_Plan'
+      #  dbg_id = 2727779
+      #  vin = "WVWZZZ1KZAW160478"
+      #  reg = "NL59XEM"
+      #when 'DBG_User_History'
+      #  dbg_id = 2539239
+      #  vin = "WVWZZZ13ZCV003235"
+      #  reg = "YG61RXC"
+      #when 'DBG_User_Nothing'
+      #  dbg_id = 2746107
+      #  vin = "WVWZZZ1KZAW334053"
+      #  reg = "LS10HXV"
+      #end
+      #dbh.do("UPDATE my_customer_contact SET dbg_id = #{dbg_id} WHERE email = '#{account['username']}'")
+      #dbh.prepare(dbg_sql) do |sth|
+      #  sth.execute("#{Time.now.to_i}#{account['purpose']}TEST", "#{account['uuid']}", "CURRENT", "GOLF", "Test GOLF 999", "b'0'", "GOLF", "PRIVATE", "NEW_CAR", "#{reg}", "Wolsey House", "tribalddbtech@gmail.com", "Victoria Loveday", "Suffolk", "00153", "Ipswich Volkswagen", "IP1 5AN", "Sproughton Road", "01473 240800", "Ipswich", "Service", "2012", "1.80", "Petrol", "Manual", "#{vin}")
+      #end
     when "All_details_complete_user", "DBG_User"
       if account['purpose'] == "DBG_User"
         dbh.do("UPDATE my_customer_contact SET dbg_id = 11033601 WHERE email = '#{account['username']}'")
@@ -97,7 +121,7 @@ DBI.connect("DBI:Mysql:vw_user:#{ENV['DBHOST']}", 'vw_user', 'vw_user') do |dbh|
           index += 1
         end
       end
-    when "Current_car_User_Ext", "DBG_User_Invalid"
+    when "Current_car_User_Ext"
       dbh.prepare(current_sql) do |sth|
         acc_type = "CETEST"
         acc_type = "DGUI" if account['purpose'] == "DBG_User_Invalid"
@@ -118,7 +142,7 @@ DBI.connect("DBI:Mysql:vw_user:#{ENV['DBHOST']}", 'vw_user', 'vw_user') do |dbh|
     end
 
     case account['purpose']
-    when 'Current_car_User', 'DBG_User', 'All_details_complete_user'
+    when 'Current_car_User', 'All_details_complete_user', /DBG/i
       my_id = dbh.select_one("SELECT id FROM my_customer_contact WHERE email='#{account['username']}'")
       dbh.do(%(
           UPDATE my_customer_details
