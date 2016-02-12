@@ -11,5 +11,9 @@ gem 'rake'
 gem 'rest-client'
 gem 'rspec-expectations'
 gem 'pry'
+gem 'mail'
+
+
+
 #gem 'dbi'
 #gem 'dbd-mysql'
