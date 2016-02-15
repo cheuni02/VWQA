@@ -13,7 +13,5 @@ gem 'rspec-expectations'
 gem 'pry'
 gem 'mail'
 
-
-
-#gem 'dbi'
-#gem 'dbd-mysql'
+# gem 'dbi'
+# gem 'dbd-mysql'

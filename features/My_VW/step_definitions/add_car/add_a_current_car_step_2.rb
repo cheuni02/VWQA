@@ -13,7 +13,7 @@ end
 
 Then(/^I will see a summary of my car - step 1:$/) do |table|
   add_car = site.my_vw.add_current_car_step_2
-  Timeout.timeout(3) { sleep 1 unless add_car.step_1_summary.visible? }
+  Watir::Wait.until { add_car.step_1_summary.visible? }
   expect(add_car.step_1_summary.present?).to be true
   table.hashes.each do |hash|
     expect(add_car.step_1_summary_reg.when_present.text).to eq(hash['Registration number'])
@@ -32,9 +32,13 @@ end
 
 Then(/^a change step (\d+) button is present$/) do |step|
   case step
-    when '1'
-      expect(site.my_vw.add_current_car_step_2.change_step_1.present?).to be true
-    when '2'
-      expect(site.my_vw.add_current_car_step_3.change_step_2.present?).to be true
+  when '1'
+    expect(site.my_vw.add_current_car_step_2.change_step_1.present?).to be true
+  when '2'
+    expect(site.my_vw.add_current_car_step_3.change_step_2.present?).to be true
   end
+end
+
+When(/^I select step 2 - Finish$/) do
+  site.my_vw.add_current_car_step_2.step_2_finish.when_present.click
 end

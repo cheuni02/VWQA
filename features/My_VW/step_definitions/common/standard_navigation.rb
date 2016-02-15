@@ -9,7 +9,7 @@ end
 When(/^I go to add a new car$/) do
   add_car = site.my_vw.add_current_car
   add_car.select_my_cars.when_present.hover
-  add_car.scroll_to_bottom
+  add_car.scroll_to_bottom_of_my_cars
   add_car.select_add_a_car.when_present.click
 end
 

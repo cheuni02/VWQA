@@ -39,4 +39,8 @@ class AddCurrentCarStep2 < MyVW
   def preselected_retailer_radio
     preselected_retailer.radio(index: 0)
   end
+
+  def step_2_finish
+    @browser.button(id: 'submit-no-owner')
+  end
 end

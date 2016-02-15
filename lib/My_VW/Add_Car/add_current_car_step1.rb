@@ -288,15 +288,7 @@ class AddCurrentCarStep1 < MyVW
   end
 
   def check_month_days_range
-    days = []
-    31.times do |i|
-      begin
-        days << date_picker_days.td(class: /^day$/, index: i).text
-      rescue Watir::Exception::UnknownObjectException
-        next
-      end
-    end
-    days
+    date_picker_days.elements(class: /^day$/)
   end
 
   def day_of_registration(day)

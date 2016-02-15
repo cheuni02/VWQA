@@ -48,7 +48,6 @@ Feature: Add a current car
 
     When I add a into the registration field
     Then the Lookup button is enabled
-
     When I lookup the registration
     Then I will see error message:
       | Feedback                                                                                         |
@@ -59,6 +58,13 @@ Feature: Add a current car
     Then I will see error message:
       | Feedback                                                                                            |
       | Looks like your registration doesn’t belong to a Volkswagen. You can only add Volkswagens to My VW. |
+
+  Scenario: I search for my already registered car
+    When I add NL62CZM into the registration field
+    And I lookup the registration
+    Then I will see error message:
+      | Feedback                                                                                                        |
+      | Looks like you have this car added already. Go to My Cars to view it or search for another registration number. |
 
   Scenario: I search for a non VW car's registration
     When I add CV54 VDF into the registration field
@@ -108,9 +114,9 @@ Feature: Add a current car
   Scenario: multiple registration searches with initial success, then non-successful registration lookup
     When I add SA04BGW into the registration field
     And I lookup the registration
-    Then I will see my car details in editable form:
-      | Model   | Derivative       | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
-      | Touareg | TOUAREG TDI AUTO | 2004                | 18/08/2004           | 2.5         | Diesel    | Automatic    |
+    Then I will see my car details in summary:
+      | Registration number | Model   | Details                                       |
+      | SA04BGW             | Touareg | TOUAREG TDI AUTO, 2004, 2.5 Diesel, Automatic |
     And acquired as will be set to A new car
     And my car will be called My Touareg by default
 
@@ -248,6 +254,11 @@ Feature: Add a current car
       | Fuel type            |
       | Transmission         |
     But acquired as will be set to A new car
+
+  Scenario: I select logout while still adding car I will be prompted to confirm or cancel
+    When I select the logout button
+    Then I will see popup asking Are you sure you want to leave?
+    When I select the Cancel button
 
   @logout @clear_cookies
   Scenario: I leave the add a car flow
