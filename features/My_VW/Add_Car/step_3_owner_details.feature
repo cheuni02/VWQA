@@ -152,11 +152,11 @@ Feature: Add a current car
     Then I will see address error message with <feedback>
 
     Examples:
-      | postcode | house name | address 1   | town      | feedback                                                                                                                                              |
-      |          | 28         | High Street | Godalming | Please enter a valid postcode                                                                                                                         |
-      | GU7 1DZ  |            | High Street | Godalming | Please complete house number                                                                                                                          |
-      | GU7 1DZ  | 28         |             | Godalming | Please complete address 1                                                                                                                             |
-      | GU7 1DZ  | 28         | High Street |           | Please complete town                                                                                                                                  |
+      | postcode | house name | address 1   | town      | feedback                      |
+      |          | 28         | High Street | Godalming | Please enter a valid postcode |
+      | GU7 1DZ  |            | High Street | Godalming | Please complete house number  |
+      | GU7 1DZ  | 28         |             | Godalming | Please complete address 1     |
+      | GU7 1DZ  | 28         | High Street |           | Please complete town          |
 
   Scenario: I attempt to finish change of address but there is no DBG match
     When I enter Postcode with W2 6AA
@@ -172,7 +172,7 @@ Feature: Add a current car
     When I enter House Name with 12
     And I select Finish
     Then I will see address error message:
-      | Feedback                      |
+      | Feedback                                                                                                                                             |
       | Sorry, that didn't work. The address you entered doesn't match our records. if you continue to have problems, please give us a call on 0800 0833 914. |
 
   @delete_added_car @logout @clear_cookies
@@ -182,4 +182,17 @@ Feature: Add a current car
     And my car name My Up is displayed
     And my retailer is Leeds Volkswagen is displayed
 
-
+  Scenario: I have already provided my address but doesn't match with VW records
+    Given I have logged in with my address completed previously and I'm on step 3
+    Then I will see a form with my address details:
+      | Field           | Mandatory | Value        |
+      | Postcode        | Yes       | UB6 7HA      |
+      | House Name / no | Yes       | 4000         |
+      | Address 1       | Yes       | Empire Road  |
+      | Address 2       |           | Empire Place |
+      | Town / City     | Yes       | LONDON       |
+      | County          |           | MIDDLESEX    |
+    When I select Finish
+    Then I will see address error message:
+      | Feedback                                                                                                                                              |
+      | Sorry, that didn't work. The address you entered doesn't match our records. if you continue to have problems, please give us a call on 0800 0833 914. |

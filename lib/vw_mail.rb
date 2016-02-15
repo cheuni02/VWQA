@@ -6,7 +6,7 @@ class VWMail
       :address => "imap.gmail.com",
       :port => 993,
       :user_name => 'ddbtribal1@gmail.com',
-      :password  => 'p@ssw0rd100',
+      :password  => 'Abcd!2345',
       :enable_ssl => true
     end
   end

@@ -104,3 +104,20 @@ When(/^I select change step (\d+)$/) do |step|
   end
   Watir::Wait.while { site.my_vw.add_current_car.loading_wheel.visible? }
 end
+
+Given(/^I have logged in with my address completed previously and I'm on step 3$/) do
+  steps %(
+    Given I am on the Volkswagen Homepage
+    And I login into my account with username: AutomatedToastUser1455294949@example.com and password: Abcd!2345
+    And I will be logged into my account
+    And I go to add a new car
+    And I select the A car I own button
+    And I will see a registration field
+    And I add NU61OJG into the registration field
+    And I lookup the registration
+    And I select continue to step 2
+    And I search for my local VW retailer by location with Bath
+    And I click lookup
+    When I select continue to step 3
+        )
+end
