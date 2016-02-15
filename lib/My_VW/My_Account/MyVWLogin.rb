@@ -23,6 +23,10 @@ class MyVWLogin < MyVW
     @browser.element(class: 'user-link')
   end
 
+  def logout
+    @browser.element(class: 'logout')
+  end
+
   def login(username, password)
     page_loaded?
     until username_field.value == username && password_field.value == password

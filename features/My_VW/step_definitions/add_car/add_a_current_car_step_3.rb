@@ -1,6 +1,6 @@
 Then(/^I will see a summary of my retailer - step 2:$/) do |table|
   add_car = site.my_vw.add_current_car_step_3
-  Timeout.timeout(3) { sleep 1 unless add_car.step_2_summary.visible? }
+  Watir::Wait.until { add_car.step_2_summary.visible? }
   expect(add_car.step_2_summary.present?).to be true
   table.hashes.each do |hash|
     expect(add_car.step_2_retailer_name.text).to eq(hash['Retailer name'])
@@ -12,7 +12,7 @@ end
 Then(/^I will see a form (?:to add|with) my address details:$/) do |table|
   add_car = site.my_vw.add_current_car_step_3
   field_value = []
-  Timeout.timeout(3) { sleep 1 unless add_car.owner_postcode_lookup.present? }
+  Watir::Wait.until { add_car.owner_postcode_lookup.present? }
   table.hashes.each do |hash|
     field_value << add_car.owner_address_field_values(hash['Field'], hash['Value'])
     if hash['Mandatory'] == 'Yes'
@@ -24,7 +24,7 @@ Then(/^I will see a form (?:to add|with) my address details:$/) do |table|
   expect(field_value.flatten.count).to eq(0), "Failed due to the following: #{field_value.flatten}"
 end
 
-Given(/^I postcode lookup is (disabled|enabled)$/) do |lookup|
+Given(/^postcode lookup is (disabled|enabled)$/) do |lookup|
   add_car = site.my_vw.add_current_car_step_3
   if lookup == 'disabled'
     expect(add_car.owner_postcode_lookup.enabled?).to be false
@@ -61,9 +61,9 @@ end
 
 Then(/^I will see address error message:$/) do |table|
   add_car = site.my_vw.add_current_car_step_3
-  Timeout.timeout(3) { sleep 1 unless add_car.owner_address_error_feedback.visible? }
+  Watir::Wait.until { add_car.owner_address_error_feedback.visible? }
   table.hashes.each_with_index do |hash, index|
-    Timeout.timeout(3) { sleep 1 unless add_car.owner_address_error_feedback.li(index: index).text == hash['Feedback'] }
+    Watir::Wait.until { add_car.owner_address_error_feedback.text.include? hash['Feedback'] }
     expect(add_car.owner_address_error_feedback.li(index: index).text).to eq(hash['Feedback'])
   end
 end

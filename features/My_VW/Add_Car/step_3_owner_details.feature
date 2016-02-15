@@ -63,7 +63,7 @@ Feature: Add a current car
       | Address 2       |           | empty |
       | Town / City     | Yes       | empty |
       | County          |           | empty |
-    And I postcode lookup is disabled
+    And postcode lookup is disabled
     When I select Finish
     Then I will see address error message:
       | Feedback                      |
@@ -74,7 +74,7 @@ Feature: Add a current car
 
   Scenario Outline: I attempt invalid postcode lookup
     When I enter Postcode with <postcode>
-    Then I postcode lookup is enabled
+    Then postcode lookup is enabled
     When I select lookup
     Then I will see address error message:
       | Feedback                      |
@@ -152,11 +152,28 @@ Feature: Add a current car
     Then I will see address error message with <feedback>
 
     Examples:
-      | postcode | house name | address 1   | town      | feedback                      |
-      |          | 28         | High Street | Godalming | Please enter a valid postcode |
-      | GU7 1DZ  |            | High Street | Godalming | Please complete house number  |
-      | GU7 1DZ  | 28         |             | Godalming | Please complete address 1     |
-      | GU7 1DZ  | 28         | High Street |           | Please complete town          |
+      | postcode | house name | address 1   | town      | feedback                                                                                                                                              |
+      |          | 28         | High Street | Godalming | Please enter a valid postcode                                                                                                                         |
+      | GU7 1DZ  |            | High Street | Godalming | Please complete house number                                                                                                                          |
+      | GU7 1DZ  | 28         |             | Godalming | Please complete address 1                                                                                                                             |
+      | GU7 1DZ  | 28         | High Street |           | Please complete town                                                                                                                                  |
+
+  Scenario: I attempt to finish change of address but there is no DBG match
+    When I enter Postcode with W2 6AA
+    And I select lookup
+    Then I will see a form with my address details:
+      | Field           | Mandatory | Value               |
+      | Postcode        | Yes       | W2 6AA              |
+      | House Name / no | Yes       | empty               |
+      | Address 1       | Yes       | Bishops Bridge Road |
+      | Address 2       |           | empty               |
+      | Town / City     | Yes       | LONDON              |
+      | County          |           | empty               |
+    When I enter House Name with 12
+    And I select Finish
+    Then I will see address error message:
+      | Feedback                      |
+      | Sorry, that didn't work. The address you entered doesn't match our records. if you continue to have problems, please give us a call on 0800 0833 914. |
 
   @delete_added_car @logout @clear_cookies
   Scenario: I skip and finnish step 3, I have successful added my car
@@ -164,4 +181,5 @@ Feature: Add a current car
     Then I will be on my car details summary
     And my car name My Up is displayed
     And my retailer is Leeds Volkswagen is displayed
+
 

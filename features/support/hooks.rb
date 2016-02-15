@@ -14,6 +14,10 @@ Before('@login_unvalid_user') do
   @account = site.my_vw.login.get_account_details('DBG_User_Invalid')
 end
 
+Before('@login_dbg_user_without_added_car') do
+  @account = site.my_vw.login.get_account_details('DBG_User_History_Plan')
+end
+
 Before('@login_current_car') do
   @account = site.my_vw.login.get_account_details('Current_car_User')
 end
@@ -43,12 +47,10 @@ After('@delete_added_car') do
   site.my_vw.my_vw_api.remove_current_car(@account[:uuid], token, @car_id)
 end
 
-
 # Hook to force logout without clicking on the header link
 After('@logout-force') do
   site.visit_page('/logout?postLogoutPage=/owners/my/account/index')
 end
-
 
 # Hook for Registering a Temporary Volkswagen.co.uk account
 # USE THIS SPARINGLY! Will Spam the DB with test accounts if not carefully used!
@@ -64,5 +66,4 @@ end
 
 After('@logout') do
   site.visit_page('/logout?postLogoutPage=/owners/my/account/index')
-  #site.owners.wait_for_page
 end
