@@ -6,15 +6,18 @@ Given /^I have sent an email to change password to my address$/ do
 end
 
 When /^I click on the link to reset my password$/ do
-  @email = site.vw_emails.get_last_email('Forgotten password')
+  @email = site.vw_emails.get_last_email('Password Forgotten')
   expect(@email).to_not be_nil
-  STDOUT.puts site.vw_emails.get_email_token_link(@email)
-  expect(site.vw_emails.get_email_token_link(@email)).to_not be_nil
+  @reset_link = site.vw_emails.get_email_token_link(@email)
+
+  #STDOUT.puts site.vw_emails.get_email_token_link(@email)
+
+  expect(@reset_link).to_not be_nil
 end
 
 And /^I navigate to the reset password page$/ do
-  @token = get_email_token_link(@email)
-  visit(reset_page_url+@token)
+  site.my_vw.forgotten_password.visit_page(@reset_link)
+  #visit(reset_page_url+@token)
 end
 
 Then /^the Password and Repeat password fields should be displayed for me to fill in$/ do
@@ -84,4 +87,3 @@ And /I should be able to login with new password/ do
   expect(site.my_vw.login.account_navigation_bar.present?).to be true
 #  Do I need to update json file in order to be able to update password for the same user?
 end
-

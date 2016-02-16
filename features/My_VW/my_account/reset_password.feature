@@ -1,4 +1,4 @@
-@tag @forgotten_password_user
+@tag @forgotten_password_user 
 Feature: My VW reset password page
   As a forgetful user
   I want to be able to reset my password
@@ -52,4 +52,3 @@ Feature: My VW reset password page
       Your password has been successfully updated.
       """
       And I should be able to login with new password
-
