@@ -29,8 +29,7 @@ Given /^I have started typing my (.*)/ do |password|
 end
 
 When /^I enter my password I should see what requirements has been fulfilled:$/ do |table|
-  site.my_vw.forgotten_password.visit_reset_page('/vw-authentication/forgotPassword/resetPassword?token=37b40f4ec39c4c6aaf1f6f692a3488ae')
-  table.hashes.each do |hash|
+   table.hashes.each do |hash|
     site.my_vw.forgotten_password.set_new_password(hash['password'])
     puts "For Password #{hash['password']}"
     array = Array.new
