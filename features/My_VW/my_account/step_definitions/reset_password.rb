@@ -22,12 +22,6 @@ Then /^the Password and Repeat password fields should be displayed for me to fil
   expect(site.my_vw.forgotten_password.confirm_password.present?).to eq(true)
 end
 
-Given /^I have started typing my (.*)/ do |password|
-  site.my_vw.forgotten_password.visit_reset_page('/vw-authentication/forgotPassword/resetPassword?token=3974629f75f447b3a675768fbc047471')
-  site.my_vw.forgotten_password.set_new_password(password)
-  # site.my_vw.forgotten_password.reset_password.click
-end
-
 When /^I enter my password I should see what requirements has been fulfilled:$/ do |table|
    table.hashes.each do |hash|
     site.my_vw.forgotten_password.set_new_password(hash['password'])
