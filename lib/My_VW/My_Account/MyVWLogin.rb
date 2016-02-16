@@ -37,7 +37,7 @@ class MyVWLogin < MyVW
   end
 
   def account_navigation_bar
-    @browser.element(class: 'welcome-stripe__menu')
+    @browser.element(class: 'welcome-stripe__menu  push-right')
   end
 
   def login_error_message
