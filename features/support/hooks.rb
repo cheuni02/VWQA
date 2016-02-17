@@ -46,6 +46,11 @@ Before('@forgotten_password_user') do
   @account = site.my_vw.login.get_account_details('Forgotten_password_user')
 end
 
+After('@delete_password_token') do
+  @account = site.my_vw.login.get_account_details('Forgotten_password_user')
+  site.my_vw.forgotten_password.delete_user_reset_link(@account[:username])
+end
+
 After('@delete_added_car') do
   token = site.my_vw.my_vw_api.get_login_token(@account[:username], @account[:password])
   site.my_vw.my_vw_api.remove_current_car(@account[:uuid], token, @car_id)

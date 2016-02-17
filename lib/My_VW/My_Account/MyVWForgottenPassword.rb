@@ -20,6 +20,39 @@ class MyVWForgottenPassword < MyVW
     @browser.execute_script("document.getElementById('password').value = '#{password}'")
   end
 
+  def get_reset_tokens
+    tokens = JSON.parse(File.read('reset_tokens.json'))
+  end
+
+  def write_reset_json(tokens)
+    File.open('reset_tokens.json', 'w') do |file|
+      #my_json = users.to_json
+      file.write(JSON.pretty_generate(tokens))
+    end
+  end
+
+  def get_reset_token(email)
+    tokens = get_reset_tokens
+    return tokens[email]
+  end
+
+  def set_user_reset_link(email, link)
+    tokens = get_reset_tokens
+    tokens[email] =
+    {
+      :reset_link => link,
+      :timestamp => Time.now.to_i
+    }
+
+    write_reset_json(tokens)
+  end
+
+  def delete_user_reset_link(email)
+    tokens = get_reset_tokens
+    tokens.delete(email)
+    write_reset_json(tokens)
+  end
+
   def set_new_password(password)
      new_password.set(password)
   end
@@ -104,4 +137,3 @@ class MyVWForgottenPassword < MyVW
     @browser.div(class: 'my-input my-car-form__top-spacer', index: 1).div(class: 'my-input__input').p(class: 'error-label')
   end
 end
-

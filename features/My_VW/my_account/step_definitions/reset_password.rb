@@ -1,23 +1,27 @@
 
 Given /^I have sent an email to change password to my address$/ do
-  site.my_vw.forgotten_password.visit
-  site.my_vw.forgotten_password.set_email(@account[:username])
-  site.my_vw.forgotten_password.send_email.click
+  reset_token = site.my_vw.forgotten_password.get_reset_token(@account[:username])
+  if reset_token.nil? || ((Time.now.to_i - reset_token['timestamp']) >= 86400)
+    site.my_vw.forgotten_password.visit
+    site.my_vw.forgotten_password.set_email(@account[:username])
+    site.my_vw.forgotten_password.send_email.click
+    sleep(10) # Wait for Email!
+  end
 end
 
 When /^I click on the link to reset my password$/ do
-  @email = site.vw_emails.get_last_email('Password Forgotten')
-  expect(@email).to_not be_nil
-  @reset_link = site.vw_emails.get_email_token_link(@email)
-
-  #STDOUT.puts site.vw_emails.get_email_token_link(@email)
-
-  expect(@reset_link).to_not be_nil
+  reset_token = site.my_vw.forgotten_password.get_reset_token(@account[:username])
+  if reset_token.nil? || ((Time.now.to_i - reset_token['timestamp']) >= 86400)
+    @email = site.vw_emails.get_last_email('Password Forgotten')l
+    @reset_link = site.vw_emails.get_email_token_link(@email)
+    site.my_vw.forgotten_password.set_user_reset_link(@account[:username], @reset_link)
+  else
+    @reset_link = reset_token['reset_link']
+  end
 end
 
 And /^I navigate to the reset password page$/ do
-  site.my_vw.forgotten_password.visit_page(@reset_link)
-  #visit(reset_page_url+@token)
+  site.my_vw.forgotten_password.browser_goto(@reset_link)
 end
 
 Then /^the Password and Repeat password fields should be displayed for me to fill in$/ do

@@ -1,4 +1,4 @@
-@tag @forgotten_password_user 
+@tag @forgotten_password_user
 Feature: My VW reset password page
   As a forgetful user
   I want to be able to reset my password
@@ -37,6 +37,7 @@ Feature: My VW reset password page
      |TestTest|Password must contain a number|
      |        |Please choose a password|
 
+   @delete_password_token
    Scenario: password and re-entered password do not coincide
       When I type in my new password 123Test5
       And I re-enter password that does not match 12345Test
