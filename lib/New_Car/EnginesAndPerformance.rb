@@ -1,5 +1,4 @@
 class EnginesAndPerformance < NewCars
-
   def visit(model)
     visit_page(page_url(model))
   end
@@ -59,35 +58,34 @@ class EnginesAndPerformance < NewCars
     collapse_table_section(table_towing(true))
   end
 
-
   def get_engine_name(engine)
     name = engine.text
-    name.gsub(/\**/,'')
+    name.gsub(/\**/, '')
   end
 
   def get_selected_column_h(section)
     name = selected_column(section).text
-    name.gsub(/\**/,'')
+    name.gsub(/\**/, '')
   end
 
   def table_section_selected
-    raise AssertionError, "The Overview section is not expanded" unless table_overview_selected(true).present?
+    fail AssertionError, 'The Overview section is not expanded' unless table_overview_selected(true).present?
   end
 
   def expand_table_section(section)
     unless section.tbody.present?
-      line = section.link(:class => 'expanded-table-title')
+      line = section.link(class: 'expanded-table-title')
       line.click
     end
   end
 
   def is_column_selected?(engine, section)
-    raise AssertionError,"Column is not selected according to engine" unless get_engine_name(engine) == get_selected_column_h(section)
+    fail AssertionError, 'Column is not selected according to engine' unless get_engine_name(engine) == get_selected_column_h(section)
   end
 
   def collapse_table_section(section)
     if section.tbody.present?
-      line=section.link(:class => 'expanded-table-title')
+      line = section.link(class: 'expanded-table-title')
       line.click
     end
   end
@@ -99,15 +97,15 @@ class EnginesAndPerformance < NewCars
   end
 
   def page_header
-    @browser.div(:class => 'page-container header')
+    @browser.div(class: 'page-container header')
   end
 
   def engines_models_section
-    @browser.div(:class => 'compare-models')
+    @browser.div(class: 'compare-models')
   end
 
   def engines_models
-    engines_models_section.divs(:class => 'compare-model-details')
+    engines_models_section.divs(class: 'compare-model-details')
   end
 
   def engine_name(engine)
@@ -116,79 +114,77 @@ class EnginesAndPerformance < NewCars
 
   def table_overview(status)
     if status
-      @browser.table(:id => 'overview', :class => /selected/)
+      @browser.table(id: 'overview', class: /selected/)
     else
-      @browser.table(:id => 'overview', :class => 'table ftable rounded-top')
+      @browser.table(id: 'overview', class: 'table ftable rounded-top')
     end
   end
-
 
   def table_power(status)
     if status
-      @browser.table(:id => 'power', :class => /selected/i)
+      @browser.table(id: 'power', class: /selected/i)
     else
-      @browser.table(:id => 'power', :class => 'table ftable')
+      @browser.table(id: 'power', class: 'table ftable')
     end
   end
 
-  def table_torque(status)  #_selected(status)
+  def table_torque(status) # _selected(status)
     if status
-      @browser.table(:id => 'torque', :class => /selected/i)
+      @browser.table(id: 'torque', class: /selected/i)
     else
-      @browser.table(:id => 'torque', :class => 'table ftable')
+      @browser.table(id: 'torque', class: 'table ftable')
     end
   end
 
   def table_acceleration(status)
     if status
-      @browser.table(:id => 'acceleration', :class => /selected/i)
+      @browser.table(id: 'acceleration', class: /selected/i)
     else
-      @browser.table(:id => 'acceleration', :class => 'table ftable')
+      @browser.table(id: 'acceleration', class: 'table ftable')
     end
   end
 
   def table_topspeed(status)
     if status
-      @browser.table(:id => 'top-speed', :class => /selected/i)
+      @browser.table(id: 'top-speed', class: /selected/i)
     else
-      @browser.table(:id => 'top-speed', :class => 'table ftable')
+      @browser.table(id: 'top-speed', class: 'table ftable')
     end
   end
 
   def table_fuelconsumption(status)
     if status
-      @browser.table(:id => 'fuel-consumption', :class => /selected/i)
+      @browser.table(id: 'fuel-consumption', class: /selected/i)
     else
-      @browser.table(:id => 'fuel-consumption', :class => 'table ftable')
+      @browser.table(id: 'fuel-consumption', class: 'table ftable')
     end
   end
 
   def table_emissions(status)
     if status
-      @browser.table(:id => 'emissions', :class => /selected/i)
+      @browser.table(id: 'emissions', class: /selected/i)
     else
-      @browser.table(:id => 'emissions', :class => 'table ftable')
+      @browser.table(id: 'emissions', class: 'table ftable')
     end
   end
 
   def table_weights(status)
     if status
-      @browser.table(:id => 'weights', :class => /selected/i)
+      @browser.table(id: 'weights', class: /selected/i)
     else
-      @browser.table(:id => 'weights', :class => 'table ftable')
+      @browser.table(id: 'weights', class: 'table ftable')
     end
   end
 
   def table_towing(status)
     if status
-      @browser.table(:id => 'towing', :class => /selected/i)
+      @browser.table(id: 'towing', class: /selected/i)
     else
-      @browser.table(:id => 'towing', :class => 'table ftable rounded-bottom')
+      @browser.table(id: 'towing', class: 'table ftable rounded-bottom')
     end
   end
 
   def selected_column(section)
-    section.th(:class => 'selected col-1 visible')
+    section.th(class: 'selected col-1 visible')
   end
-
 end

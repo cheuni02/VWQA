@@ -1,5 +1,4 @@
 class BookAService2Step5 < BookAService2
-
   def wait_for_page
     date_table.wait_until_present
   end
@@ -25,7 +24,7 @@ class BookAService2Step5 < BookAService2
     convieneance_options_headers.each do |header|
       arr.push(header.text)
     end
-    return arr
+    arr
   end
 
   def click_step_6_button
@@ -61,32 +60,30 @@ class BookAService2Step5 < BookAService2
     end
   end
 
-
   private
 
-
   def date_table
-    @browser.div(:class => "datepicker-days").table
+    @browser.div(class: 'datepicker-days').table
   end
 
   def current_month
-    date_table.th(:class => "datepicker-switch")
+    date_table.th(class: 'datepicker-switch')
   end
 
   def next_month
-    date_table.th(:class => "next chevron")
+    date_table.th(class: 'next chevron')
   end
 
   def date_first_available
-    date_table.tds(:class => 'day new').first
+    date_table.tds(class: 'day new').first
   end
 
   def active_date
-    date_table.td(:class => "active")
+    date_table.td(class: 'active')
   end
 
   def convieneance_options
-    @browser.div(:id => "book-a-service-convenience-options")
+    @browser.div(id: 'book-a-service-convenience-options')
   end
 
   def convieneance_options_headers
@@ -98,28 +95,26 @@ class BookAService2Step5 < BookAService2
   end
 
   def step6_button
-    @browser.button(:id => "goto-review-selection")
+    @browser.button(id: 'goto-review-selection')
   end
 
   def manual_collection_switch
-    @browser.label(:for => "useCollectionAddress")
+    @browser.label(for: 'useCollectionAddress')
   end
 
   def manual_delivery_switch
-    @browser.label(:for => "useDeliveryAddress")
+    @browser.label(for: 'useDeliveryAddress')
   end
 
   def manual_collection_entry_form
-    @browser.div(:id => "book-service-collection-address")
+    @browser.div(id: 'book-service-collection-address')
   end
 
   def manual_delivery_entry_form
-    @browser.div(:id => "book-service-return-address")
+    @browser.div(id: 'book-service-return-address')
   end
 
   def booking_time_set(value)
     @browser.execute_script("document.getElementsByClassName('my-selectbox__input ui-autocomplete-input')[1].value='#{value}'")
   end
-
-
 end

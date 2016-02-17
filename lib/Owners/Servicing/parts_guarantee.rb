@@ -1,5 +1,4 @@
 class PartsGuarantee < Servicing
-  
   def page_loaded?
     find_retailer.present?
   end
@@ -7,7 +6,6 @@ class PartsGuarantee < Servicing
   private
 
   def find_retailer
-    @browser.p(:class => 'lnkSCheck').link
+    @browser.p(class: 'lnkSCheck').link
   end
-
 end

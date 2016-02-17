@@ -1,5 +1,4 @@
 class AreasWeCover < Servicing
-
   def page_loaded?
     items.present?
   end
@@ -11,11 +10,10 @@ class AreasWeCover < Servicing
   private
 
   def title
-    @browser.div(:id => "page").div(:class => "grid-6").h1
+    @browser.div(id: 'page').div(class: 'grid-6').h1
   end
 
   def items
-    @browser.div(:id => "accessories")
+    @browser.div(id: 'accessories')
   end
-
 end

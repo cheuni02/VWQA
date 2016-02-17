@@ -1,5 +1,4 @@
 class OrderedCarDashboard < MyVW
-
   def visit
     visit_page(page_url)
   end
@@ -28,13 +27,13 @@ class OrderedCarDashboard < MyVW
   def get_ordered_car_step(step_number)
     get_all_ordered_cars.each do |step_num|
       if step_num.a.img.alt == "#{step_number}"
-        my_car_url = step_num.link(:index => 0).href
+        my_car_url = step_num.link(index: 0).href
         return my_car_url
       elsif step_num.nil?
-        raise
+        fail
       end
     end
-    return nil
+    nil
   end
 
   def goto_my_car_url(my_car_url)
@@ -48,31 +47,30 @@ class OrderedCarDashboard < MyVW
   private
 
   def page_url
-    "/vw-authentication/login/auth?targetUrl=/owners/my/cars"
+    '/vw-authentication/login/auth?targetUrl=/owners/my/cars'
   end
 
   def ordered_car_hero
-    @browser.section(:class => "ordered-car-hero--step-04")
+    @browser.section(class: 'ordered-car-hero--step-04')
   end
 
   def progress_indicator
-    @browser.div(:class => "parallax-hero__steps")
+    @browser.div(class: 'parallax-hero__steps')
   end
 
   def order_status_title
-    @browser.div(:class => "parallax-hero__content").h1(:class => "parallax-hero__title")
+    @browser.div(class: 'parallax-hero__content').h1(class: 'parallax-hero__title')
   end
 
   def step_passed
-    @browser.div(:class => "parallax-hero__steps")
+    @browser.div(class: 'parallax-hero__steps')
   end
 
   def current_order_step
-    @browser.li(:class => "parallax-hero__step--active")
+    @browser.li(class: 'parallax-hero__step--active')
   end
 
   def get_all_ordered_cars
     @browser.execute_script('return document.getElementsByClassName("status-ordered-car")')
   end
-
 end

@@ -1,5 +1,4 @@
 class FleetRequestADemo < Fleet
-
   def visit
     visit_page(page_url)
   end
@@ -13,7 +12,7 @@ class FleetRequestADemo < Fleet
   end
 
   def demo_request_title_text
-    section_title_request.text()
+    section_title_request.text
   end
 
   def demo_company_name_input
@@ -63,18 +62,18 @@ class FleetRequestADemo < Fleet
   def set_preferred_date(value)
     date = DateTime.now
     case value
-      when 'yesterday'
-        preferred_date.set(date.prev_day.strftime "%d/%m/%Y")
-      when 'today'
-        preferred_date.set(date.strftime "%d/%m/%Y")
-      when 'tomorrow'
-        preferred_date.set(date.next_day.strftime "%d/%m/%Y")
-      when 'nextmonth'
-        preferred_date.set(date.next_month.strftime "%d/%m/%Y")
-      when 'nextyear'
-        preferred_date.set(date.next_year.strftime "%d/%m/%Y")
-      else
-        preferred_date.set('')
+    when 'yesterday'
+      preferred_date.set(date.prev_day.strftime '%d/%m/%Y')
+    when 'today'
+      preferred_date.set(date.strftime '%d/%m/%Y')
+    when 'tomorrow'
+      preferred_date.set(date.next_day.strftime '%d/%m/%Y')
+    when 'nextmonth'
+      preferred_date.set(date.next_month.strftime '%d/%m/%Y')
+    when 'nextyear'
+      preferred_date.set(date.next_year.strftime '%d/%m/%Y')
+    else
+      preferred_date.set('')
     end
   end
 
@@ -93,7 +92,7 @@ class FleetRequestADemo < Fleet
   def set_telephone_information(value)
     if value == 'yes'
       telephone_information.set
-      elsif value == 'no'
+    elsif value == 'no'
       telephone_information.clear
     end
   end
@@ -125,10 +124,10 @@ class FleetRequestADemo < Fleet
   def demo_complete_status(page)
     title = get_browser_title
     case page
-      when 'Thank you'
-        raise AssertionError, "Request a demo - Thank you page has not been loaded. Actual page: #{title}" unless title == 'Your Request : Volkswagen UK'
-      when 'Request Form'
-        raise AssertionError, "Request a demo landing page should be displayed. Actual page: #{title}" unless title == 'Request a demo : Volkswagen UK'
+    when 'Thank you'
+      fail AssertionError, "Request a demo - Thank you page has not been loaded. Actual page: #{title}" unless title == 'Your Request : Volkswagen UK'
+    when 'Request Form'
+      fail AssertionError, "Request a demo landing page should be displayed. Actual page: #{title}" unless title == 'Request a demo : Volkswagen UK'
     end
   end
 
@@ -168,130 +167,130 @@ class FleetRequestADemo < Fleet
   private
 
   def page_url
-    "/fleet/request-demo/"
+    '/fleet/request-demo/'
   end
 
   def section_title_request
-    @browser.div(:class => /.+(requestDemo)\z/).h1
+    @browser.div(class: /.+(requestDemo)\z/).h1
   end
 
   def nav_section
-    @browser.div(:id => 'section-nav')
+    @browser.div(id: 'section-nav')
   end
 
   def form_section
-    @browser.div(:id => 'requestDemo')
+    @browser.div(id: 'requestDemo')
   end
 
   #--------------Form-------------
   def company_name
-    @browser.text_field(:id => 'companyName')
+    @browser.text_field(id: 'companyName')
   end
 
   def company_name_error
     v = company_name.parent
-    v.p(:class=> 'form-error')
+    v.p(class: 'form-error')
   end
 
   def title_field
-    @browser.select(:id => 'title')
+    @browser.select(id: 'title')
   end
 
   def first_name
-    @browser.text_field(:id => 'firstName')
+    @browser.text_field(id: 'firstName')
   end
 
   def first_name_error
     v = first_name.parent
-    v.p(:class=> 'form-error')
+    v.p(class: 'form-error')
   end
 
   def surname
-    @browser.text_field(:id => 'surname')
+    @browser.text_field(id: 'surname')
   end
 
   def surname_error
     v = surname.parent
-    v.p(:class=> 'form-error')
+    v.p(class: 'form-error')
   end
 
   def email
-    @browser.text_field(:id => 'email')
+    @browser.text_field(id: 'email')
   end
 
   def email_error
     v = email.parent
-    v.p(:class=> 'form-error')
+    v.p(class: 'form-error')
   end
 
   def telephone
-    @browser.text_field(:id => 'telephone')
+    @browser.text_field(id: 'telephone')
   end
 
   def telephone_error
     v = telephone.parent
-    v.p(:class=> 'form-error')
+    v.p(class: 'form-error')
   end
 
   def job_title
-    @browser.text_field(:id => 'jobTitle')
+    @browser.text_field(id: 'jobTitle')
   end
 
   def job_title_error
     v = job_title.parent
-    v.p(:class=> 'form-error')
+    v.p(class: 'form-error')
   end
 
   def fleet_size(size)
-    s = @browser.div(:class => 'form-row form-row-checkboxes')
+    s = @browser.div(class: 'form-row form-row-checkboxes')
     s.radio(value: /#{size}/)
   end
 
   def car_field
-    @browser.select(:id => 'car')
+    @browser.select(id: 'car')
   end
 
   def preferred_date
-    @browser.text_field(:id => 'preferred-date')
+    @browser.text_field(id: 'preferred-date')
   end
 
   def additional_info
-    @browser.textarea(:id => 'additionalComment')
+    @browser.textarea(id: 'additionalComment')
   end
 
   def email_information
-    @browser.checkbox(:id => 'email-opt-in')
+    @browser.checkbox(id: 'email-opt-in')
   end
 
   def telephone_information
-    @browser.checkbox(:id => 'phone-opt-in')
+    @browser.checkbox(id: 'phone-opt-in')
   end
 
   def text_msg_info
-    @browser.checkbox(:id => 'text-msg-opt-in')
+    @browser.checkbox(id: 'text-msg-opt-in')
   end
 
   def post_information
-    @browser.checkbox(:id => 'post-opt-in')
+    @browser.checkbox(id: 'post-opt-in')
   end
 
   def not_hear_information
-    @browser.checkbox(:id => 'vw-and-assoc')
+    @browser.checkbox(id: 'vw-and-assoc')
   end
 
   def privacy_policy
-    @browser.link(:class => 'show-pop-up-content', :href => '#')
+    @browser.link(class: 'show-pop-up-content', href: '#')
   end
 
   def privacy_content_popup
-    @browser.div(:class => 'privacy-content')
+    @browser.div(class: 'privacy-content')
   end
 
   def submit_button
-    @browser.button(:name => 'submit')
+    @browser.button(name: 'submit')
   end
 
   def request_success
-    @browser.div(:class => /.+(success)/).em
+    @browser.div(class: /.+(success)/).em
   end
 end

@@ -1,14 +1,13 @@
 class Configurator < NewCars
-
   def loaded?
     main_panel.present?
   end
 
-  def visit_complete_config(model = "up-nf", trim = "1566", derivative = "1573")
+  def visit_complete_config(model = 'up-nf', trim = '1566', derivative = '1573')
     visit_page(complete_config(model, trim, derivative))
   end
 
-  def visit_engine(model = "up-nf", trim = "1566", derivative = "1573")
+  def visit_engine(model = 'up-nf', trim = '1566', derivative = '1573')
     visit_page(engine(model, trim, derivative))
   end
 
@@ -58,7 +57,7 @@ class Configurator < NewCars
   end
 
   def select_option(option)
-    options[option-1].a.click
+    options[option - 1].a.click
   end
 
   def navigate_overview
@@ -80,7 +79,7 @@ class Configurator < NewCars
   private
 
   def main_panel
-    @browser.div(:id => "config-image")
+    @browser.div(id: 'config-image')
   end
 
   def complete_config(model, trim, derivative)
@@ -92,61 +91,61 @@ class Configurator < NewCars
   end
 
   def overview_shortcode
-    @browser.span(:class => "globe-icon")
+    @browser.span(class: 'globe-icon')
   end
 
   def shortcode_url_field
-    @browser.p(:id => "shortcode").text_field
+    @browser.p(id: 'shortcode').text_field
   end
 
   def overview_car_header
-    @browser.div(:id=>"config-section").li(:class => "overview").h2
+    @browser.div(id: 'config-section').li(class: 'overview').h2
   end
 
   def overview_book_test_drive
-    #@browser.link(:class => "test-drive")
-    @browser.div(:class => "next-steps").link(:href => /book-a-test-drive/i)
-    #@browser.execute_script("return document.getElementsByClassName('test-drive')")
+    # @browser.link(:class => "test-drive")
+    @browser.div(class: 'next-steps').link(href: /book-a-test-drive/i)
+    # @browser.execute_script("return document.getElementsByClassName('test-drive')")
   end
 
   def overview_finance_calculator
-    @browser.div(:class => "next-steps").link(:href => /financeCalculator/i)
-    #@browser.link(:class => "finance-calculator")
+    @browser.div(class: 'next-steps').link(href: /financeCalculator/i)
+    # @browser.link(:class => "finance-calculator")
   end
 
   def overview_save_button
-    @browser.div(:class => "vw-saving").button
+    @browser.div(class: 'vw-saving').button
   end
 
   def save_configuration_field
-    @browser.text_field(:id => "js-car-name")
+    @browser.text_field(id: 'js-car-name')
   end
 
   def save_configuration_button
-    @browser.div(:class => "vw-saving-menu").link(:class => "submit")
+    @browser.div(class: 'vw-saving-menu').link(class: 'submit')
   end
 
   def overview_section
-    @browser.li(:class => 'overview')
+    @browser.li(class: 'overview')
   end
 
   def next_button
-    @browser.div(:id => 'configurator').div(:id => 'config-nav').button(:class => 'next')
+    @browser.div(id: 'configurator').div(id: 'config-nav').button(class: 'next')
   end
 
   def visible_option_set
-    @browser.div(:id => 'config-section').ul.lis
+    @browser.div(id: 'config-section').ul.lis
   end
 
   def options
-    visible_option_set.select { |li| li.visible? }[0].uls(:class => 'configure-item-container')
+    visible_option_set.select(&:visible?)[0].uls(class: 'configure-item-container')
   end
 
   def conflict_container
-    @browser.div(:class => 'conflict-decisions')
+    @browser.div(class: 'conflict-decisions')
   end
 
   def conflict_options
-    conflict_container.div(:class => 'conflict-decision').divs(:class => 'conflict-item')
+    conflict_container.div(class: 'conflict-decision').divs(class: 'conflict-item')
   end
 end

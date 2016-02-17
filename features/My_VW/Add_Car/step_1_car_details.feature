@@ -59,12 +59,14 @@ Feature: Add a current car
       | Feedback                                                                                            |
       | Looks like your registration doesn’t belong to a Volkswagen. You can only add Volkswagens to My VW. |
 
+
   Scenario: I search for my already registered car
     When I add NL62CZM into the registration field
     And I lookup the registration
     Then I will see error message:
       | Feedback                                                                                                        |
       | Looks like you have this car added already. Go to My Cars to view it or search for another registration number. |
+
 
   Scenario: I search for a non VW car's registration
     When I add CV54 VDF into the registration field
@@ -201,8 +203,6 @@ Feature: Add a current car
       | Up      | MOVE UP BLUEMOTION | 29/06/2007           |             | 2015 | Please complete engine size          |
       | Up      |                    | 29/06/2007           | 1           | 2015 | Please complete trim                 |
       |         | MOVE UP BLUEMOTION | 29/06/2007           | 1           | 2015 | Please complete model                |
-      | !@#%&^& | MOVE UP BLUEMOTION | 29/06/2007           | 1           | 2015 | Please enter a valid model           |
-      | UP      | !@#%&^&            | 29/06/2007           | 1           | 2015 | Please enter a valid trim            |
 
   Scenario: I clear my car's name and attempt to move to the next step
     When I clear my car name

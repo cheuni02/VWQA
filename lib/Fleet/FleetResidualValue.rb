@@ -1,5 +1,4 @@
 class FleetResidualValue < FleetCalculators
-
   def visit
     visit_page(page_url)
   end
@@ -21,7 +20,7 @@ class FleetResidualValue < FleetCalculators
     data_windows.each do |window|
       return true if window.present?
     end
-    return false
+    false
   end
 
   def get_update_date
@@ -40,14 +39,15 @@ class FleetResidualValue < FleetCalculators
   def data_section_present?
     data_windows_section.present?
   end
+
   private
 
   def page_url
-    "/fleet/residual"
+    '/fleet/residual'
   end
 
   def car_grid
-    @browser.ul(:class => 'model-grid')
+    @browser.ul(class: 'model-grid')
   end
 
   def car_grid_models
@@ -55,18 +55,18 @@ class FleetResidualValue < FleetCalculators
   end
 
   def data_windows
-    @browser.divs(:class => "residual-value")
+    @browser.divs(class: 'residual-value')
   end
 
   def data_update
-    @browser.p(:class => "terms", :index => 0)
+    @browser.p(class: 'terms', index: 0)
   end
 
   def fleet_nav_section
-    @browser.div(:id => 'section-nav')
+    @browser.div(id: 'section-nav')
   end
 
   def data_windows_section
-    @browser.div(:class => 'l-calculator-wrapper')
+    @browser.div(class: 'l-calculator-wrapper')
   end
 end

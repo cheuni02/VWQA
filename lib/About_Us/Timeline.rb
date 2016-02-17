@@ -1,5 +1,4 @@
 class Timeline < AboutUs
-
   def visit
     visit_page(page_url)
   end
@@ -36,13 +35,11 @@ class Timeline < AboutUs
     arr = list_view_items
     arr.each do |item|
       search_term.each do |term|
-        if item.text.include? term.to_s
-          return true
-        end
+        return true if item.text.include? term.to_s
       end
     end
 
-    return false
+    false
   end
 
   def get_dates
@@ -56,54 +53,51 @@ class Timeline < AboutUs
   def check_dates(decade)
     arr = get_dates
     arr.each do |year|
-      if (get_year_text(year).text.to_i > decade.to_i + 9)
-        return false
-      end
+      return false if get_year_text(year).text.to_i > decade.to_i + 9
     end
 
-    return true
+    true
   end
 
   private
 
   def page_url
-    "/timeline/index"
+    '/timeline/index'
   end
 
   def list_view_link
-    @browser.link(:id => "tl-toggle-list")
+    @browser.link(id: 'tl-toggle-list')
   end
 
   def timeline_view_link
-    @browser.link(:id => "tl-toggle-timeline")
+    @browser.link(id: 'tl-toggle-timeline')
   end
 
   def list_view_items
-    @browser.div(:id => "tl-view", :class => "list").divs(:class => "event")
+    @browser.div(id: 'tl-view', class: 'list').divs(class: 'event')
   end
 
   def timeline_view_container
-    @browser.div(:id => "tl-view", :class => "timeline")
+    @browser.div(id: 'tl-view', class: 'timeline')
   end
 
   def search_input
-    @browser.form(:id => "timeline-search-form").text_field(:class => "ac_input")
+    @browser.form(id: 'timeline-search-form').text_field(class: 'ac_input')
   end
 
   def search_button
-    @browser.form(:id => "timeline-search-form").input(:type => "submit")
+    @browser.form(id: 'timeline-search-form').input(type: 'submit')
   end
 
   def decade_button(decade)
-    @browser.div(:id => "tl-jump").link(:href => /decade=#{decade}/)
+    @browser.div(id: 'tl-jump').link(href: /decade=#{decade}/)
   end
 
   def year_divs
-    @browser.div(:class => "years").divs(:class => "year")
+    @browser.div(class: 'years').divs(class: 'year')
   end
 
   def year_div_title(year)
-    year.div(:class => "title")
+    year.div(class: 'title')
   end
-
 end
