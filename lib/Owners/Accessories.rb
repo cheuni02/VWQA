@@ -1,5 +1,4 @@
 class Accessories < Owners
-
   def visit
     visit_page(page_url)
   end
@@ -15,8 +14,8 @@ class Accessories < Owners
   def view_all_accessories
     main_page_links.each do |link|
       if link.h2.text =~ /accessories/i
-	link.click
-	break
+        link.click
+        break
       end
     end
   end
@@ -28,11 +27,11 @@ class Accessories < Owners
   def find_accessory(query)
     find_accessory_field.set(query)
     find_accessory_field.send_keys :enter
-    #self.find_accessory_search
+    # self.find_accessory_search
   end
 
   def find_accessory_search
-    #find_accessory_form.submit
+    # find_accessory_form.submit
   end
 
   def get_search_results
@@ -41,7 +40,7 @@ class Accessories < Owners
       results.push(accessory.h4.text)
     end
 
-    return results
+    results
   end
 
   def set_filter_model(model)
@@ -65,7 +64,7 @@ class Accessories < Owners
   end
 
   def retailer_panel_present?
-    retailer_panel.when_present.div(:class => "retailer").present?
+    retailer_panel.when_present.div(class: 'retailer').present?
   end
 
   def set_filter_category(category)
@@ -85,69 +84,71 @@ class Accessories < Owners
   end
 
   def accessory_desc_present?
-    accessory_details.when_present.div(:class => "description").present?
+    accessory_details.when_present.div(class: 'description').present?
   end
 
-  private
+  def page_title
+    @browser.title.split(':').first.strip
+  end
 
   def page_url
-    "/owners/accessories-and-merchandise"
+    '/owners/accessories-and-merchandise'
   end
 
   def page_search_url
-    "/owners/accessories/all/all/all/none/1"
+    '/owners/accessories/all/all/all/none/1'
   end
 
   def accessories_main
-    #@browser.image(:alt => "Accessories and Merchandise")
-    @browser.image(:alt => "accessories")
+    # @browser.image(:alt => "Accessories and Merchandise")
+    @browser.image(alt: 'accessories')
   end
 
   def main_page_links
-    @browser.links(:class => "url")
+    @browser.links(class: 'url')
   end
 
   def find_accessory_field
-    @browser.text_field(:id => "accessory-search")
+    @browser.text_field(id: 'accessory-search')
   end
 
   def find_accessory_form
-    @browser.form(:action => "/owners/accessories/")
+    @browser.form(action: '/owners/accessories/')
   end
 
   def filter_category
-    @browser.select(:id => "category-search")
+    @browser.select(id: 'category-search')
   end
 
   def model_select
-    @browser.select(:id => "model-search")
+    @browser.select(id: 'model-search')
   end
 
   def model_year_select
-    @browser.select(:id => "year-filter")
+    @browser.select(id: 'year-filter')
   end
 
   def accessories_results
-    @browser.div(:id => "accessories").divs(:class => "accessory")
+    @browser.div(id: 'accessories').divs(class: 'accessory')
   end
 
   def filter_search_button
-    @browser.div(:id => "model-year-filter").input(:class => "submit")
+    @browser.div(id: 'model-year-filter').input(class: 'submit')
   end
 
   def location_search_field
-    @browser.text_field(:id => "find-retailer-search-text")
+    @browser.text_field(id: 'find-retailer-search-text')
   end
 
   def location_search_button
-    @browser.input(:id => "find-retailer-search-submit")
+    @browser.input(id: 'find-retailer-search-submit')
   end
 
   def retailer_panel
-    @browser.div(:id => "retailers-search-results")
+    @browser.div(id: 'retailers-search-results')
   end
 
   def accessory_details
-    @browser.div(:id => "details")
+    @browser.div(id: 'details')
   end
 end

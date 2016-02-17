@@ -1,5 +1,4 @@
 class WarningLights < Owners
-
   def visit
     visit_page(page_url)
   end
@@ -9,28 +8,28 @@ class WarningLights < Owners
   end
 
   def get_lights(colour)
-    case(colour)
-      when "Red"
-        lights = red_lights
-      when "Yellow"
-        lights = yellow_lights
-      when "Green"
-        lights = green_lights
-      else lights = all_lights
+    case (colour)
+    when 'Red'
+      lights = red_lights
+    when 'Yellow'
+      lights = yellow_lights
+    when 'Green'
+      lights = green_lights
+    else lights = all_lights
     end
 
-    return lights
+    lights
   end
 
   def click_colour(colour)
-    case(colour)
-      when "Red"
-        red_button.click
-      when "Yellow"
-        yellow_button.click
-      when "Green"
-        green_button.click
-      else all_button.click
+    case (colour)
+    when 'Red'
+      red_button.click
+    when 'Yellow'
+      yellow_button.click
+    when 'Green'
+      green_button.click
+    else all_button.click
     end
   end
 
@@ -42,47 +41,43 @@ class WarningLights < Owners
     page_title.text
   end
 
-  private
-
   def page_url
-    "/owners/warning-lights"
+    '/owners/warning-lights'
   end
 
   def warning_lights_all
-    @browser.div(:id => "warning-lights")
+    @browser.div(id: 'warning-lights')
   end
 
   def all_button
-    @browser.ul(:id => "button-toggle").li(:id => "all")
+    @browser.ul(id: 'button-toggle').li(id: 'all')
   end
 
   def red_button
-    @browser.ul(:id => "button-toggle").li(:id => "red")
+    @browser.ul(id: 'button-toggle').li(id: 'red')
   end
 
   def yellow_button
-    @browser.ul(:id => "button-toggle").li(:id => "yellow")
+    @browser.ul(id: 'button-toggle').li(id: 'yellow')
   end
 
   def green_button
-    @browser.ul(:id => "button-toggle").li(:id => "green")
+    @browser.ul(id: 'button-toggle').li(id: 'green')
   end
 
   def red_lights
-    @browser.ul(:id => "red-lights").lis
+    @browser.ul(id: 'red-lights').lis
   end
 
   def yellow_lights
-    @browser.ul(:id => "yellow-lights").lis
+    @browser.ul(id: 'yellow-lights').lis
   end
 
   def green_lights
-    @browser.ul(:id => "green-lights").lis
+    @browser.ul(id: 'green-lights').lis
   end
 
   def page_title
-    @browser.div(:id => "page").div(:class => "grid-6").h1
+    @browser.title.split(':').first.strip
   end
-
-
 end

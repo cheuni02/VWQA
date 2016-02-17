@@ -1,5 +1,4 @@
 class BookAService2 < VWBase
-
   def visit
     visit_page(page_url)
   end
@@ -24,39 +23,13 @@ class BookAService2 < VWBase
     BookAService2Step5.new(@browser)
   end
 
-
   private
 
   def page_url
-    "/owners/service-booking"
+    '/owners/service-booking'
   end
 
   def detail_panels
-    @browser.spans(:class => "fa fa-edit")
+    @browser.spans(class: 'fa fa-edit')
   end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 end

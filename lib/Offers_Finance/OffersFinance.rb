@@ -61,18 +61,18 @@ class OffersFinance < BrowserContainer
   private
 
   def offer_carousel
-    @browser.div(:class => "vw-slideshow")
+    @browser.div(class: 'vw-slideshow')
   end
 
   def button_links
-    @browser.divs(:class => "vw-adaptive-horizontal-button")
+    @browser.divs(class: 'vw-adaptive-horizontal-button')
   end
 
   def finance_calc_button
-    @browser.div(:class => "finance-calculator")
+    @browser.div(class: 'finance-calculator')
   end
 
   def page_url
-    "/buying-guide"
+    '/buying-guide'
   end
 end

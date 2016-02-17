@@ -1,18 +1,16 @@
-#require_relative 'offers_finance.rb'
+# require_relative 'offers_finance.rb'
 
 class OffersBuyingGuide < OffersFinance
-
-
   def page_loaded?
     offers_grid.present?
   end
 
   def select_car(car_model)
     offers_grid.lis.each do |car|
-       if car.h3.text == "#{car_model}"
-         car.link.click
-	 break
-       end
+      if car.h3.text == "#{car_model}"
+        car.link.click
+        break
+      end
     end
   end
 
@@ -37,30 +35,25 @@ class OffersBuyingGuide < OffersFinance
     finance_calc_link_span.click
   end
 
-
   private
 
   def page_url
-    "/buying-guide/offers"
+    '/buying-guide/offers'
   end
 
   def offers_grid
-    @browser.ul(:class => "model-offer-grid")
+    @browser.ul(class: 'model-offer-grid')
   end
 
   def finance_explaination
-    @browser.link(:class => "vw-btn", :href => /finance-options-explained/i)
+    @browser.link(class: 'vw-btn', href: /finance-options-explained/i)
   end
 
   def finance_calculator
-    @browser.link(:class => "finance-calculator")
+    @browser.link(class: 'finance-calculator')
   end
 
   def finance_calc_link_span
-    @browser.span(:class => "vw-icon-link", :text => /calculator/i)
+    @browser.span(class: 'vw-icon-link', text: /calculator/i)
   end
-
-
-
-
 end

@@ -4,8 +4,8 @@ class NewCars < BrowserContainer
   def select_model(model_name)
     car_range.lis.each do |li|
       if li.span.h2.text =~ /#{model_name}/i
-	li.link.when_present.click
-	break
+        li.link.when_present.click
+        break
       end
     end
   end
@@ -75,7 +75,7 @@ class NewCars < BrowserContainer
   end
 
   def set_car_order(option)
-    car_order_select.li(:text => "#{option}").link.click
+    car_order_select.li(text: "#{option}").link.click
   end
 
   def get_first_model_name
@@ -125,59 +125,59 @@ class NewCars < BrowserContainer
   private
 
   def car_range
-    @browser.div(:id => "model-range").ul
+    @browser.div(id: 'model-range').ul
   end
 
   def confirm_car_button
-    @browser.link(:class => "to-mlp")
+    @browser.link(class: 'to-mlp')
   end
 
   def page_url
-    "/new/range"
+    '/new/range'
   end
 
   def keep_informed_link
-    @browser.div(:id => "footer-links").link(:index => 0)
+    @browser.div(id: 'footer-links').link(index: 0)
   end
 
   def car_order_select
-    #@browser.div(:id => "uniform-range-filter").select(:id => "range-filter")
-    @browser.div(:id => "range-filter-container").ul(:class => "clearfix")
+    # @browser.div(:id => "uniform-range-filter").select(:id => "range-filter")
+    @browser.div(id: 'range-filter-container').ul(class: 'clearfix')
   end
 
   def horizontal_view_button
-    @browser.button(:class => "view-switcher-film-strip")
+    @browser.button(class: 'view-switcher-film-strip')
   end
 
   def horizontal_go_to_end
-    @browser.button(:id => "go-to-end")
+    @browser.button(id: 'go-to-end')
   end
 
   def car_info_area
-    @browser.div(:id => "information-area")
+    @browser.div(id: 'information-area')
   end
 
   def price_info
-    car_info_area.p(:class => "price")
+    car_info_area.p(class: 'price')
   end
 
   def size_info
-    car_info_area.li(:class => "size")
+    car_info_area.li(class: 'size')
   end
 
   def performance_info
-    car_info_area.li(:class => "performance")
+    car_info_area.li(class: 'performance')
   end
 
   def efficiency_info
-    car_info_area.li(:class => "efficiency")
+    car_info_area.li(class: 'efficiency')
   end
 
   def mlp_image
-    @browser.image(:src => "/static/images/mlps/hero-carousel/hero-carousel-bg.png")
+    @browser.image(src: '/static/images/mlps/hero-carousel/hero-carousel-bg.png')
   end
 
   def mlp_offer_panel
-    @browser.div(:id => "page-bg").div(:class => "copy-wrap").link(:class => "mlp-cta")
+    @browser.div(id: 'page-bg').div(class: 'copy-wrap').link(class: 'mlp-cta')
   end
 end

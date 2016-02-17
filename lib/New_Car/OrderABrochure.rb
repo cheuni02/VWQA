@@ -1,5 +1,4 @@
 class OrderABrochure < NewCars
-
   def visit
     visit_page(page_url)
   end
@@ -24,6 +23,7 @@ class OrderABrochure < NewCars
   def car_models_grid
     car_models_grid_locator
   end
+
   def car_models
     car_models_locator
   end
@@ -55,30 +55,31 @@ class OrderABrochure < NewCars
   private
 
   def page_url
-    "/order-a-brochure"
+    '/order-a-brochure'
   end
 
   def page_header_locator
-    @browser.h1(:css => '#models>h1.headlineBlue')
+    @browser.h1(css: '#models>h1.headlineBlue')
   end
 
   def page_description_locator
-    @browser.p(:css => '.bookingDescription')
+    @browser.p(css: '.bookingDescription')
   end
 
   def older_model_brochures_locator
-    @browser.link(:css=> "a[title='Older model brochures']")
+    @browser.link(css: "a[title='Older model brochures']")
   end
 
   def car_models_grid_locator
-    @browser.ul(:id => 'new-cars')
+    @browser.ul(id: 'new-cars')
   end
+
   def car_models_locator
-    @browser.lis(:css => '#new-cars>li:not(.clear)')
+    @browser.lis(css: '#new-cars>li:not(.clear)')
   end
 
   def brochure_menu_locator
-    @browser.div(:class => 'selectedBrochureDownload show')
+    @browser.div(class: 'selectedBrochureDownload show')
   end
 
   def brochure_menu_car_name_locator
@@ -86,14 +87,14 @@ class OrderABrochure < NewCars
   end
 
   def brochure_menu_downloads_locator
-    brochure_menu_locator.links(:css => '.download')
+    brochure_menu_locator.links(css: '.download')
   end
 
   def brochure_menu_order_printed_locator
-    brochure_menu_locator.link(:css => ".bottom [data-brochuretype = 'order-a-brochure']")
+    brochure_menu_locator.link(css: ".bottom [data-brochuretype = 'order-a-brochure']")
   end
 
   def brochure_menu_view_car_locator
-    brochure_menu_locator.link(:css => '.viewCar a')
+    brochure_menu_locator.link(css: '.viewCar a')
   end
 end

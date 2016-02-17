@@ -1,5 +1,4 @@
 class WinterCheck < Servicing
-
   def page_loaded?
     winter_body.present?
   end
@@ -7,7 +6,6 @@ class WinterCheck < Servicing
   private
 
   def winter_body
-    @browser.div(:class => 'grid-4')
+    @browser.div(class: 'grid-4')
   end
-
 end

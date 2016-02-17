@@ -1,5 +1,4 @@
 class News < AboutUs
-
   def visit
     visit_page(page_url)
   end
@@ -28,23 +27,23 @@ class News < AboutUs
   private
 
   def page_url
-    "/about-us/news"
+    '/about-us/news'
   end
 
   def latest_article_id
-    @article = @browser.ul(:id => "news-list").li(:class => "grid-row", :index => 0).div(:class => "grid-4").h3.link.text
+    @article = @browser.ul(id: 'news-list').li(class: 'grid-row', index: 0).div(class: 'grid-4').h3.link.text
   end
 
   def news_section
-    @browser.div(:class => "side-bar").li(:index => 1).a
+    @browser.div(class: 'side-bar').li(index: 1).a
   end
 
   def search_box
-    @browser.text_field(:name => "query")
+    @browser.text_field(name: 'query')
   end
 
   def article_result
-    @a_result = @browser.div(:class => "search-container", :index => 1).ul(:class => "listing").li.div.h3.text
+    @a_result = @browser.div(class: 'search-container', index: 1).ul(class: 'listing').li.div.h3.text
   end
 
   def compare_article
@@ -52,11 +51,10 @@ class News < AboutUs
   end
 
   def search_box_enter_button
-    @browser.button(:id => "search-submit")
+    @browser.button(id: 'search-submit')
   end
 
   def enter_text_in_search
     search_box.set("#{@article}")
   end
-
 end

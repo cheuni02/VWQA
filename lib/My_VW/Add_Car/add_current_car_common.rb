@@ -8,10 +8,8 @@ class AddCurrentCarCommon < MyVW
     scroll_to(:center)
   end
 
-  def scroll_to_bottom_of_my_cars
-    if @browser.divs(class: 'my-cars-delete-confirm').size > 5
-      scroll_to(:bottom)
-    end
+  def scroll_to_add_a_car
+    scroll_to(select_add_a_car)
   end
 
   def select_my_cars
