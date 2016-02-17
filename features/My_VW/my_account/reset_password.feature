@@ -1,4 +1,4 @@
-@tag @forgotten_password_user
+@my_vw @Login-2 @forgotten_password_user
 Feature: My VW reset password page
   As a forgetful user
   I want to be able to reset my password
@@ -25,7 +25,7 @@ Feature: My VW reset password page
 
     Scenario Outline: I've pressed Save on the Password reset form without actually entering valid password value
       When I type in my new password <password>
-       And I press reset password button
+      And I press reset password button
       Then I should get the error message <error message> displayed
 
     Examples:
@@ -39,16 +39,16 @@ Feature: My VW reset password page
 
    @delete_password_token
    Scenario: password and re-entered password do not coincide
-      When I type in my new password 123Test5
-      And I re-enter password that does not match 12345Test
+      When I type in my new password
+      And I re-enter password that does not match
       And I press reset password button
       Then I should not be able to submit the form and I should see message:
       """
       Passwords don't match
       """
-      But when I set re-entered password to 123Test5
+      But when I set re-entered password to match the password
       Then I should be able successfully change my password
-      And I the success message should be displayed:
+      And the success message should be displayed:
       """
       Your password has been successfully updated.
       """

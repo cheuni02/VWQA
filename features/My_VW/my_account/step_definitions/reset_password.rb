@@ -12,7 +12,7 @@ end
 When /^I click on the link to reset my password$/ do
   reset_token = site.my_vw.forgotten_password.get_reset_token(@account[:username])
   if reset_token.nil? || ((Time.now.to_i - reset_token['timestamp']) >= 86400)
-    @email = site.vw_emails.get_last_email('Password Forgotten')l
+    @email = site.vw_emails.get_last_email('Password Forgotten')
     @reset_link = site.vw_emails.get_email_token_link(@email)
     site.my_vw.forgotten_password.set_user_reset_link(@account[:username], @reset_link)
   else
@@ -22,6 +22,7 @@ end
 
 And /^I navigate to the reset password page$/ do
   site.my_vw.forgotten_password.browser_goto(@reset_link)
+  puts "I navigate to the reset password page #{@reset_link}"
 end
 
 Then /^the Password and Repeat password fields should be displayed for me to fill in$/ do
@@ -51,9 +52,8 @@ When /^I enter my password I should see what requirements has been fulfilled:$/ 
     end
 end
 
-When /^I type in my new password (.*)$/ do |passw|
-  expect(site.my_vw.forgotten_password.new_password.present?).to be true
-  site.my_vw.forgotten_password.set_new_password_script(passw)
+When /^I type in my new password (.*)$/ do |password|
+  site.my_vw.forgotten_password.set_new_password_script(password)
 end
 
 And /^I press reset password button$/ do
@@ -65,29 +65,38 @@ Then /^I should get the error message (.*) displayed$/ do |error|
   expect(site.my_vw.forgotten_password.new_password_validation_error.text).to eq(error)
 end
 
-And /^I re-enter password that does not match (.*)$/ do |password|
-  site.my_vw.forgotten_password.set_confirm_password(password)
+When /^I type in my new password$/ do
+  timestamp = Time.now.to_i
+  @password =  "Abcd!#{timestamp}"
+  expect(site.my_vw.forgotten_password.new_password.present?).to be true
+  site.my_vw.forgotten_password.set_new_password_script(@password)
+end
+
+And /^I re-enter password that does not match$/ do
+  site.my_vw.forgotten_password.set_confirm_password("Password123")
 end
 
 Then /^I should not be able to submit the form and I should see message:$/ do |error|
   expect(site.my_vw.forgotten_password.confirm_password_validation_error.text).to eq(error)
 end
 
-But /^when I set re-entered password to (.*)$/ do |password|
-  step "I re-enter password that does not match #{password}!"
-end
+But /^when I set re-entered password to match the password$/ do
+  site.my_vw.forgotten_password.confirm_password.clear
+  site.my_vw.forgotten_password.set_confirm_password(@password)
+ end
 
 Then /^I should be able successfully change my password$/ do
   step "I press reset password button"
 end
 
-And /^I the success message should be displayed:$/ do |message|
+And /^the success message should be displayed:$/ do |message|
+  expect(site.my_vw.login.page_loaded?).to be true
   expect(site.my_vw.login.login_error_message.text).to eq (message)
 end
 
 And /I should be able to login with new password/ do
   site.my_vw.login.set_email(@account[:username])
-  site.my_vw.login.set_password('123Test5')
+  site.my_vw.login.set_password(@password)
+  site.my_vw.login.do_login
   expect(site.my_vw.login.account_navigation_bar.present?).to be true
-#  Do I need to update json file in order to be able to update password for the same user?
 end
