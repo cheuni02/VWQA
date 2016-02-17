@@ -22,7 +22,6 @@ end
 
 And /^I navigate to the reset password page$/ do
   site.my_vw.forgotten_password.browser_goto(@reset_link)
-  puts "I navigate to the reset password page #{@reset_link}"
 end
 
 Then /^the Password and Repeat password fields should be displayed for me to fill in$/ do
