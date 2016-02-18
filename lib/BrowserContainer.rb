@@ -34,7 +34,6 @@ class BrowserContainer
            else
              fail ArgumentError, "Don't know how to scroll to: #{param}!"
            end
-
     @browser.execute_script(*args)
   end
 end

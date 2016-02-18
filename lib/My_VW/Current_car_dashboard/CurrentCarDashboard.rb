@@ -13,10 +13,6 @@ class CurrentCarDashboard < MyVW
     service_history_table.visible?
   end
 
-  def my_plans_present?
-    volkswagen_plans_section.present?
-  end
-
   def promotions_section
     @browser.div(class: 'col-6 my-promo__features')
   end
@@ -33,8 +29,52 @@ class CurrentCarDashboard < MyVW
     scroll_to(promotions_section)
   end
 
-  def scroll_to_service
-    scroll_to(my_service_plans_history)
+  def scroll_to_service_plans_history
+    if service_plans_history_populated.present?
+      scroll_to(service_plans_history_populated)
+    else
+      scroll_to(service_plans_history)
+    end
+  end
+
+  def service_plans_history_populated
+    @browser.element(class: 'my-current-history__body')
+  end
+
+  def service_type(row = 0, column)
+    case column
+    when /Service type/
+      service_plans_history_populated.table.tbodys[row].tds[0].text
+    when /Date/
+      service_plans_history_populated.table.tbodys[row].tds[1].text
+    when /Retailer/
+      service_plans_history_populated.table.tbodys[row].tds[2].text
+    when /EVC report/
+      service_plans_history_populated.table.tbodys[row].tds[3].text
+    end
+  end
+
+  def plan_section(column)
+    case column
+    when /Plan/
+      volkswagen_plans_section.table.tbody.tds[0].text
+    when /Start/
+      volkswagen_plans_section.table.tbody.tds[1].text
+    when /End/
+      volkswagen_plans_section.table.tbody.tds[2].text
+    when /Length/
+      volkswagen_plans_section.table.tbody.tds[3].text
+    when /More Info/
+      volkswagen_plans_section.table.tbody.tds[4].text
+    end
+  end
+
+  def read_more_about_plan
+    volkswagen_plans_section.table.tbody.tds[4]
+  end
+
+  def scroll_to_my_plan
+    scroll_to(volkswagen_plans_section)
   end
 
   def scroll_to_help
@@ -57,6 +97,10 @@ class CurrentCarDashboard < MyVW
     @browser.h5(class: 'my-help-box__title', text: text).parent.link
   end
 
+  def add_car_link
+    @browser.element(id: 'car-details-links')
+  end
+
   def my_car_hero
     @browser.h1(class: 'full-hero__title')
   end
@@ -71,14 +115,6 @@ class CurrentCarDashboard < MyVW
 
   def current_car_hero
     @browser.section(class: 'current-car-hero')
-  end
-
-  def current_service_section
-    @browser.section(class: 'my-current-service')
-  end
-
-  def current_service_overview
-    @browser.section(class: 'my-current-service').div(class: 'my-current-service__content')
   end
 
   def retailer_map
@@ -101,28 +137,12 @@ class CurrentCarDashboard < MyVW
     retailer_details.link(class: 'my-vw-text-link my-vw-text-link--blue')
   end
 
-  def service_gurantee_section
-    @browser.section(class: 'my-current-guarantee')
-  end
-
-  def my_service_history_section
-    @browser.section(class: 'my-current-history')
-  end
-
   def service_history_table
     @browser.div(class: 'my-current-history__body').table(class: 'my-table--transparent')
   end
 
   def volkswagen_plans_section
-    @browser.section(class: 'my-current-plan').table(class: 'my-table--white')
-  end
-
-  def promotion_section
-    @browser.section(class: 'my-promo')
-  end
-
-  def promotion_headline
-    @browser.div(class: 'my-promo__headline')
+    @browser.div(class: 'my-current-plan__body')
   end
 
   def need_help_module
@@ -141,7 +161,7 @@ class CurrentCarDashboard < MyVW
     @browser.div(class: 'row my-offers__features')
   end
 
-  def my_service_plans_history
+  def service_plans_history
     @browser.section(class: 'my-current-service-history')
   end
 
