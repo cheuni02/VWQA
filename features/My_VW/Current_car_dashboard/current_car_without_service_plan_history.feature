@@ -28,10 +28,6 @@ Feature: Current car dashboard
     And a default picture of my last added car type golf is displayed
     And my last added car name is GOLF
 
-  Scenario: My Service History Notification section without information as my account is not validated
-    When I scroll to my service history and plans
-    Then I will see a message prompting me to enter my postcode for more information
-
   Scenario Outline: Promotions offered
     When I scroll to promotions offered
     Then I will see the <promotions> offered
@@ -75,6 +71,7 @@ Feature: Current car dashboard
       | insurance | true    |
       | b34f      | false   |
 
+
   Scenario Outline: Recovery zone section
     When I scroll to the bottom of the page
     Then the <button> should appear for the user
@@ -88,3 +85,8 @@ Feature: Current car dashboard
       | Book a service   |
       | Keep me informed |
       | Contact Us       |
+
+  @logout
+  Scenario: My Service History Notification section without information as my account is not validated
+    When I scroll to my service history and plans
+    Then I will see a message prompting me to enter my postcode for more information
