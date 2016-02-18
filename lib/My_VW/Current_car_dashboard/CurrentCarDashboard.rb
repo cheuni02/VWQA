@@ -44,13 +44,13 @@ class CurrentCarDashboard < MyVW
   def service_type(row = 0, column)
     case column
     when /Service type/
-      service_plans_history_populated.table.tbodys[row].tds[0].text
+      service_plans_history_populated.table.tbody.trs[row].tds[0].text
     when /Date/
-      service_plans_history_populated.table.tbodys[row].tds[1].text
+      service_plans_history_populated.table.tbody.trs[row].tds[1].text
     when /Retailer/
-      service_plans_history_populated.table.tbodys[row].tds[2].text
+      service_plans_history_populated.table.tbody.trs[row].tds[2].text
     when /EVC report/
-      service_plans_history_populated.table.tbodys[row].tds[3].text
+      service_plans_history_populated.table.tbody.trs[row].tds[3].text
     end
   end
 
@@ -175,5 +175,21 @@ class CurrentCarDashboard < MyVW
 
   def last_name_field
     @browser.text_field(id: 'owner-surname')
+  end
+
+  def scroll_to_guarantee_section
+    scroll_to(current_guarantee_section)
+  end
+
+  def current_guarantee_section
+    @browser.div(class: 'my-current-guarantee__body')
+  end
+
+  def current_guarantees(text)
+    current_guarantee_section.element(class: 'column-list-section-item__heading', text: text)
+  end
+
+  def click_guarantee(text)
+    current_guarantees(text).parent.link(class: 'my-vw-text-link', text: 'Find out more').click
   end
 end

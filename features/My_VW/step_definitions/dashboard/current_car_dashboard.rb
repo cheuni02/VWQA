@@ -52,7 +52,7 @@ end
 Then(/^I will see my service history and plans details:$/) do |table|
   current_car = site.my_vw.current_car_dashboard
   expect(current_car.service_plans_history_populated.present?).to be true
-  table.hashes.each { |hash| hash.each { |key, value| expect(value).to eq(current_car.service_type(key)) } }
+  table.hashes.each_with_index { |(hash), index| hash.each { |key, value| expect(current_car.service_type(index, key)).to eq(value) } }
 end
 
 When(/^I scroll to my plan$/) do
@@ -62,7 +62,7 @@ end
 Then(/^I will see my plan details:$/) do |table|
   current_car = site.my_vw.current_car_dashboard
   expect(current_car.volkswagen_plans_section.present?).to be true
-  table.hashes.each { |hash| hash.each { |key, value| expect(value).to eq(current_car.plan_section(key)) } }
+  table.hashes.each { |hash| hash.each { |key, value| expect(current_car.plan_section(key)).to eq(value) } }
 end
 
 Then(/^I will see a message prompting me to enter my postcode for more information$/) do
@@ -90,18 +90,26 @@ end
 Then(/^I will be on the correct page related to the (.*)$/) do |page_name|
   owners_site = site.owners
   case page_name
+  when 'Our service promise'
+    page_name = 'Volkswagen Service Promise'
+    page_title = owners_site.servicing.service_promise.page_title
+  when 'What we check & why'
+    page_name = 'What We Check And Why'
+    page_title = owners_site.servicing.what_we_check_and_why.page_title
+  when 'Book a service'
+    page_name = 'Volkswagen Genuine Parts'
+    page_title = owners_site.servicing.genuine_parts.page_title
   when 'Fixed price servicing'
-    Watir::Wait.until { owners_site.servicing.fixed_price_servicing.page_title_subject == page_name }
-    expect(owners_site.servicing.fixed_price_servicing.page_title_subject).to eq(page_name)
+    page_title = owners_site.servicing.fixed_price_servicing.page_title_subject
   when 'Extended warranty'
     page_name = 'Extended Warranty'
-    Watir::Wait.until { owners_site.servicing.extended_warranty.page_title_subject == page_name }
-    expect(owners_site.servicing.extended_warranty.page_title_subject).to eq(page_name)
+    page_title = owners_site.servicing.extended_warranty.page_title_subject
   when 'Accessories'
     page_name = 'Accessories and merchandise'
-    Watir::Wait.until { owners_site.accessories.page_title == page_name }
-    expect(owners_site.accessories.page_title).to eq(page_name)
+    page_title = owners_site.accessories.page_title
   end
+  Watir::Wait.until { page_title == page_name }
+  expect(page_title).to eq(page_name)
 end
 
 When(/^I scroll to need help section/) do
@@ -206,4 +214,32 @@ Given(/^I have added a new car to my account with:$/) do |table|
                                            engine_capacity: options['Engine capacity'],
                                            transmission: options['Transmission'],
                                            purchase_type: options['Purchase type'])
+end
+
+Then(/^there is no service history for my car at present$/) do
+  current_car = site.my_vw.current_car_dashboard
+  expect(current_car.dbg_not_matched_message.present?).to be true
+  expect(current_car.dbg_not_matched_message.p.text).to include('We do not have any service history for your car at present.')
+end
+
+Then(/^there is no volkswagen plans$/) do
+  current_car = site.my_vw.current_car_dashboard
+  expect(current_car.volkswagen_plans_section.present?).to be true
+  expect(current_car.volkswagen_plans_section.p.text).to include('You do not appear to have any Volkswagen plans.')
+end
+
+When(/^I select I'm interested in fixed price servicing link$/) do
+  site.my_vw.current_car_dashboard.volkswagen_plans_section.link.click
+end
+
+When(/^I scroll to my service guarantee$/) do
+  site.my_vw.current_car_dashboard.scroll_to_guarantee_section
+end
+
+Then(/^I will see offered (.*)$/) do |guarantees|
+  expect(site.my_vw.current_car_dashboard.current_guarantees(guarantees).present?).to be true
+end
+
+When(/^I select find out more about (.*)$/) do |guarantees|
+  site.my_vw.current_car_dashboard.click_guarantee(guarantees)
 end
