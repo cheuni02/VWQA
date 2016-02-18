@@ -10,6 +10,8 @@ require 'json'
 require 'rspec/expectations'
 require 'pry'
 require 'mail'
+require 'nokogiri'
+require 'open-uri'
 
 screenshot_dir = "html-results/screenshots"
 FileUtils.mkdir_p screenshot_dir
@@ -74,12 +76,12 @@ end
 
 
 # Auth Handling, forces login to servers in active session
-unless ENV['TAG'].to_sym == :live
-  browser.goto(URLS.sub('http://', "http://#{VW_USER}:#{VW_PASSWORD}@"))
-  browser.goto(URLS.sub('http://', "https://#{VW_USER}:#{VW_PASSWORD}@"))
-  usub = URLS.sub('origin', 'www')
-  browser.goto(usub.sub('http://', "https://#{VW_USER}:#{VW_PASSWORD}@"))
-end
+#unless ENV['TAG'].to_sym == :live
+#  browser.goto(URLS.sub('http://', "http://#{VW_USER}:#{VW_PASSWORD}@"))
+#  browser.goto(URLS.sub('http://', "https://#{VW_USER}:#{VW_PASSWORD}@"))
+#  usub = URLS.sub('origin', 'www')
+#  browser.goto(usub.sub('http://', "https://#{VW_USER}:#{VW_PASSWORD}@"))
+#end
 
 
 class CustomWorld

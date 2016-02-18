@@ -145,4 +145,9 @@ class VWBase < BrowserContainer
   def vw_emails
     VWMail.new
   end
+
+  def gmt_finder
+  GMTF.new(@browser)
+  end
+
 end
