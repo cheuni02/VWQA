@@ -1,4 +1,4 @@
-#@my_vw @Current-Car-Dashboard
+@my_vw @Current-Car-Dashboard
 Feature: Current car dashboard
   As a user logged in the My VW site
   I want to see a page with important information about my current car
