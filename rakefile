@@ -82,8 +82,6 @@ task :generate_user_accounts, [:host, :db_host] do |t, args|
   ruby 'account_setup.rb'
 end
 
-
-
 task :tagged_build_headless, [:host, :tag_string, :env_tag] do |t, args|
   tag_string = "#{args[:tag_string]}"
   ENV['ALL_TAGS'] = tag_string

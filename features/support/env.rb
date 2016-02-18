@@ -10,6 +10,7 @@ require 'json'
 require 'rspec/expectations'
 require 'pry'
 require 'mail'
+require 'nokogiri'
 
 screenshot_dir = "html-results/screenshots"
 FileUtils.mkdir_p screenshot_dir
@@ -72,7 +73,6 @@ case ENV['BROWSER']
     browser.window.resize_to 1024, 768
 end
 
-
 # Auth Handling, forces login to servers in active session
 unless ENV['TAG'].to_sym == :live
   browser.goto(URLS.sub('http://', "http://#{VW_USER}:#{VW_PASSWORD}@"))
@@ -80,7 +80,6 @@ unless ENV['TAG'].to_sym == :live
   usub = URLS.sub('origin', 'www')
   browser.goto(usub.sub('http://', "https://#{VW_USER}:#{VW_PASSWORD}@"))
 end
-
 
 class CustomWorld
   class << self;
