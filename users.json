@@ -269,6 +269,17 @@
         },
         "lastname": "Tester",
         "uuid": "ba90c045-6f55-4877-b2de-99ac9a5ad594"
+      },
+      {
+        "title": "Mr",
+        "firstname": "Forgotten_password_user",
+        "lastname": "Tester",
+        "username": "ddbtribal1+4@gmail.com",
+        "password": "Abcd!2345",
+        "purpose": "Forgotten_password_user",
+        "optional_details": {
+        },
+        "uuid": "8623ccd7-49a3-4e02-ae84-b66aee3431a7"
       }
     ],
     "10.69.101.120": [
@@ -476,6 +487,17 @@
         },
         "lastname": "Tester",
         "uuid": "248cbdcb-c21e-428f-ad4f-f9a307f64442"
+      },
+      {
+        "title": "Mr",
+        "firstname": "Forgotten_password_user",
+        "lastname": "Tester",
+        "username": "ddbtribal1+4@gmail.com",
+        "password": "Abcd!2345",
+        "purpose": "Forgotten_password_user",
+        "optional_details": {
+        },
+        "uuid": "0d81abe3-2059-41c2-8555-6d5021dde6ab"
       }
     ]
   }

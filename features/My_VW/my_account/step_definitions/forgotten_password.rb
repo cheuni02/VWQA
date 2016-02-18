@@ -1,3 +1,6 @@
+Given /^i navigate to the forgotten password page$/ do
+  site.my_vw.forgotten_password.visit
+end
 
 Given /^i navigate to the My VW Login Page$/ do
   site.my_vw.login.visit
@@ -32,7 +35,7 @@ expect(site.my_vw.forgotten_password.error_message.when_present.text).to eq (err
 end
 
 When /^i attempt to recover my password for not validated email address$/ do
-  step "i click on the Forgotten password link"
+  step "i navigate to the forgotten password page"
   step "i enter invalid email address #{@account[:username]}"
 end
 
