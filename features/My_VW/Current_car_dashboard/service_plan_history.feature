@@ -105,11 +105,11 @@ Feature: Current car dashboard - my service history and plans
     And my last added car name is My Scirocco
 
     When I scroll to my service history and plans
-#    Then I will see my service history and plans details:
-#      | Service type  | Date       | Retailer                | EVC report |
-#      | MOT Event     | 17/10/2014 | Huddersfield Volkswagen |            |
-#      | Service Event | 19/05/2014 | Huddersfield Volkswagen |            |
-#      | Service Event | 11/07/2012 | Huddersfield Volkswagen |            |
+    Then I will see my service history and plans details:
+      | Service type  | Date       | Retailer                | EVC report |
+      | MOT Event     | 17/10/2014 | Huddersfield Volkswagen |            |
+      | Service Event | 19/05/2014 | Huddersfield Volkswagen |            |
+      | Service Event | 11/07/2012 | Huddersfield Volkswagen |            |
 
     When I scroll to my plan
     Then there is no volkswagen plans
