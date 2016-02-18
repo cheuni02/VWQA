@@ -44,3 +44,11 @@ end
 Then /^i should see the registration thank you page in my browser$/ do
   expect(site.my_vw.register.thank_you_page_present).to eq true
 end
+
+Given /^I paste modified email verification link in the browser$/ do
+  site.my_vw.register.page_not_found
+end
+
+Then /^I should be redirected to a 'Page not found' page with error displayed:$/ do |error|
+  expect(site.my_vw.register.page_not_available.text).to match(error)
+end
