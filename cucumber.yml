@@ -39,5 +39,3 @@ mpv_s: ENV=stage_mpv --format pretty --tags @MPV HEADLESS=false
 wip:  --format CsvFormatter::CsvReport -o report.csv --expand --format json -o report.json --format pretty --tags @WIP --tags ~@Disabled HEADLESS=false
 wip_p: ENV=production --format pretty --tags @WIP HEADLESS=false
 wip_cms: ENV=cms_p --format pretty --tags @WIP HEADLESS=false
-
-wips: --tags @WIPS

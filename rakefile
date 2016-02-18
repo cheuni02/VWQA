@@ -98,12 +98,3 @@ task :tagged_build_headless, [:host, :tag_string, :env_tag] do |t, args|
   end
   Rake::Task[:run].invoke()
 end
-
-task :wips, [:host, :tag] do |t,args|
-  Cucumber::Rake::Task.new(:runs) do |t|
-    ENV['HOST'] = args[:host]
-    ENV['TAG'] = args[:tag]
-    t.profile = "wips"
-  end
-  Rake::Task[:runs].invoke()
-end

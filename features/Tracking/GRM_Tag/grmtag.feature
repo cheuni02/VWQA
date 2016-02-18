@@ -1,4 +1,4 @@
-@WIPS
+@Daily @vw-phoenix
 Feature: Checking GroupM tag availability
   As a required feature
   We want to ensure GroupM tag is available in different pages of the site.
