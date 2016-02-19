@@ -13,6 +13,10 @@ class BrowserContainer
     @browser.html
   end
 
+  def browser_goto(url)
+    @browser.goto(url)
+  end
+
   def refresh
     @browser.refresh
   end

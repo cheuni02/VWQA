@@ -2,7 +2,7 @@ Before('@login') do
   @account = site.my_vw.login.get_account_details('General')
 end
 
-After('@login, @login_unvalid_user, @add_car_user, @login_Ordered_User, @login_current_car, @login_Current_User_Ext', '~@logout-force') do
+After('@login, @login_unvalid_user, @add_car_user, @login_Ordered_User, @login_current_car, @login_Current_User_Ext, @forgotten_password_user', '~@logout-force') do
   site.visit_page('/logout?postLogoutPage=/owners/my/account/index')
 end
 
@@ -40,6 +40,15 @@ end
 
 Before('@login_single_car_user') do
   @account = site.my_vw.login.get_account_details('Single_current_car_user')
+end
+
+Before('@forgotten_password_user') do
+  @account = site.my_vw.login.get_account_details('Forgotten_password_user')
+end
+
+After('@delete_password_token') do
+  @account = site.my_vw.login.get_account_details('Forgotten_password_user')
+  site.my_vw.forgotten_password.delete_user_reset_link(@account[:username])
 end
 
 After('@delete_added_car') do
