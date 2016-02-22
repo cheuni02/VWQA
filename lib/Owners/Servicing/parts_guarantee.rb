@@ -3,7 +3,9 @@ class PartsGuarantee < Servicing
     find_retailer.present?
   end
 
-  private
+  def page_title
+    @browser.title.split(':').first.strip
+  end
 
   def find_retailer
     @browser.p(class: 'lnkSCheck').link

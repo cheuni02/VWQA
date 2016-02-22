@@ -23,7 +23,9 @@ class WhatWeCheck < Servicing
     "#{page_url}#{mot_url}"
   end
 
-  private
+  def page_title
+    @browser.title.split(':').first.strip
+  end
 
   def page_url
     '/owners/servicing/what-we-check-and-why'

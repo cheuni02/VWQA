@@ -12,7 +12,7 @@ Feature: Current car dashboard
     And my last added car name is GOLF
     And I will also see a camera icon on the page
 
-  Scenario: My Service Retailer Module
+  Scenario: My Service Retailer
     Then I will see a map loaded displaying my retailer location
     And I will also see the following retailer address details displayed:
       | Ipswich Volkswagen | Sproughton Road | Ipswich | IP1 5AN |
@@ -28,9 +28,19 @@ Feature: Current car dashboard
     And a default picture of my last added car type golf is displayed
     And my last added car name is GOLF
 
-  Scenario: My Service History Notification section without information as my account is not validated
-    When I scroll to my service history and plans
-    Then I will see a message prompting me to enter my postcode for more information
+  Scenario Outline: My service guarantee
+    When I scroll to my service guarantee
+    Then I will see offered <guarantees>
+    When I select find out more about <guarantees>
+    Then I will be on the correct page related to the <guarantees>
+    When I select browser back button
+    Then I will be logged into my account
+
+    Examples:
+      | guarantees          |
+      | Our service promise |
+      | What we check & why |
+      | Book a service      |
 
   Scenario Outline: Promotions offered
     When I scroll to promotions offered
@@ -75,6 +85,7 @@ Feature: Current car dashboard
       | insurance | true    |
       | b34f      | false   |
 
+
   Scenario Outline: Recovery zone section
     When I scroll to the bottom of the page
     Then the <button> should appear for the user
@@ -88,3 +99,8 @@ Feature: Current car dashboard
       | Book a service   |
       | Keep me informed |
       | Contact Us       |
+
+  @logout
+  Scenario: My Service History Notification section without information as my account is not validated
+    When I scroll to my service history and plans
+    Then I will see a message prompting me to enter my postcode for more information

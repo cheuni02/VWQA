@@ -41,24 +41,37 @@ class MyVWAPI < MyVW
     @user_api["/users/#{uuid}/cars/#{car_id}"].delete auth_header
   end
 
-  def add_new_current_car(uuid, access_token, car_name)
+  def add_new_current_car(uuid, access_token, options = {})
+    display_name = options[:display_name]           || 'My Car'
+    car_status = options[:car_status]               || 'CURRENT'
+    registration = options[:registration]           || 'YG61YRO'
+    model = options[:model]                         || 'Golf'
+    derivative = options[:derivative]               || 'GOLF GTI'
+    registration_date = options[:registration_date] || '2014-02-12'
+    fuel_type = options[:fuel_type]                 || 'Petrol'
+    vin = options[:vin]
+    year = options[:year]                           || '2014'
+    engine_capacity = options[:engine_capacity]     || '1.2'
+    transmission = options[:transmission]           || 'Manual'
+    purchase_type = options[:purchase_type]         || 'NEW_CAR'
+
     car_data = {
-      displayName: car_name,
-      carStatus: 'CURRENT',
+      displayName: display_name,
+      carStatus: car_status,
       carDetails: {
-        registrationNumber: 'YG61YRO',
-        model: 'Golf',
-        derivative: 'GOLF GTI',
-        registrationDate: '2014-02-12',
-        fuelType: 'Petrol',
-        #:vin => "WVWZZZ1KZCW0550001",
-        year: '2014',
-        engineCapacity: '1.2',
-        transmission: 'Manual'
+        registrationNumber: registration,
+        model: model,
+        derivative: derivative,
+        registrationDate: registration_date,
+        fuelType: fuel_type,
+        vin: vin,
+        year: year,
+        engineCapacity: engine_capacity,
+        transmission: transmission
       },
       servicedByRetailer: '00050',
       suppliedByRetailer: '00051',
-      purchaseType: 'NEW_CAR'
+      purchaseType: purchase_type
     }.to_json
 
     auth_header = { Authorization: "Bearer #{access_token}" }

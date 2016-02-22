@@ -25,7 +25,9 @@ class ServicePromise < Servicing
     @promises[link.to_i - 1].h2.text.include?(promise)
   end
 
-  private
+  def page_title
+    @browser.title.split(':').first.strip
+  end
 
   def page_url
     '/owners/service-promise'
