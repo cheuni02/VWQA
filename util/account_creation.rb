@@ -6,6 +6,7 @@ PURPOSES = [
   'DBG_User_History_Plan',
   'DBG_User_Plan',
   'DBG_User_History',
+  'DBG_User_History_Ext',
   'DBG_User_Nothing',
   'Current_car_User',
   'Current_car_User_Ext',
@@ -71,6 +72,9 @@ begin
     when 'DBG_User_Nothing'
       hash['lastname'] = 'Clerk'
       hash['optional_details'][:postcode] = 'NW2 2AJ'
+    when 'DBG_User_History_Ext'
+      hash['lastname'] = 'Roblin'
+      hash['optional_details'][:postcode] = 'SA12 9PT'
     else
       hash['lastname'] = 'Tester'
     end
