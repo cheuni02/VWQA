@@ -11,7 +11,6 @@ class VWMail
   end
 
   def get_last_five_emails
-    Mail.find(what: :last, count: 5, order: :desc)
     retry_count = 0
     mails = Array.new
     5.times do
