@@ -280,19 +280,8 @@
         "optional_details": {
         },
         "uuid": "db35385c-e4dc-4e27-8fa8-2536abb67d34"
-      },
-      {
-        "title": "Mr",
-        "firstname": "Forgotten_password_user",
-        "lastname": "Tester",
-        "username": "ddbtribal1+4@gmail.com",
-        "password": "Abcd!2345",
-        "purpose": "Forgotten_password_user",
-        "optional_details": {
-        },
-        "uuid": "0d81abe3-2059-41c2-8555-6d5021dde6ab"
       }
-    ],
+     ],
     "10.69.105.120": [
       {
         "title": "Mr",
