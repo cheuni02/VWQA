@@ -34,8 +34,8 @@ Feature: Current car dashboard - my service history and plans
 
     When I scroll to my service history and plans
     Then I will see my service history and plans details:
-      | Service type  | Date       | Retailer                      | EVC report |
-      | Service Event | 07/01/2015 | Lookers Volkswagen (Teesside) |            |
+      | Service type  | Date       | Retailer                      |
+      | Service Event | 07/01/2015 | Lookers Volkswagen (Teesside) |
 
     When I scroll to my plan
     Then I will see my plan details:
@@ -44,7 +44,6 @@ Feature: Current car dashboard - my service history and plans
 
     When I select read more link about my plan
     Then I will be on the correct page related to the Fixed price servicing
-
 
 
   @login_dbg_plan_without_car @delete_added_car @logout
@@ -106,11 +105,39 @@ Feature: Current car dashboard - my service history and plans
 
     When I scroll to my service history and plans
     Then I will see my service history and plans details:
-      | Service type  | Date       | Retailer                | EVC report |
-      | MOT Event     | 17/10/2014 | Huddersfield Volkswagen |            |
-      | Service Event | 19/05/2014 | Huddersfield Volkswagen |            |
-      | Service Event | 11/07/2012 | Huddersfield Volkswagen |            |
+      | Service type  | Date       | Retailer                |
+      | MOT Event     | 17/10/2014 | Huddersfield Volkswagen |
+      | Service Event | 19/05/2014 | Huddersfield Volkswagen |
+      | Service Event | 11/07/2012 | Huddersfield Volkswagen |
 
+    When I scroll to my plan
+    Then there is no volkswagen plans
+    When I select I'm interested in fixed price servicing link
+    Then I will be on the correct page related to the Fixed price servicing
+
+  @login_dbg_nothing_without_car @delete_added_car @logout
+  Scenario: I have no service plan or history
+    Given I have added a new car to my account with:
+      | Display name        | My Golf           |
+      | Car status          | CURRENT           |
+      | Registration        | LS10HXV           |
+      | Model               | Golf              |
+      | Derivative          | GOLF S            |
+      | Registration date   | 2010-04-13        |
+      | Fuel type           | Petrol            |
+      | Vin                 | WVWZZZ1KZAW334053 |
+      | Year of manufacture | 2010              |
+      | Engine capacity     | 2.0               |
+      | Transmission        | Manual            |
+      | Purchase type       | NEW_CAR           |
+    And I am on the Volkswagen Homepage
+    When I login into my account
+    Then I will be logged into my account
+    And a default picture of my last added car type golf is displayed
+    And my last added car name is My Golf
+
+    When I scroll to my service history and plans
+    Then there is no service history for my car at present
     When I scroll to my plan
     Then there is no volkswagen plans
     When I select I'm interested in fixed price servicing link

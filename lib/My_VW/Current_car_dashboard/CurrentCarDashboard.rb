@@ -165,8 +165,8 @@ class CurrentCarDashboard < MyVW
     @browser.section(class: 'my-current-service-history')
   end
 
-  def owner_postcode_field
-    @browser.text_field(id: 'owner-postcode')
+  def enable_service_history_feature
+    @browser.element(class: 'my-vw-button--blue', text: 'Enable feature')
   end
 
   def dbg_not_matched_message
@@ -175,21 +175,5 @@ class CurrentCarDashboard < MyVW
 
   def last_name_field
     @browser.text_field(id: 'owner-surname')
-  end
-
-  def scroll_to_guarantee_section
-    scroll_to(current_guarantee_section)
-  end
-
-  def current_guarantee_section
-    @browser.div(class: 'my-current-guarantee__body')
-  end
-
-  def current_guarantees(text)
-    current_guarantee_section.element(class: 'column-list-section-item__heading', text: text)
-  end
-
-  def click_guarantee(text)
-    current_guarantees(text).parent.link(class: 'my-vw-text-link', text: 'Find out more').click
   end
 end

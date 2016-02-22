@@ -90,7 +90,13 @@ class MyVWProfile < MyVW
     selected_car_link.text
   end
 
-  private
+  def hero_title
+    @browser.element(class: 'full-hero__title', text: 'My Account')
+  end
+
+  def personal_details
+    @browser.element(id: 'section-personal-details-form')
+  end
 
   def page_url
     '/owners/my/cars'

@@ -28,20 +28,6 @@ Feature: Current car dashboard
     And a default picture of my last added car type golf is displayed
     And my last added car name is GOLF
 
-  Scenario Outline: My service guarantee
-    When I scroll to my service guarantee
-    Then I will see offered <guarantees>
-    When I select find out more about <guarantees>
-    Then I will be on the correct page related to the <guarantees>
-    When I select browser back button
-    Then I will be logged into my account
-
-    Examples:
-      | guarantees          |
-      | Our service promise |
-      | What we check & why |
-      | Book a service      |
-
   Scenario Outline: Promotions offered
     When I scroll to promotions offered
     Then I will see the <promotions> offered
@@ -103,4 +89,6 @@ Feature: Current car dashboard
   @logout
   Scenario: My Service History Notification section without information as my account is not validated
     When I scroll to my service history and plans
-    Then I will see a message prompting me to enter my postcode for more information
+    Then I will see a message prompting me to enable service history and plans feature
+    When I click on enable service feature
+    Then I'm on my account page
