@@ -1,5 +1,4 @@
 class FinanceOffersPages < OffersFinance
-
   def table_present?
     @browser.table.present?
   end
@@ -15,8 +14,6 @@ class FinanceOffersPages < OffersFinance
   private
 
   def title
-    @browser.div(:id => 'page').div(:class => 'grid-6').h1
+    @browser.div(id: 'page').div(class: 'grid-6').h1
   end
-
-
 end

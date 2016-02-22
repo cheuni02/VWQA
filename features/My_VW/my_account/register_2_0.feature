@@ -17,15 +17,15 @@ Feature: Volkswagen Account Registration
 
   Examples:
     | title | firstname | surname | email                       | feedback                                                 |
-    |       | Toasty    | Tester  | testtesttest992@example.com | Please complete title.      |
-    | Mr    |           | Tester  | testtesttest992@example.com | Please complete first name. |
-    | Mr    | Toasty    |         | testtesttest992@example.com | Please complete last name.  |
+    |       | Toasty    | Tester  | testtesttest992@example.com | Please complete title       |
+    | Mr    |           | Tester  | testtesttest992@example.com | Please complete first name  |
+    | Mr    | Toasty    |         | testtesttest992@example.com | Please complete last name   |
     | Mr    | Toasty    | Tester  |                             | Please complete email |
-    | Mr    | Toasty    | Tester  | testtesttest992             | Please provide a valid email address. |
-    | Mr    | Toasty    | Tester  | testtesttest992@            | Please provide a valid email address. |
-    | Mr    | Toasty    | Tester  | testtesttest992@example     | Please provide a valid email address. |
-    | Mr    | Toasty    | Tester  | @example.com                | Please provide a valid email address. |
-    | Mr    | Toasty    | Tester  | test@example.com@com        | Please provide a valid email address. |
+    | Mr    | Toasty    | Tester  | testtesttest992             | Please provide a valid email address |
+    | Mr    | Toasty    | Tester  | testtesttest992@            | Please provide a valid email address |
+    | Mr    | Toasty    | Tester  | testtesttest992@example     | Please provide a valid email address |
+    | Mr    | Toasty    | Tester  | @example.com                | Please provide a valid email address |
+    | Mr    | Toasty    | Tester  | test@example.com@com        | Please provide a valid email address |
 
   Scenario Outline: New User Tries to Register with invalid Password
     Given i enter my name details as Mr Toasty Tester
@@ -64,3 +64,4 @@ Feature: Volkswagen Account Registration
     And i set the confirm password field to Abcd!2345
     When i submit my new account registration
     Then i should see the registration thank you page in my browser
+

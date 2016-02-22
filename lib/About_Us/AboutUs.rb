@@ -1,5 +1,4 @@
 class AboutUs < BrowserContainer
-
   def timeline
     Timeline.new(@browser)
   end
@@ -11,5 +10,4 @@ class AboutUs < BrowserContainer
   def news
     News.new(@browser)
   end
-
 end

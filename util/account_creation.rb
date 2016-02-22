@@ -3,13 +3,17 @@ require 'json'
 
 PURPOSES = [
   'General',
-  'DBG_User',
-  'DBG_User_Invalid',
+  'DBG_User_History_Plan',
+  'DBG_User_Plan',
+  'DBG_User_History',
+  'DBG_User_History_Ext',
+  'DBG_User_Nothing',
   'Current_car_User',
   'Current_car_User_Ext',
   'Ordered_Car_User',
   'All_details_complete_user',
   'Delete_Car_User',
+  'Forgotten_password_user',
   'Single_current_car_user']
 
 users = JSON.parse(File.read("../users.json"))
@@ -33,12 +37,16 @@ begin
     hash = Hash.new
     hash['title'] = 'Mr'
     hash['firstname'] = "#{purpose}"
-    hash['lastname'] = 'Tester'
-    hash['username'] = "AutomatedToastUser#{ctime - index}@example.com"
+    if purpose == 'Forgotten_password_user'
+      hash['username'] = "ddbtribal1+#{ctime - index}@gmail.com"
+    else
+      hash['username'] = "AutomatedToastUser#{ctime - index}@example.com"
+    end
+    #hash['username'] = "AutomatedToastUser#{ctime - index}@example.com"
     hash['password'] = 'Abcd!2345'
     hash['purpose'] = purpose
     hash['optional_details'] = {}
-    if (purpose == 'All_details_complete_user' || purpose == 'Current_car_User')
+    if (purpose == 'All_details_complete_user' || purpose == 'Current_car_User' || purpose =~ /DBG/)
       hash['optional_details'] = {
         :address_type => 'home',
         :house_number => '4000',
@@ -56,6 +64,27 @@ begin
         :date_of_birth => '1989-08-04 00:00:00'
       }
     end
+
+    case purpose
+    when 'DBG_User_History_Plan'
+      hash['lastname'] = 'Anderson'
+      hash['optional_details'][:postcode] = 'TS17 5BH'
+    when 'DBG_User_Plan'
+      hash['lastname'] = 'Ruthven'
+      hash['optional_details'][:postcode] = 'EH15 3AJ'
+    when 'DBG_User_History'
+      hash['lastname'] = 'Mcanulty'
+      hash['optional_details'][:postcode] = 'HD7 4AH'
+    when 'DBG_User_Nothing'
+      hash['lastname'] = 'Clerk'
+      hash['optional_details'][:postcode] = 'NW2 2AJ'
+    when 'DBG_User_History_Ext'
+      hash['lastname'] = 'Roblin'
+      hash['optional_details'][:postcode] = 'SA12 9PT'
+    else
+      hash['lastname'] = 'Tester'
+    end
+
     index += 1
     #puts hash
     #sleep(3)

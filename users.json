@@ -68,41 +68,143 @@
       {
         "title": "Mr",
         "firstname": "General",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1452686315@example.com",
+        "username": "AutomatedToastUser1456160081@example.com",
         "password": "Abcd!2345",
         "purpose": "General",
         "optional_details": {
         },
-        "uuid": "4981cb04-ea66-4409-8572-4036960c609f"
+        "lastname": "Tester",
+        "uuid": "18babb41-e4c3-46dc-8795-b712317b5f4f"
       },
       {
         "title": "Mr",
-        "firstname": "DBG_User",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1452686314@example.com",
+        "firstname": "DBG_User_History_Plan",
+        "username": "AutomatedToastUser1456160080@example.com",
         "password": "Abcd!2345",
-        "purpose": "DBG_User",
+        "purpose": "DBG_User_History_Plan",
         "optional_details": {
+          "address_type": "home",
+          "house_number": "4000",
+          "postcode": "TS17 5BH",
+          "street": "Empire Road",
+          "street2": "Empire Place",
+          "city": "LONDON",
+          "county": "MIDDLESEX",
+          "phone1": "01234567890",
+          "phone2": "09876543210",
+          "phone_type": "home",
+          "work_phone": "54321098765",
+          "preferred_contact": "email",
+          "marital_status": "Single",
+          "date_of_birth": "1989-08-04 00:00:00"
         },
-        "uuid": "83de8032-1b54-403b-b123-7e1be1c4a6f3"
+        "lastname": "Anderson",
+        "uuid": "b99c9cab-107f-4ff9-922a-ba6f7614b6e5"
       },
       {
         "title": "Mr",
-        "firstname": "DBG_User_Invalid",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1452686313@example.com",
+        "firstname": "DBG_User_Plan",
+        "username": "AutomatedToastUser1456160079@example.com",
         "password": "Abcd!2345",
-        "purpose": "DBG_User_Invalid",
+        "purpose": "DBG_User_Plan",
         "optional_details": {
+          "address_type": "home",
+          "house_number": "4000",
+          "postcode": "EH15 3AJ",
+          "street": "Empire Road",
+          "street2": "Empire Place",
+          "city": "LONDON",
+          "county": "MIDDLESEX",
+          "phone1": "01234567890",
+          "phone2": "09876543210",
+          "phone_type": "home",
+          "work_phone": "54321098765",
+          "preferred_contact": "email",
+          "marital_status": "Single",
+          "date_of_birth": "1989-08-04 00:00:00"
         },
-        "uuid": "c2b0f70c-3425-4852-90e2-686d7ee830b1"
+        "lastname": "Ruthven",
+        "uuid": "8accbb8f-e8ce-4f2d-9b18-1a25a1831985"
+      },
+      {
+        "title": "Mr",
+        "firstname": "DBG_User_History",
+        "username": "AutomatedToastUser1456160078@example.com",
+        "password": "Abcd!2345",
+        "purpose": "DBG_User_History",
+        "optional_details": {
+          "address_type": "home",
+          "house_number": "4000",
+          "postcode": "HD7 4AH",
+          "street": "Empire Road",
+          "street2": "Empire Place",
+          "city": "LONDON",
+          "county": "MIDDLESEX",
+          "phone1": "01234567890",
+          "phone2": "09876543210",
+          "phone_type": "home",
+          "work_phone": "54321098765",
+          "preferred_contact": "email",
+          "marital_status": "Single",
+          "date_of_birth": "1989-08-04 00:00:00"
+        },
+        "lastname": "Mcanulty",
+        "uuid": "a4ebb37b-b7fb-45fc-b0d1-0bea33d227ad"
+      },
+      {
+        "title": "Mr",
+        "firstname": "DBG_User_History_Ext",
+        "username": "AutomatedToastUser1456160077@example.com",
+        "password": "Abcd!2345",
+        "purpose": "DBG_User_History_Ext",
+        "optional_details": {
+          "address_type": "home",
+          "house_number": "4000",
+          "postcode": "SA12 9PT",
+          "street": "Empire Road",
+          "street2": "Empire Place",
+          "city": "LONDON",
+          "county": "MIDDLESEX",
+          "phone1": "01234567890",
+          "phone2": "09876543210",
+          "phone_type": "home",
+          "work_phone": "54321098765",
+          "preferred_contact": "email",
+          "marital_status": "Single",
+          "date_of_birth": "1989-08-04 00:00:00"
+        },
+        "lastname": "Roblin",
+        "uuid": "44c38323-213a-49cf-8955-c297acfa6bfe"
+      },
+      {
+        "title": "Mr",
+        "firstname": "DBG_User_Nothing",
+        "username": "AutomatedToastUser1456160076@example.com",
+        "password": "Abcd!2345",
+        "purpose": "DBG_User_Nothing",
+        "optional_details": {
+          "address_type": "home",
+          "house_number": "4000",
+          "postcode": "NW2 2AJ",
+          "street": "Empire Road",
+          "street2": "Empire Place",
+          "city": "LONDON",
+          "county": "MIDDLESEX",
+          "phone1": "01234567890",
+          "phone2": "09876543210",
+          "phone_type": "home",
+          "work_phone": "54321098765",
+          "preferred_contact": "email",
+          "marital_status": "Single",
+          "date_of_birth": "1989-08-04 00:00:00"
+        },
+        "lastname": "Clerk",
+        "uuid": "595e8933-1e7e-4ccc-8116-ab5c13ea54c2"
       },
       {
         "title": "Mr",
         "firstname": "Current_car_User",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1452686312@example.com",
+        "username": "AutomatedToastUser1456160075@example.com",
         "password": "Abcd!2345",
         "purpose": "Current_car_User",
         "optional_details": {
@@ -121,35 +223,35 @@
           "marital_status": "Single",
           "date_of_birth": "1989-08-04 00:00:00"
         },
-        "uuid": "d59f52fe-6a1a-4c61-868e-b46ae60480da"
+        "lastname": "Tester",
+        "uuid": "2da40bd3-02a1-4096-897d-a8765f2a2f90"
       },
       {
         "title": "Mr",
         "firstname": "Current_car_User_Ext",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1452686311@example.com",
+        "username": "AutomatedToastUser1456160074@example.com",
         "password": "Abcd!2345",
         "purpose": "Current_car_User_Ext",
         "optional_details": {
         },
-        "uuid": "d6851af2-d533-41ac-8184-e8e2ea01e8e2"
+        "lastname": "Tester",
+        "uuid": "b781a7c8-b667-488e-ac4e-9c103b0d6a6a"
       },
       {
         "title": "Mr",
         "firstname": "Ordered_Car_User",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1452686310@example.com",
+        "username": "AutomatedToastUser1456160073@example.com",
         "password": "Abcd!2345",
         "purpose": "Ordered_Car_User",
         "optional_details": {
         },
-        "uuid": "b56ae425-cf58-47f6-9d41-7aed322f8c8b"
+        "lastname": "Tester",
+        "uuid": "eb7a8ee7-23c1-4089-8f57-08139746e528"
       },
       {
         "title": "Mr",
         "firstname": "All_details_complete_user",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1452686309@example.com",
+        "username": "AutomatedToastUser1456160072@example.com",
         "password": "Abcd!2345",
         "purpose": "All_details_complete_user",
         "optional_details": {
@@ -168,70 +270,184 @@
           "marital_status": "Single",
           "date_of_birth": "1989-08-04 00:00:00"
         },
-        "uuid": "a96ec7fb-b2ad-4f56-91a0-815806153a0c"
+        "lastname": "Tester",
+        "uuid": "77512571-a848-4510-bbea-8b818c35980a"
       },
       {
         "title": "Mr",
         "firstname": "Delete_Car_User",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1452686308@example.com",
+        "username": "AutomatedToastUser1456160071@example.com",
         "password": "Abcd!2345",
         "purpose": "Delete_Car_User",
         "optional_details": {
         },
-        "uuid": "3632ad50-a026-4f80-b21b-1c48729b6137"
+        "lastname": "Tester",
+        "uuid": "b9b3884d-e248-4179-9906-3ffc6bb9edf5"
+      },
+      {
+        "title": "Mr",
+        "firstname": "Forgotten_password_user",
+        "username": "ddbtribal1+1456160070@gmail.com",
+        "password": "Abcd!2345",
+        "purpose": "Forgotten_password_user",
+        "optional_details": {
+        },
+        "lastname": "Tester",
+        "uuid": "d66413c5-a117-4a85-ace8-a560c78ef5d0"
       },
       {
         "title": "Mr",
         "firstname": "Single_current_car_user",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1452686307@example.com",
+        "username": "AutomatedToastUser1456160069@example.com",
         "password": "Abcd!2345",
         "purpose": "Single_current_car_user",
         "optional_details": {
         },
-        "uuid": "096069a5-fc99-4e4d-8e1a-dd64457a1ada"
+        "lastname": "Tester",
+        "uuid": "8816b285-d348-4419-88e0-47ce374e08d6"
       }
     ],
     "10.69.101.120": [
       {
         "title": "Mr",
         "firstname": "General",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1452694320@example.com",
+        "username": "AutomatedToastUser1456160166@example.com",
         "password": "Abcd!2345",
         "purpose": "General",
         "optional_details": {
         },
-        "uuid": "959b786a-799d-4a37-be51-72036ff77001"
+        "lastname": "Tester",
+        "uuid": "07d7ad6c-3c97-4e9e-b0d9-0870f3753916"
       },
       {
         "title": "Mr",
-        "firstname": "DBG_User",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1452694319@example.com",
+        "firstname": "DBG_User_History_Plan",
+        "username": "AutomatedToastUser1456160165@example.com",
         "password": "Abcd!2345",
-        "purpose": "DBG_User",
+        "purpose": "DBG_User_History_Plan",
         "optional_details": {
+          "address_type": "home",
+          "house_number": "4000",
+          "postcode": "TS17 5BH",
+          "street": "Empire Road",
+          "street2": "Empire Place",
+          "city": "LONDON",
+          "county": "MIDDLESEX",
+          "phone1": "01234567890",
+          "phone2": "09876543210",
+          "phone_type": "home",
+          "work_phone": "54321098765",
+          "preferred_contact": "email",
+          "marital_status": "Single",
+          "date_of_birth": "1989-08-04 00:00:00"
         },
-        "uuid": "42abb11a-ee68-4c1f-b43e-e399d0aa4366"
+        "lastname": "Anderson",
+        "uuid": "6ecad588-30ce-4d8d-afdc-0dbd59717c3a"
       },
       {
         "title": "Mr",
-        "firstname": "DBG_User_Invalid",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1452694318@example.com",
+        "firstname": "DBG_User_Plan",
+        "username": "AutomatedToastUser1456160164@example.com",
         "password": "Abcd!2345",
-        "purpose": "DBG_User_Invalid",
+        "purpose": "DBG_User_Plan",
         "optional_details": {
+          "address_type": "home",
+          "house_number": "4000",
+          "postcode": "EH15 3AJ",
+          "street": "Empire Road",
+          "street2": "Empire Place",
+          "city": "LONDON",
+          "county": "MIDDLESEX",
+          "phone1": "01234567890",
+          "phone2": "09876543210",
+          "phone_type": "home",
+          "work_phone": "54321098765",
+          "preferred_contact": "email",
+          "marital_status": "Single",
+          "date_of_birth": "1989-08-04 00:00:00"
         },
-        "uuid": "082c6f29-d33c-4213-bc20-85c9f6c6d0d5"
+        "lastname": "Ruthven",
+        "uuid": "7e3ab5a5-54e9-4a16-ab9a-339af4cc1deb"
+      },
+      {
+        "title": "Mr",
+        "firstname": "DBG_User_History",
+        "username": "AutomatedToastUser1456160163@example.com",
+        "password": "Abcd!2345",
+        "purpose": "DBG_User_History",
+        "optional_details": {
+          "address_type": "home",
+          "house_number": "4000",
+          "postcode": "HD7 4AH",
+          "street": "Empire Road",
+          "street2": "Empire Place",
+          "city": "LONDON",
+          "county": "MIDDLESEX",
+          "phone1": "01234567890",
+          "phone2": "09876543210",
+          "phone_type": "home",
+          "work_phone": "54321098765",
+          "preferred_contact": "email",
+          "marital_status": "Single",
+          "date_of_birth": "1989-08-04 00:00:00"
+        },
+        "lastname": "Mcanulty",
+        "uuid": "3eba4a30-b718-4f54-b121-dc40aaf3f290"
+      },
+      {
+        "title": "Mr",
+        "firstname": "DBG_User_History_Ext",
+        "username": "AutomatedToastUser1456160162@example.com",
+        "password": "Abcd!2345",
+        "purpose": "DBG_User_History_Ext",
+        "optional_details": {
+          "address_type": "home",
+          "house_number": "4000",
+          "postcode": "SA12 9PT",
+          "street": "Empire Road",
+          "street2": "Empire Place",
+          "city": "LONDON",
+          "county": "MIDDLESEX",
+          "phone1": "01234567890",
+          "phone2": "09876543210",
+          "phone_type": "home",
+          "work_phone": "54321098765",
+          "preferred_contact": "email",
+          "marital_status": "Single",
+          "date_of_birth": "1989-08-04 00:00:00"
+        },
+        "lastname": "Roblin",
+        "uuid": "6850c254-84d1-4841-9ea1-b3e3128ad0b9"
+      },
+      {
+        "title": "Mr",
+        "firstname": "DBG_User_Nothing",
+        "username": "AutomatedToastUser1456160161@example.com",
+        "password": "Abcd!2345",
+        "purpose": "DBG_User_Nothing",
+        "optional_details": {
+          "address_type": "home",
+          "house_number": "4000",
+          "postcode": "NW2 2AJ",
+          "street": "Empire Road",
+          "street2": "Empire Place",
+          "city": "LONDON",
+          "county": "MIDDLESEX",
+          "phone1": "01234567890",
+          "phone2": "09876543210",
+          "phone_type": "home",
+          "work_phone": "54321098765",
+          "preferred_contact": "email",
+          "marital_status": "Single",
+          "date_of_birth": "1989-08-04 00:00:00"
+        },
+        "lastname": "Clerk",
+        "uuid": "e1e52871-b670-4539-9fb6-f94ec2871dda"
       },
       {
         "title": "Mr",
         "firstname": "Current_car_User",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1452694317@example.com",
+        "username": "AutomatedToastUser1456160160@example.com",
         "password": "Abcd!2345",
         "purpose": "Current_car_User",
         "optional_details": {
@@ -250,35 +466,35 @@
           "marital_status": "Single",
           "date_of_birth": "1989-08-04 00:00:00"
         },
-        "uuid": "1bc057f6-6c39-4aff-b75f-567e2b90dd8c"
+        "lastname": "Tester",
+        "uuid": "ed844d8e-a2e3-4af3-b1cb-ee2279cfb158"
       },
       {
         "title": "Mr",
         "firstname": "Current_car_User_Ext",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1452694316@example.com",
+        "username": "AutomatedToastUser1456160159@example.com",
         "password": "Abcd!2345",
         "purpose": "Current_car_User_Ext",
         "optional_details": {
         },
-        "uuid": "9e4589a1-59ec-4384-82d9-fb70e5dc140a"
+        "lastname": "Tester",
+        "uuid": "c05e1024-8197-45e9-a44f-ae4582b0f565"
       },
       {
         "title": "Mr",
         "firstname": "Ordered_Car_User",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1452694315@example.com",
+        "username": "AutomatedToastUser1456160158@example.com",
         "password": "Abcd!2345",
         "purpose": "Ordered_Car_User",
         "optional_details": {
         },
-        "uuid": "d042a588-74ef-4392-8c92-09db9b2aea8f"
+        "lastname": "Tester",
+        "uuid": "8f9c2d0d-0770-4b1e-a9d5-94133ce93150"
       },
       {
         "title": "Mr",
         "firstname": "All_details_complete_user",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1452694314@example.com",
+        "username": "AutomatedToastUser1456160157@example.com",
         "password": "Abcd!2345",
         "purpose": "All_details_complete_user",
         "optional_details": {
@@ -297,29 +513,41 @@
           "marital_status": "Single",
           "date_of_birth": "1989-08-04 00:00:00"
         },
-        "uuid": "72dba24e-bca6-4a5d-8244-4ab92639c5e2"
+        "lastname": "Tester",
+        "uuid": "4235a667-d441-4a05-b9a9-b2c6ab346729"
       },
       {
         "title": "Mr",
         "firstname": "Delete_Car_User",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1452694313@example.com",
+        "username": "AutomatedToastUser1456160156@example.com",
         "password": "Abcd!2345",
         "purpose": "Delete_Car_User",
         "optional_details": {
         },
-        "uuid": "09daf0e6-fe64-4651-9282-3a32c431fd8e"
+        "lastname": "Tester",
+        "uuid": "c070d120-99f8-4a4c-959e-f5aba529bc16"
+      },
+      {
+        "title": "Mr",
+        "firstname": "Forgotten_password_user",
+        "username": "ddbtribal1+1456160155@gmail.com",
+        "password": "Abcd!2345",
+        "purpose": "Forgotten_password_user",
+        "optional_details": {
+        },
+        "lastname": "Tester",
+        "uuid": "8b67d709-f65f-4ab3-b706-d893ad12314f"
       },
       {
         "title": "Mr",
         "firstname": "Single_current_car_user",
-        "lastname": "Tester",
-        "username": "AutomatedToastUser1452694312@example.com",
+        "username": "AutomatedToastUser1456160154@example.com",
         "password": "Abcd!2345",
         "purpose": "Single_current_car_user",
         "optional_details": {
         },
-        "uuid": "392523b3-f2a4-4b90-a02d-bcd62e5ea764"
+        "lastname": "Tester",
+        "uuid": "430e4983-97f1-480a-af04-218568377b86"
       }
     ]
   }

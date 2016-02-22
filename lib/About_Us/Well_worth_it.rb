@@ -1,5 +1,4 @@
 class Well_worth_it < AboutUs
-
   def visit
     visit_page(page_url)
   end
@@ -7,7 +6,8 @@ class Well_worth_it < AboutUs
   def top_youtube_video
     youtube_video
   end
-  #Images
+
+  # Images
   def sound_proof_image
     sound_proof_cabin_image
   end
@@ -61,13 +61,11 @@ class Well_worth_it < AboutUs
 
   def find_image(image_name)
     images = get_all_images
-    #images.each {|image| image.src =~ /#{image_name}/i ? return image.present?}
+    # images.each {|image| image.src =~ /#{image_name}/i ? return image.present?}
     images.each do |image|
-      if image.src =~ /#{image_name}/i
-        return image.present?
-      end
+      return image.present? if image.src =~ /#{image_name}/i
     end
-    return false
+    false
   end
 
   def title
@@ -81,29 +79,29 @@ class Well_worth_it < AboutUs
   private
 
   def page_url
-    "/about-us/well-worth-it"
+    '/about-us/well-worth-it'
   end
 
   def youtube_video
-    @browser.iframe(:src => "//www.youtube.com/embed/videoseries?list=PLDFOuBfiH4xjV-bBpmbFeLGz4LHT6ltlU&wmode=transparent")
+    @browser.iframe(src: '//www.youtube.com/embed/videoseries?list=PLDFOuBfiH4xjV-bBpmbFeLGz4LHT6ltlU&wmode=transparent')
   end
 
   def small_youtube_video_1
-    #STDOUT.puts @browser.div(:id => "valueHub-slideshow").present?
-    #STDOUT.puts @browser.div(:id => "valueHub-slideshow").iframe(:src => /www\.youtube\.com/i).present?
-    @browser.div(:id => "valueHub-slideshow").iframe(:src => /www\.youtube\.com/i, :index => 0)
+    # STDOUT.puts @browser.div(:id => "valueHub-slideshow").present?
+    # STDOUT.puts @browser.div(:id => "valueHub-slideshow").iframe(:src => /www\.youtube\.com/i).present?
+    @browser.div(id: 'valueHub-slideshow').iframe(src: /www\.youtube\.com/i, index: 0)
   end
 
   def small_youtube_video_2
-    @browser.div(:id => "valueHub-slideshow").iframe(:src => /www\.youtube\.com/i, :index => 1)
+    @browser.div(id: 'valueHub-slideshow').iframe(src: /www\.youtube\.com/i, index: 1)
   end
 
   def small_youtube_video_3
-    @browser.div(:id => "valueHub-slideshow").iframe(:src => /www\.youtube\.com/i, :index => 2)
+    @browser.div(id: 'valueHub-slideshow').iframe(src: /www\.youtube\.com/i, index: 2)
   end
 
   def yt_container
-    @browser.div(:id => "valueHub-slideshow")
+    @browser.div(id: 'valueHub-slideshow')
   end
 
   def get_all_images
@@ -111,28 +109,26 @@ class Well_worth_it < AboutUs
   end
 
   def peoples_reviews_images
-    @browser.p(:class => "ownerImages").images
+    @browser.p(class: 'ownerImages').images
   end
 
   def find_model_button
-    @browser.li(:class => "vw-button").link(:href => "/new/range")
+    @browser.li(class: 'vw-button').link(href: '/new/range')
   end
 
   def book_test_drive_button
-    @browser.link(:href => "/book-a-test-drive")
+    @browser.link(href: '/book-a-test-drive')
   end
 
   def find_retailer_button
-    @browser.link(:href => "/find-a-retailer")
+    @browser.link(href: '/find-a-retailer')
   end
 
   def title_on_page
-    @browser.h1(:class => "heading-main")
+    @browser.h1(class: 'heading-main')
   end
 
   def subheadings_on_page
-    @browser.divs(:class => "title orange").each do |div|
-      div.present?
-    end
+    @browser.divs(class: 'title orange').each(&:present?)
   end
 end

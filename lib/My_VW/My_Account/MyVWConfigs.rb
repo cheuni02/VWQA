@@ -1,5 +1,4 @@
 class MyVWConfigs < MyVW
-
   def visit
     visit_page(page_url)
   end
@@ -18,7 +17,7 @@ class MyVWConfigs < MyVW
   end
 
   def selecting_model(model)
-    @browser.link(:href => "/new/#{model}/configure")
+    @browser.link(href: "/new/#{model}/configure")
   end
 
   def trim
@@ -50,7 +49,7 @@ class MyVWConfigs < MyVW
   end
 
   def selecting_vehicle(car)
-    @browser.link(:href => "/new/#{car}/configure")
+    @browser.link(href: "/new/#{car}/configure")
   end
 
   def editing_configuration_button
@@ -70,7 +69,7 @@ class MyVWConfigs < MyVW
   end
 
   def clicking_car(trim)
-    @browser.link(:href => "/new/#{trim}/configure")
+    @browser.link(href: "/new/#{trim}/configure")
   end
 
   def delete_config
@@ -86,107 +85,106 @@ class MyVWConfigs < MyVW
     configuration_check_after_removed
   end
 
-
   private
 
   def page_url
-    "/owners/my/configurations"
+    '/owners/my/configurations'
   end
 
   def no_configurations
-    @browser.div(:class => "no-configurations")
+    @browser.div(class: 'no-configurations')
   end
 
   def has_configurations
-    @browser.div(:id => "configured-cars")
+    @browser.div(id: 'configured-cars')
   end
 
   def p_url
-    "/configurator"
+    '/configurator'
   end
 
   def selecting_trim
-    @browser.button(:class => "vw-btn choose" , :index => 0)
+    @browser.button(class: 'vw-btn choose', index: 0)
   end
 
   def engine_config
-    @browser.div(:class => "engine-image").wait_until_present
-    @browser.div(:class => "engine-image" , :index => 1).click
+    @browser.div(class: 'engine-image').wait_until_present
+    @browser.div(class: 'engine-image', index: 1).click
   end
 
   def paint_config
-    @browser.div(:id => "config-nav").ul.li(:index => 3).click
-    @browser.div(:class => "paint-swatch").wait_until_present
+    @browser.div(id: 'config-nav').ul.li(index: 3).click
+    @browser.div(class: 'paint-swatch').wait_until_present
   end
 
   def overview_config
-    @browser.div(:id => "config-nav").ul.li(:index => 6).click
-    @browser.div(:id => "config-section").wait_until_present
+    @browser.div(id: 'config-nav').ul.li(index: 6).click
+    @browser.div(id: 'config-section').wait_until_present
   end
 
   def click_save_button
-    @browser.button(:text => "Save").wait_until_present
-    @browser.button(:text => "Save").click
+    @browser.button(text: 'Save').wait_until_present
+    @browser.button(text: 'Save').click
   end
 
   def naming_config
-    @browser.div(:class => "menu-content").wait_until_present
-    @browser.text_field(:id => "js-car-name").set 'tester'
+    @browser.div(class: 'menu-content').wait_until_present
+    @browser.text_field(id: 'js-car-name').set 'tester'
   end
 
   def saving_config
-    @browser.link(:class => "vw-btn submit").click
-    @browser.div(:class => "vw-confirmation-menu").wait_until_present
+    @browser.link(class: 'vw-btn submit').click
+    @browser.div(class: 'vw-confirmation-menu').wait_until_present
   end
 
   def my_configurations_page
-    @browser.link(:href => "/owners/my").click
-    @browser.link(:href => "/owners/my/configurations").click
+    @browser.link(href: '/owners/my').click
+    @browser.link(href: '/owners/my/configurations').click
   end
 
   def check_configuration_exists
-    @browser.h4(:text => "tester").present?
+    @browser.h4(text: 'tester').present?
   end
 
   def correct_data
-    @browser.h4(:text => "tester").click
-    @browser.div(:class => "description").present?
-    @browser.div(:class => "options").present?
+    @browser.h4(text: 'tester').click
+    @browser.div(class: 'description').present?
+    @browser.div(class: 'options').present?
   end
 
   def edit_config
-    @browser.h4(:text => "tester").click
-    @browser.span(:class => "vw-icon-link").click
+    @browser.h4(text: 'tester').click
+    @browser.span(class: 'vw-icon-link').click
   end
 
   def configurator_check
-    @browser.div(:id => "config-nav").ul.li(:class => "overview current").present?
+    @browser.div(id: 'config-nav').ul.li(class: 'overview current').present?
   end
 
   def change_paint_config
-    @browser.ul(:class => "configure-item-container grid-1" , :index => 1).li(:class => "configure-item info-item" , :index => 1).click
+    @browser.ul(class: 'configure-item-container grid-1', index: 1).li(class: 'configure-item info-item', index: 1).click
   end
 
   def extras_config
-    @browser.div(:id => "config-nav").ul.li(:index => 5).click
-    @browser.div(:id => "config-section").wait_until_present
+    @browser.div(id: 'config-nav').ul.li(index: 5).click
+    @browser.div(id: 'config-section').wait_until_present
   end
 
   def change_extras_config
-    @browser.div(:id => "config-section").li(:class => "extras").div(:class => "content grid-row").ul(:class => "configure-item-container grid-2").li(:index => 1).click
+    @browser.div(id: 'config-section').li(class: 'extras').div(class: 'content grid-row').ul(class: 'configure-item-container grid-2').li(index: 1).click
   end
 
   def select_config
-    @browser.h4(:text => "tester").click
+    @browser.h4(text: 'tester').click
   end
 
   def deleting_a_configuration
-    @browser.link(:class => "js-delete").click
+    @browser.link(class: 'js-delete').click
     @browser.alert.exists?
     @browser.alert.ok
   end
 
   def configuration_check_after_removed
-    @browser.h4(:text => "tester").present?
+    @browser.h4(text: 'tester').present?
   end
 end

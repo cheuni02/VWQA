@@ -1,5 +1,4 @@
 class FinanceOptionsExplained < OffersFinance
-
   def visit
     visit_page(page_url)
   end
@@ -11,17 +10,17 @@ class FinanceOptionsExplained < OffersFinance
 
   def click_link(link)
     case link
-      when 'Solutions'
-        solutions_button.click
-      when /Hire purchase/i
-        hirepurchase_button.click
-      when /Contract hire/i
-        contracthire_button.click
-      when /Existing finance customers/i
-        existing_button.click
-      when 'e-Solutions'
-        e_solutions_button.click
-      else raise
+    when 'Solutions'
+      solutions_button.click
+    when /Hire purchase/i
+      hirepurchase_button.click
+    when /Contract hire/i
+      contracthire_button.click
+    when /Existing finance customers/i
+      existing_button.click
+    when 'e-Solutions'
+      e_solutions_button.click
+    else fail
     end
   end
 
@@ -32,30 +31,30 @@ class FinanceOptionsExplained < OffersFinance
   private
 
   def page_url
-    "/buying-guide/finance-options-explained"
+    '/buying-guide/finance-options-explained'
   end
 
   def selection_buttons
-    @browser.divs(:class => "vw-adaptive-vertical-button")
+    @browser.divs(class: 'vw-adaptive-vertical-button')
   end
 
   def solutions_button
-    @browser.div(:class => "vw-adaptive-vertical-button", :index => 0)
+    @browser.div(class: 'vw-adaptive-vertical-button', index: 0)
   end
 
   def hirepurchase_button
-    @browser.div(:class => "vw-adaptive-vertical-button", :index => 1)
+    @browser.div(class: 'vw-adaptive-vertical-button', index: 1)
   end
 
   def contracthire_button
-    @browser.div(:class => "vw-adaptive-vertical-button", :index => 2)
+    @browser.div(class: 'vw-adaptive-vertical-button', index: 2)
   end
 
   def existing_button
-    @browser.div(:class => "vw-adaptive-vertical-button", :index => 3)
+    @browser.div(class: 'vw-adaptive-vertical-button', index: 3)
   end
 
   def e_solutions_button
-    @browser.div(:class => "vw-adaptive-vertical-button", :index => 4)
+    @browser.div(class: 'vw-adaptive-vertical-button', index: 4)
   end
 end

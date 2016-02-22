@@ -18,7 +18,7 @@ When(/^I select the (A car I own|A car I ordered|A configured car) button$/) do 
   add_car = site.my_vw.add_current_car_step_1
   Watir::Wait.until { add_car.car_i_own_button.present? }
   if button == 'A car I own'
-    add_car.car_i_own_button.when_present.click
+    Timeout.timeout(3) {  add_car.car_i_own_button.when_present.click until add_car.max_car_limit.present? || add_car.registration_text_field.present? }
   elsif button == 'A car I ordered'
     add_car.car_i_ordered_button.when_present.click
   elsif button == 'A configured car'
@@ -54,16 +54,16 @@ When(/^I lookup the registration$/) do
 end
 
 Then(/^I will see error message:$/) do |table|
-  add_car_error_message = site.my_vw.add_current_car_step_1.error_message
+  add_car = site.my_vw.add_current_car_step_1
   table.hashes.each do |hash|
-    Timeout.timeout(3) { sleep 1 unless add_car_error_message.text == hash['Feedback'] }
-    expect(add_car_error_message.text).to eq(hash['Feedback'])
+    Watir::Wait.until { add_car.error_message.text.include? hash['Feedback'] }
+    expect(add_car.error_message.text).to eq(hash['Feedback'])
   end
 end
 
 Then(/^I will see my car details in summary:$/) do |table|
   add_car = site.my_vw.add_current_car_step_1
-  Timeout.timeout(3) { sleep 1 unless add_car.success_message.visible? }
+  Watir::Wait.until { add_car.success_message.visible? }
   expect(add_car.success_message.visible?).to be true
   table.hashes.each do |hash|
     expect(add_car.searched_car_reg.text).to eq(hash['Registration number'])
@@ -74,7 +74,7 @@ end
 
 Then(/^I will see my car details in editable form with no details:$/) do |table|
   add_car = site.my_vw.add_current_car_step_1
-  Timeout.timeout(3) { sleep 1 unless add_car.edit_car_form.visible? }
+  Watir::Wait.until { add_car.edit_car_form.visible? }
   expect(add_car.edit_car_form.visible?).to be true
   fields = []
   table.hashes.each do |hash|
@@ -94,7 +94,7 @@ end
 
 Then(/^I will see my car details in editable form:$/) do |table|
   add_car = site.my_vw.add_current_car_step_1
-  Timeout.timeout(3) { sleep 1 unless add_car.edit_car_form.present? && add_car.details_registration_number.text == @reg_num }
+  Watir::Wait.until { add_car.edit_car_form.present? }
   table.hashes.each do |hash|
     expect(add_car.model_field.value).to eq(hash['Model'])
     expect(add_car.derivative_field.value).to eq(hash['Derivative'])
@@ -149,15 +149,16 @@ end
 
 And(/^I select continue to step (\d+)$/) do |step|
   case step
-    when '2'
-      site.my_vw.add_current_car_step_1.go_to_section_2.when_present.click
-    when '3'
-      site.my_vw.add_current_car_step_2.go_to_section_3.when_present.click
+  when '2'
+    site.my_vw.add_current_car_step_1.go_to_section_2.when_present.click
+  when '3'
+    site.my_vw.add_current_car_step_2.go_to_section_3.when_present.click
   end
   Watir::Wait.while { site.my_vw.add_current_car.loading_wheel.visible? }
 end
 
 Then(/^I will see that my car details are incomplete with (.*)$/) do |feedback|
+  site.my_vw.add_current_car.scroll_up
   steps %(
       Then I will see that my car details are incomplete with:
       | Feedback    |
@@ -167,17 +168,17 @@ end
 
 Then (/^I will see that my car details are (?:incomplete|incorrect) with:$/) do |table|
   add_car = site.my_vw.add_current_car_step_1
-  Timeout.timeout(5) { sleep 1 unless add_car.my_car_details_errors.visible? }
+  Watir::Wait.until { add_car.my_car_details_errors.visible? }
   expect(add_car.my_car_details_errors.visible?).to eq(true)
   table.hashes.each_with_index do |hash, index|
-    Timeout.timeout(3) { sleep 1 unless add_car.my_car_details_errors.li(index: index).text == hash['Feedback'] }
+    Watir::Wait.until { add_car.my_car_details_errors.li(index: index).text == hash['Feedback'] }
     expect(add_car.my_car_details_errors.li(index: index).text).to eq(hash['Feedback'])
   end
 end
 
 Then(/^I will see my car name validation feedback (.*)$/) do |feedback|
   add_car = site.my_vw.add_current_car_step_1
-  Timeout.timeout(3) { sleep 0.5 unless add_car.car_name_validation_message.text == feedback }
+  Timeout.timeout(3) { sleep 1 unless add_car.car_name_validation_message.text == feedback }
   expect(add_car.car_name_validation_message.when_present.text).to eq(feedback)
 end
 
@@ -309,8 +310,8 @@ end
 Then(/^I'm presented with all the days of (.*) between (\d+)\-(\d+)$/) do |month_year, first_day, last_day|
   add_car = site.my_vw.add_current_car_step_1
   expect(add_car.date_picker_current_month.text).to eq(month_year)
-  expect(add_car.check_month_days_range.first).to eq(first_day)
-  expect(add_car.check_month_days_range.last).to eq(last_day)
+  expect(add_car.check_month_days_range.first.text).to eq(first_day)
+  expect(add_car.check_month_days_range.last.text).to eq(last_day)
 end
 
 When(/^I choose the (\d+)(?:st|rd|nd|th)$/) do |day|

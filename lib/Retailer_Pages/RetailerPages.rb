@@ -1,5 +1,4 @@
 class RetailerPages < BrowserContainer
-
   def retailer_homepage_loaded?
     retailers_slideshow.present?
   end
@@ -17,30 +16,22 @@ class RetailerPages < BrowserContainer
   end
 
   def dismiss_google_maps_modal
-    @browser.execute_script("window.alert = function() {}")
+    @browser.execute_script('window.alert = function() {}')
   end
 
-
-
-  private
-
   def retailers_slideshow
-    @browser.div(:id => "retailers-slideshow")
+    @browser.div(id: 'retailers-slideshow')
   end
 
   def retailer_offers_list
-    @browser.ul(:class => "offer-list")
+    @browser.ul(class: 'offer-list')
   end
 
   def retailer_name_header
-    @browser.li(:class => "title selected current")
+    @browser.li(class: 'title selected current')
   end
 
   def current_url
     @browser.url
   end
-
-
-
-
 end

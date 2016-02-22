@@ -48,7 +48,6 @@ Feature: Add a current car
 
     When I add a into the registration field
     Then the Lookup button is enabled
-
     When I lookup the registration
     Then I will see error message:
       | Feedback                                                                                         |
@@ -60,6 +59,15 @@ Feature: Add a current car
       | Feedback                                                                                            |
       | Looks like your registration doesn’t belong to a Volkswagen. You can only add Volkswagens to My VW. |
 
+
+  Scenario: I search for my already registered car
+    When I add NL62CZM into the registration field
+    And I lookup the registration
+    Then I will see error message:
+      | Feedback                                                                                                        |
+      | Looks like you have this car added already. Go to My Cars to view it or search for another registration number. |
+
+
   Scenario: I search for a non VW car's registration
     When I add CV54 VDF into the registration field
     And I lookup the registration
@@ -68,11 +76,11 @@ Feature: Add a current car
       | Looks like your registration doesn’t belong to a Volkswagen. You can only add Volkswagens to My VW. |
 
   Scenario: I search for a VW car's registration
-    When I add KS64FVZ into the registration field
+    When I add ML15XHR into the registration field
     And I lookup the registration
     Then I will see my car details in summary:
-      | Registration number | Model  | Details                                              |
-      | KS64FVZ             | Passat | PASSAT SE BUSINESS TDI BM, 2014, 2 Diesel, Automatic |
+      | Registration number | Model  | Details                                           |
+      | ML15XHR             | Passat | PASSAT SE BUSINESS TDI BM, 2015, 2 Diesel, Manual |
     And acquired as will be set to A new car
     And my car will be called My Passat by default
 
@@ -81,8 +89,8 @@ Feature: Add a current car
 
     When I select the Cancel button
     Then I will see my car details in summary:
-      | Registration number | Model  | Details                                              |
-      | KS64FVZ             | Passat | PASSAT SE BUSINESS TDI BM, 2014, 2 Diesel, Automatic |
+      | Registration number | Model  | Details                                           |
+      | ML15XHR             | Passat | PASSAT SE BUSINESS TDI BM, 2015, 2 Diesel, Manual |
     And acquired as will be set to A new car
     And my car will be called My Passat by default
 
@@ -90,7 +98,7 @@ Feature: Add a current car
     When I select edit my car details
     Then I will see my car details in editable form:
       | Model  | Derivative                | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
-      | Passat | PASSAT SE BUSINESS TDI BM | 2014                | 9/12/2014            | 2           | Diesel    | Automatic    |
+      | Passat | PASSAT SE BUSINESS TDI BM | 2015                | 27/04/2015           | 2           | Diesel    | Manual       |
 
     When I update model to Golf
     And I update derivative to GTD
@@ -108,9 +116,9 @@ Feature: Add a current car
   Scenario: multiple registration searches with initial success, then non-successful registration lookup
     When I add SA04BGW into the registration field
     And I lookup the registration
-    Then I will see my car details in editable form:
-      | Model   | Derivative       | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
-      | Touareg | TOUAREG TDI AUTO | 2004                | 18/08/2004           | 2.5         | Diesel    | Automatic    |
+    Then I will see my car details in summary:
+      | Registration number | Model   | Details                                       |
+      | SA04BGW             | Touareg | TOUAREG TDI AUTO, 2004, 2.5 Diesel, Automatic |
     And acquired as will be set to A new car
     And my car will be called My Touareg by default
 
@@ -179,7 +187,7 @@ Feature: Add a current car
     When I choose the 29th
     Then I will see date of registration is set to 29/02/2004
 
-  Scenario Outline: I partially update my car details I will be given feedback
+  Scenario Outline: I partially update my car details or with invalid charectors I will be given feedback
     When I update model to <Model>
     And I update derivative to <Derivative>
     And I update engine size to <Engine size>
@@ -189,12 +197,12 @@ Feature: Add a current car
     Then I will see that my car details are incomplete with <Feedback>
 
     Examples:
-      | Model | Derivative         | Date of registration | Engine size | Year | Feedback                             |
-      | Up    | MOVE UP BLUEMOTION | 29/06/2007           | 1           |      | Please complete year of manufacture  |
-      | Up    | MOVE UP BLUEMOTION |                      | 1           | 2015 | Please complete date of registration |
-      | Up    | MOVE UP BLUEMOTION | 29/06/2007           |             | 2015 | Please complete engine size          |
-      | Up    |                    | 29/06/2007           | 1           | 2015 | Please complete trim                 |
-      |       | MOVE UP BLUEMOTION | 29/06/2007           | 1           | 2015 | Please complete model                |
+      | Model   | Derivative         | Date of registration | Engine size | Year | Feedback                             |
+      | Up      | MOVE UP BLUEMOTION | 29/06/2007           | 1           |      | Please complete year of manufacture  |
+      | Up      | MOVE UP BLUEMOTION |                      | 1           | 2015 | Please complete date of registration |
+      | Up      | MOVE UP BLUEMOTION | 29/06/2007           |             | 2015 | Please complete engine size          |
+      | Up      |                    | 29/06/2007           | 1           | 2015 | Please complete trim                 |
+      |         | MOVE UP BLUEMOTION | 29/06/2007           | 1           | 2015 | Please complete model                |
 
   Scenario: I clear my car's name and attempt to move to the next step
     When I clear my car name
@@ -246,6 +254,11 @@ Feature: Add a current car
       | Fuel type            |
       | Transmission         |
     But acquired as will be set to A new car
+
+  Scenario: I select logout while still adding car I will be prompted to confirm or cancel
+    When I select the logout button
+    Then I will see popup asking Are you sure you want to leave?
+    When I select the Cancel button
 
   @logout @clear_cookies
   Scenario: I leave the add a car flow

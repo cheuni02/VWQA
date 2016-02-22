@@ -13,6 +13,10 @@ class BrowserContainer
     @browser.html
   end
 
+  def browser_goto(url)
+    @browser.goto(url)
+  end
+
   def refresh
     @browser.refresh
   end
@@ -29,10 +33,11 @@ class BrowserContainer
              'window.scrollTo(document.body.scrollWidth / 2, document.body.scrollHeight / 2);'
            when :bottom, :end
              'window.scrollTo(0, document.body.scrollHeight);'
+           when Watir::Element
+             ['arguments[0].scrollIntoView();', param]
            else
              fail ArgumentError, "Don't know how to scroll to: #{param}!"
            end
-
     @browser.execute_script(*args)
   end
 end

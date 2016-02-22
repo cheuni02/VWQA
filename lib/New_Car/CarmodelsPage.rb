@@ -1,6 +1,5 @@
 class CarModelsPage < NewCars
-
-  def visit(model = "up-nf")
+  def visit(model = 'up-nf')
     visit_page(page_url(model))
   end
 
@@ -40,31 +39,30 @@ class CarModelsPage < NewCars
   end
 
   def next_button
-    @browser.div(:class => "pagination").link(:class => "next")
+    @browser.div(class: 'pagination').link(class: 'next')
   end
 
   def model_selection
-    @browser.div(:id => "carousel-wrapper")
+    @browser.div(id: 'carousel-wrapper')
   end
 
   def model_header(model, trim)
-    @browser.link(:href => "/new/#{model}/which-model/#{trim}")
+    @browser.link(href: "/new/#{model}/which-model/#{trim}")
   end
 
   def title_details_section
-    @browser.div(:class => "details-container")
+    @browser.div(class: 'details-container')
   end
 
   def comp_table_title
-    @browser.div(:class => "compare-models").h3(:class => "highlight")
+    @browser.div(class: 'compare-models').h3(class: 'highlight')
   end
 
   def table_section(section)
-    @browser.table(:id => section.downcase)
+    @browser.table(id: section.downcase)
   end
 
   def table_section_content(section)
-    @browser.table(:id => section.downcase).tr(:class => "group-heading")[0]
+    @browser.table(id: section.downcase).tr(class: 'group-heading')[0]
   end
-
 end

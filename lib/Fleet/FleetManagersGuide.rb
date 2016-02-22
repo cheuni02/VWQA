@@ -1,10 +1,9 @@
 class FleetManagersGuide < Fleet
-
   def visit
     visit_page(page_url)
   end
 
-#------- navigation pane -------
+  #------- navigation pane -------
   def managers_nav_present?
     managers_nav.present?
   end
@@ -21,7 +20,7 @@ class FleetManagersGuide < Fleet
     man_nav_guides_links.size
   end
 
-#------- header of the page and & description -------
+  #------- header of the page and & description -------
   def managers_header_present?
     managers_header.present?
   end
@@ -41,7 +40,8 @@ class FleetManagersGuide < Fleet
   def managers_desc_share_present?
     managers_desc_share.present?
   end
-#------- list of links to the guides --------
+
+  #------- list of links to the guides --------
   def managers_guides_present?
     managers_guides.present?
   end
@@ -54,8 +54,8 @@ class FleetManagersGuide < Fleet
     guides = managers_guides_links
     guides.each do |element|
       g = managers_guide_title(element)
-      #puts "title of the guide: #{g.text}"
-      raise AssertionError, "Title of the guide is empty" unless g.text != nil
+      # puts "title of the guide: #{g.text}"
+      fail AssertionError, 'Title of the guide is empty' if g.text.nil?
     end
   end
 
@@ -63,8 +63,8 @@ class FleetManagersGuide < Fleet
     guides = managers_guides_links
     guides.each do |element|
       g = managers_guide_m_info(element)
-      #puts "title of the guide: #{g.text}"
-      raise AssertionError, "More info button is not displayed" unless g.text != nil
+      # puts "title of the guide: #{g.text}"
+      fail AssertionError, 'More info button is not displayed' if g.text.nil?
     end
   end
 
@@ -120,6 +120,7 @@ class FleetManagersGuide < Fleet
   def managers_guide_click_share_close
     managers_guide_share_close.when_present.click
   end
+
   def managers_guide_to_top_present?
     managers_guide_to_top.present?
   end
@@ -129,22 +130,23 @@ class FleetManagersGuide < Fleet
   end
 
   private
+
   def page_url
-    "/fleet/managers"
+    '/fleet/managers'
   end
 
-#------- navigation pane -------
+  #------- navigation pane -------
   def managers_nav
-    @browser.div(:id => 'section-nav')
+    @browser.div(id: 'section-nav')
   end
 
   def managers_nav_link
-    @browser.link(:class => 'current', :href => '/fleet/managers')
+    @browser.link(class: 'current', href: '/fleet/managers')
   end
 
   def managers_nav_list
-    #managers_nav_link.parent
-    @browser.li(:class => 'current')
+    # managers_nav_link.parent
+    @browser.li(class: 'current')
   end
 
   def managers_nav_guides
@@ -152,86 +154,87 @@ class FleetManagersGuide < Fleet
   end
 
   def man_nav_guides_links
-    @browser.elements(:css => "div#section-nav li.current>ul>li")
+    @browser.elements(css: 'div#section-nav li.current>ul>li')
   end
 
-#------- header of the page & description -------
+  #------- header of the page & description -------
   def managers_header
-    @browser.div(:class => 'fleet-managers-header')
+    @browser.div(class: 'fleet-managers-header')
   end
 
   def managers_description_section
-    @browser.div(:class => /fleet-managers-paragraph/)
+    @browser.div(class: /fleet-managers-paragraph/)
   end
 
   def managers_description
-    managers_description_section.div(:class => 'left')
+    managers_description_section.div(class: 'left')
   end
 
   def managers_desc_down_btn
-    down = managers_description_section.div(:class => 'right')
-    down.a(:class => 'pdf download')
+    down = managers_description_section.div(class: 'right')
+    down.a(class: 'pdf download')
   end
 
   def managers_desc_share
-    share = managers_description_section.div(:class => 'right')
-    share.div(:class => 'share-this')
+    share = managers_description_section.div(class: 'right')
+    share.div(class: 'share-this')
   end
-#------- list of links to the guides -------
+
+  #------- list of links to the guides -------
   def managers_guides
-    @browser.div(:class => 'guides')
+    @browser.div(class: 'guides')
   end
 
   def managers_guides_links
-    managers_guides.divs(:class => 'guide-section')
+    managers_guides.divs(class: 'guide-section')
   end
 
   def managers_guide_title(guide)
-    guide.a(:class => 'section-open')
+    guide.a(class: 'section-open')
   end
 
   def managers_guide_m_info(guide)
-    guide.a(:class => 'section-open more-info')
+    guide.a(class: 'section-open more-info')
   end
 
   def managers_guide_opened_header
-    @browser.div(:class => 'guide-section-open clearfix')
+    @browser.div(class: 'guide-section-open clearfix')
   end
 
   def managers_guide_opened_title
-    managers_guide_opened_header.a(:class => 'section-close')
+    managers_guide_opened_header.a(class: 'section-close')
   end
 
   def managers_guide_opened_l_info
-    managers_guide_opened_header.a(:class => 'section-close less-info')
+    managers_guide_opened_header.a(class: 'section-close less-info')
   end
 
   def managers_guide_opened_content
-    @browser.div(:class => 'guide-section-content')
+    @browser.div(class: 'guide-section-content')
   end
 
   def managers_guide_opened_text
-    managers_guide_opened_content.div(:class => 'left')
+    managers_guide_opened_content.div(class: 'left')
   end
 
   def managers_guide_opened_download
-    managers_guide_opened_content.a(:class => 'pdf download')
+    managers_guide_opened_content.a(class: 'pdf download')
   end
 
   def managers_guide_opened_share
-    share = managers_guide_opened_content.div(:class => 'share-this')
+    share = managers_guide_opened_content.div(class: 'share-this')
     share.span
   end
 
   def managers_guide_share_section
-    managers_guide_opened_content.div(:class => 'share-this-panel share-this-panel-choice')
+    managers_guide_opened_content.div(class: 'share-this-panel share-this-panel-choice')
   end
 
   def managers_guide_share_close
-    managers_guide_share_section.span(:class => 'share-this-close')
+    managers_guide_share_section.span(class: 'share-this-close')
   end
 
   def managers_guide_to_top
-    @browser.a(:class => 'to-top', :href => '#')
+    @browser.a(class: 'to-top', href: '#')
   end
 end

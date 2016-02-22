@@ -76,7 +76,7 @@ class BookAService2Step3 < BookAService2
   end
 
   def retailer_dropdown
-    @browser.ul(id: 'ui-id-2')
+    @browser.ul(id: 'ui-id-1')
   end
 
   def retailer_error_message

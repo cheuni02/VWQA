@@ -64,6 +64,14 @@ class AddCurrentCarStep3 < MyVW
     @browser.element(class: 'postcode-lookup-submit')
   end
 
+  def error_pop_up
+    @browser.div(id: 'dbg-error-dialog')
+  end
+
+  def error_pop_up_button
+    error_pop_up.button(class: 'my-vw-button')
+  end
+
   def owner_address_error_feedback
     @browser.element(id: 'owner-edit-error-sum')
   end
@@ -90,10 +98,6 @@ class AddCurrentCarStep3 < MyVW
 
   def my_car_added
     @browser.element(class: 'full-hero__body')
-  end
-
-  def my_car_name_in_summary
-    @browser.element(class: 'full-hero__title')
   end
 
   def my_retailer_in_summary

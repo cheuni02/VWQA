@@ -3,13 +3,30 @@ Feature: Add a current car
   As a Volkswagen vehicle owner
   I want to select a retailer to associate with my added car
 
+  @login_dbg_history_plan_without_car @delete_added_car @clear_cookies
+  Scenario: I have logged into my VW account with max amount of current cars added
+    Given I have successfully completed step 1 with registration NU61OJG
+    Then I will see my car details in summary:
+      | Registration number | Model    | Details                                           |
+      | NU61OJG             | Scirocco | SCIROCCO GT BLUEMOTN TECH, 2011, 2 Diesel, Manual |
+    And acquired as will be set to A new car
+    And my car will be called My Scirocco by default
+    When I select continue to step 2
+    And I search for my local VW retailer by location with TS17 5BH
+    And I click lookup
+    And I select step 2 - Finish
+    Then I will be on my car details summary
+    And my last added car name is My Scirocco
+    And a default picture of my last added car type scirocco is displayed
+    And my retailer is Lookers Teesside is displayed
+
   @login_single_car_user
   Scenario: I have completed step 1 and I can see my car details in summary
-    Given I have successfully completed step 1 with registration KS64FVZ
+    Given I have successfully completed step 1 with registration ML15XHR
     When I select continue to step 2
     Then I will see a summary of my car - step 1:
-      | Registration number | Model  | Details                                              |
-      | KS64FVZ             | Passat | PASSAT SE BUSINESS TDI BM, 2014, 2 Diesel, Automatic |
+      | Registration number | Model  | Details                                           |
+      | ML15XHR             | Passat | PASSAT SE BUSINESS TDI BM, 2015, 2 Diesel, Manual |
     And that my car was acquired as: A new car
     And that I named my car: My Passat
     And my previously chosen retailer Ipswich Volkswagen is preselected
@@ -47,7 +64,7 @@ Feature: Add a current car
     When I select change step 1
     Then I will see my car details in editable form:
       | Model  | Derivative                | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
-      | Passat | PASSAT SE BUSINESS TDI BM | 2014                | 9/12/2014            | 2           | Diesel    | Automatic    |
+      | Passat | PASSAT SE BUSINESS TDI BM | 2015                | 27/04/2015           | 2           | Diesel    | Manual       |
 
     When I select continue to step 2
     Then I'm presented with a map view of local VW dealers
@@ -79,7 +96,7 @@ Feature: Add a current car
     When I select change step 1
     Then I will see my car details in editable form:
       | Model  | Derivative                | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
-      | Passat | PASSAT SE BUSINESS TDI BM | 2014                | 9/12/2014            | 2           | Diesel    | Automatic    |
+      | Passat | PASSAT SE BUSINESS TDI BM | 2015                | 27/04/2015           | 2           | Diesel    | Manual       |
 
     When I select continue to step 2
     Then my choice of retailer will be selected

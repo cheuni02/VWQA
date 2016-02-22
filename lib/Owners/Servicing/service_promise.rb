@@ -1,7 +1,6 @@
 class ServicePromise < Servicing
-
   def visit
-   visit_page(page_url)
+    visit_page(page_url)
   end
 
   def page_loaded?
@@ -18,32 +17,31 @@ class ServicePromise < Servicing
 
   def click_link(link)
     @arr = get_links
-    @arr[link.to_i-1].click
+    @arr[link.to_i - 1].click
   end
 
   def check_promise(promise, link)
     @promises = get_promises
-    @promises[link.to_i-1].h2.text.include?(promise)
+    @promises[link.to_i - 1].h2.text.include?(promise)
   end
 
-  private
+  def page_title
+    @browser.title.split(':').first.strip
+  end
 
   def page_url
-    "/owners/service-promise"
+    '/owners/service-promise'
   end
 
   def promise_list
-    @browser.ol(:class => "tabbed-content-list")
+    @browser.ol(class: 'tabbed-content-list')
   end
 
   def promise_headers
-    @browser.li(:class => "tabbed-content-headings").ul.lis
+    @browser.li(class: 'tabbed-content-headings').ul.lis
   end
 
   def promises_content
-    @browser.ul(:class => 'tabbed-content tabbed').lis(:class => "tab-content")
+    @browser.ul(class: 'tabbed-content tabbed').lis(class: 'tab-content')
   end
-
-
-
 end

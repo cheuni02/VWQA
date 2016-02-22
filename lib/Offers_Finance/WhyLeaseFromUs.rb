@@ -1,24 +1,23 @@
 class WhyLeaseFromUs < OffersFinance
-
   def visit
     visit_page(page_url)
   end
 
   def page_loaded?
     offer_carousel.wait_until_present
-  end  
+  end
 
   def click_link(link)
     case link
-      when /Tax Calculator/i
-        tax_calc.click  
-      when /View our latest offers/i
-        latest_offers.click
-      when /Contract hire finance calculator/i
-        finance_calc.click
-      when /Fleet 50+ cars/i
-        fleet.click
-      else raise
+    when /Tax Calculator/i
+      tax_calc.click
+    when /View our latest offers/i
+      latest_offers.click
+    when /Contract hire finance calculator/i
+      finance_calc.click
+    when /Fleet 50+ cars/i
+      fleet.click
+    else fail
     end
   end
 
@@ -35,7 +34,7 @@ class WhyLeaseFromUs < OffersFinance
   def search_retailer
     result.wait_until_present
 
-    if(result.text.include?("No results found"))
+    if result.text.include?('No results found')
       return false
     else
       return true
@@ -45,46 +44,46 @@ class WhyLeaseFromUs < OffersFinance
   private
 
   def page_url
-    "/buying-guide/small-business/why-lease-from-us"
+    '/buying-guide/small-business/why-lease-from-us'
   end
 
   def result
-    @browser.ul(:class => 'retailer-search-results')
+    @browser.ul(class: 'retailer-search-results')
   end
 
   def name_field
-    @browser.text_field(:id => 'search-retailer')
+    @browser.text_field(id: 'search-retailer')
   end
 
   def postcode_field
-    @browser.text_field(:id => 'search-location')
+    @browser.text_field(id: 'search-location')
   end
 
   def go_name
-    @browser.button(:id => 'go-retailer')
+    @browser.button(id: 'go-retailer')
   end
 
   def go_postcode
-    @browser.button(:id => 'go-location')
+    @browser.button(id: 'go-location')
   end
 
   def offer_carousel
-    @browser.div(:class => 'slideshow')
+    @browser.div(class: 'slideshow')
   end
 
   def tax_calc
-    @browser.div(:class => 'tax-calculator')
+    @browser.div(class: 'tax-calculator')
   end
 
   def latest_offers
-    @browser.link(:href => '/buying-guide/small-business/contract-hire-offers')
+    @browser.link(href: '/buying-guide/small-business/contract-hire-offers')
   end
 
   def finance_calc
-    @browser.link(:href => '/businessFinanceCalculator/chooseModel')
+    @browser.link(href: '/businessFinanceCalculator/chooseModel')
   end
 
   def fleet
-    @browser.link(:href => '/fleet')
+    @browser.link(href: '/fleet')
   end
 end

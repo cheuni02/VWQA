@@ -1,5 +1,4 @@
 class FinanceCalculatorNew < OffersFinance
-
   def visit
     visit_page(page_url)
   end
@@ -26,8 +25,8 @@ class FinanceCalculatorNew < OffersFinance
     y = copy.match(/#{trim_name}/)
   end
 
-  def check_trim_derivative(trim_name)
-    copyToCheck = trim_shown.h4.text    
+  def check_trim_derivative(_trim_name)
+    copyToCheck = trim_shown.h4.text
   end
 
   def set_deposit(deposit)
@@ -35,72 +34,70 @@ class FinanceCalculatorNew < OffersFinance
     deposit_button.click
   end
 
-  def check_deposit_in_table(deposit)
-    copyToCheck = finance_table.tr(:index => 2).td.text
+  def check_deposit_in_table(_deposit)
+    copyToCheck = finance_table.tr(index: 2).td.text
   end
 
   def click_month(month)
-    repayment_months_shell.label(:for => "#{month}months").click
+    repayment_months_shell.label(for: "#{month}months").click
   end
 
   def check_month_in_table(month)
-    copyToCheck = finance_table.tr(:index => 0).td.text
+    copyToCheck = finance_table.tr(index: 0).td.text
     copyToCheck.match(/#{month}/)
   end
 
   def click_mileage(mileage)
     mileageInt = mileage.to_i
-    mileageInt = mileageInt/1000
-    average_car_mileage_shell.label(:for => "#{mileageInt}miles").click
+    mileageInt /= 1000
+    average_car_mileage_shell.label(for: "#{mileageInt}miles").click
   end
 
-  def check_mileage(mileage)
-    copyToCheck = finance_table.tr(:index => 1).td.text
+  def check_mileage(_mileage)
+    copyToCheck = finance_table.tr(index: 1).td.text
 
-    copyToCheckMod = copyToCheck.gsub(/,/i,"")
-
+    copyToCheckMod = copyToCheck.gsub(/,/i, '')
   end
 
   private
 
   def page_url
-    return "/financeCalculator/chooseModel"
+    '/financeCalculator/chooseModel'
   end
 
   def car_model_list
-    return @browser.ol(:class => "car-thumbnails").lis
+    @browser.ol(class: 'car-thumbnails').lis
   end
 
   def calc_page
-    @browser.div(:id => "finance-calc")
+    @browser.div(id: 'finance-calc')
   end
 
   def finance_table
-    @browser.table(:class => "finance-table")
+    @browser.table(class: 'finance-table')
   end
 
   def repayment_months_shell
-    @browser.ul(:id => "repaymentMonthsShell")
+    @browser.ul(id: 'repaymentMonthsShell')
   end
 
   def average_car_mileage_shell
-    @browser.ul(:id => "averageCarMileageShell")
+    @browser.ul(id: 'averageCarMileageShell')
   end
 
   def trim_name_shown
-    @browser.select(:id => "trimName")
+    @browser.select(id: 'trimName')
   end
 
   def deposit_text
-    @browser.text_field(:id => "deposit")
+    @browser.text_field(id: 'deposit')
   end
 
   def deposit_button
-    @browser.button(:class => "button cta rounded")
+    @browser.button(class: 'button cta rounded')
   end
 
   def trim_shown
-    @browser.div(:class => "summary finance-details")
+    @browser.div(class: 'summary finance-details')
   end
-
 end

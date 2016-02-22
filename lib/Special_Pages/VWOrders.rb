@@ -1,5 +1,4 @@
 class VwOrders < SpecialPages
-
   def visit
     visit_page(page_url)
   end
@@ -14,9 +13,9 @@ class VwOrders < SpecialPages
   end
 
   def get_errors
-    text = ""
+    text = ''
     text = order_errors.text if order_errors.present?
-    return text
+    text
   end
 
   def car_details_present?
@@ -34,36 +33,30 @@ class VwOrders < SpecialPages
   private
 
   def page_url
-    "/owners/track-my-order"
+    '/owners/track-my-order'
   end
 
   def build_phase_panel
-    @browser.div(:id => "build-phase")
+    @browser.div(id: 'build-phase')
   end
 
   def order_field
-    @browser.text_field(:id => "orderNumber")
+    @browser.text_field(id: 'orderNumber')
   end
 
   def order_errors
-    @browser.div(:class => "error")
+    @browser.div(class: 'error')
   end
 
   def car_details_panel
-    @browser.div(:id => "my-car")
+    @browser.div(id: 'my-car')
   end
 
   def retailer_details_panel
-    @browser.div(:id => "my-retailer")
+    @browser.div(id: 'my-retailer')
   end
 
   def alert_signup_button
-    @browser.div(:class => "top-widget-alert").link
+    @browser.div(class: 'top-widget-alert').link
   end
-
-
-
-
-
-
 end

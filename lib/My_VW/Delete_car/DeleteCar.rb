@@ -1,5 +1,4 @@
 class DeleteCar < MyVW
-
   def visit
     visit_page(page_url)
   end
@@ -13,7 +12,7 @@ class DeleteCar < MyVW
   end
 
   def current_car_present
-  current_car.present?
+    current_car.present?
   end
 
   def delete_ordered_car
@@ -39,38 +38,38 @@ class DeleteCar < MyVW
   private
 
   def page_url
-    "/owners/my/cars"
+    '/owners/my/cars'
   end
 
   def my_cars_dropdown
-    @browser.ul(:class => "welcome-stripe__menu-list", :index => 1).li(:class => "welcome-stripe__menu-list-item").a(:href => "#")
+    @browser.ul(class: 'welcome-stripe__menu-list', index: 1).li(class: 'welcome-stripe__menu-list-item').a(href: '#')
   end
 
   def ordered_car
-    @browser.div(:class => "status-ordered-car", :index => 0)
+    @browser.div(class: 'status-ordered-car', index: 0)
   end
 
   def current_car
-    @browser.a(:href => "#").div(:class => "my-cars-dropdown").div(:class => "status-current-car", :index => 0)
+    @browser.a(href: '#').div(class: 'my-cars-dropdown').div(class: 'status-current-car', index: 0)
   end
 
   def del_ordered_car
-    @browser.div(:class => "status-ordered-car", :index => 0).a(:class => "my-vw-confirm-link")
+    @browser.div(class: 'status-ordered-car', index: 0).a(class: 'my-vw-confirm-link')
   end
 
   def del_current_car
-    @browser.div(:class => "status-current-car", :index => 0).a(:class => "my-vw-confirm-link")
+    @browser.div(class: 'status-current-car', index: 0).a(class: 'my-vw-confirm-link')
   end
 
   def popup_alert_delete
-    @browser.div(:class => "my-overlay__content--tiny").h2(:text => "Are you sure?")
+    @browser.div(class: 'my-overlay__content--tiny').h2(text: 'Are you sure?')
   end
 
   def popup_alert_ok
-    @browser.div(:class => "my-overlay__buttons").a(:class => "my-overlay__confirm-button")
+    @browser.div(class: 'my-overlay__buttons').a(class: 'my-overlay__confirm-button')
   end
 
   def popup_alert_canc
-    @browser.div(:class => "my-overlay__buttons").a(:class => "my-overlay__cancel-button")
+    @browser.div(class: 'my-overlay__buttons').a(class: 'my-overlay__cancel-button')
   end
 end

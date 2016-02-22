@@ -1,7 +1,6 @@
 require 'nokogiri'
 
 class Tracking < BrowserContainer
-
   def find_conversion_script
     conversion_script.exists?
   end
@@ -19,8 +18,8 @@ class Tracking < BrowserContainer
   end
 
   def parse_con_noscript
-    parsed_html = Nokogiri::HTML(self.con_noscript)
-    return parsed_html.css("img").to_s.match(/viewthroughconversion\/[0-9]{10}/).nil?
+    parsed_html = Nokogiri::HTML(con_noscript)
+    parsed_html.css('img').to_s.match(/viewthroughconversion\/[0-9]{10}/).nil?
   end
 
   def conversion_iframe
@@ -39,33 +38,33 @@ class Tracking < BrowserContainer
       a = i.split(':')
       arr.push(a)
     end
-    return arr.to_h
+    arr.to_h
   end
 
   private
 
-    def conversion_script
-      @browser.script(:src => /conversion.js/i)
-    end
+  def conversion_script
+    @browser.script(src: /conversion.js/i)
+  end
 
-    def conversion_cdata_script
-      script = @browser.script(:src => /conversion.js/i)
-      return script.element(:xpath => './preceding-sibling::*[1]')
-    end
+  def conversion_cdata_script
+    script = @browser.script(src: /conversion.js/i)
+    script.element(xpath: './preceding-sibling::*[1]')
+  end
 
-    def noscripts
-      @browser.noscripts
-    end
+  def noscripts
+    @browser.noscripts
+  end
 
-    def conversion_noscript
-      noscripts.last
-    end
+  def conversion_noscript
+    noscripts.last
+  end
 
-    def con_iframe
-      @browser.iframe(:id => 'mediacom-configurator')
-    end
+  def con_iframe
+    @browser.iframe(id: 'mediacom-configurator')
+  end
 
-    def iframe_pixel
-      con_iframe.img(:index => 0)
-    end
+  def iframe_pixel
+    con_iframe.img(index: 0)
+  end
 end
