@@ -64,3 +64,4 @@ Feature: Volkswagen Account Registration
     And i set the confirm password field to Abcd!2345
     When i submit my new account registration
     Then i should see the registration thank you page in my browser
+
