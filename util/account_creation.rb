@@ -13,6 +13,7 @@ PURPOSES = [
   'Ordered_Car_User',
   'All_details_complete_user',
   'Delete_Car_User',
+  'Forgotten_password_user',
   'Single_current_car_user']
 
 users = JSON.parse(File.read("../users.json"))
@@ -36,7 +37,12 @@ begin
     hash = Hash.new
     hash['title'] = 'Mr'
     hash['firstname'] = "#{purpose}"
-    hash['username'] = "AutomatedToastUser#{ctime - index}@example.com"
+    if purpose == 'Forgotten_password_user'
+      hash['username'] = "ddbtribal1+#{ctime - index}@gmail.com"
+    else
+      hash['username'] = "AutomatedToastUser#{ctime - index}@example.com"
+    end
+    #hash['username'] = "AutomatedToastUser#{ctime - index}@example.com"
     hash['password'] = 'Abcd!2345'
     hash['purpose'] = purpose
     hash['optional_details'] = {}

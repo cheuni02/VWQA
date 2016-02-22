@@ -68,18 +68,18 @@
       {
         "title": "Mr",
         "firstname": "General",
-        "username": "AutomatedToastUser1456159215@example.com",
+        "username": "AutomatedToastUser1456160081@example.com",
         "password": "Abcd!2345",
         "purpose": "General",
         "optional_details": {
         },
         "lastname": "Tester",
-        "uuid": "66f90f7c-309b-4a4f-898f-ab71c926ae44"
+        "uuid": "18babb41-e4c3-46dc-8795-b712317b5f4f"
       },
       {
         "title": "Mr",
         "firstname": "DBG_User_History_Plan",
-        "username": "AutomatedToastUser1456159214@example.com",
+        "username": "AutomatedToastUser1456160080@example.com",
         "password": "Abcd!2345",
         "purpose": "DBG_User_History_Plan",
         "optional_details": {
@@ -99,12 +99,12 @@
           "date_of_birth": "1989-08-04 00:00:00"
         },
         "lastname": "Anderson",
-        "uuid": "570e78a6-7ab1-4f3d-bf5c-ebbadea5e76b"
+        "uuid": "b99c9cab-107f-4ff9-922a-ba6f7614b6e5"
       },
       {
         "title": "Mr",
         "firstname": "DBG_User_Plan",
-        "username": "AutomatedToastUser1456159213@example.com",
+        "username": "AutomatedToastUser1456160079@example.com",
         "password": "Abcd!2345",
         "purpose": "DBG_User_Plan",
         "optional_details": {
@@ -124,12 +124,12 @@
           "date_of_birth": "1989-08-04 00:00:00"
         },
         "lastname": "Ruthven",
-        "uuid": "3d36c06c-9e2a-40e8-8807-92f2583a745a"
+        "uuid": "8accbb8f-e8ce-4f2d-9b18-1a25a1831985"
       },
       {
         "title": "Mr",
         "firstname": "DBG_User_History",
-        "username": "AutomatedToastUser1456159212@example.com",
+        "username": "AutomatedToastUser1456160078@example.com",
         "password": "Abcd!2345",
         "purpose": "DBG_User_History",
         "optional_details": {
@@ -149,12 +149,12 @@
           "date_of_birth": "1989-08-04 00:00:00"
         },
         "lastname": "Mcanulty",
-        "uuid": "ead508ed-e39d-4263-b836-a6a3a8877975"
+        "uuid": "a4ebb37b-b7fb-45fc-b0d1-0bea33d227ad"
       },
       {
         "title": "Mr",
         "firstname": "DBG_User_History_Ext",
-        "username": "AutomatedToastUser1456159211@example.com",
+        "username": "AutomatedToastUser1456160077@example.com",
         "password": "Abcd!2345",
         "purpose": "DBG_User_History_Ext",
         "optional_details": {
@@ -174,12 +174,12 @@
           "date_of_birth": "1989-08-04 00:00:00"
         },
         "lastname": "Roblin",
-        "uuid": "f8568589-88ff-4126-8d8c-f4006ad0de5a"
+        "uuid": "44c38323-213a-49cf-8955-c297acfa6bfe"
       },
       {
         "title": "Mr",
         "firstname": "DBG_User_Nothing",
-        "username": "AutomatedToastUser1456159210@example.com",
+        "username": "AutomatedToastUser1456160076@example.com",
         "password": "Abcd!2345",
         "purpose": "DBG_User_Nothing",
         "optional_details": {
@@ -199,12 +199,12 @@
           "date_of_birth": "1989-08-04 00:00:00"
         },
         "lastname": "Clerk",
-        "uuid": "10554e77-c934-45e1-940a-0106031fa33a"
+        "uuid": "595e8933-1e7e-4ccc-8116-ab5c13ea54c2"
       },
       {
         "title": "Mr",
         "firstname": "Current_car_User",
-        "username": "AutomatedToastUser1456159209@example.com",
+        "username": "AutomatedToastUser1456160075@example.com",
         "password": "Abcd!2345",
         "purpose": "Current_car_User",
         "optional_details": {
@@ -224,34 +224,34 @@
           "date_of_birth": "1989-08-04 00:00:00"
         },
         "lastname": "Tester",
-        "uuid": "a7643f0a-7fe1-44ef-bd36-ec4858e59872"
+        "uuid": "2da40bd3-02a1-4096-897d-a8765f2a2f90"
       },
       {
         "title": "Mr",
         "firstname": "Current_car_User_Ext",
-        "username": "AutomatedToastUser1456159208@example.com",
+        "username": "AutomatedToastUser1456160074@example.com",
         "password": "Abcd!2345",
         "purpose": "Current_car_User_Ext",
         "optional_details": {
         },
         "lastname": "Tester",
-        "uuid": "e0a6aa7a-2dfb-4b43-af3a-996314bf9f0d"
+        "uuid": "b781a7c8-b667-488e-ac4e-9c103b0d6a6a"
       },
       {
         "title": "Mr",
         "firstname": "Ordered_Car_User",
-        "username": "AutomatedToastUser1456159207@example.com",
+        "username": "AutomatedToastUser1456160073@example.com",
         "password": "Abcd!2345",
         "purpose": "Ordered_Car_User",
         "optional_details": {
         },
         "lastname": "Tester",
-        "uuid": "d045eb94-2e48-4da3-910d-c08b04b35ce4"
+        "uuid": "eb7a8ee7-23c1-4089-8f57-08139746e528"
       },
       {
         "title": "Mr",
         "firstname": "All_details_complete_user",
-        "username": "AutomatedToastUser1456159206@example.com",
+        "username": "AutomatedToastUser1456160072@example.com",
         "password": "Abcd!2345",
         "purpose": "All_details_complete_user",
         "optional_details": {
@@ -271,47 +271,58 @@
           "date_of_birth": "1989-08-04 00:00:00"
         },
         "lastname": "Tester",
-        "uuid": "d7d6ed28-a232-45a9-bd30-48bad121635f"
+        "uuid": "77512571-a848-4510-bbea-8b818c35980a"
       },
       {
         "title": "Mr",
         "firstname": "Delete_Car_User",
-        "username": "AutomatedToastUser1456159205@example.com",
+        "username": "AutomatedToastUser1456160071@example.com",
         "password": "Abcd!2345",
         "purpose": "Delete_Car_User",
         "optional_details": {
         },
         "lastname": "Tester",
-        "uuid": "d596dcf4-7d69-47b1-8496-2e4766991220"
+        "uuid": "b9b3884d-e248-4179-9906-3ffc6bb9edf5"
+      },
+      {
+        "title": "Mr",
+        "firstname": "Forgotten_password_user",
+        "username": "ddbtribal1+1456160070@gmail.com",
+        "password": "Abcd!2345",
+        "purpose": "Forgotten_password_user",
+        "optional_details": {
+        },
+        "lastname": "Tester",
+        "uuid": "d66413c5-a117-4a85-ace8-a560c78ef5d0"
       },
       {
         "title": "Mr",
         "firstname": "Single_current_car_user",
-        "username": "AutomatedToastUser1456159204@example.com",
+        "username": "AutomatedToastUser1456160069@example.com",
         "password": "Abcd!2345",
         "purpose": "Single_current_car_user",
         "optional_details": {
         },
         "lastname": "Tester",
-        "uuid": "a7b1aa8b-1d39-489a-a785-c18e29ccacd7"
+        "uuid": "8816b285-d348-4419-88e0-47ce374e08d6"
       }
     ],
     "10.69.101.120": [
       {
         "title": "Mr",
         "firstname": "General",
-        "username": "AutomatedToastUser1456159289@example.com",
+        "username": "AutomatedToastUser1456160166@example.com",
         "password": "Abcd!2345",
         "purpose": "General",
         "optional_details": {
         },
         "lastname": "Tester",
-        "uuid": "8d64c35b-0773-4d08-8909-8e62c4dd54c8"
+        "uuid": "07d7ad6c-3c97-4e9e-b0d9-0870f3753916"
       },
       {
         "title": "Mr",
         "firstname": "DBG_User_History_Plan",
-        "username": "AutomatedToastUser1456159288@example.com",
+        "username": "AutomatedToastUser1456160165@example.com",
         "password": "Abcd!2345",
         "purpose": "DBG_User_History_Plan",
         "optional_details": {
@@ -331,12 +342,12 @@
           "date_of_birth": "1989-08-04 00:00:00"
         },
         "lastname": "Anderson",
-        "uuid": "9563b420-4b92-4417-a34e-d95d96dfe6a5"
+        "uuid": "6ecad588-30ce-4d8d-afdc-0dbd59717c3a"
       },
       {
         "title": "Mr",
         "firstname": "DBG_User_Plan",
-        "username": "AutomatedToastUser1456159287@example.com",
+        "username": "AutomatedToastUser1456160164@example.com",
         "password": "Abcd!2345",
         "purpose": "DBG_User_Plan",
         "optional_details": {
@@ -356,12 +367,12 @@
           "date_of_birth": "1989-08-04 00:00:00"
         },
         "lastname": "Ruthven",
-        "uuid": "30e6e381-4e25-414c-9c80-6c3bb2058fa7"
+        "uuid": "7e3ab5a5-54e9-4a16-ab9a-339af4cc1deb"
       },
       {
         "title": "Mr",
         "firstname": "DBG_User_History",
-        "username": "AutomatedToastUser1456159286@example.com",
+        "username": "AutomatedToastUser1456160163@example.com",
         "password": "Abcd!2345",
         "purpose": "DBG_User_History",
         "optional_details": {
@@ -381,12 +392,12 @@
           "date_of_birth": "1989-08-04 00:00:00"
         },
         "lastname": "Mcanulty",
-        "uuid": "e5fa6e30-dd47-461e-9eeb-487d889dba99"
+        "uuid": "3eba4a30-b718-4f54-b121-dc40aaf3f290"
       },
       {
         "title": "Mr",
         "firstname": "DBG_User_History_Ext",
-        "username": "AutomatedToastUser1456159285@example.com",
+        "username": "AutomatedToastUser1456160162@example.com",
         "password": "Abcd!2345",
         "purpose": "DBG_User_History_Ext",
         "optional_details": {
@@ -406,12 +417,12 @@
           "date_of_birth": "1989-08-04 00:00:00"
         },
         "lastname": "Roblin",
-        "uuid": "05dbafde-e9da-4b7f-bec0-823ac5699035"
+        "uuid": "6850c254-84d1-4841-9ea1-b3e3128ad0b9"
       },
       {
         "title": "Mr",
         "firstname": "DBG_User_Nothing",
-        "username": "AutomatedToastUser1456159284@example.com",
+        "username": "AutomatedToastUser1456160161@example.com",
         "password": "Abcd!2345",
         "purpose": "DBG_User_Nothing",
         "optional_details": {
@@ -431,12 +442,12 @@
           "date_of_birth": "1989-08-04 00:00:00"
         },
         "lastname": "Clerk",
-        "uuid": "80d43cc1-39c5-496a-a7da-dd0c4768a3c8"
+        "uuid": "e1e52871-b670-4539-9fb6-f94ec2871dda"
       },
       {
         "title": "Mr",
         "firstname": "Current_car_User",
-        "username": "AutomatedToastUser1456159283@example.com",
+        "username": "AutomatedToastUser1456160160@example.com",
         "password": "Abcd!2345",
         "purpose": "Current_car_User",
         "optional_details": {
@@ -456,34 +467,34 @@
           "date_of_birth": "1989-08-04 00:00:00"
         },
         "lastname": "Tester",
-        "uuid": "a819a591-dba8-4f4b-baac-0b084d87bbbd"
+        "uuid": "ed844d8e-a2e3-4af3-b1cb-ee2279cfb158"
       },
       {
         "title": "Mr",
         "firstname": "Current_car_User_Ext",
-        "username": "AutomatedToastUser1456159282@example.com",
+        "username": "AutomatedToastUser1456160159@example.com",
         "password": "Abcd!2345",
         "purpose": "Current_car_User_Ext",
         "optional_details": {
         },
         "lastname": "Tester",
-        "uuid": "933c0315-4fab-4829-b602-faf83e37aedd"
+        "uuid": "c05e1024-8197-45e9-a44f-ae4582b0f565"
       },
       {
         "title": "Mr",
         "firstname": "Ordered_Car_User",
-        "username": "AutomatedToastUser1456159281@example.com",
+        "username": "AutomatedToastUser1456160158@example.com",
         "password": "Abcd!2345",
         "purpose": "Ordered_Car_User",
         "optional_details": {
         },
         "lastname": "Tester",
-        "uuid": "559da4f5-61f5-4729-9d18-08e063f6ac07"
+        "uuid": "8f9c2d0d-0770-4b1e-a9d5-94133ce93150"
       },
       {
         "title": "Mr",
         "firstname": "All_details_complete_user",
-        "username": "AutomatedToastUser1456159280@example.com",
+        "username": "AutomatedToastUser1456160157@example.com",
         "password": "Abcd!2345",
         "purpose": "All_details_complete_user",
         "optional_details": {
@@ -503,29 +514,40 @@
           "date_of_birth": "1989-08-04 00:00:00"
         },
         "lastname": "Tester",
-        "uuid": "c5f9fcdc-770b-46c7-b243-115fea1b4ad5"
+        "uuid": "4235a667-d441-4a05-b9a9-b2c6ab346729"
       },
       {
         "title": "Mr",
         "firstname": "Delete_Car_User",
-        "username": "AutomatedToastUser1456159279@example.com",
+        "username": "AutomatedToastUser1456160156@example.com",
         "password": "Abcd!2345",
         "purpose": "Delete_Car_User",
         "optional_details": {
         },
         "lastname": "Tester",
-        "uuid": "44a500f9-2b41-4ec4-acba-259df217b792"
+        "uuid": "c070d120-99f8-4a4c-959e-f5aba529bc16"
+      },
+      {
+        "title": "Mr",
+        "firstname": "Forgotten_password_user",
+        "username": "ddbtribal1+1456160155@gmail.com",
+        "password": "Abcd!2345",
+        "purpose": "Forgotten_password_user",
+        "optional_details": {
+        },
+        "lastname": "Tester",
+        "uuid": "8b67d709-f65f-4ab3-b706-d893ad12314f"
       },
       {
         "title": "Mr",
         "firstname": "Single_current_car_user",
-        "username": "AutomatedToastUser1456159278@example.com",
+        "username": "AutomatedToastUser1456160154@example.com",
         "password": "Abcd!2345",
         "purpose": "Single_current_car_user",
         "optional_details": {
         },
         "lastname": "Tester",
-        "uuid": "41fcb2b1-adcd-4499-a18b-9b468eb5297a"
+        "uuid": "430e4983-97f1-480a-af04-218568377b86"
       }
     ]
   }
