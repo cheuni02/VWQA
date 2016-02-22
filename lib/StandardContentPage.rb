@@ -1,5 +1,4 @@
 class StandardContentPage < BrowserContainer
-
   def get_header_text
     get_header.text
   end
@@ -12,24 +11,20 @@ class StandardContentPage < BrowserContainer
     get_button_links.length
   end
 
-
   private
 
   def get_header
-    @browser.h1(:index => 0)
+    @browser.h1(index: 0)
   end
-  
+
   def get_image
-    @browser.img(:class => "header")
+    @browser.img(class: 'header')
   end
-  
+
   def get_page_text
-
   end
-  
+
   def get_button_links
-    @browser.divs(:class => "vw-adaptive-horizontal-button")
+    @browser.divs(class: 'vw-adaptive-horizontal-button')
   end
-
-
 end

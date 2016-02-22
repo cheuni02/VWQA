@@ -1,17 +1,16 @@
 require 'rest-client'
 
 class MyVWAPI < MyVW
-
   def initialize
     headers = {
-        :content_type => 'application/json',
-        :accept => 'application/json',
-        :'x-access-username' => 'test_client',
-        :'x-access-password' => 'Manuela1999'
+      :content_type => 'application/json',
+      :accept => 'application/json',
+      :'x-access-username' => 'test_client',
+      :'x-access-password' => 'Manuela1999'
     }
 
-    @user_api = RestClient::Resource.new("https://#{get_sb_host}/api/user/2.0", :headers => headers, :verify_ssl => false)
-    @auth_api = RestClient::Resource.new("https://#{get_sb_host}/api/auth/2.0", :headers => headers, :verify_ssl => false)
+    @user_api = RestClient::Resource.new("https://#{get_sb_host}/api/user/2.0", headers: headers, verify_ssl: false)
+    @auth_api = RestClient::Resource.new("https://#{get_sb_host}/api/auth/2.0", headers: headers, verify_ssl: false)
   end
 
   # Returns the service bridge host based on hostname for API related stuff.
@@ -29,56 +28,67 @@ class MyVWAPI < MyVW
 
   def get_login_token(user, password)
     data = {
-        :username => user,
-        :password => password
+      username: user,
+      password: password
     }.to_json
     login = @auth_api['/login'].post(data)
-    #STDOUT.puts login.response
-    return JSON.parse(login)['access_token']
+    # STDOUT.puts login.response
+    JSON.parse(login)['access_token']
   end
 
   def remove_current_car(uuid, access_token, car_id)
-    auth_header = {:Authorization => "Bearer #{access_token}"}
+    auth_header = { Authorization: "Bearer #{access_token}" }
     @user_api["/users/#{uuid}/cars/#{car_id}"].delete auth_header
   end
 
-  def add_new_current_car(uuid, access_token, car_name)
+  def add_new_current_car(uuid, access_token, options = {})
+    display_name = options[:display_name]           || 'My Car'
+    car_status = options[:car_status]               || 'CURRENT'
+    registration = options[:registration]           || 'YG61YRO'
+    model = options[:model]                         || 'Golf'
+    derivative = options[:derivative]               || 'GOLF GTI'
+    registration_date = options[:registration_date] || '2014-02-12'
+    fuel_type = options[:fuel_type]                 || 'Petrol'
+    vin = options[:vin]
+    year = options[:year]                           || '2014'
+    engine_capacity = options[:engine_capacity]     || '1.2'
+    transmission = options[:transmission]           || 'Manual'
+    purchase_type = options[:purchase_type]         || 'NEW_CAR'
+
     car_data = {
-        :displayName => car_name,
-        :carStatus => "CURRENT",
-        :carDetails => {
-            :registrationNumber => "YG61YRO",
-            :model => "Golf",
-            :derivative => "GOLF GTI",
-            :registrationDate => "2014-02-12",
-            :fuelType => "Petrol",
-            #:vin => "WVWZZZ1KZCW0550001",
-            :year => "2014",
-            :engineCapacity => "1.2",
-            :transmission => "Manual"
-        },
-        :servicedByRetailer => "00050",
-        :suppliedByRetailer => "00051",
-        :purchaseType => "NEW_CAR"
+      displayName: display_name,
+      carStatus: car_status,
+      carDetails: {
+        registrationNumber: registration,
+        model: model,
+        derivative: derivative,
+        registrationDate: registration_date,
+        fuelType: fuel_type,
+        vin: vin,
+        year: year,
+        engineCapacity: engine_capacity,
+        transmission: transmission
+      },
+      servicedByRetailer: '00050',
+      suppliedByRetailer: '00051',
+      purchaseType: purchase_type
     }.to_json
 
-    auth_header = {:Authorization => "Bearer #{access_token}"}
+    auth_header = { Authorization: "Bearer #{access_token}" }
     @user_api["/users/#{uuid}/cars"].post car_data, auth_header
   end
 
   def add_new_ordered_car(uuid, access_token, order_number)
     car_data = {
-        :orderNumber => order_number,
-        :displayName => "ORDER_CAR_TEST"
+      orderNumber: order_number,
+      displayName: 'ORDER_CAR_TEST'
     }.to_json
 
-    auth_header = {:Authorization => "Bearer #{access_token}"}
+    auth_header = { Authorization: "Bearer #{access_token}" }
     begin
       @user_api["/users/#{uuid}/cars/order"].post car_data, auth_header
     rescue RestClient::Exception => e
       STDOUT.puts e.response
     end
   end
-
-
 end

@@ -1,5 +1,4 @@
 class ExpressFit < Servicing
-
   def page_loaded?
     fit_image.present?
   end
@@ -7,7 +6,6 @@ class ExpressFit < Servicing
   private
 
   def fit_image
-    @browser.div(:class => 'grid-6')
+    @browser.div(class: 'grid-6')
   end
-
 end

@@ -1,5 +1,4 @@
 class WhatWeCheck < Servicing
-
   def visit
     visit_page(page_url)
   end
@@ -11,7 +10,6 @@ class WhatWeCheck < Servicing
   def page_loaded_mot?
     mot_details.present?
   end
-
 
   def get_section_title(index)
     section_title(index).text
@@ -25,30 +23,31 @@ class WhatWeCheck < Servicing
     "#{page_url}#{mot_url}"
   end
 
-  private
+  def page_title
+    @browser.title.split(':').first.strip
+  end
 
   def page_url
-    "/owners/servicing/what-we-check-and-why"
+    '/owners/servicing/what-we-check-and-why'
   end
 
   def mot_url
-    "/mot-test#details"
+    '/mot-test#details'
   end
 
   def mot_details
-    @browser.div(:id => "details")
+    @browser.div(id: 'details')
   end
 
   def sections
-    @browser.div(:id => "what-we-check-why")
+    @browser.div(id: 'what-we-check-why')
   end
 
   def section_title(index)
-    sections.div(:class => "listitem-component", :index => "#{index}".to_i).div(:class => "title")
+    sections.div(class: 'listitem-component', index: "#{index}".to_i).div(class: 'title')
   end
 
   def section_button(index)
-    sections.div(:class => "listitem-component", :index => "#{index}".to_i).li(:class => "vw-button").link
+    sections.div(class: 'listitem-component', index: "#{index}".to_i).li(class: 'vw-button').link
   end
-
 end

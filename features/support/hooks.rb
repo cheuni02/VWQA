@@ -14,8 +14,20 @@ Before('@login_unvalid_user') do
   @account = site.my_vw.login.get_account_details('DBG_User_Invalid')
 end
 
-Before('@login_dbg_user_without_added_car') do
+Before('@login_dbg_history_plan_without_car') do
   @account = site.my_vw.login.get_account_details('DBG_User_History_Plan')
+end
+
+Before('@login_dbg_plan_without_car') do
+  @account = site.my_vw.login.get_account_details('DBG_User_Plan')
+end
+
+Before('@login_dbg_history_without_car') do
+  @account = site.my_vw.login.get_account_details('DBG_User_History')
+end
+
+Before('@login_dbg_nothing_without_car') do
+  @account = site.my_vw.login.get_account_details('DBG_User_Nothing')
 end
 
 Before('@login_current_car') do

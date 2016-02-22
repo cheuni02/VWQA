@@ -1,5 +1,4 @@
 class BookAService < BrowserContainer
-
   def booking_step1
     BookAServiceStep1.new(@browser)
   end
@@ -25,12 +24,10 @@ class BookAService < BrowserContainer
   end
 
   def click_next_step
-    begin
-      next_step_button.when_present.click
-    rescue Selenium::WebDriver::Error::UnhandledAlertError
-      browser.execute_script("window.alert = function() {}")
-      retry
-    end
+    next_step_button.when_present.click
+  rescue Selenium::WebDriver::Error::UnhandledAlertError
+    browser.execute_script('window.alert = function() {}')
+    retry
   end
 
   def getFormErrors
@@ -41,30 +38,21 @@ class BookAService < BrowserContainer
     back_step_button.parent.click
   end
 
-
   private
 
   def page_url
-    "/owners/service-booking"
+    '/owners/service-booking'
   end
 
   def next_step_button
-    @browser.button(:class => "vw-btn-active")
+    @browser.button(class: 'vw-btn-active')
   end
 
   def get_errors
-    @browser.ps(:class => "form-error")
+    @browser.ps(class: 'form-error')
   end
 
   def back_step_button
-    @browser.span(:class => "vw-icon-back")
+    @browser.span(class: 'vw-icon-back')
   end
-
-
-
-
-
-
-
-
 end

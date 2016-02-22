@@ -151,7 +151,7 @@ And(/^I select continue to step (\d+)$/) do |step|
   case step
   when '2'
     site.my_vw.add_current_car_step_1.go_to_section_2.when_present.click
-    when '3'
+  when '3'
     site.my_vw.add_current_car_step_2.go_to_section_3.when_present.click
   end
   Watir::Wait.while { site.my_vw.add_current_car.loading_wheel.visible? }
@@ -171,7 +171,7 @@ Then (/^I will see that my car details are (?:incomplete|incorrect) with:$/) do 
   Watir::Wait.until { add_car.my_car_details_errors.visible? }
   expect(add_car.my_car_details_errors.visible?).to eq(true)
   table.hashes.each_with_index do |hash, index|
-    Watir::Wait.until { add_car.my_car_details_errors.li(index: index).text.include? hash['Feedback'] }
+    Watir::Wait.until { add_car.my_car_details_errors.li(index: index).text == hash['Feedback'] }
     expect(add_car.my_car_details_errors.li(index: index).text).to eq(hash['Feedback'])
   end
 end

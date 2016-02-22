@@ -4,16 +4,16 @@ Feature: Add a current car
   I want to add my address to associate with my account
 
   Scenario: I have completed step 1 and 2 and will see details of these steps
-    Given I have successfully completed step 1 with registration WP62RHJ
+    Given I have successfully completed step 1 with registration ML15XHR
     When I select continue to step 2
     And my previously chosen retailer Ipswich Volkswagen is preselected
     When I select continue to step 3
 
     Then I will see a summary of my car - step 1:
-      | Registration number | Model | Details                         |
-      | WP62RHJ             | Up    | TAKE UP, 2013, 1 Petrol, Manual |
+      | Registration number | Model  | Details                                           |
+      | ML15XHR             | Passat | PASSAT SE BUSINESS TDI BM, 2015, 2 Diesel, Manual |
     And that my car was acquired as: A new car
-    And that I named my car: My Up
+    And that I named my car: My Passat
     And a change step 1 button is present
 
     And I will see a summary of my retailer - step 2:
@@ -33,16 +33,16 @@ Feature: Add a current car
   Scenario: I update my car - step 1 details
     When I select change step 1
     Then I will see my car details in editable form:
-      | Model | Derivative | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
-      | Up    | TAKE UP    | 2013                | 18/02/2013           | 1           | Petrol    | Manual       |
+      | Model  | Derivative                | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
+      | Passat | PASSAT SE BUSINESS TDI BM | 2015                | 27/04/2015           | 2           | Diesel    | Manual       |
     When I update engine size to 2
     And I update year of manufacture to 2015
     And I select continue
     Then I will see a summary of my car - step 1:
-      | Registration number | Model | Details                         |
-      | WP62RHJ             | Up    | TAKE UP, 2015, 2 Petrol, Manual |
+      | Registration number | Model  | Details                                           |
+      | ML15XHR             | Passat | PASSAT SE BUSINESS TDI BM, 2015, 2 Diesel, Manual |
     And that my car was acquired as: A new car
-    And that I named my car: My Up
+    And that I named my car: My Passat
     And a change step 1 button is present
 
   Scenario: I change my retailer - step 2
@@ -179,10 +179,10 @@ Feature: Add a current car
   Scenario: I skip and finnish step 3, I have successful added my car
     When I select Skip & Finish
     Then I will be on my car details summary
-    And my car name My Up is displayed
+    And my car name My Passat is displayed
     And my retailer is Leeds Volkswagen is displayed
 
-  Scenario: I have already provided my address but doesn't match with VW records
+  Scenario: I have already provided my address which doesn't match with VW records
     Given I have logged in with my address completed previously and I'm on step 3
     Then I will see a form with my address details:
       | Field           | Mandatory | Value        |

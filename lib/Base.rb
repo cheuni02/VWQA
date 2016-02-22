@@ -12,11 +12,11 @@ class VWBase < BrowserContainer
   end
 
   def primary_nav
-    @primary_nav = CommonNav::primary_nav(@browser)
+    @primary_nav = CommonNav.primary_nav(@browser)
   end
 
   def section_nav
-    CommonNav::section_nav.new(@browser)
+    CommonNav.section_nav.new(@browser)
   end
 
   def footer
@@ -64,12 +64,10 @@ class VWBase < BrowserContainer
   end
 
   def retailer_pages
-    begin
-      RetailerPages.new(@browser)
-    rescue Selenium::WebDriver::Error::UnhandledAlertError
-      @browser.execute_script("window.alert = function() {}")
-      retry
-    end
+    RetailerPages.new(@browser)
+  rescue Selenium::WebDriver::Error::UnhandledAlertError
+    @browser.execute_script('window.alert = function() {}')
+    retry
   end
 
   def search
@@ -131,7 +129,7 @@ class VWBase < BrowserContainer
   def set_cookies(name, value, parameters)
     @browser.cookies.add(name, value, parameters)
 
-    #sleep(10)
+    # sleep(10)
   end
 
   def delete_cookie(name)
@@ -145,4 +143,9 @@ class VWBase < BrowserContainer
   def vw_emails
     VWMail.new
   end
+
+  def gmt_finder
+  GMTF.new(@browser)
+  end
+
 end

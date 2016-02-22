@@ -113,7 +113,7 @@ Given(/^I have logged in with my address completed previously and I'm on step 3$
     And I go to add a new car
     And I select the A car I own button
     And I will see a registration field
-    And I add NU61OJG into the registration field
+    And I add ML15XHR into the registration field
     And I lookup the registration
     And I select continue to step 2
     And I search for my local VW retailer by location with Bath

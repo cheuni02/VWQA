@@ -1,5 +1,4 @@
 class Technology < BrowserContainer
-
   def glossary
     Glossary.new(@browser)
   end
@@ -21,7 +20,7 @@ class Technology < BrowserContainer
   end
 
   def page_url
-    "/technology"
+    '/technology'
   end
 
   def video_present
@@ -33,12 +32,7 @@ class Technology < BrowserContainer
   end
 
   def thinkblue_link
-    #@browser.span(:text => "Think Blue.")
-    @browser.li(:class => "vw-btn", :index => 1).link
-  end
-
-  def thinkblue_link
-    thinkblue_link.click
+    @browser.li(class: 'vw-btn', index: 1).link.click
   end
 
   def technology_navigation_link(link)
@@ -46,7 +40,7 @@ class Technology < BrowserContainer
   end
 
   def technology_nav_section
-    @browser.div(:id => 'section-nav')
+    @browser.div(id: 'section-nav')
   end
 
   def click_technology_navigation_link(link)
@@ -55,34 +49,31 @@ class Technology < BrowserContainer
   end
 
   def video
-    @browser.div(:class => 'youtube-player')
+    @browser.div(class: 'youtube-player')
   end
 
   def check_all_sections?
-
     links.each do |element|
-       raise unless element.present?
-        # print element.present?
-      end
+      fail unless element.present?
+      # print element.present?
+    end
   end
 
   def check_content_in_all_sections?
-
     links.each do |link|
       technology_sections_content(link).each do |element|
-        raise unless element.present?
-         # print element.present?
+        fail unless element.present?
+        # print element.present?
       end
     end
-
   end
 
   def technology_page_div
-    @browser.div(:class => 'grid-row', :index => 1)
+    @browser.div(class: 'grid-row', index: 1)
   end
 
   def links
-    @links = Array.new
+    @links = []
     @links[0] = made_for_life
     @links[1] = auto_rain_sensors
     @links[2] = lane_assist
@@ -95,64 +86,63 @@ class Technology < BrowserContainer
     @links[9] = city_emergency_braking
     @links[10] = rear_view_camera
     @links[11] = adaptive_cruise_control
-    return @links
+    @links
   end
 
   def made_for_life
-    technology_page_div.link(:href => '/about-us/bus?int=4_cinema_ident')
+    technology_page_div.link(href: '/about-us/bus?int=4_cinema_ident')
   end
 
   def auto_rain_sensors
-    technology_page_div.link(:class => 'url', :href =>  '/technology/comfort-and-convenience/auto-rain-sensors')
+    technology_page_div.link(class: 'url', href: '/technology/comfort-and-convenience/auto-rain-sensors')
   end
 
   def lane_assist
-    technology_page_div.link(:class => 'url',:href => '/technology/proximity-sensing/lane-assist')
+    technology_page_div.link(class: 'url', href: '/technology/proximity-sensing/lane-assist')
   end
 
   def light_systems
-    technology_page_div.link(:class => 'url',:href => '/technology/visibility-and-security/light-systems')
+    technology_page_div.link(class: 'url', href: '/technology/visibility-and-security/light-systems')
   end
 
   def electronic_stability_control
-    technology_page_div.link(:class => 'url',:href =>'/technology/braking-and-stability-systems/esc')
+    technology_page_div.link(class: 'url', href: '/technology/braking-and-stability-systems/esc')
   end
 
   def park_assist
-    technology_page_div.link(:class => 'url',:href =>'/technology/parking-and-manoeuvring/park-assist')
+    technology_page_div.link(class: 'url', href: '/technology/parking-and-manoeuvring/park-assist')
   end
 
   def parking_sensors
-    technology_page_div.link(:class => 'url',:href =>'/technology/parking-and-manoeuvring/parking-sensors')
+    technology_page_div.link(class: 'url', href: '/technology/parking-and-manoeuvring/parking-sensors')
   end
 
   def child_safety
-    technology_page_div.link(:class => 'url',:href =>'/technology/passive-safety/child-safety')
+    technology_page_div.link(class: 'url', href: '/technology/passive-safety/child-safety')
   end
 
   def electric_door_mirrors
-    technology_page_div.link(:class => 'url',:href =>'/technology/comfort-and-convenience/electric-door-mirrors')
+    technology_page_div.link(class: 'url', href: '/technology/comfort-and-convenience/electric-door-mirrors')
   end
 
   def city_emergency_braking
-    technology_page_div.link(:class => 'url',:href =>'/technology/braking-and-stability-systems/city-emergency-braking')
+    technology_page_div.link(class: 'url', href: '/technology/braking-and-stability-systems/city-emergency-braking')
   end
 
   def rear_view_camera
-    technology_page_div.link(:class => 'url',:href =>'/technology/parking-and-manoeuvring/rear-view-camera')
+    technology_page_div.link(class: 'url', href: '/technology/parking-and-manoeuvring/rear-view-camera')
   end
 
   def adaptive_cruise_control
-    technology_page_div.link(:class => 'url',:href =>'/technology/adaptive-cruise-control-acc')
+    technology_page_div.link(class: 'url', href: '/technology/adaptive-cruise-control-acc')
   end
 
   def technology_sections_content(section)
-    @content = Array.new
+    @content = []
     @content[0] = section.div.img
     @content[1] = section.div.h2
     @content[2] = section.div.p
-    @content[3] = section.div.p(:index =>1)
-    return @content
+    @content[3] = section.div.p(index: 1)
+    @content
   end
-
 end
