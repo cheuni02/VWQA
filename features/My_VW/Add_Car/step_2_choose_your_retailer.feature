@@ -3,7 +3,7 @@ Feature: Add a current car
   As a Volkswagen vehicle owner
   I want to select a retailer to associate with my added car
 
-  @login_dbg_user_without_added_car @delete_added_car @clear_cookies
+  @login_dbg_history_plan_without_car @delete_added_car @clear_cookies
   Scenario: I have logged into my VW account with max amount of current cars added
     Given I have successfully completed step 1 with registration NU61OJG
     Then I will see my car details in summary:
@@ -16,7 +16,8 @@ Feature: Add a current car
     And I click lookup
     And I select step 2 - Finish
     Then I will be on my car details summary
-    And my car name My Scirocco is displayed
+    And my last added car name is My Scirocco
+    And a default picture of my last added car type scirocco is displayed
     And my retailer is Lookers Teesside is displayed
 
   @login_single_car_user

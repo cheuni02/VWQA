@@ -15,8 +15,9 @@ class VWMail
     mails = Array.new
     5.times do
       begin
-       mails = Mail.find(what: :last, count: 5, order: :desc)
-       rescue OpenSSL::SSL::SSLError
+        mails = Mail.find(what: :last, count: 5, order: :desc)
+        break
+      rescue OpenSSL::SSL::SSLError
         STDOUT.puts "SSL Connection failed, attempts: #{retry_count}"
         retry_count += 1
         retry

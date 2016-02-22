@@ -4,12 +4,6 @@ When(/^I login into my account$/) do
   login.login(@account[:username], @account[:password])
 end
 
-When(/^I login into my account with username: (.*) and password: (.*)$/) do |username, password|
-  login = site.my_vw.login
-  login.visit
-  login.login(username, password)
-end
-
 Then(/^I will be logged into my account$/) do
   Watir::Wait.until { site.my_vw.login.logout.present? }
   expect(site.my_vw.login.account_navigation_bar.present?).to be(true)

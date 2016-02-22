@@ -1,8 +1,9 @@
-@my_vw @Add-Current-Car @login_single_car_user
+@my_vw @Add-Current-Car
 Feature: Add a current car
   As a Volkswagen vehicle owner
   I want to add my address to associate with my account
 
+  @login_single_car_user
   Scenario: I have completed step 1 and 2 and will see details of these steps
     Given I have successfully completed step 1 with registration ML15XHR
     When I select continue to step 2
@@ -171,19 +172,33 @@ Feature: Add a current car
       | County          |           | empty               |
     When I enter House Name with 12
     And I select Finish
-    Then I will see address error message:
-      | Feedback                                                                                                                                             |
-      | Sorry, that didn't work. The address you entered doesn't match our records. if you continue to have problems, please give us a call on 0800 0833 914. |
+    Then I will see a pop with Sorry, that didn't work:
+      | The address you entered doesn't match our records. If you continue to have problems, please give us a call on 0800 0833 914. |
+    When I dismiss the pop up
+    Then I will see a form with my address details:
+      | Field           | Mandatory | Value               |
+      | Postcode        | Yes       | W2 6AA              |
+      | House Name / no | Yes       | 12                  |
+      | Address 1       | Yes       | Bishops Bridge Road |
+      | Address 2       |           | empty               |
+      | Town / City     | Yes       | LONDON              |
+      | County          |           | empty               |
 
-  @delete_added_car @logout @clear_cookies
+  @login_single_car_user @delete_added_car @logout @clear_cookies
   Scenario: I skip and finnish step 3, I have successful added my car
     When I select Skip & Finish
     Then I will be on my car details summary
-    And my car name My Passat is displayed
+    And a default picture of my last added car type passat is displayed
+    And my last added car name is My Passat
     And my retailer is Leeds Volkswagen is displayed
 
+  @login_complete_details_user @logout
   Scenario: I have already provided my address which doesn't match with VW records
-    Given I have logged in with my address completed previously and I'm on step 3
+    Given I have successfully completed step 1 with registration ML15XHR
+    When I select continue to step 2
+    Then I search for my local VW retailer by location with Bath
+    And I click lookup
+    When I select continue to step 3
     Then I will see a form with my address details:
       | Field           | Mandatory | Value        |
       | Postcode        | Yes       | UB6 7HA      |
@@ -193,6 +208,5 @@ Feature: Add a current car
       | Town / City     | Yes       | LONDON       |
       | County          |           | MIDDLESEX    |
     When I select Finish
-    Then I will see address error message:
-      | Feedback                                                                                                                                              |
-      | Sorry, that didn't work. The address you entered doesn't match our records. if you continue to have problems, please give us a call on 0800 0833 914. |
+    Then I will see a pop with Sorry, that didn't work:
+      | The address you entered doesn't match our records. If you continue to have problems, please give us a call on 0800 0833 914. |

@@ -17,11 +17,11 @@ class AddCurrentCarStep2 < MyVW
   end
 
   def step_1_summary_acquired_as
-    step_1_summary.li(index: 3).text.match(/\:(.*)[a-zA-Z0-9]/).to_s.delete(':').strip
+    step_1_summary.when_present.li(index: 3).text.match(/\:(.*)[a-zA-Z0-9]/).to_s.delete(':').strip
   end
 
   def step_1_summary_car_name
-    step_1_summary.li(index: 4).text.match(/\:(.*)[a-zA-Z0-9]/).to_s.delete(':').strip
+    step_1_summary.when_present.li(index: 4).text.match(/\:(.*)[a-zA-Z0-9]/).to_s.delete(':').strip
   end
 
   def go_to_section_3

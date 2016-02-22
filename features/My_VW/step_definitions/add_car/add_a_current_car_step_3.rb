@@ -51,10 +51,6 @@ Then(/^I will be on my car details summary$/) do
   expect(site.my_vw.add_current_car_step_3.my_car_added.present?).to be true
 end
 
-Then(/^my car name (.*) is displayed$/) do |car_name|
-  expect(site.my_vw.add_current_car_step_3.my_car_name_in_summary.text).to eq(car_name)
-end
-
 Then(/^my retailer is (.*) is displayed$/) do |retailers_name|
   expect(site.my_vw.add_current_car_step_3.my_retailer_name.text).to eq(retailers_name)
 end
@@ -76,48 +72,46 @@ Then(/^I will see address error message with (.*)$/) do |feedback|
         )
 end
 
+Then(/^I will see a pop with (.*):$/) do |header, table|
+  add_car = site.my_vw.add_current_car_step_3
+  Watir::Wait.until { add_car.error_pop_up.visible? }
+  expect(add_car.error_pop_up.present?).to be true
+  expect(add_car.error_pop_up.h2.text).to eq(header)
+  table.raw.each do |column|
+    expect(add_car.error_pop_up.p.text).to eq(column[0])
+  end
+end
+
+When(/^I dismiss the pop up$/) do
+  site.my_vw.add_current_car_step_3.error_pop_up_button.when_present.click
+end
+
+
 When(/^I (?:update|enter) (Postcode|House Name|Address 1|Address 2|Town|County) with (.*)$/) do |field, value|
   add_car = site.my_vw.add_current_car_step_3
   case field
-  when 'Postcode'
-    add_car.owner_postcode.set(value)
-  when 'House Name'
-    add_car.owner_house_number.set(value)
-  when 'Address 1'
-    add_car.owner_address_1.set(value)
-  when 'Address 2'
-    add_car.owner_address_2.set(value)
-  when 'Town'
-    add_car.owner_city.set(value)
-  when 'County'
-    add_car.owner_county.set(value)
+    when 'Postcode'
+      add_car.owner_postcode.set(value)
+    when 'House Name'
+      add_car.owner_house_number.set(value)
+    when 'Address 1'
+      add_car.owner_address_1.set(value)
+    when 'Address 2'
+      add_car.owner_address_2.set(value)
+    when 'Town'
+      add_car.owner_city.set(value)
+    when 'County'
+      add_car.owner_county.set(value)
   end
 end
 
 When(/^I select change step (\d+)$/) do |step|
   add_car = site.my_vw
   case step
-  when '1'
-    add_car.add_current_car_step_2.change_step_1.when_present.click
-  when '2'
-    add_car.add_current_car_step_3.change_step_2.when_present.click
+    when '1'
+      add_car.add_current_car_step_2.change_step_1.when_present.click
+    when '2'
+      add_car.add_current_car_step_3.change_step_2.when_present.click
   end
   Watir::Wait.while { site.my_vw.add_current_car.loading_wheel.visible? }
-end
-
-Given(/^I have logged in with my address completed previously and I'm on step 3$/) do
-  steps %(
-    Given I am on the Volkswagen Homepage
-    And I login into my account with username: AutomatedToastUser1455294949@example.com and password: Abcd!2345
-    And I will be logged into my account
-    And I go to add a new car
-    And I select the A car I own button
-    And I will see a registration field
-    And I add ML15XHR into the registration field
-    And I lookup the registration
-    And I select continue to step 2
-    And I search for my local VW retailer by location with Bath
-    And I click lookup
-    When I select continue to step 3
-        )
 end
