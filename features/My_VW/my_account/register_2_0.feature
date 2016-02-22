@@ -65,9 +65,3 @@ Feature: Volkswagen Account Registration
     When i submit my new account registration
     Then i should see the registration thank you page in my browser
 
-  Scenario: Copy/paste and modify email verification link
-    Given I paste modified email verification link in the browser
-    Then I should be redirected to a 'Page not found' page with error displayed:
-    """
-    Sorry this page is not available at the moment.
-    """
