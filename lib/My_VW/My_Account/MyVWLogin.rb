@@ -33,7 +33,7 @@ class MyVWLogin < MyVW
       set_email(username) until username_field.value == username
       set_password(password) until password_field.value == password
     end
-    do_login
+    5.times { do_login while login_button.present? }
   end
 
   def account_navigation_bar
