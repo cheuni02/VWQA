@@ -81,34 +81,44 @@ Feature: Current car dashboard - my service history and plans
     When I select browser back button
     Then I will be logged into my account
 
-  @login_dbg_history_without_car @delete_added_car @logout
+  @login_dbg_history_ext_without_car @delete_added_car @logout
   Scenario: My service history is displayed but no service plan
     Given I have added a new car to my account with:
-      | Display name        | My Scirocco               |
-      | Car status          | CURRENT                   |
-      | Registration        | YG61RXC                   |
-      | Model               | Scirocco                  |
-      | Derivative          | SCIROCCO GT BLUEMOTN TECH |
-      | Registration date   | 2011-10-17                |
-      | Fuel type           | Diesel                    |
-      | Vin                 | WVWZZZ13ZCV003235         |
-      | Year of manufacture | 2011                      |
-      | Engine capacity     | 2.0                       |
-      | Transmission        | Manual                    |
-      | Purchase type       | NEW_CAR                   |
+      | Display name        | My Fox            |
+      | Car status          | CURRENT           |
+      | Registration        | CV10UDU           |
+      | Model               | Fox               |
+      | Derivative          | URBAN FOX 55      |
+      | Registration date   | 2010-04-10        |
+      | Fuel type           | Petrol            |
+      | Vin                 | WVWZZZ5ZZA4124148 |
+      | Year of manufacture | 2010              |
+      | Engine capacity     | 1.2               |
+      | Transmission        | Manual            |
+      | Purchase type       | NEW_CAR           |
     And I am on the Volkswagen Homepage
 
     When I login into my account
     Then I will be logged into my account
-    And a default picture of my last added car type scirocco is displayed
-    And my last added car name is My Scirocco
+    And a default picture of my last added car type fox is displayed
+    And my last added car name is My Fox
 
     When I scroll to my service history and plans
     Then I will see my service history and plans details:
-      | Service type  | Date       | Retailer                |
-      | MOT Event     | 17/10/2014 | Huddersfield Volkswagen |
-      | Service Event | 19/05/2014 | Huddersfield Volkswagen |
-      | Service Event | 11/07/2012 | Huddersfield Volkswagen |
+      | Service type  | Date       | Retailer                          |
+      | MOT Event     | 14/05/2015 | Sinclair Volkswagen (Port Talbot) |
+      | MOT Event     | 09/04/2014 | Sinclair Volkswagen (Port Talbot) |
+      | Service Event | 09/04/2014 | Sinclair Volkswagen (Port Talbot) |
+    But I will see a show more button
+    When I select the show more button
+    Then I will see my service history and plans details:
+      | Service type  | Date       | Retailer                          |
+      | MOT Event     | 14/05/2015 | Sinclair Volkswagen (Port Talbot) |
+      | MOT Event     | 09/04/2014 | Sinclair Volkswagen (Port Talbot) |
+      | Service Event | 09/04/2014 | Sinclair Volkswagen (Port Talbot) |
+      | Service Event | 02/04/2013 | Sinclair Volkswagen (Port Talbot) |
+      | Service Event | 28/04/2012 | Sinclair Volkswagen (Port Talbot) |
+      | Service Event | 29/03/2011 | Sinclair Volkswagen (Port Talbot) |
 
     When I scroll to my plan
     Then there is no volkswagen plans

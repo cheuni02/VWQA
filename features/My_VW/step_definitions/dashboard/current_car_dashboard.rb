@@ -55,6 +55,14 @@ Then(/^I will see my service history and plans details:$/) do |table|
   table.hashes.each_with_index { |(hash), index| hash.each { |key, value| expect(current_car.service_type(index, key)).to eq(value) } }
 end
 
+But(/^I will see a show more button$/) do
+  expect(site.my_vw.current_car_dashboard.service_plans_history_show_more.present?).to be true
+end
+
+When(/^I select the show more button$/) do
+  site.my_vw.current_car_dashboard.service_plans_history_show_more.when_present.click
+end
+
 When(/^I scroll to my plan$/) do
   site.my_vw.current_car_dashboard.scroll_to_my_plan
 end

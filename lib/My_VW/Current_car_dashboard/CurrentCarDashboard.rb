@@ -41,6 +41,10 @@ class CurrentCarDashboard < MyVW
     @browser.element(class: 'my-current-history__body')
   end
 
+  def service_plans_history_show_more
+    service_plans_history_populated.element(class: 'my-table__show-more')
+  end
+
   def service_type(row = 0, column)
     case column
     when /Service type/
