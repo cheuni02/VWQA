@@ -71,7 +71,6 @@ Feature: Current car dashboard
       | insurance | true    |
       | b34f      | false   |
 
-
   Scenario Outline: Recovery zone section
     When I scroll to the bottom of the page
     Then the <button> should appear for the user

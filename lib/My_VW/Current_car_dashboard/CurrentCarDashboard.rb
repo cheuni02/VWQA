@@ -47,38 +47,38 @@ class CurrentCarDashboard < MyVW
 
   def service_type(row = 0, column)
     case column
-    when /Service type/
-      service_plans_history_populated.table.tbody.trs[row].tds[0].text
-    when /Date/
-      service_plans_history_populated.table.tbody.trs[row].tds[1].text
-    when /Retailer/
-      service_plans_history_populated.table.tbody.trs[row].tds[2].text
-    when /EVC report/
-      service_plans_history_populated.table.tbody.trs[row].tds[3].text
+      when /Service type/
+        service_plans_history_populated.table.tbody.trs[row].tds[0].text
+      when /Date/
+        service_plans_history_populated.table.tbody.trs[row].tds[1].text
+      when /Retailer/
+        service_plans_history_populated.table.tbody.trs[row].tds[2].text
+      when /EVC report/
+        service_plans_history_populated.table.tbody.trs[row].tds[3].text
     end
   end
 
   def plan_section(column)
     case column
-    when /Plan/
-      volkswagen_plans_section.table.tbody.tds[0].text
-    when /Start/
-      volkswagen_plans_section.table.tbody.tds[1].text
-    when /End/
-      volkswagen_plans_section.table.tbody.tds[2].text
-    when /Length/
-      volkswagen_plans_section.table.tbody.tds[3].text
-    when /More Info/
-      volkswagen_plans_section.table.tbody.tds[4].text
+      when /Plan/
+        service_plan_section.table.tbody.tds[0].text
+      when /Start/
+        service_plan_section.table.tbody.tds[1].text
+      when /End/
+        service_plan_section.table.tbody.tds[2].text
+      when /Length/
+        service_plan_section.table.tbody.tds[3].text
+      when /More Info/
+        service_plan_section.table.tbody.tds[4].text
     end
   end
 
   def read_more_about_plan
-    volkswagen_plans_section.table.tbody.tds[4]
+    service_plan_section.table.tbody.tds[4]
   end
 
   def scroll_to_my_plan
-    scroll_to(volkswagen_plans_section)
+    scroll_to(service_plan_section)
   end
 
   def scroll_to_help
@@ -145,8 +145,8 @@ class CurrentCarDashboard < MyVW
     @browser.div(class: 'my-current-history__body').table(class: 'my-table--transparent')
   end
 
-  def volkswagen_plans_section
-    @browser.div(class: 'my-current-plan__body')
+  def service_plan_section
+    @browser.section(class: 'my-current-plan')
   end
 
   def need_help_module
@@ -173,8 +173,8 @@ class CurrentCarDashboard < MyVW
     @browser.element(class: 'my-vw-button--blue', text: 'Enable feature')
   end
 
-  def dbg_not_matched_message
-    @browser.header(class: 'col-6 section__header')
+  def service_history_section
+    @browser.div(class: 'my-current-history__body')
   end
 
   def last_name_field

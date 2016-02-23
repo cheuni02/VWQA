@@ -43,7 +43,7 @@ Feature: Current car dashboard - my service history and plans
       | Fixed Price Servicing | 14/06/2014 | 13/06/2016 | 24 months | Read more |
 
     When I select read more link about my plan
-    Then I will be on the correct page related to the Fixed price servicing
+    Then I will be on the correct page related to the Volkswagen service plans
 
 
   @login_dbg_plan_without_car @delete_added_car @logout
@@ -77,7 +77,7 @@ Feature: Current car dashboard - my service history and plans
       | Fixed Price Servicing | 01/04/2014 | 31/03/2016 | 24 months | Read more |
 
     When I select read more link about my plan
-    Then I will be on the correct page related to the Fixed price servicing
+    Then I will be on the correct page related to the Volkswagen service plans
     When I select browser back button
     Then I will be logged into my account
 
@@ -107,15 +107,15 @@ Feature: Current car dashboard - my service history and plans
     Then I will see my service history and plans details:
       | Service type  | Date       | Retailer                          |
       | MOT Event     | 14/05/2015 | Sinclair Volkswagen (Port Talbot) |
-      | MOT Event     | 09/04/2014 | Sinclair Volkswagen (Port Talbot) |
       | Service Event | 09/04/2014 | Sinclair Volkswagen (Port Talbot) |
+      | MOT Event     | 09/04/2014 | Sinclair Volkswagen (Port Talbot) |
     But I will see a show more button
     When I select the show more button
     Then I will see my service history and plans details:
       | Service type  | Date       | Retailer                          |
       | MOT Event     | 14/05/2015 | Sinclair Volkswagen (Port Talbot) |
-      | MOT Event     | 09/04/2014 | Sinclair Volkswagen (Port Talbot) |
       | Service Event | 09/04/2014 | Sinclair Volkswagen (Port Talbot) |
+      | MOT Event     | 09/04/2014 | Sinclair Volkswagen (Port Talbot) |
       | Service Event | 02/04/2013 | Sinclair Volkswagen (Port Talbot) |
       | Service Event | 28/04/2012 | Sinclair Volkswagen (Port Talbot) |
       | Service Event | 29/03/2011 | Sinclair Volkswagen (Port Talbot) |
