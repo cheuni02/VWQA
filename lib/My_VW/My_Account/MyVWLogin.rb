@@ -75,11 +75,15 @@ class MyVWLogin < MyVW
     @browser.link(class: 'vw-btn vw-btn-active vw-btn-spaced')
   end
 
-  def remember_me_checkbox
-    @browser.checkbox(id: 'remember_me')
+  def keep_me_logged_in_check
+    @browser.execute_script("document.getElementById('remember_me').checked = true")
   end
 
-  def remember_me_cookie_set?
+  def keep_me_logged_in_set?
+    @browser.checkbox(id: 'remember_me').set?
+  end
+
+  def keep_me_logged_in_cookie_set?
     @browser.cookies['VW_AUTH_REMEMBER_ME']
   end
 
@@ -109,5 +113,17 @@ class MyVWLogin < MyVW
 
   def login_button
     @browser.button(id: 'login-button')
+  end
+
+  def open_new_window
+    @browser.execute_script( "window.open()")
+  end
+
+  def close_first_window
+    @browser.windows.first.close
+  end
+
+  def current_url
+    @browser.url
   end
 end
