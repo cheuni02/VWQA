@@ -14,6 +14,10 @@ class Servicing < Owners
     FixedPriceService.new(@browser)
   end
 
+  def volkswagen_service_plans
+    VolkswagenServicePlans.new(@browser)
+  end
+
   def extended_warranty
     ExtendedWarranty.new(@browser)
   end
