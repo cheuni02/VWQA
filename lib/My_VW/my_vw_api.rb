@@ -42,18 +42,18 @@ class MyVWAPI < MyVW
   end
 
   def add_new_current_car(uuid, access_token, options = {})
-    display_name = options[:display_name]           || 'My Car'
-    car_status = options[:car_status]               || 'CURRENT'
-    registration = options[:registration]           || 'YG61YRO'
-    model = options[:model]                         || 'Golf'
-    derivative = options[:derivative]               || 'GOLF GTI'
+    display_name = options[:display_name] || 'My Car'
+    car_status = options[:car_status] || 'CURRENT'
+    registration = options[:registration] || 'YG61YRO'
+    model = options[:model] || 'Golf'
+    derivative = options[:derivative] || 'GOLF GTI'
     registration_date = options[:registration_date] || '2014-02-12'
-    fuel_type = options[:fuel_type]                 || 'Petrol'
+    fuel_type = options[:fuel_type] || 'Petrol'
     vin = options[:vin]
-    year = options[:year]                           || '2014'
-    engine_capacity = options[:engine_capacity]     || '1.2'
-    transmission = options[:transmission]           || 'Manual'
-    purchase_type = options[:purchase_type]         || 'NEW_CAR'
+    year = options[:year] || '2014'
+    engine_capacity = options[:engine_capacity] || '1.2'
+    transmission = options[:transmission] || 'Manual'
+    purchase_type = options[:purchase_type] || 'NEW_CAR'
 
     car_data = {
       displayName: display_name,

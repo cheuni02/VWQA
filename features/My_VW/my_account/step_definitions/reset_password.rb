@@ -1,7 +1,7 @@
 
 Given /^I have sent an email to change password to my address$/ do
   reset_token = site.my_vw.forgotten_password.get_reset_token(@account[:username])
-  if reset_token.nil? || ((Time.now.to_i - reset_token['timestamp']) >= 86400)
+  if reset_token.nil? || ((Time.now.to_i - reset_token['timestamp']) >= 86_400)
     site.my_vw.forgotten_password.visit
     site.my_vw.forgotten_password.set_email(@account[:username])
     site.my_vw.forgotten_password.send_email.click
@@ -11,7 +11,7 @@ end
 
 When /^I click on the link to reset my password$/ do
   reset_token = site.my_vw.forgotten_password.get_reset_token(@account[:username])
-  if reset_token.nil? || ((Time.now.to_i - reset_token['timestamp']) >= 86400)
+  if reset_token.nil? || ((Time.now.to_i - reset_token['timestamp']) >= 86_400)
     @email = site.vw_emails.get_last_email('Password Forgotten')
     @reset_link = site.vw_emails.get_email_token_link(@email)
     site.my_vw.forgotten_password.set_user_reset_link(@account[:username], @reset_link)
@@ -30,25 +30,25 @@ Then /^the Password and Repeat password fields should be displayed for me to fil
 end
 
 When /^I enter my password I should see what requirements has been fulfilled:$/ do |table|
-   table.hashes.each do |hash|
+  table.hashes.each do |hash|
     site.my_vw.forgotten_password.set_new_password(hash['password'])
     puts "For Password #{hash['password']}"
-    array = Array.new
+    array = []
     array = hash.keys
-     array.each do |req|
-       case req
-         when 'password'
-           next
-         else
-           if hash[req] == 'not_active'
-             puts "should be the following requirement not fullfiled:  #{req}"
-             expect(site.my_vw.forgotten_password.active_requirements_list).not_to include (req)
-           else
-             expect(site.my_vw.forgotten_password.active_requirements_list).to include (req)
-           end
-       end
+    array.each do |req|
+      case req
+      when 'password'
+        next
+      else
+        if hash[req] == 'not_active'
+          puts "should be the following requirement not fullfiled:  #{req}"
+          expect(site.my_vw.forgotten_password.active_requirements_list).not_to include (req)
+        else
+          expect(site.my_vw.forgotten_password.active_requirements_list).to include (req)
+        end
       end
     end
+  end
 end
 
 When /^I type in my new password (.*)$/ do |password|
@@ -66,13 +66,13 @@ end
 
 When /^I type in my new password$/ do
   timestamp = Time.now.to_i
-  @password =  "Abcd!#{timestamp}"
+  @password = "Abcd!#{timestamp}"
   expect(site.my_vw.forgotten_password.new_password.present?).to be true
   site.my_vw.forgotten_password.set_new_password_script(@password)
 end
 
 And /^I re-enter password that does not match$/ do
-  site.my_vw.forgotten_password.set_confirm_password("Password123")
+  site.my_vw.forgotten_password.set_confirm_password('Password123')
 end
 
 Then /^I should not be able to submit the form and I should see message:$/ do |error|
@@ -82,10 +82,10 @@ end
 But /^when I set re-entered password to match the password$/ do
   site.my_vw.forgotten_password.confirm_password.clear
   site.my_vw.forgotten_password.set_confirm_password(@password)
- end
+end
 
 Then /^I should be able successfully change my password$/ do
-  step "I press reset password button"
+  step 'I press reset password button'
 end
 
 And /^the success message should be displayed:$/ do |message|

@@ -26,22 +26,22 @@ class MyVWForgottenPassword < MyVW
 
   def write_reset_json(tokens)
     File.open('reset_tokens.json', 'w') do |file|
-      #my_json = users.to_json
+      # my_json = users.to_json
       file.write(JSON.pretty_generate(tokens))
     end
   end
 
   def get_reset_token(email)
     tokens = get_reset_tokens
-    return tokens[email]
+    tokens[email]
   end
 
   def set_user_reset_link(email, link)
     tokens = get_reset_tokens
     tokens[email] =
     {
-      :reset_link => link,
-      :timestamp => Time.now.to_i
+      reset_link: link,
+      timestamp: Time.now.to_i
     }
 
     write_reset_json(tokens)
@@ -54,7 +54,7 @@ class MyVWForgottenPassword < MyVW
   end
 
   def set_new_password(password)
-     new_password.set(password)
+    new_password.set(password)
   end
 
   def set_confirm_password(password)
@@ -62,11 +62,11 @@ class MyVWForgottenPassword < MyVW
   end
 
   def active_requirements_list
-   list= Array.new
-   active_requirements.each do |element|
-     list.push(element.div(class:'my-pwd-indicator__text').text)
-     end
-    return list
+    list = []
+    active_requirements.each do |element|
+      list.push(element.div(class: 'my-pwd-indicator__text').text)
+    end
+    list
   end
 
   def email_field

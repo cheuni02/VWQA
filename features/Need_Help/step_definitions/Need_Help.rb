@@ -7,7 +7,7 @@ When /^i select the Need Help link in the top menu navigation$/ do
 end
 
 Then /^i should be taken to the main FAQ Page on the site$/ do
-  raise unless site.need_help.ask_question_present?
+  fail unless site.need_help.ask_question_present?
 end
 
 Given /^i have another query that i need help with$/ do
@@ -20,14 +20,14 @@ When /^i enter a search query of "(.*)" into the search for an answer box$/ do |
 end
 
 Then /^i should see search results appear on the page with answers to my questions$/ do
-  raise AssertionError, "No results present" unless site.need_help.query_results_present?
+  fail AssertionError, 'No results present' unless site.need_help.query_results_present?
 end
 
 When /^i select the (.*) from the list of possible options$/ do |category|
-  step "i have another query that i need help with"
-  raise AssertionError, "option not present" if !site.need_help.click_category_link(category)
+  step 'i have another query that i need help with'
+  fail AssertionError, 'option not present' unless site.need_help.click_category_link(category)
 end
-    
+
 Then /^i should see a series of answers displayed on the page$/ do
-  step "i should see search results appear on the page with answers to my questions"
+  step 'i should see search results appear on the page with answers to my questions'
 end

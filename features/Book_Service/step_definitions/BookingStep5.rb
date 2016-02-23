@@ -12,8 +12,8 @@ end
 
 Then /^i should see my town information appear as "(.*)"$/ do |town|
   sleep(3)
-  #STDOUT.puts(@serviceStep5.get_town_info)
-  raise AssertionError, "Town information not displayed after postcode search, expected: #{town}, got: #{@serviceStep5.get_town_info}" unless @serviceStep5.get_town_info =~ /#{town}/i
+  # STDOUT.puts(@serviceStep5.get_town_info)
+  fail AssertionError, "Town information not displayed after postcode search, expected: #{town}, got: #{@serviceStep5.get_town_info}" unless @serviceStep5.get_town_info =~ /#{town}/i
 end
 
 When /^i search for my invalid address using the postcode "(.*)"$/ do |postcode|
@@ -21,7 +21,7 @@ When /^i search for my invalid address using the postcode "(.*)"$/ do |postcode|
 end
 
 Then /^no details should be entered into the other address fields on the page$/ do
-  raise AssertionError, "Invalid data entered to town field with incorrect postcode! Got: #{@serviceStep5.get_town_info}" unless @serviceStep5.get_town_info.length == 0
+  fail AssertionError, "Invalid data entered to town field with incorrect postcode! Got: #{@serviceStep5.get_town_info}" unless @serviceStep5.get_town_info.length == 0
 end
 
 Given /^i change my convenience option to have my car picked up and collected$/ do
@@ -39,8 +39,8 @@ And /^i also need to use my main address to have my car dropped off at$/ do
 end
 
 Then /^i should find that the address fields in these sections are disabled$/ do
-  raise InvalidElementStateError, "Collect from location address fields were not disabled!" unless @serviceStep5.collect_postcode_disabled?
-  raise InvalidElementStateError, "Deliver to location address fields were not disabled!" unless @serviceStep5.deliver_postcode_disabled?
+  fail InvalidElementStateError, 'Collect from location address fields were not disabled!' unless @serviceStep5.collect_postcode_disabled?
+  fail InvalidElementStateError, 'Deliver to location address fields were not disabled!' unless @serviceStep5.deliver_postcode_disabled?
 end
 
 When /^i enter my personal details as (.*) (.*) (.*)$/ do |title, first_name, surname|
@@ -56,7 +56,7 @@ end
 
 And /^i enter my address as "(.*)" and use this address for picking up and collecting my car$/ do |postcode|
   step "i search for my valid address using the postcode \"#{postcode}\""
-  @serviceStep5.set_house_number("999999")
+  @serviceStep5.set_house_number('999999')
 end
 
 And /^i randomly set my communication preferences using the checkboxes provided$/ do
@@ -70,15 +70,15 @@ end
 
 Then /^i (.*) find that i am able to continue to the next step of booking my car service$/ do |expected|
   @serviceStep5.click_next_step
-  raise AssertionError, "Expected Step 5 of book a service page to be loaded, confirmation page was found!" if (expected !~ /not/i && @serviceStep5.page_loaded?)
-  raise AssertionError, "Expected Service Confirmation page to be loaded, Step 5 page was found!" if (expected =~ /not/i && @serviceStep5.confirmation_page_loaded?)
+  fail AssertionError, 'Expected Step 5 of book a service page to be loaded, confirmation page was found!' if expected !~ /not/i && @serviceStep5.page_loaded?
+  fail AssertionError, 'Expected Service Confirmation page to be loaded, Step 5 page was found!' if expected =~ /not/i && @serviceStep5.confirmation_page_loaded?
 end
 
 When /^i enter my personal details to the required fields$/ do
-  step "i enter my personal details as Lord Test Test"
-  step "i enter my contact information including telephone number of 02079460777 and email address test@example.com"
+  step 'i enter my personal details as Lord Test Test'
+  step 'i enter my contact information including telephone number of 02079460777 and email address test@example.com'
   step "i enter my address as \"UB6 7HA\" and use this address for picking up and collecting my car"
-  step "i randomly set my communication preferences using the checkboxes provided"
+  step 'i randomly set my communication preferences using the checkboxes provided'
 end
 
 And /^i click the button to confirm my details$/ do
@@ -86,7 +86,7 @@ And /^i click the button to confirm my details$/ do
 end
 
 Then /^i should be taken to the confirm my details page$/ do
-  raise PageNotLoadedError, "Book a service confirmation page not loaded" unless @serviceStep5.confirmation_page_loaded?
+  fail PageNotLoadedError, 'Book a service confirmation page not loaded' unless @serviceStep5.confirmation_page_loaded?
 end
 
 And /^if i confirm my details using the review and confirm button$/ do
@@ -94,5 +94,5 @@ And /^if i confirm my details using the review and confirm button$/ do
 end
 
 Then /^i should see the booking confirmation screen appear in my browser$/ do
-  raise PageNotLoadedError, "Book a service final confirmation page not loaded" unless @serviceStep5.final_confirmation_present?
+  fail PageNotLoadedError, 'Book a service final confirmation page not loaded' unless @serviceStep5.final_confirmation_present?
 end

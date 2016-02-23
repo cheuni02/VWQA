@@ -12,7 +12,7 @@ When /^i click on the top level nav button to Find Retailers$/ do
 end
 
 Then /^i should see the Retailer search page load correctly in my browser$/ do
-  raise unless @retailerSearch.page_loaded?
+  fail unless @retailerSearch.page_loaded?
 end
 
 When /^i search for my current location of (.*) using the retailer location search$/ do |retailer|
@@ -25,17 +25,16 @@ Then /^i should see the first retailer name of (.*) shown in a list of retailers
   result = nil if expected =~ /error/i
 
   if result.nil?
-    raise unless @retailerSearch.search_error_present?
+    fail unless @retailerSearch.search_error_present?
   else
     result = result.split('(')
     expected = expected.split('(')
 
-
-    raise unless result[0] =~ /#{expected[0]}/i
+    fail unless result[0] =~ /#{expected[0]}/i
     if result.length > 1
-      result[1].gsub!(')', '')
-      expected[1].gsub!(')', '')
-      raise unless result[1] =~ /#{expected[1]}/i
+      result[1].delete!(')')
+      expected[1].delete!(')')
+      fail unless result[1] =~ /#{expected[1]}/i
     end
   end
 end
@@ -45,7 +44,7 @@ When /^i search for a retailer that i know named (.*)$/ do |retailer_name|
 end
 
 Then /^i should see the retailer information is shown in my web browser$/ do
-  raise unless site.retailer_pages.retailer_homepage_loaded?
+  fail unless site.retailer_pages.retailer_homepage_loaded?
 end
 
 When /^i search for a retailer in my local area of "(.*)"$/ do |location|
@@ -70,11 +69,11 @@ end
 
 Then /^i should see the book a test drive page load in my browser$/ do
   @testdrive = site.book_test_drive
-  raise unless @testdrive.step_1_present?
+  fail unless @testdrive.step_1_present?
 end
 
 And /^i should also see the second step information has been filled in with my chosen retailer$/ do
-  raise unless @testdrive.step2_info_present?
+  fail unless @testdrive.step2_info_present?
 end
 
 When /^i search for Volkswagen retailers near "(.*)"$/ do |location|
@@ -86,7 +85,7 @@ And /^i decide to book a service for my volkswagen car$/ do
 end
 
 Then /^i should be taken to the second step of booking a service as my retailer information is already complete$/ do
-  raise unless site.book_service.booking_step2.page_loaded?
+  fail unless site.book_service.booking_step2.page_loaded?
 end
 
 When /^i search for a local retailer near "(.*)"$/ do |location|
@@ -98,7 +97,7 @@ And /^i view the latest offers for the first retailer in the results list$/ do
 end
 
 Then /^i should see a page containing a list of relevant offers from my local retailer$/ do
-  raise unless site.retailer_pages.retailer_offers_loaded?
+  fail unless site.retailer_pages.retailer_offers_loaded?
 end
 
 When /^i select the button at the bottom of the page to view the Volkswagen Service Promise$/ do
@@ -106,7 +105,7 @@ When /^i select the button at the bottom of the page to view the Volkswagen Serv
 end
 
 Then /^the service promise webpage should load inside my browser$/ do
-  raise unless site.owners.servicing.service_promise.page_loaded?
+  fail unless site.owners.servicing.service_promise.page_loaded?
 end
 
 When /^i click the page button to track my current Volkswagen car order$/ do
@@ -114,7 +113,7 @@ When /^i click the page button to track my current Volkswagen car order$/ do
 end
 
 Then /^i should be taken to a webpage where i can enter my Volkswagen order number$/ do
-  raise unless site.owners.orders_status.page_loaded?
+  fail unless site.owners.orders_status.page_loaded?
 end
 
 When /^i click on the page link to book a test drive with Volkswagen$/ do
@@ -122,7 +121,7 @@ When /^i click on the page link to book a test drive with Volkswagen$/ do
 end
 
 Then /^the first step of booking a test drive should appear in my browser$/ do
-  raise unless site.book_test_drive.step_1_present?
+  fail unless site.book_test_drive.step_1_present?
 end
 
 When /^i click the button on the page to book a service without performing a retailer search$/ do
@@ -130,5 +129,5 @@ When /^i click the button on the page to book a service without performing a ret
 end
 
 Then /^i should be taken to the start of the service booking process$/ do
- raise unless site.book_service.booking_step1.page_loaded?
+  fail unless site.book_service.booking_step1.page_loaded?
 end

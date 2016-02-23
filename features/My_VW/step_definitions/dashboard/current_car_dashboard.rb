@@ -4,7 +4,9 @@ Then(/^I will be welcomed to add a car as none are present for my account$/) do
 end
 
 Then(/^a default picture of my last added car type (.*) is displayed$/) do |car_type|
-  expect(site.my_vw.current_car_dashboard.my_car_photo).to eq(car_type)
+  current_car = site.my_vw.current_car_dashboard
+  Watir.Wait.until { current_car.current_car_hero.present? }
+  expect(current_car.my_car_photo).to eq(car_type)
   @car_id = site.my_vw.add_current_car_step_3.car_id
 end
 
@@ -88,7 +90,6 @@ Then(/^I'm on my account page$/) do
   expect(site.my_vw.profile.hero_title.present?).to be true
 end
 
-
 When(/^I select read more link about my plan$/) do
   site.my_vw.current_car_dashboard.read_more_about_plan.when_present.click
 end
@@ -103,24 +104,24 @@ end
 
 When(/^I select the (.*) offering$/) do |promotions|
   select_offering = site.my_vw.current_car_dashboard.promotions_by_title(promotions)
-  5.times {break select_offering.when_present.click if select_offering.present? }
+  5.times { break select_offering.when_present.click if select_offering.present? }
 end
 
 Then(/^I will be on the correct page related to the (.*)$/) do |page_name|
   owners_site = site.owners
   case page_name
-    when 'Fixed price servicing'
-      page_name = page_name.split(' ').map(&:capitalize).join(' ')
-      page_title = owners_site.servicing.fixed_price_servicing.page_title_subject
-    when 'Volkswagen service plans'
-      page_name = page_name.split(' ').map(&:capitalize).join(' ')
-      page_title = owners_site.servicing.volkswagen_service_plans.page_title_subject
-    when 'Extended warranty'
-      page_name = page_name.split(' ').map(&:capitalize).join(' ')
-      page_title = owners_site.servicing.extended_warranty.page_title_subject
-    when 'Accessories'
-      page_name = 'Accessories and merchandise'
-      page_title = owners_site.accessories.page_title
+  when 'Fixed price servicing'
+    page_name = page_name.split(' ').map(&:capitalize).join(' ')
+    page_title = owners_site.servicing.fixed_price_servicing.page_title_subject
+  when 'Volkswagen service plans'
+    page_name = page_name.split(' ').map(&:capitalize).join(' ')
+    page_title = owners_site.servicing.volkswagen_service_plans.page_title_subject
+  when 'Extended warranty'
+    page_name = page_name.split(' ').map(&:capitalize).join(' ')
+    page_title = owners_site.servicing.extended_warranty.page_title_subject
+  when 'Accessories'
+    page_name = 'Accessories and merchandise'
+    page_title = owners_site.accessories.page_title
   end
   Watir::Wait.until { page_title == page_name }
   expect(page_title).to eq(page_name), 'Expected: ' + page_name + ' Got: ' + page_title
@@ -140,23 +141,23 @@ end
 
 But(/^when I click on find out more (.*)$/) do |useful_links|
   find_out_more = site.my_vw.current_car_dashboard.useful_link(useful_links)
-  3.times { break find_out_more.when_present.click  if find_out_more.present?}
+  3.times { break find_out_more.when_present.click if find_out_more.present? }
 end
 
 Then(/^the correct page related to (.*) will be loaded$/) do |page_name|
   owners_site = site.owners
   case page_name
-    when 'Owner\'s manual'
-      page_name = page_name.delete('\'') + 's'
-      page_title = owners_site.owners_manuals.page_title
-    when 'Warning lights'
-      page_title = owners_site.warning_lights.page_title
-    when 'How tos'
-      page_name = 'How to guides'
-      page_title = owners_site.how_to_guides.page_title
-    when 'Breakdown and insurance'
-      page_name = 'Breakdown and Insurance'
-      page_title = owners_site.breakdown_insurance.page_title
+  when 'Owner\'s manual'
+    page_name = page_name.delete('\'') + 's'
+    page_title = owners_site.owners_manuals.page_title
+  when 'Warning lights'
+    page_title = owners_site.warning_lights.page_title
+  when 'How tos'
+    page_name = 'How to guides'
+    page_title = owners_site.how_to_guides.page_title
+  when 'Breakdown and insurance'
+    page_name = 'Breakdown and Insurance'
+    page_title = owners_site.breakdown_insurance.page_title
   end
   Watir::Wait.until { page_title == page_name }
   expect(page_title).to eq(page_name)
@@ -166,7 +167,7 @@ When(/^I search for (.*) in the need help section$/) do |query|
   current_car = site.my_vw.current_car_dashboard
   current_car.need_help_search_field.when_present.set(query)
   search_help = current_car.need_help_search_button
-  3.times { break search_help.when_present.click if search_help.present?}
+  3.times { break search_help.when_present.click if search_help.present? }
 end
 
 Then(/^I should see the (.*) page$/) do |page_title|
@@ -200,15 +201,15 @@ end
 
 Then(/^I will be on the (.*) page$/) do |buttons|
   case buttons
-    when 'Book a service'
-      Watir::Wait.until { site.service_booking.step1.page_loaded? }
-      expect(site.service_booking.step1.page_loaded?).to be true
-    when 'Keep me informed'
-      Watir::Wait.until { site.new_cars.keep_informed.page_loaded? }
-      expect(site.new_cars.keep_informed.page_loaded?).to be true
-    when 'Contact Us'
-      Watir::Wait.until { site.special_pages.contact_us.page_loaded? }
-      expect(site.special_pages.contact_us.page_loaded?).to be true
+  when 'Book a service'
+    Watir::Wait.until { site.service_booking.step1.page_loaded? }
+    expect(site.service_booking.step1.page_loaded?).to be true
+  when 'Keep me informed'
+    Watir::Wait.until { site.new_cars.keep_informed.page_loaded? }
+    expect(site.new_cars.keep_informed.page_loaded?).to be true
+  when 'Contact Us'
+    Watir::Wait.until { site.special_pages.contact_us.page_loaded? }
+    expect(site.special_pages.contact_us.page_loaded?).to be true
   end
 end
 

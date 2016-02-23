@@ -3,12 +3,12 @@ Given(/^i am on Brochure and price list page of the following model "(.*)"$/) do
   @printedBrochure.visit(model)
   @brochureListPage = 'brochure list'
   @tellUsPage = 'tell us'
-  @confirmationPage = "confirmation"
+  @confirmationPage = 'confirmation'
 end
 
 And(/^i go to Order a brochure page of the selected model$/) do
   @printedBrochure.order_brochure_car_model.click
-  raise AssertionError, "The #{@brochureListPage} page has not been opened" unless @printedBrochure.page_loaded?(@brochureListPage)
+  fail AssertionError, "The #{@brochureListPage} page has not been opened" unless @printedBrochure.page_loaded?(@brochureListPage)
 end
 
 When(/^i include (.*) the car brochure for the current selected model$/) do |current_model|
@@ -24,11 +24,11 @@ end
 
 And(/^i go to tell us about you page of ordering brochures$/) do
   @printedBrochure.next_button.click
-  raise AssertionError, "The #{@tellUsPage} page has not been opened" unless @printedBrochure.page_loaded?(@tellUsPage)
+  fail AssertionError, "The #{@tellUsPage} page has not been opened" unless @printedBrochure.page_loaded?(@tellUsPage)
 end
 
 Then(/^i should see the selected brochures of car models in the left side of the page$/) do
-  raise AssertionError, 'The number of selected brochures is not the same as selected' unless @printedBrochure.selected_brochures.size == @brochures_number.to_i + @current_model.to_i
+  fail AssertionError, 'The number of selected brochures is not the same as selected' unless @printedBrochure.selected_brochures.size == @brochures_number.to_i + @current_model.to_i
 end
 
 And(/^i should be able to select the "([^"]*)" title and fill in the personal details "([^"]*)" "([^"]*)"$/) do |title, first_name, last_name|
@@ -42,7 +42,7 @@ And(/^i should be able to fill in the contact details "([^"]*)" "([^"]*)"$/) do 
   @printedBrochure.telephone.set(telephone)
 end
 
-And(/^i should be able to fill my location details "([^"]*)" "([^"]*)" "([^"]*)" "([^"]*)" "([^"]*)" and "([^"]*)"$/) do | house_name, postcode, street_name, street_name_second, town_city, county|
+And(/^i should be able to fill my location details "([^"]*)" "([^"]*)" "([^"]*)" "([^"]*)" "([^"]*)" and "([^"]*)"$/) do |house_name, postcode, street_name, street_name_second, town_city, county|
   @printedBrochure.house_name.set(house_name)
   @printedBrochure.postcode.set(postcode)
   @printedBrochure.street_name.set(street_name)
@@ -78,7 +78,7 @@ end
 
 And(/^i should see the privacy policy as a popup on the bottom of order a brochure page$/) do
   @printedBrochure.privacy_policy.when_present.hover
-  raise AssertionError, 'The privacy policy content is not displayed' unless @printedBrochure.privacy_policy_content.present?
+  fail AssertionError, 'The privacy policy content is not displayed' unless @printedBrochure.privacy_policy_content.present?
 end
 
 Then(/^i should be able to submit the request to order the brochures$/) do
@@ -88,25 +88,25 @@ end
 
 And(/^i should be directed to the "([^"]*)" page$/) do |complete|
   case complete
-    when @confirmationPage
-      raise AssertionError, "The #{@confirmationPage} page has not been opened" unless @printedBrochure.page_loaded?(@confirmationPage)
-      brochures_list1 = @printedBrochure.get_brochures_names(@printedBrochure.confirm_brochures)
-      brochures_list2 = @printedBrochure.get_brochures_names(@printedBrochure.confirm_brochures_main)
-      raise AssertionError, 'The list of brochures is not the same in confirmation page' unless (@selectedBrochures - brochures_list1).empty?
-      raise AssertionError, 'The list of brochures is not the same in confirmation page' unless (brochures_list1 - brochures_list2).empty?
-      raise AssertionError, 'Personal details section is not displayed on Confirmation page' unless @printedBrochure.confirm_personal_details.present?
-      raise AssertionError, 'Print button is not displayed on Confirmation page' unless @printedBrochure.confirm_print_button.present?
-      raise AssertionError, 'Home button is not displayed on Confirmation page' unless @printedBrochure.confirm_home_button.present?
-      raise AssertionError, 'Book test drive link is not visible below confirmation section' unless @printedBrochure.book_test_drive_link.present?
-      raise AssertionError, 'Create your account button is not displayed below confirmation section' unless @printedBrochure.create_account_button.present?
-    when @tellUsPage
-      raise AssertionError, "The #{@tellUsPage} page has not been opened" unless @printedBrochure.page_loaded?(@tellUsPage)
-      raise AssertionError, 'Validation messages are not displayed' unless @printedBrochure.error_messages.present?
+  when @confirmationPage
+    fail AssertionError, "The #{@confirmationPage} page has not been opened" unless @printedBrochure.page_loaded?(@confirmationPage)
+    brochures_list1 = @printedBrochure.get_brochures_names(@printedBrochure.confirm_brochures)
+    brochures_list2 = @printedBrochure.get_brochures_names(@printedBrochure.confirm_brochures_main)
+    fail AssertionError, 'The list of brochures is not the same in confirmation page' unless (@selectedBrochures - brochures_list1).empty?
+    fail AssertionError, 'The list of brochures is not the same in confirmation page' unless (brochures_list1 - brochures_list2).empty?
+    fail AssertionError, 'Personal details section is not displayed on Confirmation page' unless @printedBrochure.confirm_personal_details.present?
+    fail AssertionError, 'Print button is not displayed on Confirmation page' unless @printedBrochure.confirm_print_button.present?
+    fail AssertionError, 'Home button is not displayed on Confirmation page' unless @printedBrochure.confirm_home_button.present?
+    fail AssertionError, 'Book test drive link is not visible below confirmation section' unless @printedBrochure.book_test_drive_link.present?
+    fail AssertionError, 'Create your account button is not displayed below confirmation section' unless @printedBrochure.create_account_button.present?
+  when @tellUsPage
+    fail AssertionError, "The #{@tellUsPage} page has not been opened" unless @printedBrochure.page_loaded?(@tellUsPage)
+    fail AssertionError, 'Validation messages are not displayed' unless @printedBrochure.error_messages.present?
   end
 end
 
 When(/^i am on tell us about you page of ordering brochures$/) do
-  step "i go to tell us about you page of ordering brochures"
+  step 'i go to tell us about you page of ordering brochures'
 end
 
 And(/^i click on Back button from the bottom of the tell us about you page$/) do
@@ -114,7 +114,7 @@ And(/^i click on Back button from the bottom of the tell us about you page$/) do
 end
 
 Then(/^i should be directed back to select the car models that i want brochures for$/) do
-  raise AssertionError, "The #{@brochureListPage} page has not been opened" unless @printedBrochure.page_loaded?(@brochureListPage)
+  fail AssertionError, "The #{@brochureListPage} page has not been opened" unless @printedBrochure.page_loaded?(@brochureListPage)
 end
 
 And(/^i click on Back button from select brochures page$/) do
@@ -122,7 +122,7 @@ And(/^i click on Back button from select brochures page$/) do
 end
 
 Then(/^i should be directed to order a brochure main page$/) do
-  raise AssertionError, 'The Order a brochure page was not opened' unless site.new_cars.order_a_brochure.page_header.present?
+  fail AssertionError, 'The Order a brochure page was not opened' unless site.new_cars.order_a_brochure.page_header.present?
 end
 
 When(/^i see the maximum other brochures i can select$/) do
@@ -135,11 +135,11 @@ end
 
 Then(/^i should not be able to go to Tell us page$/i) do
   @printedBrochure.next_button.click
-  raise AssertionError, "The #{@brochureListPage} page has is not displayed" unless @printedBrochure.page_loaded?(@brochureListPage)
+  fail AssertionError, "The #{@brochureListPage} page has is not displayed" unless @printedBrochure.page_loaded?(@brochureListPage)
 end
 
 And(/^i should see the maximum number of brochures to order is increased with one$/) do
-  raise AssertionError, "The number of brochures to select was not increased by one" unless @printedBrochure.get_number_of_other_brochures == @n_of_brochures + 1
+  fail AssertionError, 'The number of brochures to select was not increased by one' unless @printedBrochure.get_number_of_other_brochures == @n_of_brochures + 1
 end
 
 But(/^i select brochures for different models$/) do
@@ -149,16 +149,16 @@ end
 
 Then(/^i should be able to land on Tell us page of Ordering a brochure$/i) do
   @printedBrochure.next_button.click
-  raise AssertionError, "The #{@tellUsPage} page has not been opened" unless @printedBrochure.page_loaded?(@tellUsPage)
+  fail AssertionError, "The #{@tellUsPage} page has not been opened" unless @printedBrochure.page_loaded?(@tellUsPage)
 end
 
 And(/^i see the image of the selected car model on top left of Ordering a brochure page$/) do
   @printedBrochure.selected_car_img.wait_until_present
-  raise AssertionError, 'The image of the selected car model is not displayed' unless @printedBrochure.selected_car_img.loaded?
+  fail AssertionError, 'The image of the selected car model is not displayed' unless @printedBrochure.selected_car_img.loaded?
 end
 
 And(/^i see the description of the selected car model on top of the page$/) do
-  raise AssertionError, 'The description of the selected car is not displayed' unless @printedBrochure.selected_car_description.present?
+  fail AssertionError, 'The description of the selected car is not displayed' unless @printedBrochure.selected_car_description.present?
 end
 
 And(/^i expand the section with the other car models$/) do
@@ -174,5 +174,5 @@ But(/^i collapse the other car models section$/) do
 end
 
 And(/^the car models should be hidden$/) do
-  raise AssertionError, 'The car models grid has not been collapsed' if @printedBrochure.new_cars_section.present?
+  fail AssertionError, 'The car models grid has not been collapsed' if @printedBrochure.new_cars_section.present?
 end
