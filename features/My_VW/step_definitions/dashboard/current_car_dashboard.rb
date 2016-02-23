@@ -5,7 +5,7 @@ end
 
 Then(/^a default picture of my last added car type (.*) is displayed$/) do |car_type|
   current_car = site.my_vw.current_car_dashboard
-  Watir.Wait.until { current_car.current_car_hero.present? }
+  Watir::Wait.until { current_car.current_car_hero.present? }
   expect(current_car.my_car_photo).to eq(car_type)
   @car_id = site.my_vw.add_current_car_step_3.car_id
 end

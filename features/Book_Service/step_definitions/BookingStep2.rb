@@ -4,24 +4,6 @@ Given /^i select and confirm the location where i want my car to be serviced$/ d
   @serviceStep2.click_next_step
 end
 
-# Given /^i have a broken down car in the "(.*)" area$/ do |location|
-#   site.homepage.visit
-#   @serviceStep1 = site.book_service.booking_step1
-#   @serviceStep1.visit
-#   @serviceStep1.set_location(location)
-#   @serviceStep1.location_search
-# end
-#
-# When /^i select a car servicing building when looking to book a service$/ do
-#   @serviceStep1.select_random_location
-#   @serviceStep1.click_next_step
-# end
-#
-# Then /^i should be presented with a form to enter my registration details$/ do
-#   @serviceStep2 = site.book_service.booking_step2
-#   raise unless @serviceStep2.page_loaded?
-# end
-
 When /^i submit my car registration details as "(.*)"$/ do |registration|
   @serviceStep2.set_registration(registration)
   @serviceStep2.submit_car_registration

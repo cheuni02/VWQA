@@ -11,14 +11,10 @@ When /^i am on Step 4$/ do
   site.my_vw.login.visit
   site.my_vw.login.login(@account[:username], @account[:password])
   @service_booking.step1.visit
-  # @service_booking.page_loaded?
   @service_booking.step1.click_step_2_button
-  # @service_booking_2.page_loaded?
   @service_booking.step2.do_step_2 # Reset Data to avoid problems with phone number
   @service_booking.step2.click_step3_button
-  # @service_booking_3.page_loaded?
   @service_booking.step3.click_step4_button
-  # @service_booking_4.page_loaded?
 end
 
 Then /^i should be able to see the service panel$/ do
@@ -87,10 +83,6 @@ Then /^i should see the price for my service change to reflect my choice$/ do
   fail ValidationError, 'Price was not updated to new value' unless @service_booking_4.get_total_price > 0.00
 end
 
-# And /^i should see the work option appear in the work summary$/ do#
-#  pending
-# end
-
 When /^i view the unplanned maintenance section$/ do
   step 'i edit the details of my service work'
   sleep(2)
@@ -104,15 +96,3 @@ end
 And /^i should see the unplanned options appear in the work summary$/ do
   step 'i should see the price for my service change to reflect my choice'
 end
-
-# When /^i view the service and MOT section$/ do
-#  pending
-# end
-#
-# Then /^i should be able to click on a service and MOT$/ do
-#  pending
-# end
-#
-# And /^it should appear in the work option summary box$/ do
-#  pending
-# end

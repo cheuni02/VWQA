@@ -3,28 +3,6 @@ Given /^i am selecting which courtesy option i want when booking a service for m
   @serviceStep4.visit
 end
 
-# Given /^i want my car with registration "FE06 KHO" to be serviced in the "Uxbridge" Area$/ do |registration, location|
-#   site.homepage.visit
-#   serviceStep1 = site.book_service.booking_step1
-#   serviceStep1.visit
-#   serviceStep1.set_location(location)
-#   serviceStep1.location_search
-#   #@serviceStep1.select_random_location
-#   serviceStep1.click_next_step
-#   serviceStep2 = site.book_service.booking_step2
-#   serviceStep2.set_registration(registration)
-#   serviceStep2.submit_car_registration
-#   serviceStep2.set_mileage("10000")
-#   serviceStep2.click_next_step
-# end
-#
-# And /^i want my car to be given a full service at this location$/ do
-#   @serviceStep3 = site.book_service.booking_step3
-#   @serviceStep3.select_front_brake_pad_service
-#   @serviceStep3.click_next_step
-#   @serviceStep4 = site.book_service.booking_step4
-# end
-
 When /^i try to continue to the next step without selecting a time for my service$/ do
   @serviceStep4.click_next_step
 end

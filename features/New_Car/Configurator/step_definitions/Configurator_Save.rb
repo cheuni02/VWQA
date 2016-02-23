@@ -91,6 +91,5 @@ end
 Then /^i should see my car configuration has been added to my profile page$/ do
   @profile_configs = site.my_vw.my_configurations
   @profile_configs.visit
-  # raise PageNotLoadedError, "Saved configurations page not loaded" unless @profile_configs.page_loaded?
   fail AssertionError, 'No Saved Configurations shown on My Configurations Page' if @profile_configs.no_configs_shown?
 end

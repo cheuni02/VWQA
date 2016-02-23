@@ -4,25 +4,6 @@ Given /^i have selected a location for a service and have entered my car details
   @serviceStep3.expand_work_list_option
 end
 
-# Given /^i want to book a service for a car located in "(.*)"$/ do |location|
-#   site.homepage.visit
-#   @serviceStep1 = site.book_service.booking_step1
-#   @serviceStep1.visit
-#   @serviceStep1.set_location(location)
-#   @serviceStep1.location_search
-#   #@serviceStep1.select_random_location
-#   @serviceStep1.click_next_step
-# end
-#
-# And /^i enter my car which has a registration of "(.*)"$/ do |registration|
-#   @serviceStep2 = site.book_service.booking_step2
-#   @serviceStep2.set_registration(registration)
-#   @serviceStep2.submit_car_registration
-#   @serviceStep2.set_mileage("10000")
-#   @serviceStep2.click_next_step
-#   @serviceStep3 = site.book_service.booking_step3
-# end
-
 When /^i do not select a service item and try to continue to the next page$/ do
   @serviceStep3.click_next_step
 end

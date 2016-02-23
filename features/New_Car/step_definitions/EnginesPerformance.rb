@@ -33,7 +33,6 @@ When(/^i select the "(.*)" car model that I want$/) do |model|
 end
 
 And(/^i select engine and performance link from mlp navigation$/) do
-  # site.new_cars.mlp_nav.select_primary_item('Car models', 'Engines & performance')
   @enginePerformance.visit(@model)
 end
 
