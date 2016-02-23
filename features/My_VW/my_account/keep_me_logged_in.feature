@@ -1,4 +1,4 @@
-@my_vw @Login-2 @keep_me_logged_in
+@my_vw @Login-2 @keep_me_logged_in @login
 Feature: Keep me logged in option
   As a user
   I want the application to keep me logged in
