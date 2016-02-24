@@ -47,29 +47,29 @@ class CurrentCarDashboard < MyVW
 
   def service_type(row = 0, column)
     case column
-      when /Service type/
-        service_plans_history_populated.table.tbody.trs[row].tds[0].text
-      when /Date/
-        service_plans_history_populated.table.tbody.trs[row].tds[1].text
-      when /Retailer/
-        service_plans_history_populated.table.tbody.trs[row].tds[2].text
-      when /EVC report/
-        service_plans_history_populated.table.tbody.trs[row].tds[3].text
+    when /Service type/
+      service_plans_history_populated.table.tbody.trs[row].tds[0].text
+    when /Date/
+      service_plans_history_populated.table.tbody.trs[row].tds[1].text
+    when /Retailer/
+      service_plans_history_populated.table.tbody.trs[row].tds[2].text
+    when /EVC report/
+      service_plans_history_populated.table.tbody.trs[row].tds[3].text
     end
   end
 
   def plan_section(column)
     case column
-      when /Plan/
-        service_plan_section.table.tbody.tds[0].text
-      when /Start/
-        service_plan_section.table.tbody.tds[1].text
-      when /End/
-        service_plan_section.table.tbody.tds[2].text
-      when /Length/
-        service_plan_section.table.tbody.tds[3].text
-      when /More Info/
-        service_plan_section.table.tbody.tds[4].text
+    when /Plan/
+      service_plan_section.table.tbody.tds[0].text
+    when /Start/
+      service_plan_section.table.tbody.tds[1].text
+    when /End/
+      service_plan_section.table.tbody.tds[2].text
+    when /Length/
+      service_plan_section.table.tbody.tds[3].text
+    when /More Info/
+      service_plan_section.table.tbody.tds[4].text
     end
   end
 
@@ -110,7 +110,7 @@ class CurrentCarDashboard < MyVW
   end
 
   def my_car_photo
-    @browser.element(class: 'current-car-hero').attribute_value('className').split(' ').last
+    current_car_hero.attribute_value('className').split(' ').last
   end
 
   def camera_button

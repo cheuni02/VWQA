@@ -8,7 +8,7 @@ When /^I have selected list mode$/ do
 end
 
 Then /^I should see the timeline in list mode$/ do
-  raise AssertionError, "List not present on page" unless @timeline.get_list.length > 0
+  fail AssertionError, 'List not present on page' unless @timeline.get_list.length > 0
 end
 
 When /^I have selected timeline mode$/ do
@@ -16,7 +16,7 @@ When /^I have selected timeline mode$/ do
 end
 
 Then /^I should see the timeline in timeline mode$/ do
-  raise AssertionError, "Timeline not present on page" unless @timeline.timeline_present?
+  fail AssertionError, 'Timeline not present on page' unless @timeline.timeline_present?
 end
 
 When /^I enter (.*) into the search box$/ do |search|
@@ -31,7 +31,7 @@ end
 Then /^I should only see (.*) in the timeline$/ do |search|
   @timeline.set_list_view
   search_terms = search.split(' ')
-  raise AssertionError, "Unable to find search terms in timeline" if @timeline.search_page(search_terms) == false
+  fail AssertionError, 'Unable to find search terms in timeline' if @timeline.search_page(search_terms) == false
 end
 
 When /^I click on the (.*) button$/ do |decade|
@@ -40,5 +40,5 @@ When /^I click on the (.*) button$/ do |decade|
 end
 
 Then /^only articles from the (.*)s will be shown$/ do |decade|
-  raise AssertionError, "Wrong dates shown in timeline" unless @timeline.check_dates(decade) == true
+  fail AssertionError, 'Wrong dates shown in timeline' unless @timeline.check_dates(decade) == true
 end

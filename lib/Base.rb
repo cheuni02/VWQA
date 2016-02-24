@@ -145,7 +145,6 @@ class VWBase < BrowserContainer
   end
 
   def gmt_finder
-  GMTF.new(@browser)
+    GMTF.new(@browser)
   end
-
 end

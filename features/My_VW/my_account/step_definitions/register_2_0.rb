@@ -2,7 +2,7 @@ Given /^i am on the Volkswagen Account registration page$/ do
   site.my_vw.register.visit
 end
 
-Given /^i enter my name details as (.*) (.*) (.*)$/ do |title, first_name, surname |
+Given /^i enter my name details as (.*) (.*) (.*)$/ do |title, first_name, surname|
   site.my_vw.register.title_select_list.set(title)
   site.my_vw.register.first_name_field.when_present.set(first_name)
   site.my_vw.register.surname_field.when_present.set(surname)

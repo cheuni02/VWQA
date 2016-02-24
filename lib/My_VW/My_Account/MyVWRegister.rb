@@ -43,9 +43,8 @@ class MyVWRegister < MyVW
     # sleep(10)
     registration_button.click
 
-    return { username: email, password: DEFAULT_ACCOUNT[:password] }
+    { username: email, password: DEFAULT_ACCOUNT[:password] }
   end
-
 
   def email_taken_message
     email_taken_error.text

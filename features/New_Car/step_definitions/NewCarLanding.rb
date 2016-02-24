@@ -12,16 +12,15 @@ When /^i click on the New Cars link in the top level nav$/ do
 end
 
 Then /^i should see the list of Volkswagen car models appear in my browser$/ do
-  expect{@newCarLanding.page_loaded?}.not_to raise_error
+  expect { @newCarLanding.page_loaded? }.not_to raise_error
 end
-
 
 When /^i click the link to view the list of cars as a horizontal strip$/ do
   @newCarLanding.set_horizontal_view
 end
 
 Then /^i should see the new car listing change and display as a horizontal strip$/ do
-  raise unless @newCarLanding.go_to_end_button_present?
+  fail unless @newCarLanding.go_to_end_button_present?
 end
 
 When /^i change the car order filter to (.*) using the select dropdown on the page$/ do |filter|
@@ -30,7 +29,7 @@ end
 
 Then /^i should see (.*) appearing as the first car in the list of items$/ do |expected_model|
   @newCarLanding.wait_for_range_load
-  raise unless @newCarLanding.get_first_model_name =~ /#{expected_model}/i
+  fail unless @newCarLanding.get_first_model_name =~ /#{expected_model}/i
 end
 
 When /^i click on the car model named (.*) on the new car landing page$/ do |model|
@@ -42,10 +41,10 @@ Then /^i should see a panel containing a context description of the car$/ do
 end
 
 And /^i should also see the pricing and detailed information of that cars performance$/ do
-  raise unless @newCarLanding.car_price_info_present?
-  raise unless @newCarLanding.car_size_info_present?
-  raise unless @newCarLanding.car_performance_info_present?
-  raise unless @newCarLanding.car_efficiency_info_present?
+  fail unless @newCarLanding.car_price_info_present?
+  fail unless @newCarLanding.car_size_info_present?
+  fail unless @newCarLanding.car_performance_info_present?
+  fail unless @newCarLanding.car_efficiency_info_present?
 end
 
 But /^if i click on the link to view even more details about this car$/ do
@@ -53,5 +52,5 @@ But /^if i click on the link to view even more details about this car$/ do
 end
 
 Then /^i should be taken to the main landing page view for this car model$/ do
-  raise unless @newCarLanding.mlp_loaded?
+  fail unless @newCarLanding.mlp_loaded?
 end

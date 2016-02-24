@@ -4,7 +4,7 @@ Given /^that I have opened the service promises page$/ do
 end
 
 Then /^the page should be loaded successfully$/ do
-  raise AssertionError, "Page not loaded" unless @service_promise.page_loaded?
+  fail AssertionError, 'Page not loaded' unless @service_promise.page_loaded?
 end
 
 When /^I click on link (.*)$/ do |link|
@@ -13,5 +13,5 @@ When /^I click on link (.*)$/ do |link|
 end
 
 Then /^the (.*) should appear$/ do |promise|
-  raise AssertionError, "Incorrect Promise" unless @service_promise.check_promise(promise, @link)
+  fail AssertionError, 'Incorrect Promise' unless @service_promise.check_promise(promise, @link)
 end

@@ -13,7 +13,7 @@ When /^i select the first available date in the table$/ do
 end
 
 Then /^i should find that my service booking date is locked in$/ do
-  raise ValidationError, "Unable to select an available date" unless @service_booking_5.date_active?
+  fail ValidationError, 'Unable to select an available date' unless @service_booking_5.date_active?
 end
 
 When /^i click on the right arrow in the calender table$/ do
@@ -22,7 +22,7 @@ When /^i click on the right arrow in the calender table$/ do
 end
 
 Then /^i should see the month that i am selecting update$/ do
-  raise ValidationError, "Month failed to update on calender table!" unless @service_booking_5.get_calender_month != @startmonth
+  fail ValidationError, 'Month failed to update on calender table!' unless @service_booking_5.get_calender_month != @startmonth
 end
 
 When /^i check the list of available convieneance options$/ do
@@ -35,7 +35,7 @@ Then /^i should see a list of the following items$/ do |items|
     errors.push("#{item}") unless @options.include? item
   end
 
-  raise ValidationError, "Could not find Options: #{errors.inspect} in list of convieneance items!" unless errors.length == 0
+  fail ValidationError, "Could not find Options: #{errors.inspect} in list of convieneance items!" unless errors.length == 0
 end
 
 When /^i attempt to continue without setting a date or time for my service$/ do
@@ -43,7 +43,7 @@ When /^i attempt to continue without setting a date or time for my service$/ do
 end
 
 Then /^i should see an error message displayed in my browser$/ do
-  pending("VWBS-676 -- No error when continueing")
+  pending('VWBS-676 -- No error when continueing')
 end
 
 When /^i change the collection address setting to not use my default address$/ do
@@ -62,21 +62,19 @@ Then /^i should see a set of fields to enter a new delivery address$/ do
   @service_booking_5.manual_delivery_form_present?
 end
 
-
 Given /^i select a valid date from the calender for my service$/ do
-  step "i select the first available date in the table"
+  step 'i select the first available date in the table'
 end
 
 And /^i select a time and convienece option that suits me$/ do
-  @service_booking_5.set_booking_time("8am - 9am")
-  @service_booking_5.select_convieneance_option("Not required")
+  @service_booking_5.set_booking_time('8am - 9am')
+  @service_booking_5.select_convieneance_option('Not required')
 end
 
-
 When /^i submit my confirmation of these details$/ do
-  step "i attempt to continue without setting a date or time for my service"
+  step 'i attempt to continue without setting a date or time for my service'
 end
 
 Then /^i should see the final stage of booking a service$/ do
-  pending("Step 6 implementation")
+  pending('Step 6 implementation')
 end

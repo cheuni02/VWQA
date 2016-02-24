@@ -27,7 +27,7 @@ Before('@login_dbg_history_without_car') do
 end
 
 Before('@login_dbg_history_ext_without_car') do
-@account = site.my_vw.login.get_account_details('DBG_User_History_Ext')
+  @account = site.my_vw.login.get_account_details('DBG_User_History_Ext')
 end
 
 Before('@login_dbg_nothing_without_car') do

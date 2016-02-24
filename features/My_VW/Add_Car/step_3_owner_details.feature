@@ -160,29 +160,35 @@ Feature: Add a current car
       | GU7 1DZ  | 28         | High Street |           | Please complete town          |
 
   Scenario: I attempt to finish change of address but there is no DBG match
-    When I enter Postcode with W2 6AA
+    When I enter Postcode with BS23 3YZ
     And I select lookup
     Then I will see a form with my address details:
-      | Field           | Mandatory | Value               |
-      | Postcode        | Yes       | W2 6AA              |
-      | House Name / no | Yes       | empty               |
-      | Address 1       | Yes       | Bishops Bridge Road |
-      | Address 2       |           | empty               |
-      | Town / City     | Yes       | LONDON              |
-      | County          |           | empty               |
+      | Field           | Mandatory | Value             |
+      | Postcode        | Yes       | BS23 3YZ          |
+      | House Name / no | Yes       | empty             |
+      | Address 1       | Yes       | Marchfields Way   |
+      | Address 2       |           | empty             |
+      | Town / City     | Yes       | WESTON-SUPER-MARE |
+      | County          |           | Avon              |
     When I enter House Name with 12
     And I select Finish
     Then I will see a pop with Sorry, that didn't work:
       | The address you entered doesn't match our records. If you continue to have problems, please give us a call on 0800 0833 914. |
     When I dismiss the pop up
     Then I will see a form with my address details:
-      | Field           | Mandatory | Value               |
-      | Postcode        | Yes       | W2 6AA              |
-      | House Name / no | Yes       | 12                  |
-      | Address 1       | Yes       | Bishops Bridge Road |
-      | Address 2       |           | empty               |
-      | Town / City     | Yes       | LONDON              |
-      | County          |           | empty               |
+      | Field           | Mandatory | Value             |
+      | Postcode        | Yes       | BS23 3YZ          |
+      | House Name / no | Yes       | 12                |
+      | Address 1       | Yes       | Marchfields Way   |
+      | Address 2       |           | empty             |
+      | Town / City     | Yes       | WESTON-SUPER-MARE |
+      | County          |           | Avon              |
+    When I enter Postcode with BS23 3YZ
+    And I select lookup
+    Then I will see a form with my address details:
+      | Field           | Mandatory | Value             |
+      | House Name / no | Yes       | empty             |
+
 
   @login_single_car_user @delete_added_car @logout @clear_cookies
   Scenario: I skip and finnish step 3, I have successful added my car
