@@ -57,8 +57,8 @@ class MyVW < VWBase
     DeleteCar.new(@browser)
   end
 
-  def my_account
-    MyAccount.new(@browser)
+  def account_settings
+    MyVWAccountSettings.new(@browser)
   end
 
   def forgotten_password
