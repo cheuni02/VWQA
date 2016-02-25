@@ -45,7 +45,6 @@ Feature: Current car dashboard - my service history and plans
     When I select read more link about my plan
     Then I will be on the correct page related to the Volkswagen service plans
 
-
   @login_dbg_plan_without_car @delete_added_car @logout
   Scenario: My service plane is displayed but no history
     Given I have added a new car to my account with:

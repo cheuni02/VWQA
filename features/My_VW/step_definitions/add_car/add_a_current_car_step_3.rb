@@ -65,6 +65,7 @@ Then(/^I will see address error message:$/) do |table|
 end
 
 Then(/^I will see address error message with (.*)$/) do |feedback|
+  Watir::Wait.while { site.my_vw.add_current_car.loading_wheel.visible? }
   steps %(
       Then I will see address error message:
       | Feedback    |
@@ -90,7 +91,7 @@ When(/^I (?:update|enter) (Postcode|House Name|Address 1|Address 2|Town|County) 
   add_car = site.my_vw.add_current_car_step_3
   case field
   when 'Postcode'
-    add_car.owner_postcode.set(value)
+    add_car.owner_postcode.when_present.set(value)
   when 'House Name'
     add_car.owner_house_number.set(value)
   when 'Address 1'
