@@ -133,6 +133,22 @@ class CurrentCarDashboard < MyVW
     retailer_details.address(class: 'vcard')
   end
 
+  def retailer_address_name
+    retailer_address_details.div(class: 'org')
+  end
+
+  def retailer_address_street
+    retailer_address_details.div(class: 'street-address')
+  end
+
+  def retailer_address_town
+    retailer_address_details.div(class: 'locality')
+  end
+
+  def retailer_address_postcode
+    retailer_address_details.div(class: 'postal-code')
+  end
+
   def retailer_contact_details(field)
     retailer_details.div(class: 'my-retailer__contact', text: /#{field}/).text.gsub(field, '').strip
   end
@@ -170,7 +186,7 @@ class CurrentCarDashboard < MyVW
   end
 
   def enable_service_history_feature
-    @browser.element(class: 'my-vw-button--blue', text: 'Enable feature')
+    service_plans_history.element(class: 'my-vw-button', text: 'Enable feature')
   end
 
   def service_history_section
@@ -179,5 +195,21 @@ class CurrentCarDashboard < MyVW
 
   def last_name_field
     @browser.text_field(id: 'owner-surname')
+  end
+
+  def scroll_to_guarantee_section
+    scroll_to(current_guarantee_section)
+  end
+
+  def current_guarantee_section
+    @browser.div(class: 'my-current-guarantee__body')
+  end
+
+  def current_guarantees(text)
+    current_guarantee_section.element(class: 'column-list-section-item__heading', text: text)
+  end
+
+  def click_guarantee(text)
+    current_guarantees(text).parent.link(class: 'my-vw-text-link', text: 'Find out more').click
   end
 end

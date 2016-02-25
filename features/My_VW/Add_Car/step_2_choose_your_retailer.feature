@@ -1,14 +1,24 @@
-@my_vw @Add-Current-Car
+#@my_vw @Add-Current-Car
 Feature: Add a current car
   As a Volkswagen vehicle owner
   I want to select a retailer to associate with my added car
 
-  @login_dbg_history_plan_without_car @delete_added_car @clear_cookies
-  Scenario: I have logged into my VW account with max amount of current cars added
+  @login_dbg_history_plan_without_car @clear_cookies @delete_all_cars
+  Scenario: I try to add two cars concurrently while being near the limit of maximum cars on my account
+    Given I have 24 cars in my account
+    And I have successfully completed step 1 with registration NU61OJG
+    When I select continue to step 2
+    When I add a car with registration SB63YSK and display name My other car
+    And I select step 2 - Finish
+    Then I will see a pop up informing me Car limit reached
+    When I select ok
+
+  @login_dbg_history_plan_without_car @delete_all_cars @clear_cookies
+  Scenario: I add a car that matches my address and surname
     Given I have successfully completed step 1 with registration NU61OJG
     Then I will see my car details in summary:
-      | Registration number | Model    | Details                                           |
-      | NU61OJG             | Scirocco | SCIROCCO GT BLUEMOTN TECH, 2011, 2 Diesel, Manual |
+      | Registration number | Model    | Details                                             |
+      | NU61OJG             | Scirocco | SCIROCCO GT BLUEMOTN TECH, 2011, 2.0 Diesel, Manual |
     And acquired as will be set to A new car
     And my car will be called My Scirocco by default
     When I select continue to step 2
@@ -25,8 +35,8 @@ Feature: Add a current car
     Given I have successfully completed step 1 with registration ML15XHR
     When I select continue to step 2
     Then I will see a summary of my car - step 1:
-      | Registration number | Model  | Details                                           |
-      | ML15XHR             | Passat | PASSAT SE BUSINESS TDI BM, 2015, 2 Diesel, Manual |
+      | Registration number | Model  | Details                                             |
+      | ML15XHR             | Passat | PASSAT SE BUSINESS TDI BM, 2015, 2.0 Diesel, Manual |
     And that my car was acquired as: A new car
     And that I named my car: My Passat
     And my previously chosen retailer Ipswich Volkswagen is preselected
@@ -64,7 +74,7 @@ Feature: Add a current car
     When I select change step 1
     Then I will see my car details in editable form:
       | Model  | Derivative                | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
-      | Passat | PASSAT SE BUSINESS TDI BM | 2015                | 27/04/2015           | 2           | Diesel    | Manual       |
+      | Passat | PASSAT SE BUSINESS TDI BM | 2015                | 27/04/2015           | 2.0         | Diesel    | Manual       |
 
     When I select continue to step 2
     Then I'm presented with a map view of local VW dealers
@@ -96,7 +106,7 @@ Feature: Add a current car
     When I select change step 1
     Then I will see my car details in editable form:
       | Model  | Derivative                | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
-      | Passat | PASSAT SE BUSINESS TDI BM | 2015                | 27/04/2015           | 2           | Diesel    | Manual       |
+      | Passat | PASSAT SE BUSINESS TDI BM | 2015                | 27/04/2015           | 2.0         | Diesel    | Manual       |
 
     When I select continue to step 2
     Then my choice of retailer will be selected

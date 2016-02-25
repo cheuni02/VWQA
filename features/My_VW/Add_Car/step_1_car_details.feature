@@ -1,4 +1,4 @@
-@my_vw @Add-Current-Car
+#@my_vw @Add-Current-Car
 Feature: Add a current car
   As a Volkswagen vehicle owner
   I want to be able to add my current car to my account
@@ -98,7 +98,7 @@ Feature: Add a current car
     When I select edit my car details
     Then I will see my car details in editable form:
       | Model  | Derivative                | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
-      | Passat | PASSAT SE BUSINESS TDI BM | 2015                | 27/04/2015           | 2           | Diesel    | Manual       |
+      | Passat | PASSAT SE BUSINESS TDI BM | 2015                | 27/04/2015           | 2.0         | Diesel    | Manual       |
 
     When I update model to E-Up!
     And I update derivative to GTE
@@ -145,7 +145,7 @@ Feature: Add a current car
 
     Then I will see my car details in editable form:
       | Model | Derivative      | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
-      | Eos   | EOS SPORT T FSI |                     | 29/06/2007           | 2           | Petrol    | Manual       |
+      | Eos   | EOS SPORT T FSI |                     | 29/06/2007           | 2.0         | Petrol    | Manual       |
 
     And I select continue to step 2
     Then I will see that my car details are incomplete with:
