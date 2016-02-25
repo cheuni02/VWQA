@@ -1,4 +1,4 @@
-#@my_vw @Add-Current-Car
+@my_vw @Add-Current-Car
 Feature: Add a current car
   As a Volkswagen vehicle owner
   I want to select a retailer to associate with my added car
