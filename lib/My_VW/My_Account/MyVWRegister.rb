@@ -137,6 +137,6 @@ class MyVWRegister < MyVW
   end
 
   def email_taken_error
-    @browser. ol(class: 'my-car-form__errors').li
+    @browser. div(id: 'passwd-form')
   end
 end
