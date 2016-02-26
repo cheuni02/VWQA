@@ -32,7 +32,8 @@ Scenario: VW CRM manager obtains the report straight after booking made on start
   Given I have logged on the the VW reports system as a VW CRM manager
   And Customer has made booking with OSB and Emissions fix
   And I have received the OSB report for that customer
-  Then I should be able to see report with fields : week number, number of OSBs, number of emissions fixes booked
+  Then I should be able to see report with fields : | week_number | all_RTC_services_booked | RTC_emissions_fixes_booked | all_nonRTC_services_booked | notRTC_emissions_fixes_booked
+
 
 Scenario: car owner has made a few more OSB bookings during week 1
   Given user already in OSB, searched for retailer and provided VIN

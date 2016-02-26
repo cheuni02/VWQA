@@ -10,19 +10,16 @@ Background: pre-requisites
 Scenario:  my car is on the affected VINs list - the emissions fix work should be available in the list FOC
   Given my car is on the affected cars list and i have entered the reg number on the stage 'Your Vehicle'
   When I get to the “Select work” step on the OSB and select any service
-  And I choose a date and time in "Select date"
-  Then the emissions fix work should be available on top of work list
-  And it should be free of charge
-  And it should be selected by default
+  Then the emissions fix work should be available (only if engine size ia 1.2, 1.6 or 2.0), and opened by default
+  And it should be pre-selected by default
   But I should be able to deselect it
   And I should be able to select any other additional work for my car
 
 
 Scenario: I have selected the emissions fix work : the Convenience options should be FOC
-  Given I have just entered the VIN
-  And selected the emissions fix work
-  When I get to the Convenience options
-  Then they should be free of charge
+  Given I have selected 'Emissions fix' at '3. Select work'
+  When I get to the Convenience options at '4 Select date'
+  Then all the convenience options should be free of charge
 
 
 

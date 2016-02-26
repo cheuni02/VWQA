@@ -3,7 +3,6 @@ Feature: OSB Emissions Fix - Outbound email variants for Customers (VWOSBEB-4)
   I want to send customised emails to car owners who have booked the emissions fix
   So that I can give a specific email message to customers who have booked specific work
 
-OnLy one email template
 
 Background: pre-requisites
   Given the user has selected a retailer from postcode : AAAA
