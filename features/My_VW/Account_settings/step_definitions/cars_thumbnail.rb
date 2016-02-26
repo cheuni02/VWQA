@@ -1,12 +1,12 @@
 Given /^i have logged into my VW account with 25 different types of cars added$/ do
-  @my_account = site.my_vw.my_account
+  @my_account = site.my_vw.account_settings
   @my_account.visit
   @login = site.my_vw.login
-  @login.login(@account[:username], @account[:password])
+  @login.login(@account[:username],@account[:password])
 end
 
 And /^i am on the My account page with 25 cars in car settings$/ do
-  @my_account.my_account_page_present?
+  @my_account.account_settings_page_present?
 end
 
 When /^i check particular car (.*) i want to see correct (.*) present$/ do |type, thumbnail|
@@ -16,14 +16,14 @@ When /^i check particular car (.*) i want to see correct (.*) present$/ do |type
 end
 
 Given /^i have logged into my VW account with 8 different types of cars added$/ do
-  @my_account1 = site.my_vw.my_account
+  @my_account1 = site.my_vw.account_settings
   @my_account1.visit
   @login1 = site.my_vw.login
-  @login1.login(@account[:username], @account[:password])
+  @login1.login(@account[:username],@account[:password])
 end
 
 And /^i am on the My account page with 8 cars added$/ do
-  @my_account1.my_account_page_present?
+  @my_account1.account_settings_page_present?
 end
 
 When /^i check car (.*) i want to see correct (.*) present$/ do |type, thumbnail|
