@@ -1,3 +1,4 @@
+@OSB_Emissions_fix
 Feature: OSB Emissions Fix - Book service for non RTC retailers (VWOSBEB-3)
   As a Car owner who has received an emissions fix notification
   I want to Book the emissions fix online (with a non-RTC retailer)
@@ -5,7 +6,7 @@ Feature: OSB Emissions Fix - Book service for non RTC retailers (VWOSBEB-3)
 
 Background: pre-requisites
   Given the user is on the OSB first page
-  And has selected a non RTC retailer: AAAA
+  And has selected a non RTC retailer: Alan Day Volkswagen (Hampstead)
 
 Scenario:  my car is on the affected VINs list - the emissions fix work should be available in the list FOC
   Given my car is on the affected cars list and i have entered the reg number on the stage 'Your Vehicle'
