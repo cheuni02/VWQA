@@ -7,11 +7,11 @@ Given /^i navigate to the My VW Login Page$/ do
 end
 
 When /^i click on the Forgotten password link$/ do
-  expect {site.my_vw.forgotten_password.forgotten_password.click}.not_to raise_error
+  expect { site.my_vw.forgotten_password.forgotten_password.click }.not_to raise_error
 end
 
 Then /^the forgotten password page should be loaded$/ do
-  expect {site.my_vw.forgotten_password.page_loaded?}.not_to raise_error
+  expect { site.my_vw.forgotten_password.page_loaded? }.not_to raise_error
 end
 
 And /^i should be able to enter the (.*) for the account I want to recover the password for$/ do |email|
@@ -31,11 +31,11 @@ When /^i enter invalid email address (.*)$/ do |email_address|
 end
 
 Then /^i should get an error (.*) displayed$/ do |error_message|
-expect(site.my_vw.forgotten_password.error_message.when_present.text).to eq (error_message)
+  expect(site.my_vw.forgotten_password.error_message.when_present.text).to eq (error_message)
 end
 
 When /^i attempt to recover my password for not validated email address$/ do
-  step "i navigate to the forgotten password page"
+  step 'i navigate to the forgotten password page'
   step "i enter invalid email address #{@account[:username]}"
 end
 

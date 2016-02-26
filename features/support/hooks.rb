@@ -27,7 +27,7 @@ Before('@login_dbg_history_without_car') do
 end
 
 Before('@login_dbg_history_ext_without_car') do
-@account = site.my_vw.login.get_account_details('DBG_User_History_Ext')
+  @account = site.my_vw.login.get_account_details('DBG_User_History_Ext')
 end
 
 Before('@login_dbg_nothing_without_car') do
@@ -69,7 +69,14 @@ end
 
 After('@delete_added_car') do
   token = site.my_vw.my_vw_api.get_login_token(@account[:username], @account[:password])
-  site.my_vw.my_vw_api.remove_current_car(@account[:uuid], token, @car_id)
+  user_cars = site.my_vw.my_vw_api.get_users_current_cars(@account[:uuid], token)
+  site.my_vw.my_vw_api.remove_current_car(@account[:uuid], token, user_cars['cars'].last['car']['id'])
+end
+
+After('@delete_all_cars') do
+  token = site.my_vw.my_vw_api.get_login_token(@account[:username], @account[:password])
+  user_cars = site.my_vw.my_vw_api.get_users_current_cars(@account[:uuid], token)
+  user_cars['cars'].count.times { |i| site.my_vw.my_vw_api.remove_current_car(@account[:uuid], token, user_cars['cars'][i]['car']['id']) }
 end
 
 # Hook to force logout without clicking on the header link

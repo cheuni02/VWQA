@@ -47,29 +47,29 @@ class CurrentCarDashboard < MyVW
 
   def service_type(row = 0, column)
     case column
-      when /Service type/
-        service_plans_history_populated.table.tbody.trs[row].tds[0].text
-      when /Date/
-        service_plans_history_populated.table.tbody.trs[row].tds[1].text
-      when /Retailer/
-        service_plans_history_populated.table.tbody.trs[row].tds[2].text
-      when /EVC report/
-        service_plans_history_populated.table.tbody.trs[row].tds[3].text
+    when /Service type/
+      service_plans_history_populated.table.tbody.trs[row].tds[0].text
+    when /Date/
+      service_plans_history_populated.table.tbody.trs[row].tds[1].text
+    when /Retailer/
+      service_plans_history_populated.table.tbody.trs[row].tds[2].text
+    when /EVC report/
+      service_plans_history_populated.table.tbody.trs[row].tds[3].text
     end
   end
 
   def plan_section(column)
     case column
-      when /Plan/
-        service_plan_section.table.tbody.tds[0].text
-      when /Start/
-        service_plan_section.table.tbody.tds[1].text
-      when /End/
-        service_plan_section.table.tbody.tds[2].text
-      when /Length/
-        service_plan_section.table.tbody.tds[3].text
-      when /More Info/
-        service_plan_section.table.tbody.tds[4].text
+    when /Plan/
+      service_plan_section.table.tbody.tds[0].text
+    when /Start/
+      service_plan_section.table.tbody.tds[1].text
+    when /End/
+      service_plan_section.table.tbody.tds[2].text
+    when /Length/
+      service_plan_section.table.tbody.tds[3].text
+    when /More Info/
+      service_plan_section.table.tbody.tds[4].text
     end
   end
 
@@ -110,7 +110,7 @@ class CurrentCarDashboard < MyVW
   end
 
   def my_car_photo
-    @browser.element(class: 'current-car-hero').attribute_value('className').split(' ').last
+    current_car_hero.attribute_value('className').split(' ').last
   end
 
   def camera_button
@@ -131,6 +131,22 @@ class CurrentCarDashboard < MyVW
 
   def retailer_address_details
     retailer_details.address(class: 'vcard')
+  end
+
+  def retailer_address_name
+    retailer_address_details.div(class: 'org')
+  end
+
+  def retailer_address_street
+    retailer_address_details.div(class: 'street-address')
+  end
+
+  def retailer_address_town
+    retailer_address_details.div(class: 'locality')
+  end
+
+  def retailer_address_postcode
+    retailer_address_details.div(class: 'postal-code')
   end
 
   def retailer_contact_details(field)
@@ -170,7 +186,7 @@ class CurrentCarDashboard < MyVW
   end
 
   def enable_service_history_feature
-    @browser.element(class: 'my-vw-button--blue', text: 'Enable feature')
+    service_plans_history.element(class: 'my-vw-button', text: 'Enable feature')
   end
 
   def service_history_section
@@ -179,5 +195,21 @@ class CurrentCarDashboard < MyVW
 
   def last_name_field
     @browser.text_field(id: 'owner-surname')
+  end
+
+  def scroll_to_guarantee_section
+    scroll_to(current_guarantee_section)
+  end
+
+  def current_guarantee_section
+    @browser.div(class: 'my-current-guarantee__body')
+  end
+
+  def current_guarantees(text)
+    current_guarantee_section.element(class: 'column-list-section-item__heading', text: text)
+  end
+
+  def click_guarantee(text)
+    current_guarantees(text).parent.link(class: 'my-vw-text-link', text: 'Find out more').click
   end
 end

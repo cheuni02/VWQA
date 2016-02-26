@@ -15,11 +15,9 @@ And /^i click on the button to try and track my order without entering a number$
   site.owners.find_order_number
 end
 
-
 Then /^i should be taken to the order tracking page on the website$/ do
-  raise unless @orders.page_loaded?
+  fail unless @orders.page_loaded?
 end
-
 
 When /^i search for a non existant order number of "(\d+)"$/ do |order_number|
   @orders.find_order(order_number)
@@ -27,19 +25,17 @@ end
 
 Then /^i should see an error presented in my browser window$/ do
   test = @orders.get_errors
-  raise if test == ""
+  fail if test == ''
 end
-
 
 When /^i submit my valid order number of "(\d+)" into the tracking field$/ do |order_number|
   step "i search for a non existant order number of \"#{order_number}\""
 end
 
 Then /^i should see a page appear containing information about the current progress of my order$/ do
-  raise unless @orders.car_details_present?
-  raise unless @orders.retailer_details_present?
+  fail unless @orders.car_details_present?
+  fail unless @orders.retailer_details_present?
 end
-
 
 When /^i submit a different valid order number for my VW Car of "(.*)"$/ do |order_number|
   step "i search for a non existant order number of \"#{order_number}\""
@@ -50,8 +46,7 @@ And /^i click on the link to sign up for alerts about my VW Build order$/ do
 end
 
 Then /^i should see the login page load in my browser window$/ do
-  raise unless site.my_vw.login.page_loaded?
-
+  fail unless site.my_vw.login.page_loaded?
 end
 
 When /^i submit my VW Car order number of "(.*)"$/ do |order_number|
@@ -74,7 +69,7 @@ And /^i fill in the save my car details on the new car field$/ do
 end
 
 Then /^i should see a button allowing me to setup email alerts$/ do
-  raise unless @profile.email_alert_button_present?
+  fail unless @profile.email_alert_button_present?
 end
 
 And /^if i click the setup button$/ do
@@ -88,5 +83,5 @@ And /^i set my email to "(.*)" and accept the sign up form$/ do |email|
 end
 
 Then /^i should be taken back to the main profile page of my login$/ do
-  raise unless @profile.page_loaded?
+  fail unless @profile.page_loaded?
 end

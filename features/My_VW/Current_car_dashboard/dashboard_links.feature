@@ -15,7 +15,8 @@ Feature: Current car dashboard
   Scenario: My Service Retailer
     Then I will see a map loaded displaying my retailer location
     And I will also see the following retailer address details displayed:
-      | Ipswich Volkswagen | Sproughton Road | Ipswich | IP1 5AN |
+      | Name               | Address         | Town    | Postcode |
+      | Ipswich Volkswagen | Sproughton Road | Ipswich | IP1 5AN  |
     And I will see the following contact details:
       | Phone        | Fax          | Email                   |
       | 01473 240800 | 01473 240088 | tribalddbtech@gmail.com |
@@ -27,6 +28,20 @@ Feature: Current car dashboard
     Then I will be logged into my account
     And a default picture of my last added car type golf is displayed
     And my last added car name is GOLF
+
+#  Scenario Outline: My service guarantee
+#    When I scroll to my service guarantee
+#    Then I will see offered <guarantees>
+#    When I select find out more about <guarantees>
+#    Then I will be on the correct page related to the <guarantees>
+#    When I select browser back button
+#    Then I will be logged into my account
+#
+#    Examples:
+#      | guarantees          |
+#      | Our service promise |
+#      | What we check & why |
+#      | Book a service      |
 
   Scenario Outline: Promotions offered
     When I scroll to promotions offered
@@ -91,3 +106,4 @@ Feature: Current car dashboard
     Then I will see a message prompting me to enable service history and plans feature
     When I click on enable service feature
     Then I'm on my account page
+

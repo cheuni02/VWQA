@@ -98,20 +98,20 @@ Feature: Add a current car
     When I select edit my car details
     Then I will see my car details in editable form:
       | Model  | Derivative                | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
-      | Passat | PASSAT SE BUSINESS TDI BM | 2015                | 27/04/2015           | 2           | Diesel    | Manual       |
+      | Passat | PASSAT SE BUSINESS TDI BM | 2015                | 27/04/2015           | 2.0         | Diesel    | Manual       |
 
-    When I update model to Golf
-    And I update derivative to GTD
+    When I update model to E-Up!
+    And I update derivative to GTE
     And I update date of registration to 01/01/2014
     And I update year of manufacture to 2015
-    And I update engine size to 2.0
-    And I update fuel type to Diesel
+    And I update engine size to 6.0
+    And I update fuel type to Electric
     And I update transmission to Automatic
-    And I update my car name to My Diesel Golf
+    And I update my car name to My E-Up!
 
     Then I will see my car details in editable form:
       | Model | Derivative | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
-      | Golf  | GTD        | 2015                | 01/01/2014           | 2.0         | Diesel    | Automatic    |
+      | E-Up! | GTE        | 2015                | 01/01/2014           | 6.0         | Electric  | Automatic    |
 
   Scenario: multiple registration searches with initial success, then non-successful registration lookup
     When I add SA04BGW into the registration field
@@ -145,7 +145,7 @@ Feature: Add a current car
 
     Then I will see my car details in editable form:
       | Model | Derivative      | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
-      | Eos   | EOS SPORT T FSI |                     | 29/06/2007           | 2           | Petrol    | Manual       |
+      | Eos   | EOS SPORT T FSI |                     | 29/06/2007           | 2.0         | Petrol    | Manual       |
 
     And I select continue to step 2
     Then I will see that my car details are incomplete with:
@@ -197,12 +197,12 @@ Feature: Add a current car
     Then I will see that my car details are incomplete with <Feedback>
 
     Examples:
-      | Model   | Derivative         | Date of registration | Engine size | Year | Feedback                             |
-      | Up      | MOVE UP BLUEMOTION | 29/06/2007           | 1           |      | Please complete year of manufacture  |
-      | Up      | MOVE UP BLUEMOTION |                      | 1           | 2015 | Please complete date of registration |
-      | Up      | MOVE UP BLUEMOTION | 29/06/2007           |             | 2015 | Please complete engine size          |
-      | Up      |                    | 29/06/2007           | 1           | 2015 | Please complete trim                 |
-      |         | MOVE UP BLUEMOTION | 29/06/2007           | 1           | 2015 | Please complete model                |
+      | Model | Derivative         | Date of registration | Engine size | Year | Feedback                             |
+      | Up    | MOVE UP BLUEMOTION | 29/06/2007           | 1           |      | Please complete year of manufacture  |
+      | Up    | MOVE UP BLUEMOTION |                      | 1           | 2015 | Please complete date of registration |
+      | Up    | MOVE UP BLUEMOTION | 29/06/2007           |             | 2015 | Please complete engine size          |
+      | Up    |                    | 29/06/2007           | 1           | 2015 | Please complete trim                 |
+      |       | MOVE UP BLUEMOTION | 29/06/2007           | 1           | 2015 | Please complete model                |
 
   Scenario: I clear my car's name and attempt to move to the next step
     When I clear my car name

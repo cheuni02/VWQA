@@ -3,6 +3,17 @@ Feature: Add a current car
   As a Volkswagen vehicle owner
   I want to add my address to associate with my account
 
+  @add_car_user @clear_cookies @delete_all_cars
+  Scenario: I try to add two cars concurrently while being near the limit of maximum cars on my account
+    Given I have 24 cars in my account
+    And I have successfully completed step 1 with registration ML15XHR
+    When I select continue to step 2
+    When I add a car with registration SB63YSK and display name My other car
+    When I select continue to step 3
+    And I select Finish
+    Then I will see a pop up informing me Car limit reached
+    When I select ok
+
   @login_single_car_user
   Scenario: I have completed step 1 and 2 and will see details of these steps
     Given I have successfully completed step 1 with registration ML15XHR
@@ -12,7 +23,7 @@ Feature: Add a current car
 
     Then I will see a summary of my car - step 1:
       | Registration number | Model  | Details                                           |
-      | ML15XHR             | Passat | PASSAT SE BUSINESS TDI BM, 2015, 2 Diesel, Manual |
+      | ML15XHR             | Passat | PASSAT SE BUSINESS TDI BM, 2015, 2.0 Diesel, Manual |
     And that my car was acquired as: A new car
     And that I named my car: My Passat
     And a change step 1 button is present
@@ -35,13 +46,13 @@ Feature: Add a current car
     When I select change step 1
     Then I will see my car details in editable form:
       | Model  | Derivative                | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
-      | Passat | PASSAT SE BUSINESS TDI BM | 2015                | 27/04/2015           | 2           | Diesel    | Manual       |
+      | Passat | PASSAT SE BUSINESS TDI BM | 2015                | 27/04/2015           | 2.0           | Diesel    | Manual       |
     When I update engine size to 2
     And I update year of manufacture to 2015
     And I select continue
     Then I will see a summary of my car - step 1:
-      | Registration number | Model  | Details                                           |
-      | ML15XHR             | Passat | PASSAT SE BUSINESS TDI BM, 2015, 2 Diesel, Manual |
+      | Registration number | Model  | Details                                             |
+      | ML15XHR             | Passat | PASSAT SE BUSINESS TDI BM, 2015, 2.0 Diesel, Manual |
     And that my car was acquired as: A new car
     And that I named my car: My Passat
     And a change step 1 button is present
@@ -160,29 +171,35 @@ Feature: Add a current car
       | GU7 1DZ  | 28         | High Street |           | Please complete town          |
 
   Scenario: I attempt to finish change of address but there is no DBG match
-    When I enter Postcode with W2 6AA
+    When I enter Postcode with BS23 3YZ
     And I select lookup
     Then I will see a form with my address details:
-      | Field           | Mandatory | Value               |
-      | Postcode        | Yes       | W2 6AA              |
-      | House Name / no | Yes       | empty               |
-      | Address 1       | Yes       | Bishops Bridge Road |
-      | Address 2       |           | empty               |
-      | Town / City     | Yes       | LONDON              |
-      | County          |           | empty               |
+      | Field           | Mandatory | Value             |
+      | Postcode        | Yes       | BS23 3YZ          |
+      | House Name / no | Yes       | empty             |
+      | Address 1       | Yes       | Marchfields Way   |
+      | Address 2       |           | empty             |
+      | Town / City     | Yes       | WESTON-SUPER-MARE |
+      | County          |           | Avon              |
     When I enter House Name with 12
     And I select Finish
     Then I will see a pop with Sorry, that didn't work:
       | The address you entered doesn't match our records. If you continue to have problems, please give us a call on 0800 0833 914. |
     When I dismiss the pop up
     Then I will see a form with my address details:
-      | Field           | Mandatory | Value               |
-      | Postcode        | Yes       | W2 6AA              |
-      | House Name / no | Yes       | 12                  |
-      | Address 1       | Yes       | Bishops Bridge Road |
-      | Address 2       |           | empty               |
-      | Town / City     | Yes       | LONDON              |
-      | County          |           | empty               |
+      | Field           | Mandatory | Value             |
+      | Postcode        | Yes       | BS23 3YZ          |
+      | House Name / no | Yes       | 12                |
+      | Address 1       | Yes       | Marchfields Way   |
+      | Address 2       |           | empty             |
+      | Town / City     | Yes       | WESTON-SUPER-MARE |
+      | County          |           | Avon              |
+    When I enter Postcode with BS23 3YZ
+    And I select lookup
+    Then I will see a form with my address details:
+      | Field           | Mandatory | Value |
+      | House Name / no | Yes       | empty |
+
 
   @login_single_car_user @delete_added_car @logout @clear_cookies
   Scenario: I skip and finnish step 3, I have successful added my car

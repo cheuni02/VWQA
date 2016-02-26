@@ -62,10 +62,9 @@ end
 But /^i also should not see any nonsense values in the calculator table$/ do
   data_values = @financeCalc.get_table_data
   data_values.each do |value|
-    value.gsub!(/(\£|p|\,)/i, "")
+    value.gsub!(/(\£|p|\,)/i, '')
   end
   
-  #STDOUT.puts data_values.inspect
   raise if (data_values[0].to_f <= 0.0 || data_values[0].to_f > 2500.0)
   raise if (data_values[1].to_f <= 0.0 || data_values[1].to_f > 250000.0)
   raise if (data_values[2].to_f <= 0.0 || data_values[2].to_f > 10000.0)

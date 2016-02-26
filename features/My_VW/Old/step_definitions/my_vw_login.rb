@@ -11,9 +11,9 @@ Then /^i should be shown a page containing the login and signup forms$/ do
 end
 
 When /^i enter my email into the email field on the page$/ do
-  #sleep(3)
+  # sleep(3)
   site.primary_nav.click_login
-  #sleep(3)
+  # sleep(3)
   site.my_vw.login.set_email(@account[:username])
 end
 
@@ -26,14 +26,13 @@ And /^i try to log into my account$/ do
 end
 
 Then /^i should see the main page of my profile load in my browser$/ do
-  raise unless site.my_vw.profile.page_loaded?
+  fail unless site.my_vw.profile.page_loaded?
 end
 
-
 Given /^i am logged in to my VW Account$/ do
-  step "i enter my email into the email field on the page"
-  step "i enter my password into the password box"
-  step "i try to log into my account"
+  step 'i enter my email into the email field on the page'
+  step 'i enter my password into the password box'
+  step 'i try to log into my account'
 end
 
 When /^i click on the link to log out of my account$/ do
@@ -41,5 +40,5 @@ When /^i click on the link to log out of my account$/ do
 end
 
 Then /^i should be returned to the owners homepage$/ do
-  raise unless site.owners.page_loaded?
+  fail unless site.owners.page_loaded?
 end

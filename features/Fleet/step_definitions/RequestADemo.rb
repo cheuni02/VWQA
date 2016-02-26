@@ -4,15 +4,14 @@ Given(/^i am viewing fleet require a demo page on the website$/) do
 end
 
 Then(/^i should see all the required sections on the page$/) do
-  raise unless @fleetDemo.demo_nav_section_present?
-  raise unless @fleetDemo.demo_form_section_present?
+  fail unless @fleetDemo.demo_nav_section_present?
+  fail unless @fleetDemo.demo_form_section_present?
 end
 
 When(/^i set my business details, company name as (.*) and job title as (.*)$/) do |companyName, jobTitle|
   @fleetDemo.set_company_name(companyName)
   @fleetDemo.set_job_title(jobTitle)
 end
-
 
 And(/^i set my personal details, name as (.*) (.*) (.*), email address as (.*) and telephone as (.*) into the relevant fields$/) do |title, firstName, surname, email, telephone|
   @fleetDemo.set_title_field(title)
@@ -53,7 +52,7 @@ When(/^i get the mouse over privacy policy link on request a demo page$/) do
 end
 
 Then(/^i should see the privacy policy as popup on request a demo page$/) do
-  raise "Privacy policy content is not visible" unless @fleetDemo.privacy_content_popup_present?
+  fail 'Privacy policy content is not visible' unless @fleetDemo.privacy_content_popup_present?
 end
 
 When(/^i submit the request a demo form having required fields empty$/) do
@@ -72,4 +71,3 @@ And(/^i should see a validation message for each mandatory field$/) do
   @fleetDemo.telephone_error_msg_p?
   @fleetDemo.job_title_error_msg_p?
 end
-

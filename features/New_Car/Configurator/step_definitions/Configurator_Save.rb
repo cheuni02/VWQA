@@ -11,7 +11,7 @@ Then /^i should see a text field appear containing a URL for my configured car$/
   @configurator.shortcode_url_present?
   @shortcode = @configurator.get_shortcode_url
 
-  raise unless @shortcode.length != 0
+  fail unless @shortcode.length != 0
 end
 
 And /^when i open a new browser window and navigate to this shortcode URL$/ do
@@ -19,8 +19,8 @@ And /^when i open a new browser window and navigate to this shortcode URL$/ do
 end
 
 Then /^i should see my car configuration reload in my browser$/ do
-  raise unless @configurator.overview_car_name =~ /Rock up\!/i
-  raise unless @configurator.loaded?
+  fail unless @configurator.overview_car_name =~ /Rock up\!/i
+  fail unless @configurator.loaded?
 end
 
 When /^i click on the link to Book a Test Drive$/ do
@@ -30,11 +30,11 @@ end
 Then /^i should see the select retailer step of booking a test drive load in my browser$/ do
   @testDrive = site.book_test_drive
 
-  raise unless @testDrive.postcode_input_present?
+  fail unless @testDrive.postcode_input_present?
 end
 
 And /^i should see my car details have already been entered on the first step panel$/ do
-  raise unless @testDrive.car_details_present?
+  fail unless @testDrive.car_details_present?
 end
 
 When /^i select the link to view the finance calculator$/ do
@@ -42,7 +42,7 @@ When /^i select the link to view the finance calculator$/ do
 end
 
 Then /^i should see the main finance calculator page load with information about my car model$/ do
-  raise unless site.finance_offers.finance_calculator.main_page_loaded?
+  fail unless site.finance_offers.finance_calculator.main_page_loaded?
 end
 
 Given /^i have not logged into my account$/ do
@@ -61,7 +61,7 @@ And /^i click on the button to save the configuration$/ do
 end
 
 Then /^i should see the login page appear in my web browser$/ do
-  raise unless site.my_vw.login.page_loaded?
+  fail unless site.my_vw.login.page_loaded?
 end
 
 Given /^i log into my VW Personal account$/ do
@@ -77,7 +77,7 @@ And /^i return to my previously configured car that i was editing$/ do
 end
 
 When /^i click on the link to save the configuration to my account$/ do
-  step "i click on the button to save my car configuration"
+  step 'i click on the button to save my car configuration'
 end
 
 And /^i enter a name of "(.*)" to the field that appears$/ do |car_name|
@@ -85,12 +85,11 @@ And /^i enter a name of "(.*)" to the field that appears$/ do |car_name|
 end
 
 And /^i click on the save button$/ do
-  step "i click on the button to save the configuration"
+  step 'i click on the button to save the configuration'
 end
 
 Then /^i should see my car configuration has been added to my profile page$/ do
   @profile_configs = site.my_vw.my_configurations
   @profile_configs.visit
-  #raise PageNotLoadedError, "Saved configurations page not loaded" unless @profile_configs.page_loaded?
-  raise AssertionError, "No Saved Configurations shown on My Configurations Page" if @profile_configs.no_configs_shown?
+  fail AssertionError, 'No Saved Configurations shown on My Configurations Page' if @profile_configs.no_configs_shown?
 end

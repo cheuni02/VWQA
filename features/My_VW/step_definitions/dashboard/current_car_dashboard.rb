@@ -4,8 +4,9 @@ Then(/^I will be welcomed to add a car as none are present for my account$/) do
 end
 
 Then(/^a default picture of my last added car type (.*) is displayed$/) do |car_type|
-  expect(site.my_vw.current_car_dashboard.my_car_photo).to eq(car_type)
-  @car_id = site.my_vw.add_current_car_step_3.car_id
+  current_car = site.my_vw.current_car_dashboard
+  Watir::Wait.until { current_car.current_car_hero.present? }
+  expect(current_car.my_car_photo).to eq(car_type)
 end
 
 When(/^my last added car name is (.*)$/) do |car_name|
@@ -23,8 +24,12 @@ Then(/^I will see a map loaded displaying my retailer location$/) do
 end
 
 And(/^I will also see the following retailer address details displayed:$/) do |table|
-  table.raw.each do |column|
-    expect(site.my_vw.current_car_dashboard.retailer_address_details.text).to match(/#{column}/i)
+  current_car = site.my_vw.current_car_dashboard
+  table.hashes.each do |hash|
+    expect(current_car.retailer_address_name.text).to eq(hash['Name'])
+    expect(current_car.retailer_address_street.text).to eq(hash['Address'])
+    expect(current_car.retailer_address_town.text).to eq(hash['Town'])
+    expect(current_car.retailer_address_postcode.text).to eq(hash['Postcode'])
   end
 end
 
@@ -88,7 +93,6 @@ Then(/^I'm on my account page$/) do
   expect(site.my_vw.profile.hero_title.present?).to be true
 end
 
-
 When(/^I select read more link about my plan$/) do
   site.my_vw.current_car_dashboard.read_more_about_plan.when_present.click
 end
@@ -103,12 +107,21 @@ end
 
 When(/^I select the (.*) offering$/) do |promotions|
   select_offering = site.my_vw.current_car_dashboard.promotions_by_title(promotions)
-  5.times {break select_offering.when_present.click if select_offering.present? }
+  5.times { break select_offering.when_present.click if select_offering.present? }
 end
 
 Then(/^I will be on the correct page related to the (.*)$/) do |page_name|
   owners_site = site.owners
   case page_name
+    when 'Our service promise'
+      page_name = 'Volkswagen Service Promise'
+      page_title = owners_site.servicing.service_promise.page_title
+    when 'What we check & why'
+      page_name = 'What We Check And Why'
+      page_title = owners_site.servicing.what_we_check_and_why.page_title
+    when 'Book a service'
+      page_name = 'Volkswagen Genuine Parts'
+      page_title = owners_site.servicing.genuine_parts.page_title
     when 'Fixed price servicing'
       page_name = page_name.split(' ').map(&:capitalize).join(' ')
       page_title = owners_site.servicing.fixed_price_servicing.page_title_subject
@@ -140,7 +153,7 @@ end
 
 But(/^when I click on find out more (.*)$/) do |useful_links|
   find_out_more = site.my_vw.current_car_dashboard.useful_link(useful_links)
-  3.times { break find_out_more.when_present.click  if find_out_more.present?}
+  3.times { break find_out_more.when_present.click if find_out_more.present? }
 end
 
 Then(/^the correct page related to (.*) will be loaded$/) do |page_name|
@@ -158,7 +171,7 @@ Then(/^the correct page related to (.*) will be loaded$/) do |page_name|
       page_name = 'Breakdown and Insurance'
       page_title = owners_site.breakdown_insurance.page_title
   end
-  Watir::Wait.until { page_title == page_name }
+  Watir::Wait.until(60) { page_title == page_name }
   expect(page_title).to eq(page_name)
 end
 
@@ -166,7 +179,7 @@ When(/^I search for (.*) in the need help section$/) do |query|
   current_car = site.my_vw.current_car_dashboard
   current_car.need_help_search_field.when_present.set(query)
   search_help = current_car.need_help_search_button
-  3.times { break search_help.when_present.click if search_help.present?}
+  3.times { break search_help.when_present.click if search_help.present? }
 end
 
 Then(/^I should see the (.*) page$/) do |page_title|
@@ -239,9 +252,21 @@ end
 Then(/^there is no volkswagen plans$/) do
   current_car = site.my_vw.current_car_dashboard
   expect(current_car.service_plan_section.present?).to be true
-  expect(current_car.service_plan_section.p.text).to include('You do not appear to have any Volkswagen service plan.')
+  expect(current_car.service_plan_section.p.text).to include('You do not appear to have a Volkswagen service plan.')
 end
 
 When(/^I select I'm interested in fixed price servicing link$/) do
   site.my_vw.current_car_dashboard.service_plan_section.link.click
+end
+
+When(/^I scroll to my service guarantee$/) do
+  site.my_vw.current_car_dashboard.scroll_to_guarantee_section
+end
+
+Then(/^I will see offered (.*)$/) do |guarantees|
+  expect(site.my_vw.current_car_dashboard.current_guarantees(guarantees).present?).to be true
+end
+
+When(/^I select find out more about (.*)$/) do |guarantees|
+  site.my_vw.current_car_dashboard.click_guarantee(guarantees)
 end
