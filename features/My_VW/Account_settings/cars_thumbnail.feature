@@ -1,4 +1,4 @@
-@Account-Settings @my_vw
+@Account-Settings5 @my_vw
 Feature: Cars thumbnails in My account
   As a Volkswagen vehicle owner
   I want to be able to see correct cars thumbnails
@@ -15,7 +15,7 @@ Feature: Cars thumbnails in My account
       | type             | thumbnail |
       | FOX              | fox       |
       | BEETLE           | beetle    |
-#      | BEETLE CABRIOLET | beetle-cab|
+      | BEETLE CABRIOLET | default   |
       | PASSAT           | passat    |
       | PASSAT ESTATE    | passat-estate|
       | CC               | cc        |
@@ -33,7 +33,7 @@ Feature: Cars thumbnails in My account
       | POLO             | polo      |
       | GOLF             | golf      |
       | GOLF GTD         | default   |
-#      | GOLF CABRIOLET   | golf-cab  |
+      | GOLF CABRIOLET   | default   |
       | GOLF PLUS        | golf-plus |
       | GOLF ESTATE      | golf-estate|
       | GOLF SV          | golf-sv   |
