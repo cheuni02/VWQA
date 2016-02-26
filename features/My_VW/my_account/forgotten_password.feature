@@ -19,6 +19,7 @@ Feature: My VW forgotten password
     | email |
     |AutomatedToastUser1452686315@example.com |
     |not.associated.valid@email.com|
+    |%%%****@test.com|
 
   @clear_cookies
   Scenario Outline: Email field validation

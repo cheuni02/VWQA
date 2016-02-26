@@ -40,6 +40,10 @@ class MyVWLogin < MyVW
     @browser.element(class: 'welcome-stripe__menu')
   end
 
+  def login_success_message
+    @browser.div(class: 'my-car-form__success')
+  end
+
   def login_error_message
     @browser.div(id: 'passwd-form')
   end
