@@ -1,4 +1,4 @@
-@Account_Settings @Address_details @my_vw
+@Account-Settings @Address_details @my_vw
 
 Feature: Address details
   As a user I want to view My Account

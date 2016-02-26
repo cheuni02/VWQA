@@ -1,4 +1,4 @@
-@Account_Settings @my_vw
+@Account-Settings @my_vw
 
 Feature: Account settings
   As a user I want to view Account settings section in My account

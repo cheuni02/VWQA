@@ -1,4 +1,4 @@
-@Account-Settings5 @my_vw
+@Account-Settings @my_vw
 Feature: Cars thumbnails in My account
   As a Volkswagen vehicle owner
   I want to be able to see correct cars thumbnails
