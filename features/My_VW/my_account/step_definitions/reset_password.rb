@@ -89,8 +89,8 @@ Then /^I should be able successfully change my password$/ do
 end
 
 And /^the success message should be displayed:$/ do |message|
-  expect(site.my_vw.login.page_loaded?).to be true
-  expect(site.my_vw.login.login_error_message.text).to eq (message)
+  Timeout.timeout(3) {sleep 1 unless site.my_vw.login.page_loaded?}
+  expect(site.my_vw.login.login_success_message.text).to eq (message)
 end
 
 And /I should be able to login with new password/ do

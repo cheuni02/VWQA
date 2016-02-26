@@ -39,8 +39,8 @@ Given /^I am logged in, with the "Keep me logged in" option active$/ do
 end
 
 And /^I navigate to My account page$/ do
-  site.my_vw.my_account.visit
-  expect(site.my_vw.my_account.my_account_page_present?).to be true
+  site.my_vw.account_settings.visit
+  expect(site.my_vw.account_settings.account_settings_page_present?).to be true
   @url = URI::parse(site.my_vw.login.current_url).path
 end
 
@@ -60,5 +60,5 @@ Then /^I should be automatically logged in$/ do
 end
 
 And /^I expect to be on My account page$/ do
-  expect(site.my_vw.my_account.my_account_page_present?).to be true
+  expect(site.my_vw.account_settings.account_settings_page_present?).to be true
 end

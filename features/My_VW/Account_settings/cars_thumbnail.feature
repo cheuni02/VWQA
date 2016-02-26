@@ -15,10 +15,10 @@ Feature: Cars thumbnails in My account
       | type             | thumbnail |
       | FOX              | fox       |
       | BEETLE           | beetle    |
-#      | BEETLE CABRIOLET | beetle-cab|
+      | BEETLE CABRIOLET | default   |
       | PASSAT           | passat    |
       | PASSAT ESTATE    | passat-estate|
-      | VOLKSWAGEN CC    | cc        |
+      | CC               | cc        |
       | PASSAT ALLTRACK  | default   |
       | SCIROCCO         | scirocco  |
       | TIGUAN           | tiguan    |
@@ -33,7 +33,7 @@ Feature: Cars thumbnails in My account
       | POLO             | polo      |
       | GOLF             | golf      |
       | GOLF GTD         | default   |
-#      | GOLF CABRIOLET   | golf-cab  |
+      | GOLF CABRIOLET   | default   |
       | GOLF PLUS        | golf-plus |
       | GOLF ESTATE      | golf-estate|
       | GOLF SV          | golf-sv   |
