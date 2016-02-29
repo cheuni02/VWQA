@@ -11,6 +11,7 @@ end
 
 When(/^my last added car name is (.*)$/) do |car_name|
   current_car = site.my_vw.current_car_dashboard
+  Watir::Wait.until(20) { current_car.my_car_hero.text == car_name }
   expect(current_car.my_car_hero.present?).to be true
   expect(current_car.my_car_hero.text).to eq(car_name)
 end

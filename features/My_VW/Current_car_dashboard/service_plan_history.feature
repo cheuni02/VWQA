@@ -25,6 +25,7 @@ Feature: Current car dashboard - my service history and plans
       | Engine capacity     | 2.0                       |
       | Transmission        | Manual                    |
       | Purchase type       | NEW_CAR                   |
+    And my postcode is TS17 5BH
     And I am on the Volkswagen Homepage
 
     When I login into my account
@@ -60,6 +61,7 @@ Feature: Current car dashboard - my service history and plans
       | Engine capacity     | 1.4               |
       | Transmission        | Manual            |
       | Purchase type       | NEW_CAR           |
+    And my postcode is EH15 3AJ
     And I am on the Volkswagen Homepage
 
     When I login into my account
@@ -95,6 +97,7 @@ Feature: Current car dashboard - my service history and plans
       | Engine capacity     | 1.2               |
       | Transmission        | Manual            |
       | Purchase type       | NEW_CAR           |
+    And my postcode is SA12 9PT
     And I am on the Volkswagen Homepage
 
     When I login into my account
@@ -139,6 +142,7 @@ Feature: Current car dashboard - my service history and plans
       | Engine capacity     | 2.0               |
       | Transmission        | Manual            |
       | Purchase type       | NEW_CAR           |
+    And my postcode is NW2 2AJ
     And I am on the Volkswagen Homepage
     When I login into my account
     Then I will be logged into my account
