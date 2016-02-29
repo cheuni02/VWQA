@@ -95,3 +95,15 @@ Feature: My VW Login Version 2
     """
     Please complete password
     """
+  @Register_temp_2
+  Scenario: Requesting a verification link
+    When I try to login with not verified email address
+    Then I should see message that my email address is not verified yet:
+    """
+    You haven't verified your email address yet. Please check your emails for your verification link and follow it to login. If you can't find it, please check your junk folder or request a new link. Click me to request a new link.
+    """
+    And I should be able to request a new verification link
+    And the following message should be present:
+    """
+    A new verification link has been sent to you.
+    """

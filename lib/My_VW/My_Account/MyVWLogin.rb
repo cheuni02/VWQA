@@ -130,4 +130,12 @@ class MyVWLogin < MyVW
   def current_url
     @browser.url
   end
+
+  def link_sent_flash_message
+    @browser.div(id: 'my-registration-flash')
+  end
+
+  def verification_link
+    @browser.link(id: 'send-email-link')
+  end
 end

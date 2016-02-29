@@ -100,3 +100,24 @@ end
 Then /^i should get the following error under the password field displayed:$/ do |error_message|
   expect(site.my_vw.login.password_validation_error.when_present.text).to eq (error_message)
 end
+
+When /^I try to login with not verified email address$/ do
+  step 'i enter my registered account email address'
+  step 'i enter my accounts correct password'
+  Timeout.timeout(3) { sleep 1 unless site.my_vw.login.page_loaded? }
+  step 'i submit my attempt to login'
+end
+
+Then /^I should see message that my email address is not verified yet:$/ do |message|
+  expect(site.my_vw.login.login_error_message.text).to eq(message)
+end
+
+And /^I should be able to request a new verification link$/ do
+  expect(site.my_vw.login.verification_link.present?).to be true
+  site.my_vw.login.verification_link.click
+end
+
+And /^the following message should be present:$/ do |message|
+  Timeout.timeout(3) { sleep 1 unless site.my_vw.login.link_sent_flash_message.present? }
+  expect(site.my_vw.login.link_sent_flash_message.text).to eq(message)
+end
