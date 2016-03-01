@@ -54,6 +54,10 @@ When(/^I lookup the registration$/) do
   Watir::Wait.while { site.my_vw.add_current_car.loading_wheel.visible? }
 end
 
+Then(/^I will see registration field error (.*)$/) do |message|
+  expect(site.my_vw.add_current_car_step_1.error_message.text).to eq(message)
+end
+
 Then(/^I will see error message:$/) do |table|
   add_car = site.my_vw.add_current_car_step_1
   table.hashes.each do |hash|
@@ -274,17 +278,17 @@ When(/^I click the calender date picker$/) do
   site.my_vw.add_current_car_step_1.date_picker.click
 end
 
-When(/^I choose year range (.*)$/) do |range|
+When(/^I choose a decade (.*)$/) do |range|
   site.my_vw.add_current_car_step_1.go_back_to_year_range(range)
 end
 
-Then(/^I'm presented with all the years between (\d+)\-(\d+)$/) do |first_year, last_year|
+Then(/^I'm presented with all the years between (.*)$/) do |range|
   add_car = site.my_vw.add_current_car_step_1
-  expect(add_car.check_years_range.first).to eq(first_year)
-  expect(add_car.check_years_range.last).to eq(last_year)
+  expect(add_car.check_years_range.first).to eq(range.split('-').first)
+  expect(add_car.check_years_range.last).to eq(range.split('-').last)
 end
 
-When(/^I choose year (\d+)$/) do |year|
+When(/^I (\d+) in chosen decade$/) do |year|
   site.my_vw.add_current_car_step_1.year_of_registration(year).click
 end
 
@@ -305,7 +309,7 @@ Then(/^I'm presented with all the months of (\d+)$/) do |year|
                                               Dec))
 end
 
-When(/^I choose the month of (.*)$/) do |month|
+When(/^I (.*) in the chosen year$/) do |month|
   site.my_vw.add_current_car_step_1.month_of_registration(month).click
 end
 Then(/^I'm presented with all the days of (.*) between (\d+)\-(\d+)$/) do |month_year, first_day, last_day|
@@ -319,7 +323,7 @@ When(/^I choose the (\d+)(?:st|rd|nd|th)$/) do |day|
   site.my_vw.add_current_car_step_1.day_of_registration(day).click
 end
 
-Then(/^I will see date of registration is set to (\d+)\/(\d+)\/(\d+)$/) do |day, month, year|
+Then(/^I will see my choice of (\d+)\/(\d+)\/(\d+) is set$/) do |day, month, year|
   add_car = site.my_vw.add_current_car_step_1
   expect(add_car.date_registered_day.value).to eq(day)
   expect(add_car.date_registered_month.value).to eq(month)
