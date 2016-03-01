@@ -63,6 +63,40 @@ class BookAServiceStep3 < BookAService
     visit_page(page_url)
   end
 
+  def workgroup_container
+    @browser.divs(class: "booking-accourdian")
+  end
+
+  def count_datagroup
+    i=0
+    workgroup_container.each do
+      i=i+1
+    end
+    return i
+  end
+
+  def spec_workgroup_container(i)
+    @browser.div(class: "booking-accourdian", index: i)
+  end
+
+  def count_work_option(datagroup)
+    i=0
+    spec_workgroup_container(datagroup).lis.each do
+      i=i+1
+    end
+    return i
+  end
+
+  def spec_work_option(datagroup, i)
+    spec_workgroup_container(datagroup).li(index: i).label
+  end
+
+  def select_random_work
+    select_rand_group = rand(1-count_datagroup)
+    select_rand_work = rand(0-count_work_option(select_rand_group))
+    spec_work_option(select_rand_group,select_rand_work).click
+  end
+
   private
 
   def page_url

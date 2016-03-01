@@ -1,21 +1,26 @@
 Given(/^the user is on the OSB first page$/) do
   site.homepage.visit
-
+  @serviceBooking = site.book_service.booking_step1
+  @serviceStep2 = site.book_service.booking_step2
+  @serviceStep3 = site.book_service.booking_step3
+  @serviceBooking.visit
 end
 
 And(/^has selected (an RTC|a non RTC) retailer: (.*)$/) do |type, retailer|
-  puts "type = #{type}"
-  puts "retailer = #{retailer}"
-
-
+  @serviceBooking.set_retailer(retailer)
+  @serviceBooking.retailer_to_autopopulate
+  @serviceBooking.retailer_search
+  @serviceBooking.click_next_step
 end
 
-Given(/^my car is on the affected cars list and i have entered the reg number on the stage 'Your Vehicle'$/) do
-  #pending
+Given(/^my car is on the affected cars list and i have entered the reg number (.*) on the stage 'Your Vehicle'$/) do |registration|
+  @serviceStep2.set_registration(registration)
+  @serviceStep2.submit_car_registration
+  @serviceStep2.click_next_step
 end
 
 When(/^I get to the “Select work” step on the OSB and select any service$/) do
-  #pending
+  @serviceStep3.select_random_work
 end
 
 Then(/^the emissions fix work should be available \(only if engine size ia (\d+)\.(\d+), (\d+)\.(\d+) or (\d+)\.0\), and opened by default$/) do |arg1, arg2, arg3, arg4, arg5|
@@ -34,7 +39,7 @@ And(/^I should be able to select any other additional work for my car$/) do
   #pending
 end
 
-Given(/^I have selected 'Emissions fix' at '3\. Select work'$/) do |arg|
+Given(/^I have selected 'Emissions fix' at '3\. Select work'$/) do
   #pending
 end
 

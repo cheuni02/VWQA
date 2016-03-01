@@ -15,6 +15,18 @@ class BookAServiceStep1 < BookAService
     search_results.present?
   end
 
+  def set_retailer(retailer)
+    retailer_field.set(retailer)
+  end
+
+  def retailer_to_autopopulate
+    select_autopopulate
+  end
+
+  def retailer_search
+    retailer_button.click
+  end
+
   def set_map_view
     map_view.when_present.click
   end
@@ -41,6 +53,14 @@ class BookAServiceStep1 < BookAService
     @browser.text_field(id: 'pc')
   end
 
+  def retailer_field
+    @browser.text_field(id: 'nameRetail')
+  end
+
+  def retailer_button
+    @browser.button(class: 'vw-btn', index: 1)
+  end
+
   def location_button
     @browser.button(class: 'vw-btn')
   end
@@ -51,6 +71,10 @@ class BookAServiceStep1 < BookAService
 
   def retailer_info
     @browser.div(id: 'retailer-details')
+  end
+
+  def select_autopopulate
+    @browser.send_keys :tab
   end
 
   def map_view
