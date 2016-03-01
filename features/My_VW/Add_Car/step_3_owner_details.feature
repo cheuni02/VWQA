@@ -18,7 +18,7 @@ Feature: Add a current car
     When I select ok
 
   @login_dbg_history_plan_without_car @delete_added_car @clear_cookies @clear_address
-  Scenario: I add my new car, select a retailer and add my address successfully finsinhing add a car
+  Scenario: I add my new car, select a retailer and add my address successfully
     Given I do not have an address associated with my account
     And I have successfully completed step 1 with registration NU61OJG
     And I have chosen my retailer as Ipswich
