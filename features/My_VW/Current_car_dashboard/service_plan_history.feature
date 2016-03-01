@@ -11,7 +11,7 @@ Feature: Current car dashboard - my service history and plans
     And I will be welcomed to add a car as none are present for my account
 
   @login_dbg_history_plan_without_car @delete_added_car @logout
-  Scenario: My service plane and history are displayed
+  Scenario Outline: My service plane and history are displayed
     Given I have added a new car to my account with:
       | Display name        | My Scirocco               |
       | Car status          | CURRENT                   |
@@ -42,9 +42,21 @@ Feature: Current car dashboard - my service history and plans
     Then I will see my plan details:
       | Plan                  | Start      | End        | Length    | More Info |
       | Fixed Price Servicing | 14/06/2014 | 13/06/2016 | 24 months | Read more |
-
     When I select read more link about my plan
     Then I will be on the correct page related to the Volkswagen service plans
+
+    When I scroll to my service guarantee
+    Then I will see offered <guarantees>
+    When I select find out more about <guarantees>
+    Then I will be on the correct page related to the <guarantees>
+    When I select browser back button
+    Then I will be logged into my account
+
+    Examples:
+      | guarantees          |
+      | Our service promise |
+      | What we check & why |
+      | Book a service      |
 
   @login_dbg_plan_without_car @delete_added_car @logout
   Scenario: My service plane is displayed but no history
