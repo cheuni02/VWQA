@@ -49,7 +49,7 @@ begin
     if purpose == 'All_details_complete_user' || purpose == 'Current_car_User' || purpose =~ /DBG/
       hash['optional_details'] = {
           address_type: 'home',
-          house_number_preview: '4000',
+          house_number: '4000',
           postcode: 'UB6 7HA',
           street: 'Empire Road',
           street2: 'Empire Place',
