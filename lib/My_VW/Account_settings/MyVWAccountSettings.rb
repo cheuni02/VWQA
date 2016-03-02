@@ -1,5 +1,4 @@
 class MyVWAccountSettings < MyVW
-
   def visit
     visit_page(page_url)
   end
@@ -115,12 +114,12 @@ class MyVWAccountSettings < MyVW
   end
 
   def get_personal_details_fields
-    list = Array.new
+    list = []
     @browser.div(id: 'personal-details-text').ul(class: 'my-car-form__summary my-personal-details_summary-collapsed')
-        .lis.each do |li|
+      .lis.each do |li|
       list.push(li.span(class: 'my-car-form__summary-title').text)
     end
-    return list
+    list
   end
 
   # Address details form
@@ -149,7 +148,6 @@ class MyVWAccountSettings < MyVW
     @browser.text_field(id: 'houseNumber')
   end
 
-
   def street1_preview
     @browser.span(id: 'street1-value')
   end
@@ -157,7 +155,6 @@ class MyVWAccountSettings < MyVW
   def street1
     @browser.text_field(id: 'street1')
   end
-
 
   def street2_preview
     @browser.span(id: 'street2-value')
@@ -196,12 +193,12 @@ class MyVWAccountSettings < MyVW
   end
 
   def get_address_details_fields
-    list = Array.new
+    list = []
     @browser.div(id: 'address-details-text').ul(class: 'my-car-form__summary my-personal-details_summary-collapsed')
-        .lis.each do |li|
+      .lis.each do |li|
       list.push(li.span(class: 'my-car-form__summary-title').text)
     end
-    return list
+    list
   end
 
   # Account settings

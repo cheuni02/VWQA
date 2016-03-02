@@ -120,7 +120,7 @@ class MyVWLogin < MyVW
   end
 
   def open_new_window
-    @browser.execute_script( "window.open()")
+    @browser.execute_script('window.open()')
   end
 
   def close_first_window
