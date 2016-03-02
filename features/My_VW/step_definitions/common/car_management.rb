@@ -1,8 +1,9 @@
-When(/^I add a car with registration (.*) and display name (.*)$/) do |reg, name|
+When(/^a car with registration (.*) and display name (.*) is added to my account$/) do |reg, name|
   token = site.my_vw.my_vw_api.get_login_token(@account[:username], @account[:password])
   site.my_vw.my_vw_api.add_new_current_car(@account[:uuid], token,
                                            display_name: name,
                                            registration: reg)
+
 end
 
 When(/^I have ([0-9]*) cars in my account$/) do |num_cars|
