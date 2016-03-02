@@ -12,3 +12,11 @@ end
 When(/^I select the logout button$/) do
   site.my_vw.login.logout.when_present.click
 end
+
+Given(/^I'm logged into my account$/) do
+  login = site.my_vw.login
+  login.visit
+  login.login(@account[:username], @account[:password])
+  Watir::Wait.until { login.logout.present? }
+  expect(login.account_navigation_bar.present?).to be(true)
+end

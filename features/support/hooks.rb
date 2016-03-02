@@ -79,6 +79,11 @@ After('@delete_all_cars') do
   user_cars['cars'].count.times { |i| site.my_vw.my_vw_api.remove_current_car(@account[:uuid], token, user_cars['cars'][i]['car']['id']) }
 end
 
+After('@clear_address') do
+  token = site.my_vw.my_vw_api.get_login_token(@account[:username], @account[:password])
+  site.my_vw.my_vw_api.update_user_details(@account[:uuid], token)
+end
+
 # Hook to force logout without clicking on the header link
 After('@logout-force') do
   site.visit_page('/logout?postLogoutPage=/owners/my/account/index')

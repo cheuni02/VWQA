@@ -10,8 +10,8 @@ Feature: Current car dashboard - my service history and plans
     Then I will be logged into my account
     And I will be welcomed to add a car as none are present for my account
 
-  @login_dbg_history_plan_without_car @delete_added_car @logout
-  Scenario: My service plane and history are displayed
+  @login_dbg_history_plan_without_car @delete_all_cars @logout
+  Scenario Outline: My service plane and history are displayed
     Given I have added a new car to my account with:
       | Display name        | My Scirocco               |
       | Car status          | CURRENT                   |
@@ -25,6 +25,7 @@ Feature: Current car dashboard - my service history and plans
       | Engine capacity     | 2.0                       |
       | Transmission        | Manual                    |
       | Purchase type       | NEW_CAR                   |
+    And my postcode is TS17 5BH
     And I am on the Volkswagen Homepage
 
     When I login into my account
@@ -41,9 +42,22 @@ Feature: Current car dashboard - my service history and plans
     Then I will see my plan details:
       | Plan                  | Start      | End        | Length    | More Info |
       | Fixed Price Servicing | 14/06/2014 | 13/06/2016 | 24 months | Read more |
-
     When I select read more link about my plan
     Then I will be on the correct page related to the Volkswagen service plans
+    When I select browser back button
+
+    And I scroll to my service guarantee
+    Then I will see offered <guarantees>
+    When I select find out more about <guarantees>
+    Then I will be on the correct page related to the <guarantees>
+    When I select browser back button
+    Then I will be logged into my account
+
+    Examples:
+      | guarantees          |
+      | Our service promise |
+      | What we check & why |
+      | Book a service      |
 
   @login_dbg_plan_without_car @delete_added_car @logout
   Scenario: My service plane is displayed but no history
@@ -60,6 +74,7 @@ Feature: Current car dashboard - my service history and plans
       | Engine capacity     | 1.4               |
       | Transmission        | Manual            |
       | Purchase type       | NEW_CAR           |
+    And my postcode is EH15 3AJ
     And I am on the Volkswagen Homepage
 
     When I login into my account
@@ -69,6 +84,7 @@ Feature: Current car dashboard - my service history and plans
 
     When I scroll to my service history and plans
     Then there is no service history for my car at present
+
 
     When I scroll to my plan
     Then I will see my plan details:
@@ -95,6 +111,7 @@ Feature: Current car dashboard - my service history and plans
       | Engine capacity     | 1.2               |
       | Transmission        | Manual            |
       | Purchase type       | NEW_CAR           |
+    And my postcode is SA12 9PT
     And I am on the Volkswagen Homepage
 
     When I login into my account
@@ -139,6 +156,7 @@ Feature: Current car dashboard - my service history and plans
       | Engine capacity     | 2.0               |
       | Transmission        | Manual            |
       | Purchase type       | NEW_CAR           |
+    And my postcode is NW2 2AJ
     And I am on the Volkswagen Homepage
     When I login into my account
     Then I will be logged into my account

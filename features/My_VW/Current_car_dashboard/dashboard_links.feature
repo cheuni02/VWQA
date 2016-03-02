@@ -3,15 +3,18 @@ Feature: Current car dashboard
   As a user logged in the My VW site
   I want to see a page with important information about my current car
 
-  @login_single_car_user
-  Scenario: My car hero section
-    Given I am on the Volkswagen Homepage
+  Background: Add a car for a non DBG matched user
+    Given a car with registration EJ62MMO and display name GOLF is added to my account
     When I login into my account
     Then I will be logged into my account
-    And a default picture of my last added car type golf is displayed
+
+  @add_car_user @delete_added_car
+  Scenario: My car hero section
+    Given a default picture of my last added car type golf is displayed
     And my last added car name is GOLF
     And I will also see a camera icon on the page
 
+  @add_car_user @delete_added_car
   Scenario: My Service Retailer
     Then I will see a map loaded displaying my retailer location
     And I will also see the following retailer address details displayed:
@@ -21,6 +24,7 @@ Feature: Current car dashboard
       | Phone        | Fax          | Email                   |
       | 01473 240800 | 01473 240088 | tribalddbtech@gmail.com |
 
+  @add_car_user @delete_added_car
   Scenario: My Retailer Link
     When I click on the link to view my retailers website
     Then I will see the retailer page for Ipswich Volkswagen
@@ -29,20 +33,7 @@ Feature: Current car dashboard
     And a default picture of my last added car type golf is displayed
     And my last added car name is GOLF
 
-#  Scenario Outline: My service guarantee
-#    When I scroll to my service guarantee
-#    Then I will see offered <guarantees>
-#    When I select find out more about <guarantees>
-#    Then I will be on the correct page related to the <guarantees>
-#    When I select browser back button
-#    Then I will be logged into my account
-#
-#    Examples:
-#      | guarantees          |
-#      | Our service promise |
-#      | What we check & why |
-#      | Book a service      |
-
+  @add_car_user @delete_added_car
   Scenario Outline: Promotions offered
     When I scroll to promotions offered
     Then I will see the <promotions> offered
@@ -57,6 +48,7 @@ Feature: Current car dashboard
       | Extended warranty     |
       | Accessories           |
 
+  @add_car_user @delete_added_car
   Scenario Outline: Need help section
     When I scroll to need help section
     Then I will see the need help search field
@@ -73,6 +65,7 @@ Feature: Current car dashboard
       | How tos                 |
       | Breakdown and insurance |
 
+  @add_car_user @delete_added_car
   Scenario Outline: Need help search
     When I search for <query> in the need help section
     Then I should see the Need help page
@@ -86,6 +79,7 @@ Feature: Current car dashboard
       | insurance | true    |
       | b34f      | false   |
 
+  @add_car_user @delete_added_car
   Scenario Outline: Recovery zone section
     When I scroll to the bottom of the page
     Then the <button> should appear for the user
@@ -100,10 +94,12 @@ Feature: Current car dashboard
       | Keep me informed |
       | Contact Us       |
 
-  @logout
+  @add_car_user @delete_added_car
   Scenario: My Service History Notification section without information as my account is not validated
-    When I scroll to my service history and plans
-    Then I will see a message prompting me to enable service history and plans feature
+    Given I scroll to my service history and plans
+    Then I will see a message Please check or update your address to enable this feature
+
     When I click on enable service feature
     Then I'm on my account page
+
 

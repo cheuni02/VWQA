@@ -48,20 +48,20 @@ begin
     hash['optional_details'] = {}
     if purpose == 'All_details_complete_user' || purpose == 'Current_car_User' || purpose =~ /DBG/
       hash['optional_details'] = {
-        address_type: 'home',
-        house_number: '4000',
-        postcode: 'UB6 7HA',
-        street: 'Empire Road',
-        street2: 'Empire Place',
-        city: 'LONDON',
-        county: 'MIDDLESEX',
-        phone1: '01234567890',
-        phone2: '09876543210',
-        phone_type: 'home',
-        work_phone: '54321098765',
-        preferred_contact: 'email',
-        marital_status: 'Single',
-        date_of_birth: '1989-08-04 00:00:00'
+          address_type: 'home',
+          house_number_preview: '4000',
+          postcode: 'UB6 7HA',
+          street: 'Empire Road',
+          street2: 'Empire Place',
+          city: 'LONDON',
+          county: 'MIDDLESEX',
+          phone1: '01234567890',
+          phone2: '09876543210',
+          phone_type: 'home',
+          work_phone: '54321098765',
+          preferred_contact: 'email',
+          marital_status: 'Single',
+          date_of_birth: '1989-08-04 00:00:00'
       }
     end
 

@@ -79,7 +79,7 @@ class MyVWAccountSettings < MyVW
   end
 
   def personal_details_text
-    @browser.div(id:'personal-details-text').span(class: 'fa fa-edit')
+    @browser.div(id: 'personal-details-text').span(class: 'fa fa-edit')
   end
 
   def personal_details_edit
@@ -87,120 +87,154 @@ class MyVWAccountSettings < MyVW
   end
 
   def personal_details_view_mode
-    @browser.div(id:'personal-details-text').style 'display'
+    @browser.div(id: 'personal-details-text').style 'display'
   end
 
   def personal_details_edit_mode
-    @browser.div(id:'personal-details-edit').style 'display'
+    @browser.div(id: 'personal-details-edit').style 'display'
   end
 
   def name_value
-    @browser.span(id:'name-value').text.split(/\s/)
+    @browser.span(id: 'name-value').text.split(/\s/)
   end
 
   def home_phone_value
-    @browser.span(id:'homePhone-value').text
+    @browser.span(id: 'homePhone-value').text
   end
 
   def mobile_phone_value
-    @browser.span(id:'mobilePhone-value').text
+    @browser.span(id: 'mobilePhone-value').text
   end
 
   def work_phone_value
-    @browser.span(id:'workPhone-value').text
+    @browser.span(id: 'workPhone-value').text
   end
 
   def date_of_birth_value
-    @browser.span(id:'dateOfBirth-value').text
+    @browser.span(id: 'dateOfBirth-value').text
   end
 
   def get_personal_details_fields
     list = Array.new
-    @browser.div(id:'personal-details-text').ul(class:'my-car-form__summary my-personal-details_summary-collapsed')
+    @browser.div(id: 'personal-details-text').ul(class: 'my-car-form__summary my-personal-details_summary-collapsed')
         .lis.each do |li|
-      list.push(li.span(class:'my-car-form__summary-title').text)
+      list.push(li.span(class: 'my-car-form__summary-title').text)
     end
     return list
   end
 
   # Address details form
 
+  def toggle_address_view
+    @browser.div(id: 'address-details-toggle')
+  end
+
   def address_details
-    @browser.div(class: 'my-car-form__window').h2(text:'Address details')
+    @browser.div(class: 'my-car-form__window').h2(text: 'Address details')
   end
 
   def address_details_view_mode
-    @browser.div(id:'address-details-text').style 'display'
+    @browser.div(id: 'address-details-text').style 'display'
   end
 
   def address_details_edit_mode
-    @browser.div(id:'address-details-edit').style 'display'
+    @browser.div(id: 'address-details-edit').style 'display'
   end
 
-  def house_number_value
-    @browser.span(id:'houseNumber-value').text
+  def house_number_preview
+    @browser.span(id: 'houseNumber-value')
   end
 
-  def street1_value
-    @browser.span(id:'street1-value').text
+  def house_number
+    @browser.text_field(id: 'houseNumber')
   end
 
-  def street2_value
-    @browser.span(id:'street2-value').text
+
+  def street1_preview
+    @browser.span(id: 'street1-value')
   end
 
-  def town_value
-    @browser.span(id:'town-value').text
+  def street1
+    @browser.text_field(id: 'street1')
   end
 
-  def county_value
-    @browser.span(id:'county-value').text
+
+  def street2_preview
+    @browser.span(id: 'street2-value')
   end
 
-  def postcode_value
-    @browser.span(id:'postcode-value').text
+  def street2
+    @browser.text_field(id: 'street2')
+  end
+
+  def town_preview
+    @browser.span(id: 'town-value')
+  end
+
+  def town
+    @browser.text_field(id: 'town')
+  end
+
+  def county_preview
+    @browser.span(id: 'county-value')
+  end
+
+  def county
+    @browser.text_field(id: 'county')
+  end
+
+  def postcode_preview
+    @browser.span(id: 'postcode-value')
+  end
+
+  def postcode
+    @browser.text_field(id: 'postcode')
+  end
+
+  def postcode_lookup
+    @browser.button(id: 'postcode-lookup')
   end
 
   def get_address_details_fields
     list = Array.new
-    @browser.div(id:'address-details-text').ul(class:'my-car-form__summary my-personal-details_summary-collapsed')
+    @browser.div(id: 'address-details-text').ul(class: 'my-car-form__summary my-personal-details_summary-collapsed')
         .lis.each do |li|
-      list.push(li.span(class:'my-car-form__summary-title').text)
+      list.push(li.span(class: 'my-car-form__summary-title').text)
     end
     return list
   end
 
- # Account settings
+  # Account settings
 
   def account_settings
     @browser.div(class: 'my-car-form__window').h2(text: 'Account settings')
   end
 
   def account_settings_view_mode
-    @browser.div(id:'account-settings-text').style 'display'
+    @browser.div(id: 'account-settings-text').style 'display'
   end
 
   def account_settings_edit_mode
-    @browser.div(id:'account-settings-edit').style 'display'
+    @browser.div(id: 'account-settings-edit').style 'display'
   end
 
   def email_field
-  @browser.span(id:'email-text').span(class:'my-car-form__summary-title').text
+    @browser.span(id: 'email-text').span(class: 'my-car-form__summary-title').text
   end
 
   def password_field
-    @browser.span(id:'password-label-text', class:'my-car-form__summary-title').text
+    @browser.span(id: 'password-label-text', class: 'my-car-form__summary-title').text
   end
 
   def email_value
-    @browser.span(id:'email-text').text.split(/\s/)
+    @browser.span(id: 'email-text').text.split(/\s/)
   end
 
   def password_value
-    @browser.span(id:'password-text').text
+    @browser.span(id: 'password-text').text
   end
 
-# Notifications & preferences
+  # Notifications & preferences
 
   def notifications_preferences
     @browser.div(class: 'my-car-form__window').h2(text: 'Notifications & Preferences')

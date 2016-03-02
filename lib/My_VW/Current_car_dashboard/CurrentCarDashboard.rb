@@ -30,31 +30,39 @@ class CurrentCarDashboard < MyVW
   end
 
   def scroll_to_service_plans_history
-    if service_plans_history_populated.present?
-      scroll_to(service_plans_history_populated)
+    if current_history_body.present?
+      scroll_to(current_history_body)
     else
-      scroll_to(service_plans_history)
+      scroll_to(current_service_history_body)
     end
   end
 
-  def service_plans_history_populated
+  def current_service_history_body
+    @browser.element(class: 'my-current-service-history__body')
+  end
+
+  def current_history_body
     @browser.element(class: 'my-current-history__body')
   end
 
   def service_plans_history_show_more
-    service_plans_history_populated.element(class: 'my-table__show-more')
+    current_history_body.element(class: 'my-table__show-more')
+  end
+
+  def enable_service_history_feature
+    current_service_history_body.element(class: 'my-vw-button', text: 'Enable feature')
   end
 
   def service_type(row = 0, column)
     case column
     when /Service type/
-      service_plans_history_populated.table.tbody.trs[row].tds[0].text
+      current_history_body.table.tbody.trs[row].tds[0].text
     when /Date/
-      service_plans_history_populated.table.tbody.trs[row].tds[1].text
+      current_history_body.table.tbody.trs[row].tds[1].text
     when /Retailer/
-      service_plans_history_populated.table.tbody.trs[row].tds[2].text
+      current_history_body.table.tbody.trs[row].tds[2].text
     when /EVC report/
-      service_plans_history_populated.table.tbody.trs[row].tds[3].text
+      current_history_body.table.tbody.trs[row].tds[3].text
     end
   end
 
@@ -158,7 +166,7 @@ class CurrentCarDashboard < MyVW
   end
 
   def service_history_table
-    @browser.div(class: 'my-current-history__body').table(class: 'my-table--transparent')
+    current_history_body.table(class: 'my-table--transparent')
   end
 
   def service_plan_section
@@ -179,18 +187,6 @@ class CurrentCarDashboard < MyVW
 
   def recovery_zone_buttons
     @browser.div(class: 'row my-offers__features')
-  end
-
-  def service_plans_history
-    @browser.section(class: 'my-current-service-history')
-  end
-
-  def enable_service_history_feature
-    service_plans_history.element(class: 'my-vw-button', text: 'Enable feature')
-  end
-
-  def service_history_section
-    @browser.div(class: 'my-current-history__body')
   end
 
   def last_name_field
