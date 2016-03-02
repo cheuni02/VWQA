@@ -85,7 +85,6 @@ Then(/^I will see my plan details:$/) do |table|
 end
 
 Then(/^I will see a message (.*) in service history and plans section$/) do |message|
-  binding.pry
   current_car = site.my_vw.current_car_dashboard
   expect(current_car.current_service_history_body.present?).to be true
   expect(current_car.current_service_history_body.p.text).to include(message)
