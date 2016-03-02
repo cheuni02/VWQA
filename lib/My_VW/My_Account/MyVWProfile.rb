@@ -91,7 +91,7 @@ class MyVWProfile < MyVW
   end
 
   def hero_title
-    @browser.element(class: 'full-hero__title', text: 'My Account')
+    @browser.element(class: 'full-hero__title')
   end
 
   def personal_details
