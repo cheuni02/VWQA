@@ -52,7 +52,6 @@ Then(/^I will see the retailer page for (.*)$/) do |retailer_name|
 end
 
 When(/^I scroll to my service history and plans$/) do
-  binding.pry
   site.my_vw.current_car_dashboard.scroll_to_current_service_history
 end
 
