@@ -3,10 +3,10 @@ require 'rest-client'
 class MyVWAPI < MyVW
   def initialize
     headers = {
-        :content_type => 'application/json',
-        :accept => 'application/json',
-        :'x-access-username' => 'test_client',
-        :'x-access-password' => 'Manuela1999'
+      :content_type => 'application/json',
+      :accept => 'application/json',
+      :'x-access-username' => 'test_client',
+      :'x-access-password' => 'Manuela1999'
     }
 
     @user_api = RestClient::Resource.new("https://#{get_sb_host}/api/user/2.0", headers: headers, verify_ssl: false)
@@ -28,8 +28,8 @@ class MyVWAPI < MyVW
 
   def get_login_token(user, password)
     data = {
-        username: user,
-        password: password
+      username: user,
+      password: password
     }.to_json
     login = @auth_api['/login'].post(data)
     # STDOUT.puts login.response
@@ -37,42 +37,41 @@ class MyVWAPI < MyVW
   end
 
   def get_user_details(uuid, access_token)
-    auth_header = {Authorization: "Bearer #{access_token}"}
+    auth_header = { Authorization: "Bearer #{access_token}" }
     JSON.parse(@user_api["/users/#{uuid}"].get auth_header)
   end
 
   def update_user_details(uuid, access_token, options = {})
-    auth_header = {Authorization: "Bearer #{access_token}"}
+    auth_header = { Authorization: "Bearer #{access_token}" }
     retailer = options[:retailer_id] || nil
     house_number = options[:houseNumber] || nil
     street = options[:street] || nil
-    street2 =options[:street2] || nil
-    city =options[:city] || nil
-    county =options[:county] || nil
-    postcode =options[:postcode] || nil
+    street2 = options[:street2] || nil
+    city = options[:city] || nil
+    county = options[:county] || nil
+    postcode = options[:postcode] || nil
 
     user_data = {
-        retailerId: retailer,
-        details: {
-            houseNumber: house_number,
-            street: street,
-            street2: street2,
-            city: city,
-            county: county,
-            postcode: postcode,
-        }
+      retailerId: retailer,
+      details: {
+        houseNumber: house_number,
+        street: street,
+        street2: street2,
+        city: city,
+        county: county,
+        postcode: postcode
+      }
     }.to_json
-
     @user_api["/users/#{uuid}"].put user_data, auth_header
   end
 
   def get_users_current_cars(uuid, access_token)
-    auth_header = {Authorization: "Bearer #{access_token}"}
+    auth_header = { Authorization: "Bearer #{access_token}" }
     JSON.parse(@user_api["/users/#{uuid}/cars"].get auth_header)
   end
 
   def remove_current_car(uuid, access_token, car_id)
-    auth_header = {Authorization: "Bearer #{access_token}"}
+    auth_header = { Authorization: "Bearer #{access_token}" }
     @user_api["/users/#{uuid}/cars/#{car_id}"].delete auth_header
   end
 
@@ -91,35 +90,35 @@ class MyVWAPI < MyVW
     purchase_type = options[:purchase_type] || 'NEW_CAR'
 
     car_data = {
-        displayName: display_name,
-        carStatus: car_status,
-        carDetails: {
-            registrationNumber: registration,
-            model: model,
-            derivative: derivative,
-            registrationDate: registration_date,
-            fuelType: fuel_type,
-            vin: vin,
-            year: year,
-            engineCapacity: engine_capacity,
-            transmission: transmission
-        },
-        suppliedByRetailer: '00153',
-        servicedByRetailer: '00153',
-        purchaseType: purchase_type
+      displayName: display_name,
+      carStatus: car_status,
+      carDetails: {
+        registrationNumber: registration,
+        model: model,
+        derivative: derivative,
+        registrationDate: registration_date,
+        fuelType: fuel_type,
+        vin: vin,
+        year: year,
+        engineCapacity: engine_capacity,
+        transmission: transmission
+      },
+      suppliedByRetailer: '00153',
+      servicedByRetailer: '00153',
+      purchaseType: purchase_type
     }.to_json
 
-    auth_header = {Authorization: "Bearer #{access_token}"}
+    auth_header = { Authorization: "Bearer #{access_token}" }
     @user_api["/users/#{uuid}/cars"].post car_data, auth_header
   end
 
   def add_new_ordered_car(uuid, access_token, order_number)
     car_data = {
-        orderNumber: order_number,
-        displayName: 'ORDER_CAR_TEST'
+      orderNumber: order_number,
+      displayName: 'ORDER_CAR_TEST'
     }.to_json
 
-    auth_header = {Authorization: "Bearer #{access_token}"}
+    auth_header = { Authorization: "Bearer #{access_token}" }
     begin
       @user_api["/users/#{uuid}/cars/order"].post car_data, auth_header
     rescue RestClient::Exception => e

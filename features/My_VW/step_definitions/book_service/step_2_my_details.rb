@@ -46,7 +46,7 @@ When (/^I update (.*) field in address section$/) do |field|
   service_booking = site.service_booking.step2
   case field
   when 'house name/number'
-    service_booking.house_no_field.set(@account[:optional_details][:house_number])
+    service_booking.house_no_field.set(@account[:optional_details][:house_number_preview])
   when 'address1'
     service_booking.address_line_1_field.set(@account[:optional_details][:street])
   when 'city'

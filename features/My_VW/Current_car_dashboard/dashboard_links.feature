@@ -3,7 +3,6 @@ Feature: Current car dashboard
   As a user logged in the My VW site
   I want to see a page with important information about my current car
 
-
   Background: Add a car for a non DBG matched user
     Given a car with registration EJ62MMO and display name GOLF is added to my account
     When I login into my account
@@ -97,8 +96,9 @@ Feature: Current car dashboard
 
   @add_car_user @delete_added_car
   Scenario: My Service History Notification section without information as my account is not validated
-    When I scroll to my service history and plans
-    Then I will see a message prompting me to enable service history and plans feature
+    Given I scroll to my service history and plans
+    Then I will see a message Please check or update your address to enable this feature
+
     When I click on enable service feature
     Then I'm on my account page
 

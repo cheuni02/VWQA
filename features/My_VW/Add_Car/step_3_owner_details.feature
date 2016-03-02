@@ -149,7 +149,7 @@ Feature: Add a current car
       | XX       |
       | AB1 1XC  |
 
-  @add_car_user
+  @add_car_user @clear_address
   Scenario: I attempt valid postcode lookup
     Given I have successfully completed step 1 with registration ML15XHR
     And I have chosen my retailer as Ipswich
@@ -239,7 +239,7 @@ Feature: Add a current car
       | GU7 1DZ  | 28         |             | Godalming | Please complete address 1     |
       | GU7 1DZ  | 28         | High Street |           | Please complete town          |
 
-  @add_car_user
+  @add_car_user @clear_address
   Scenario: I attempt to finish change of address but there is no DBG match
     Given I have successfully completed step 1 with registration ML15XHR
     And I have chosen my retailer as Ipswich
@@ -257,7 +257,7 @@ Feature: Add a current car
     When I enter House Name with 12
     And I select Finish
     Then I will see a pop with Sorry, that didn't work:
-      | The address you entered doesn't match our records. If you continue to have problems, please give us a call on 0800 0833 914. |
+      | The address you entered has been saved to your account but it doesn't match our records. If you continue to have problems, please give us a call on 0800 0833 914. |
     When I dismiss the pop up
     Then I will see a form with my address details:
       | Field           | Mandatory | Value             |
@@ -310,7 +310,7 @@ Feature: Add a current car
     When I enter House Name with The old school
     And I select Finish
     Then I will see a pop with Sorry, that didn't work:
-      | The address you entered doesn't match our records. If you continue to have problems, please give us a call on 0800 0833 914. |
+      | The address you entered has been saved to your account but it doesn't match our records. If you continue to have problems, please give us a call on 0800 0833 914. |
     When I dismiss the pop up
     But my details will still be successfully updated to:
       | Field           | Value              |
@@ -321,7 +321,7 @@ Feature: Add a current car
       | Town / City     | SOUTHAM            |
       | County          | Warwickshire       |
 
-  @login_single_car_user @delete_added_car @clear_cookies
+  @add_car_user @clear_address @delete_added_car
   Scenario: I select skip & finish my address details are not updated
     Given I have successfully completed step 1 with registration ML15XHR
     And I have chosen my retailer as Bath
@@ -373,7 +373,7 @@ Feature: Add a current car
       | County          |           | MIDDLESEX    |
     When I select Finish
     Then I will see a pop with Sorry, that didn't work:
-      | The address you entered doesn't match our records. If you continue to have problems, please give us a call on 0800 0833 914. |
+      | The address you entered has been saved to your account but it doesn't match our records. If you continue to have problems, please give us a call on 0800 0833 914. |
     But my details will still be the same:
       | Field           | Value        |
       | Postcode        | UB6 7HA      |

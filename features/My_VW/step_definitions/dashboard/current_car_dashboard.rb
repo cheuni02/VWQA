@@ -57,7 +57,7 @@ end
 
 Then(/^I will see my service history and plans details:$/) do |table|
   current_car = site.my_vw.current_car_dashboard
-  expect(current_car.service_plans_history_populated.present?).to be true
+  expect(current_car.current_history_body.present?).to be true
   table.hashes.each_with_index { |(hash), index| hash.each { |key, value| expect(current_car.service_type(index, key)).to eq(value) } }
 end
 
@@ -79,10 +79,10 @@ Then(/^I will see my plan details:$/) do |table|
   table.hashes.each { |hash| hash.each { |key, value| expect(current_car.plan_section(key)).to eq(value) } }
 end
 
-Then(/^I will see a message prompting me to enable service history and plans feature$/) do
+Then(/^I will see a message (.*)$/) do |message|
   current_car = site.my_vw.current_car_dashboard
-  expect(current_car.service_plans_history.p.present?).to be true
-  expect(current_car.service_plans_history.p.text).to include(' Please check or update your address to enable this feature')
+  expect(current_car.current_service_history_body.present?).to be true
+  expect(current_car.current_service_history_body.p.text).to include(message)
   expect(current_car.enable_service_history_feature.present?).to be true
 end
 
@@ -246,8 +246,8 @@ end
 
 Then(/^there is no service history for my car at present$/) do
   current_car = site.my_vw.current_car_dashboard
-  expect(current_car.service_history_section.present?).to be true
-  expect(current_car.service_history_section.p.text).to include('We do not have any service history for your car at present.')
+  expect(current_car.current_history_body.present?).to be true
+  expect(current_car.current_history_body.p.text).to include('We do not have any service history for your car at present.')
 end
 
 Then(/^there is no volkswagen plans$/) do
@@ -270,4 +270,9 @@ end
 
 When(/^I select find out more about (.*)$/) do |guarantees|
   site.my_vw.current_car_dashboard.click_guarantee(guarantees)
+end
+
+But(/^there is no address for my account$/) do
+  token = site.my_vw.my_vw_api.get_login_token(@account[:username], @account[:password])
+  site.my_vw.my_vw_api.update_user_details(@account[:uuid], token)
 end
