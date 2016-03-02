@@ -20,6 +20,7 @@ Given(/^my car is on the affected cars list and i have entered the reg number (.
 end
 
 When(/^I get to the “Select work” step on the OSB and select any service$/) do
+  #@serviceStep3.select_random_workgroup
   @serviceStep3.select_random_work
 end
 
@@ -43,7 +44,7 @@ Given(/^I have selected 'Emissions fix' at '3\. Select work'$/) do
   #pending
 end
 
-When(/^I get to the Convenience options at '4 Select date'$/) do |arg|
+When(/^I get to the Convenience options at '4 Select date'$/) do
   #pending
 end
 

@@ -70,7 +70,7 @@ class BookAServiceStep3 < BookAService
   def count_datagroup
     i=0
     workgroup_container.each do
-      i=i+1
+      i+=1
     end
     return i
   end
@@ -82,7 +82,7 @@ class BookAServiceStep3 < BookAService
   def count_work_option(datagroup)
     i=0
     spec_workgroup_container(datagroup).lis.each do
-      i=i+1
+      i+=1
     end
     return i
   end
@@ -94,6 +94,8 @@ class BookAServiceStep3 < BookAService
   def select_random_work
     select_rand_group = rand(1-count_datagroup)
     select_rand_work = rand(0-count_work_option(select_rand_group))
+    spec_workgroup_container(select_rand_group).h2.click
+    sleep(1)
     spec_work_option(select_rand_group,select_rand_work).click
   end
 
