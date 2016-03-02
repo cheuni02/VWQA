@@ -52,7 +52,12 @@ Then(/^I will see the retailer page for (.*)$/) do |retailer_name|
 end
 
 When(/^I scroll to my service history and plans$/) do
-  site.my_vw.current_car_dashboard.scroll_to_service_plans_history
+  binding.pry
+  site.my_vw.current_car_dashboard.scroll_to_current_service_history
+end
+
+When(/^I scroll to my service history$/) do
+  site.my_vw.current_car_dashboard.scroll_to_current_history
 end
 
 Then(/^I will see my service history and plans details:$/) do |table|
@@ -62,11 +67,11 @@ Then(/^I will see my service history and plans details:$/) do |table|
 end
 
 But(/^I will see a show more button$/) do
-  expect(site.my_vw.current_car_dashboard.service_plans_history_show_more.present?).to be true
+  expect(site.my_vw.current_car_dashboard.plans_history_show_more.present?).to be true
 end
 
 When(/^I select the show more button$/) do
-  site.my_vw.current_car_dashboard.service_plans_history_show_more.when_present.click
+  site.my_vw.current_car_dashboard.plans_history_show_more.when_present.click
 end
 
 When(/^I scroll to my plan$/) do
@@ -79,19 +84,31 @@ Then(/^I will see my plan details:$/) do |table|
   table.hashes.each { |hash| hash.each { |key, value| expect(current_car.plan_section(key)).to eq(value) } }
 end
 
-Then(/^I will see a message (.*)$/) do |message|
+Then(/^I will see a message (.*) in service history and plans section$/) do |message|
+  binding.pry
   current_car = site.my_vw.current_car_dashboard
   expect(current_car.current_service_history_body.present?).to be true
   expect(current_car.current_service_history_body.p.text).to include(message)
   expect(current_car.enable_service_history_feature.present?).to be true
 end
 
-When(/^I click on enable service feature$/) do
+Then(/^I will see a message (.*) in history section$/) do |message|
+  current_car = site.my_vw.current_car_dashboard
+  expect(current_car.current_history_body.present?).to be true
+  expect(current_car.current_history_body.p.text).to include(message)
+  expect(current_car.enable_history_feature.present?).to be true
+end
+
+When(/^I click on enable service history feature$/) do
+  site.my_vw.current_car_dashboard.enable_history_feature.when_present.click
+end
+
+When(/^I click on enable service history and plans service feature$/) do
   site.my_vw.current_car_dashboard.enable_service_history_feature.when_present.click
 end
 
-Then(/^I'm on my account page$/) do
-  expect(site.my_vw.profile.hero_title.present?).to be true
+Then(/^I'm asked for (.*) to update my address$/) do |message|
+  expect(site.my_vw.profile.hero_title.text).to eq(message)
 end
 
 When(/^I select read more link about my plan$/) do
@@ -114,27 +131,27 @@ end
 Then(/^I will be on the correct page related to the (.*)$/) do |page_name|
   owners_site = site.owners
   case page_name
-    when 'Our service promise'
-      page_name = 'Volkswagen Service Promise'
-      page_title = owners_site.servicing.service_promise.page_title
-    when 'What we check & why'
-      page_name = 'What We Check And Why'
-      page_title = owners_site.servicing.what_we_check_and_why.page_title
-    when 'Book a service'
-      page_name = 'Volkswagen Genuine Parts'
-      page_title = owners_site.servicing.genuine_parts.page_title
-    when 'Fixed price servicing'
-      page_name = page_name.split(' ').map(&:capitalize).join(' ')
-      page_title = owners_site.servicing.fixed_price_servicing.page_title_subject
-    when 'Volkswagen service plans'
-      page_name = page_name.split(' ').map(&:capitalize).join(' ')
-      page_title = owners_site.servicing.volkswagen_service_plans.page_title_subject
-    when 'Extended warranty'
-      page_name = page_name.split(' ').map(&:capitalize).join(' ')
-      page_title = owners_site.servicing.extended_warranty.page_title_subject
-    when 'Accessories'
-      page_name = 'Accessories and merchandise'
-      page_title = owners_site.accessories.page_title
+  when 'Our service promise'
+    page_name = 'Volkswagen Service Promise'
+    page_title = owners_site.servicing.service_promise.page_title
+  when 'What we check & why'
+    page_name = 'What We Check And Why'
+    page_title = owners_site.servicing.what_we_check_and_why.page_title
+  when 'Book a service'
+    page_name = 'Volkswagen Genuine Parts'
+    page_title = owners_site.servicing.genuine_parts.page_title
+  when 'Fixed price servicing'
+    page_name = page_name.split(' ').map(&:capitalize).join(' ')
+    page_title = owners_site.servicing.fixed_price_servicing.page_title_subject
+  when 'Volkswagen service plans'
+    page_name = page_name.split(' ').map(&:capitalize).join(' ')
+    page_title = owners_site.servicing.volkswagen_service_plans.page_title_subject
+  when 'Extended warranty'
+    page_name = page_name.split(' ').map(&:capitalize).join(' ')
+    page_title = owners_site.servicing.extended_warranty.page_title_subject
+  when 'Accessories'
+    page_name = 'Accessories and merchandise'
+    page_title = owners_site.accessories.page_title
   end
   Watir::Wait.until { page_title == page_name }
   expect(page_title).to eq(page_name), 'Expected: ' + page_name + ' Got: ' + page_title
@@ -160,17 +177,17 @@ end
 Then(/^the correct page related to (.*) will be loaded$/) do |page_name|
   owners_site = site.owners
   case page_name
-    when 'Owner\'s manual'
-      page_name = page_name.delete('\'') + 's'
-      page_title = owners_site.owners_manuals.page_title
-    when 'Warning lights'
-      page_title = owners_site.warning_lights.page_title
-    when 'How tos'
-      page_name = 'How to guides'
-      page_title = owners_site.how_to_guides.page_title
-    when 'Breakdown and insurance'
-      page_name = 'Breakdown and Insurance'
-      page_title = owners_site.breakdown_insurance.page_title
+  when 'Owner\'s manual'
+    page_name = page_name.delete('\'') + 's'
+    page_title = owners_site.owners_manuals.page_title
+  when 'Warning lights'
+    page_title = owners_site.warning_lights.page_title
+  when 'How tos'
+    page_name = 'How to guides'
+    page_title = owners_site.how_to_guides.page_title
+  when 'Breakdown and insurance'
+    page_name = 'Breakdown and Insurance'
+    page_title = owners_site.breakdown_insurance.page_title
   end
   Watir::Wait.until(60) { page_title == page_name }
   expect(page_title).to eq(page_name)
@@ -214,15 +231,15 @@ end
 
 Then(/^I will be on the (.*) page$/) do |buttons|
   case buttons
-    when 'Book a service'
-      Watir::Wait.until { site.service_booking.step1.page_loaded? }
-      expect(site.service_booking.step1.page_loaded?).to be true
-    when 'Keep me informed'
-      Watir::Wait.until { site.new_cars.keep_informed.page_loaded? }
-      expect(site.new_cars.keep_informed.page_loaded?).to be true
-    when 'Contact Us'
-      Watir::Wait.until { site.special_pages.contact_us.page_loaded? }
-      expect(site.special_pages.contact_us.page_loaded?).to be true
+  when 'Book a service'
+    Watir::Wait.until { site.service_booking.step1.page_loaded? }
+    expect(site.service_booking.step1.page_loaded?).to be true
+  when 'Keep me informed'
+    Watir::Wait.until { site.new_cars.keep_informed.page_loaded? }
+    expect(site.new_cars.keep_informed.page_loaded?).to be true
+  when 'Contact Us'
+    Watir::Wait.until { site.special_pages.contact_us.page_loaded? }
+    expect(site.special_pages.contact_us.page_loaded?).to be true
   end
 end
 
@@ -275,4 +292,8 @@ end
 But(/^there is no address for my account$/) do
   token = site.my_vw.my_vw_api.get_login_token(@account[:username], @account[:password])
   site.my_vw.my_vw_api.update_user_details(@account[:uuid], token)
+end
+
+Given(/^I scroll to my preferred retailer$/) do
+  site.my_vw.current_car_dashboard.scroll_to_retailer_section
 end

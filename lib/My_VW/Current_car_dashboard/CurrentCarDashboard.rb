@@ -29,12 +29,12 @@ class CurrentCarDashboard < MyVW
     scroll_to(promotions_section)
   end
 
-  def scroll_to_service_plans_history
-    if current_history_body.present?
-      scroll_to(current_history_body)
-    else
-      scroll_to(current_service_history_body)
-    end
+  def scroll_to_current_history
+    scroll_to(current_history_body)
+  end
+
+  def scroll_to_current_service_history
+    scroll_to(current_service_history_body)
   end
 
   def current_service_history_body
@@ -45,12 +45,16 @@ class CurrentCarDashboard < MyVW
     @browser.element(class: 'my-current-history__body')
   end
 
-  def service_plans_history_show_more
+  def plans_history_show_more
     current_history_body.element(class: 'my-table__show-more')
   end
 
   def enable_service_history_feature
     current_service_history_body.element(class: 'my-vw-button', text: 'Enable feature')
+  end
+
+  def enable_history_feature
+    current_history_body.element(class: 'my-vw-button', text: 'Enable feature')
   end
 
   def service_type(row = 0, column)
@@ -129,12 +133,20 @@ class CurrentCarDashboard < MyVW
     @browser.section(class: 'current-car-hero')
   end
 
+  def scroll_to_retailer_section
+    scroll_to(retailer_section)
+  end
+
+  def retailer_section
+    @browser.div(class: 'my-retailer__wrap')
+  end
+
   def retailer_map
-    @browser.div(class: 'my-retailer__map')
+    @browser.element(class: 'my-retailer__map')
   end
 
   def retailer_details
-    @browser.div(class: 'my-retailer__overlay')
+    @browser.element(class: 'my-retailer__info')
   end
 
   def retailer_address_details

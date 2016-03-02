@@ -16,6 +16,7 @@ Feature: Current car dashboard
 
   @add_car_user @delete_added_car
   Scenario: My Service Retailer
+    Given I scroll to my preferred retailer
     Then I will see a map loaded displaying my retailer location
     And I will also see the following retailer address details displayed:
       | Name               | Address         | Town    | Postcode |
@@ -26,6 +27,7 @@ Feature: Current car dashboard
 
   @add_car_user @delete_added_car
   Scenario: My Retailer Link
+    Given I scroll to my preferred retailer
     When I click on the link to view my retailers website
     Then I will see the retailer page for Ipswich Volkswagen
     When I select browser back button
@@ -97,9 +99,7 @@ Feature: Current car dashboard
   @add_car_user @delete_added_car
   Scenario: My Service History Notification section without information as my account is not validated
     Given I scroll to my service history and plans
-    Then I will see a message Please check or update your address to enable this feature
+    Then I will see a message Please check or update your address to enable this feature in service history and plans section
 
-    When I click on enable service feature
-    Then I'm on my account page
-
-
+    When I click on enable service history and plans service feature
+    Then I'm asked for Just a few details from you... to update my address

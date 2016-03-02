@@ -3,8 +3,8 @@ Feature: Current car dashboard
   As a user logged in the My VW site
   I want to see a page with important information about my current car
 
-  @login_dbg_history_plan_without_car @delete_added_car
-  Scenario: Add a car for a non DBG matched user
+  @login_dbg_history_plan_without_car @delete_added_car @logout
+  Scenario: Service plan or history is not shown until correct address is supplied
     Given I have added a new car to my account with:
       | Display name        | My Scirocco               |
       | Car status          | CURRENT                   |
@@ -22,15 +22,11 @@ Feature: Current car dashboard
     When I login into my account
     Then I will be logged into my account
 
-    Given I scroll to my service history and plans
-    Then I will see a message Please check or update your address to enable this feature
-    When I click on enable service feature
-    Then I'm on my account page
+    Given I scroll to my service history
+    Then I will see a message Please check or update your address to enable this feature in history section
 
-    And view mode will be active for address detail form
+    When I click on enable service history feature
 
-    When I toggle my address detail's
-    Then edit mode will be active for address detail form
 
-    When I set my address postcode to TS17 5BH
-    And I click postcode lookup
+
+
