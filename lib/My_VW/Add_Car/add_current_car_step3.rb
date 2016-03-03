@@ -99,12 +99,4 @@ class AddCurrentCarStep3 < MyVW
   def my_car_added
     @browser.element(class: 'full-hero__body')
   end
-
-  def my_retailer_in_summary
-    @browser.element(class: 'my-retailer__address')
-  end
-
-  def my_retailer_name
-    my_retailer_in_summary.div(class: 'org')
-  end
 end

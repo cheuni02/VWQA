@@ -38,7 +38,8 @@ Feature: Add a current car
     Then I will be on my car details summary
     And a default picture of my last added car type scirocco is displayed
     And my last added car name is My Scirocco
-    And my retailer is Ipswich Volkswagen is displayed
+    When I scroll to my preferred retailer
+    Then my retailer is Ipswich Volkswagen is displayed
 
   @add_car_user @clear_address
   Scenario: I have completed step 1 and 2 and will see details of these steps
@@ -220,7 +221,7 @@ Feature: Add a current car
       | Town / City     | Yes       | empty   |
       | County          |           | empty   |
 
-  @add_car_user
+  @add_car_user @clear_address
   Scenario Outline: I attempt to complete my address with missing fields
     Given I have successfully completed step 1 with registration ML15XHR
     And I have chosen my retailer as Ipswich
@@ -254,12 +255,17 @@ Feature: Add a current car
       | Address 2       |           | empty             |
       | Town / City     | Yes       | WESTON-SUPER-MARE |
       | County          |           | Avon              |
+    When I select Finish
+    Then I will see address error message:
+      | Feedback                     |
+      | Please complete house number |
     When I enter House Name with 12
     And I select Finish
     Then I will see a pop with Sorry, that didn't work:
       | The address you entered has been saved to your account but it doesn't match our records. If you continue to have problems, please give us a call on 0800 0833 914. |
     When I dismiss the pop up
-    Then I will see a form with my address details:
+    Then I will not see any error messages
+    And I will see a form with my address details:
       | Field           | Mandatory | Value             |
       | Postcode        | Yes       | BS23 3YZ          |
       | House Name / no | Yes       | 12                |
@@ -272,7 +278,7 @@ Feature: Add a current car
     Then I will see a form with my address details:
       | Field           | Mandatory | Value |
       | House Name / no | Yes       | empty |
-
+#
   @add_car_user @delete_added_car @logout @clear_cookies @clear_address
   Scenario: I skip and finnish step 3, I have successful added my car
     Given I have successfully completed step 1 with registration ML15XHR
@@ -282,7 +288,8 @@ Feature: Add a current car
     Then I will be on my car details summary
     And a default picture of my last added car type passat is displayed
     And my last added car name is My Passat
-    And my retailer is Leeds Volkswagen is displayed
+    When I scroll to my preferred retailer
+    Then my retailer is Leeds Volkswagen is displayed
 
   @add_car_user @clear_address @clear_cookies
   Scenario: I select finish but without DBG match
@@ -348,7 +355,7 @@ Feature: Add a current car
     And I select Skip & Finish
     Then I will be on my car details summary
     And a default picture of my last added car type passat is displayed
-    And my last added car name is My Passat
+    Then my last added car name is My Passat
     But my details will still be the same:
       | Field           | Value |
       | Postcode        | empty |
