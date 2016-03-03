@@ -33,7 +33,7 @@ Feature: Current car dashboard - my service history and plans
     And a default picture of my last added car type scirocco is displayed
     And my last added car name is My Scirocco
 
-    When I scroll to my service history and plans
+    When I scroll to my service history
     Then I will see my service history and plans details:
       | Service type  | Date       | Retailer                      |
       | Service Event | 07/01/2015 | Lookers Volkswagen (Teesside) |
@@ -82,7 +82,7 @@ Feature: Current car dashboard - my service history and plans
     And a default picture of my last added car type golf is displayed
     And my last added car name is My Golf
 
-    When I scroll to my service history and plans
+    When I scroll to my service history
     Then there is no service history for my car at present
 
 
@@ -119,7 +119,7 @@ Feature: Current car dashboard - my service history and plans
     And a default picture of my last added car type fox is displayed
     And my last added car name is My Fox
 
-    When I scroll to my service history and plans
+    When I scroll to my service history
     Then I will see my service history and plans details:
       | Service type  | Date       | Retailer                          |
       | MOT Event     | 14/05/2015 | Sinclair Volkswagen (Port Talbot) |
@@ -163,7 +163,7 @@ Feature: Current car dashboard - my service history and plans
     And a default picture of my last added car type golf is displayed
     And my last added car name is My Golf
 
-    When I scroll to my service history and plans
+    When I scroll to my service history
     Then there is no service history for my car at present
     When I scroll to my plan
     Then there is no volkswagen plans

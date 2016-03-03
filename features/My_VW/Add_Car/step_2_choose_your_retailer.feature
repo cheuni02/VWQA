@@ -33,7 +33,8 @@ Feature: Add a current car
     Then I will be on my car details summary
     And my last added car name is My Scirocco
     And a default picture of my last added car type scirocco is displayed
-    And my retailer is Lookers Teesside is displayed
+    When I scroll to my preferred retailer
+    Then my retailer is Lookers Teesside is displayed
 
   @login_dbg_history_plan_without_car @delete_all_cars @clear_cookies
   Scenario: I have previously chosen retailer which I'm presented with when adding a new car
