@@ -30,7 +30,7 @@ Feature: Add a current car
     And I search for my local VW retailer by location with TS17 5BH
     And I click lookup
     And I select step 2 - Finish
-    Then I will be on my car details summary
+    Then I will see my car dashboard
     And my last added car name is My Scirocco
     And a default picture of my last added car type scirocco is displayed
     When I scroll to my preferred retailer
@@ -44,7 +44,7 @@ Feature: Add a current car
     And I search for my local VW retailer by location with Bath
     And I click lookup
     And I select step 2 - Finish
-    And I will be on my car details summary
+    And I will see my car dashboard
 
     When I go to add a new car
     And I select the A car I own button

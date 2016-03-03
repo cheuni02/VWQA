@@ -101,5 +101,5 @@ Feature: Current car dashboard
     Given I scroll to my service history and plans
     Then I will see a message Please check or update your address to enable this feature in service history and plans section
 
-    When I click on enable service history and plans service feature
+    When I click on enable service history and service plans feature
     Then I'm asked for Just a few details from you... to update my address

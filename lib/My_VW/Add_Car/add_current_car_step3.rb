@@ -95,8 +95,4 @@ class AddCurrentCarStep3 < MyVW
   def car_id
     @browser.url.split('/').last
   end
-
-  def my_car_added
-    @browser.element(class: 'full-hero__body')
-  end
 end

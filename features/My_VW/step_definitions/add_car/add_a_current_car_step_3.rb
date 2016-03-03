@@ -77,8 +77,8 @@ When(/^I select (Skip & Finish|Finish)$/) do |finish_button|
   end
 end
 
-Then(/^I will be on my car details summary$/) do
-  expect(site.my_vw.add_current_car_step_3.my_car_added.present?).to be true
+Then(/^I will see my car dashboard$/) do
+  expect(site.my_vw.current_car_dashboard.my_car_dashboard.present?).to be true
 end
 
 Then(/^my retailer is (.*) is displayed$/) do |retailers_name|
@@ -120,7 +120,7 @@ end
 
 When(/^I (?:update|enter) (Postcode|House Name|Address 1|Address 2|Town|County) with (.*)$/) do |field, value|
   add_car = site.my_vw.add_current_car_step_3
-  Watir::Wait.while { site.my_vw.add_current_car.loading_wheel.visible? }
+  # Watir::Wait.while { site.my_vw.add_current_car.loading_wheel.visible? }
   case field
   when 'Postcode'
     add_car.owner_postcode.when_present.set(value)

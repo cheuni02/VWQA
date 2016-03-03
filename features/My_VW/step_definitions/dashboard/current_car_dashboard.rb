@@ -90,7 +90,7 @@ Then(/^I will see a message (.*) in service history and plans section$/) do |mes
   expect(current_car.enable_service_history_feature.present?).to be true
 end
 
-Then(/^I will see a message (.*) in history section$/) do |message|
+Then(/^I will see a message (.*) in service history section$/) do |message|
   current_car = site.my_vw.current_car_dashboard
   expect(current_car.current_history_body.present?).to be true
   expect(current_car.current_history_body.p.text).to include(message)
@@ -101,7 +101,7 @@ When(/^I click on enable service history feature$/) do
   site.my_vw.current_car_dashboard.enable_history_feature.when_present.click
 end
 
-When(/^I click on enable service history and plans service feature$/) do
+When(/^I click on enable service history and service plans feature$/) do
   site.my_vw.current_car_dashboard.enable_service_history_feature.when_present.click
 end
 
