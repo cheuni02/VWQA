@@ -39,6 +39,13 @@ Feature: My VW forgotten password
 
   @Register_temp_2
    Scenario: Recover password for an unvalidated email
-     When i attempt to recover my password for not validated email address
+     When i attempt to recover my password for my email address
      And click on Send button to receive an email with link to reset my password
      Then i should see Request new verification link displayed
+     And i can return back to the login page
+
+  @login
+  Scenario: Recover password for a valid email
+     When i attempt to recover my password for my email address
+     And i don't change it but i try to login with my old password
+     Then I should be able to login successfully
