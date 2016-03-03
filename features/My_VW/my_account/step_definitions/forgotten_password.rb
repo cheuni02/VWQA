@@ -34,11 +34,26 @@ Then /^i should get an error (.*) displayed$/ do |error_message|
   expect(site.my_vw.forgotten_password.error_message.when_present.text).to eq (error_message)
 end
 
-When /^i attempt to recover my password for not validated email address$/ do
+And /^i can return back to the login page$/ do
+  site.my_vw.forgotten_password.return_to_login.click
+  expect(site.my_vw.login.page_loaded?).to be true
+end
+
+When /^i attempt to recover my password for my email address$/ do
   step 'i navigate to the forgotten password page'
   step "i enter invalid email address #{@account[:username]}"
 end
 
 Then /^i should see Request new verification link displayed$/ do
   expect(site.my_vw.forgotten_password.verification_link.present?).to be true
+end
+
+And /^i don't change it but i try to login with my old password$/ do
+  step 'click on Send button to receive an email with link to reset my password'
+  site.my_vw.forgotten_password.login_button.click
+end
+
+Then /^I should be able to login successfully$/ do
+  site.my_vw.login.login(@account[:username], @account[:password])
+  step 'i should be logged into the My Volkswagen section'
 end

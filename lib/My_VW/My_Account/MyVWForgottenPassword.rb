@@ -102,7 +102,7 @@ class MyVWForgottenPassword < MyVW
   end
 
   def return_to_login
-    @browser.link(class: 'my-vw-button', text: 'Return to login')
+    @browser.link(id: 'return-button')
   end
 
   def success_page_title
@@ -135,5 +135,9 @@ class MyVWForgottenPassword < MyVW
 
   def confirm_password_validation_error
     @browser.div(class: 'my-input my-car-form__top-spacer', index: 1).div(class: 'my-input__input').p(class: 'error-label')
+  end
+
+  def login_button
+  @browser.link(id: 'login-button')
   end
 end
