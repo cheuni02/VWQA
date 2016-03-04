@@ -81,6 +81,10 @@ class BookAServiceStep2 < BookAService
     fuel_type_diesel_radio.set
   end
 
+  def jot_engine_size
+    engine_capacity
+  end
+
   def visit
     visit_page(page_url)
   end
@@ -145,5 +149,9 @@ class BookAServiceStep2 < BookAService
 
   def fuel_type_diesel_radio
     @browser.radio(id: 'transmission-diesel')
+  end
+
+  def engine_capacity
+    @browser.text_field(id: "engineCapacity").value
   end
 end

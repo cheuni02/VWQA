@@ -92,11 +92,26 @@ class BookAServiceStep3 < BookAService
   end
 
   def select_random_work
-    select_rand_group = rand(1-count_datagroup)
-    select_rand_work = rand(0-count_work_option(select_rand_group))
-    spec_workgroup_container(select_rand_group).h2.click
-    sleep(1)
-    spec_work_option(select_rand_group,select_rand_work).click
+
+    # puts "count_datagroup = #{count_datagroup}"
+    #
+    # select_rand_group = 1 + rand(count_datagroup)
+    # select_rand_work = rand(count_work_option(select_rand_group))
+    # spec_workgroup_container(select_rand_group).h2.click
+    #
+    # puts "select_rand_group = #{select_rand_group}"
+    # puts "count_work_option(select_rand_group) = #{count_work_option(select_rand_group)}"
+    # puts "select_rand_work = #{select_rand_work}"
+    #
+    # Watir::Wait.until{spec_work_option(select_rand_group,select_rand_work)}.click
+    spec_workgroup_container(1).click
+    sleep(5)
+    spec_work_option(1,0).click
+
+  end
+
+  def emissions_fix_option
+    spec_workgroup_container(0).h3(:text => 'Emissions Service Action')
   end
 
   private

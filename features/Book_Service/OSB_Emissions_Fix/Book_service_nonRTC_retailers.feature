@@ -11,7 +11,7 @@ Background: pre-requisites
 Scenario:  my car is on the affected VINs list - the emissions fix work should be available in the list FOC
   Given my car is on the affected cars list and i have entered the reg number KV14EOT on the stage 'Your Vehicle'
   When I get to the “Select work” step on the OSB and select any service
-  Then the emissions fix work should be available (only if engine size ia 1.2, 1.6 or 2.0), and opened by default
+  Then the emissions fix work should be available (only if engine size is 1.2, 1.6 or 2.0), and opened by default
   And it should be pre-selected by default
   But I should be able to deselect it
   And I should be able to select any other additional work for my car

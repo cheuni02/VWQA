@@ -1,9 +1,9 @@
 Given(/^the user is on the OSB first page$/) do
   site.homepage.visit
+  site.primary_nav.book_service
   @serviceBooking = site.book_service.booking_step1
   @serviceStep2 = site.book_service.booking_step2
   @serviceStep3 = site.book_service.booking_step3
-  @serviceBooking.visit
 end
 
 And(/^has selected (an RTC|a non RTC) retailer: (.*)$/) do |type, retailer|
@@ -16,16 +16,24 @@ end
 Given(/^my car is on the affected cars list and i have entered the reg number (.*) on the stage 'Your Vehicle'$/) do |registration|
   @serviceStep2.set_registration(registration)
   @serviceStep2.submit_car_registration
+  @engine_size = @serviceStep2.jot_engine_size
+   puts "a = #{@a}"
   @serviceStep2.click_next_step
 end
 
 When(/^I get to the “Select work” step on the OSB and select any service$/) do
-  #@serviceStep3.select_random_workgroup
   @serviceStep3.select_random_work
 end
 
-Then(/^the emissions fix work should be available \(only if engine size ia (\d+)\.(\d+), (\d+)\.(\d+) or (\d+)\.0\), and opened by default$/) do |arg1, arg2, arg3, arg4, arg5|
-  #pending
+Then(/^the emissions fix work should be available \(only if engine size is (\d+)\.(\d+), (\d+)\.(\d+) or (\d+)\.0\), and opened by default$/) do |arg1, arg2, arg3, arg4, arg5|
+  puts "@serviceStep2.jot_engine_size = #{@engine_size}"
+
+  case @engine_size
+    when 1.2, 1.6, 2.0
+      expect(@serviceStep3.emissions_fix_option).to be_present
+    else
+      expect(@serviceStep3.emissions_fix_option).not_to be_present
+  end
 end
 
 And(/^it should be pre\-selected by default$/) do
