@@ -33,7 +33,6 @@ Then(/^I will see a form (?:to add|with) my address details:$/) do |table|
 end
 
 Given(/^my details will still be (?:the same|successfully updated to):$/) do |table|
-  binding.pry
   token = site.my_vw.my_vw_api.get_login_token(@account[:username], @account[:password])
   address = site.my_vw.my_vw_api.get_user_details(@account[:uuid], token)
   table.hashes.each do |hash|
@@ -71,7 +70,6 @@ end
 
 When(/^I select (Skip & Finish|Finish)$/) do |finish_button|
   add_car = site.my_vw.add_current_car_step_3
-  binding.pry
   if finish_button == 'Finish'
     add_car.step_3_finish_button.when_present.click
   elsif finish_button == 'Skip & Finish'
@@ -122,7 +120,7 @@ end
 
 When(/^I (?:update|enter) (Postcode|House Name|Address 1|Address 2|Town|County) with (.*)$/) do |field, value|
   add_car = site.my_vw.add_current_car_step_3
-  # Watir::Wait.while { site.my_vw.add_current_car.loading_wheel.visible? }
+  Watir::Wait.while { site.my_vw.add_current_car.loading_wheel.visible? }
   case field
   when 'Postcode'
     add_car.owner_postcode.when_present.set(value)
