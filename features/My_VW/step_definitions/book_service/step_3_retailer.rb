@@ -9,7 +9,7 @@ end
 
 Then (/^my address details will be displayed in summary$/) do
   service_booking = site.service_booking.step3
-  expect(service_booking.summary_house_number.text).to eq(@account[:optional_details][:house_number])
+  expect(service_booking.summary_house_number.text).to eq(@account[:optional_details][:house_number_preview])
   expect(service_booking.summary_street.text).to eq(@account[:optional_details][:street])
   expect(service_booking.summary_town.text).to eq(@account[:optional_details][:city])
   expect(service_booking.summary_postcode.text).to eq(@account[:optional_details][:postcode])

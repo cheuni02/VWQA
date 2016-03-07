@@ -6,7 +6,6 @@ Then(/^I have chosen my retailer as (.*)$/) do |retailer|
           )
 end
 
-
 Then(/^I will see a summary of my retailer - step 2:$/) do |table|
   add_car = site.my_vw.add_current_car_step_3
   Watir::Wait.until { add_car.step_2_summary.visible? }
@@ -40,22 +39,21 @@ Given(/^my details will still be (?:the same|successfully updated to):$/) do |ta
     field_value = hash['Value']
     field_value = nil if field_value == 'empty'
     case hash['Field']
-      when 'Postcode'
-        expect(address['details']['postcode']).to eq(field_value)
-      when 'House Name / no'
-        expect(address['details']['houseNumber']).to eq(field_value)
-      when 'Address 1'
-        expect(address['details']['street']).to eq(field_value)
-      when 'Address 2'
-        expect(address['details']['street2']).to eq(field_value)
-      when 'Town / City'
-        expect(address['details']['city']).to eq(field_value)
-      when 'County'
-        expect(address['details']['county']).to eq(field_value)
+    when 'Postcode'
+      expect(address['details']['postcode']).to eq(field_value)
+    when 'House Name / no'
+      expect(address['details']['houseNumber']).to eq(field_value)
+    when 'Address 1'
+      expect(address['details']['street']).to eq(field_value)
+    when 'Address 2'
+      expect(address['details']['street2']).to eq(field_value)
+    when 'Town / City'
+      expect(address['details']['city']).to eq(field_value)
+    when 'County'
+      expect(address['details']['county']).to eq(field_value)
     end
   end
 end
-
 
 Given(/^postcode lookup is (disabled|enabled)$/) do |lookup|
   add_car = site.my_vw.add_current_car_step_3
@@ -80,12 +78,11 @@ When(/^I select (Skip & Finish|Finish)$/) do |finish_button|
 end
 
 Then(/^I will be on my car details summary$/) do
-  @car_id = site.my_vw.add_current_car_step_3.car_id
   expect(site.my_vw.add_current_car_step_3.my_car_added.present?).to be true
 end
 
 Then(/^my retailer is (.*) is displayed$/) do |retailers_name|
-  expect(site.my_vw.add_current_car_step_3.my_retailer_name.text).to eq(retailers_name)
+  expect(site.my_vw.current_car_dashboard.retailer_address_name.text).to eq(retailers_name)
 end
 
 Then(/^I will see address error message:$/) do |table|
@@ -125,28 +122,32 @@ When(/^I (?:update|enter) (Postcode|House Name|Address 1|Address 2|Town|County) 
   add_car = site.my_vw.add_current_car_step_3
   Watir::Wait.while { site.my_vw.add_current_car.loading_wheel.visible? }
   case field
-    when 'Postcode'
-      add_car.owner_postcode.when_present.set(value)
-    when 'House Name'
-      add_car.owner_house_number.set(value)
-    when 'Address 1'
-      add_car.owner_address_1.set(value)
-    when 'Address 2'
-      add_car.owner_address_2.set(value)
-    when 'Town'
-      add_car.owner_city.set(value)
-    when 'County'
-      add_car.owner_county.set(value)
+  when 'Postcode'
+    add_car.owner_postcode.when_present.set(value)
+  when 'House Name'
+    add_car.owner_house_number.set(value)
+  when 'Address 1'
+    add_car.owner_address_1.set(value)
+  when 'Address 2'
+    add_car.owner_address_2.set(value)
+  when 'Town'
+    add_car.owner_city.set(value)
+  when 'County'
+    add_car.owner_county.set(value)
   end
 end
 
 When(/^I select change step (\d+)$/) do |step|
   add_car = site.my_vw
   case step
-    when '1'
-      add_car.add_current_car_step_2.change_step_1.when_present.click
-    when '2'
-      add_car.add_current_car_step_3.change_step_2.when_present.click
+  when '1'
+    add_car.add_current_car_step_2.change_step_1.when_present.click
+  when '2'
+    add_car.add_current_car_step_3.change_step_2.when_present.click
   end
   Watir::Wait.while { site.my_vw.add_current_car.loading_wheel.visible? }
+end
+
+Then(/^I will not see any error messages$/) do
+  expect(site.my_vw.add_current_car_step_3.owner_address_error_feedback.present?).to be false
 end

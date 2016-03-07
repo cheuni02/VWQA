@@ -20,5 +20,5 @@ Feature: Address details
       | Town / city:    |
       | County:         |
       | Postcode:       |
-    And view mode should be active by default for address detail form
+    And view mode will be active for address detail form
     And address details fields in the form should be populated with correct data

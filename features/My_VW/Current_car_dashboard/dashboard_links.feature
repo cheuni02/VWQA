@@ -3,7 +3,6 @@ Feature: Current car dashboard
   As a user logged in the My VW site
   I want to see a page with important information about my current car
 
-
   Background: Add a car for a non DBG matched user
     Given a car with registration EJ62MMO and display name GOLF is added to my account
     When I login into my account
@@ -17,6 +16,7 @@ Feature: Current car dashboard
 
   @add_car_user @delete_added_car
   Scenario: My Service Retailer
+    Given I scroll to my preferred retailer
     Then I will see a map loaded displaying my retailer location
     And I will also see the following retailer address details displayed:
       | Name               | Address         | Town    | Postcode |
@@ -27,6 +27,7 @@ Feature: Current car dashboard
 
   @add_car_user @delete_added_car
   Scenario: My Retailer Link
+    Given I scroll to my preferred retailer
     When I click on the link to view my retailers website
     Then I will see the retailer page for Ipswich Volkswagen
     When I select browser back button
@@ -97,9 +98,8 @@ Feature: Current car dashboard
 
   @add_car_user @delete_added_car
   Scenario: My Service History Notification section without information as my account is not validated
-    When I scroll to my service history and plans
-    Then I will see a message prompting me to enable service history and plans feature
-    When I click on enable service feature
-    Then I'm on my account page
+    Given I scroll to my service history and plans
+    Then I will see a message Please check or update your address to enable this feature in service history and plans section
 
-
+    When I click on enable service history and plans service feature
+    Then I'm asked for Just a few details from you... to update my address
