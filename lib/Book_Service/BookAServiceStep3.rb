@@ -111,7 +111,11 @@ class BookAServiceStep3 < BookAService
   end
 
   def emissions_fix_option
-    spec_workgroup_container(0).h3(:text => 'Emissions Service Action')
+    spec_workgroup_container(0).h2(:text => 'Emissions Service Action')
+  end
+
+  def emissions_fix_option_checked
+    spec_workgroup_container(0).label.span(class: "checked")
   end
 
   private

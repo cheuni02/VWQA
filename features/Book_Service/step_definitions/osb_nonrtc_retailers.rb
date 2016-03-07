@@ -17,7 +17,6 @@ Given(/^my car is on the affected cars list and i have entered the reg number (.
   @serviceStep2.set_registration(registration)
   @serviceStep2.submit_car_registration
   @engine_size = @serviceStep2.jot_engine_size
-   puts "a = #{@a}"
   @serviceStep2.click_next_step
 end
 
@@ -25,11 +24,9 @@ When(/^I get to the “Select work” step on the OSB and select any service$/) 
   @serviceStep3.select_random_work
 end
 
-Then(/^the emissions fix work should be available \(only if engine size is (\d+)\.(\d+), (\d+)\.(\d+) or (\d+)\.0\), and opened by default$/) do |arg1, arg2, arg3, arg4, arg5|
-  puts "@serviceStep2.jot_engine_size = #{@engine_size}"
-
-  case @engine_size
-    when 1.2, 1.6, 2.0
+Then(/^the emissions fix work should be available \(only if engine size is (\d+)\.(\d+), (\d+)\.(\d+) or (\d+)\.(\d+)\), and opened by default$/) do |arg1, arg2, arg3, arg4, arg5, arg6|
+   case @engine_size
+    when '1.2', '1.6', '2.0'
       expect(@serviceStep3.emissions_fix_option).to be_present
     else
       expect(@serviceStep3.emissions_fix_option).not_to be_present
@@ -37,11 +34,22 @@ Then(/^the emissions fix work should be available \(only if engine size is (\d+)
 end
 
 And(/^it should be pre\-selected by default$/) do
-  #pending
+  expect(@serviceStep3.emissions_fix_option_checked).to be_present
 end
 
 But(/^I should be able to deselect it$/) do
-  #pending
+  tested_token = 0
+  loop do
+    @serviceStep3.emissions_fix_option.click
+    if tested_token != 0
+      break
+    end
+    if @serviceStep3.emissions_fix_option_checked.present?
+      raise AssertionError, "checkbox should be unchecked at this stage"
+      break
+    end
+    tested_token = 1
+  end
 end
 
 And(/^I should be able to select any other additional work for my car$/) do
