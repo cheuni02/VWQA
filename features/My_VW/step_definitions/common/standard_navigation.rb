@@ -20,4 +20,3 @@ end
 When(/^I select browser back button$/) do
   site.primary_nav.browser_back
 end
-

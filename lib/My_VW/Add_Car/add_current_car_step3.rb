@@ -85,7 +85,7 @@ class AddCurrentCarStep3 < MyVW
   end
 
   def label_for_field(field)
-    @browser.element(id: 'section-3-edit').div(class: 'my-input', text: /#{field}/).text
+    @browser.div(class: 'my-input', text: /#{field}/).text
   end
 
   def change_step_2
@@ -94,9 +94,5 @@ class AddCurrentCarStep3 < MyVW
 
   def car_id
     @browser.url.split('/').last
-  end
-
-  def my_car_added
-    @browser.element(class: 'full-hero__body')
   end
 end

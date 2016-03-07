@@ -54,7 +54,11 @@ class CurrentCarDashboard < MyVW
   end
 
   def enable_history_feature
-    current_history_body.element(class: 'my-vw-button', text: 'Enable feature')
+    if current_history_body.present?
+      current_history_body.element(class: 'my-vw-button', text: 'Enable feature')
+    else
+      current_service_history_body.element(class: 'my-vw-button', text: 'Enable feature')
+    end
   end
 
   def service_type(row = 0, column)
@@ -219,5 +223,13 @@ class CurrentCarDashboard < MyVW
 
   def click_guarantee(text)
     current_guarantees(text).parent.link(class: 'my-vw-text-link', text: 'Find out more').click
+  end
+
+  def my_car_dashboard
+    @browser.element(class: 'full-hero__body')
+  end
+
+  def update_address_button
+    @browser.button(id: 'update-contact-address')
   end
 end

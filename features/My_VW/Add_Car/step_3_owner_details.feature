@@ -35,7 +35,7 @@ Feature: Add a current car
       | County          |           | Cleveland        |
     When I enter House Name with 12
     And I select Finish
-    Then I will be on my car details summary
+    Then I will see my car dashboard
     And a default picture of my last added car type scirocco is displayed
     And my last added car name is My Scirocco
     When I scroll to my preferred retailer
@@ -285,7 +285,7 @@ Feature: Add a current car
     And I have chosen my retailer as Leeds
     And I select continue to step 3
     When I select Skip & Finish
-    Then I will be on my car details summary
+    Then I will see my car dashboard
     And a default picture of my last added car type passat is displayed
     And my last added car name is My Passat
     When I scroll to my preferred retailer
@@ -353,7 +353,7 @@ Feature: Add a current car
       | County          |           | Warwickshire       |
     When I enter House Name with The old school
     And I select Skip & Finish
-    Then I will be on my car details summary
+    Then I will see my car dashboard
     And a default picture of my last added car type passat is displayed
     Then my last added car name is My Passat
     But my details will still be the same:
