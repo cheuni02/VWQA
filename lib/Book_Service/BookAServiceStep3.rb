@@ -93,20 +93,26 @@ class BookAServiceStep3 < BookAService
 
   def select_random_work
 
-    # puts "count_datagroup = #{count_datagroup}"
-    #
-    # select_rand_group = 1 + rand(count_datagroup)
-    # select_rand_work = rand(count_work_option(select_rand_group))
-    # spec_workgroup_container(select_rand_group).h2.click
-    #
-    # puts "select_rand_group = #{select_rand_group}"
-    # puts "count_work_option(select_rand_group) = #{count_work_option(select_rand_group)}"
-    # puts "select_rand_work = #{select_rand_work}"
-    #
-    # Watir::Wait.until{spec_work_option(select_rand_group,select_rand_work)}.click
-    spec_workgroup_container(1).click
-    sleep(5)
-    spec_work_option(1,0).click
+     puts "count_datagroup = #{count_datagroup}"
+
+     select_rand_group = 1 + rand(count_datagroup)
+
+     puts "select_rand_group = #{select_rand_group}"
+
+     puts "count_work_option(select_rand_group) = #{count_work_option(select_rand_group)}"
+
+     select_rand_work = rand(count_work_option(select_rand_group))
+
+     puts "select_rand_work = #{select_rand_work}"
+
+     spec_workgroup_container(select_rand_group).h2.click
+
+
+     Watir::Wait.until{spec_work_option(select_rand_group,select_rand_work)}.click
+
+     # spec_workgroup_container(1).click
+     # sleep(5)
+     # spec_work_option(1,0).click
 
   end
 
