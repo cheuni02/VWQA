@@ -63,29 +63,29 @@ class CurrentCarDashboard < MyVW
 
   def service_type(row = 0, column)
     case column
-      when /Service type/
-        current_history_body.table.tbody.trs[row].tds[0].text
-      when /Date/
-        current_history_body.table.tbody.trs[row].tds[1].text
-      when /Retailer/
-        current_history_body.table.tbody.trs[row].tds[2].text
-      when /EVC report/
-        current_history_body.table.tbody.trs[row].tds[3].text
+    when /Service type/
+      current_history_body.table.tbody.trs[row].tds[0].text
+    when /Date/
+      current_history_body.table.tbody.trs[row].tds[1].text
+    when /Retailer/
+      current_history_body.table.tbody.trs[row].tds[2].text
+    when /EVC report/
+      current_history_body.table.tbody.trs[row].tds[3].text
     end
   end
 
   def plan_section(column)
     case column
-      when /Plan/
-        service_plan_section.table.tbody.tds[0].text
-      when /Start/
-        service_plan_section.table.tbody.tds[1].text
-      when /End/
-        service_plan_section.table.tbody.tds[2].text
-      when /Length/
-        service_plan_section.table.tbody.tds[3].text
-      when /More Info/
-        service_plan_section.table.tbody.tds[4].text
+    when /Plan/
+      service_plan_section.table.tbody.tds[0].text
+    when /Start/
+      service_plan_section.table.tbody.tds[1].text
+    when /End/
+      service_plan_section.table.tbody.tds[2].text
+    when /Length/
+      service_plan_section.table.tbody.tds[3].text
+    when /More Info/
+      service_plan_section.table.tbody.tds[4].text
     end
   end
 
@@ -227,5 +227,9 @@ class CurrentCarDashboard < MyVW
 
   def my_car_dashboard
     @browser.element(class: 'full-hero__body')
+  end
+
+  def update_address_button
+    @browser.button(id: 'update-contact-address')
   end
 end

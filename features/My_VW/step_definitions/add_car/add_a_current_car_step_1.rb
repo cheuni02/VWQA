@@ -154,10 +154,10 @@ end
 
 And(/^I select continue to step (\d+)$/) do |step|
   case step
-    when '2'
-      site.my_vw.add_current_car_step_1.go_to_section_2.when_present.click
-    when '3'
-      site.my_vw.add_current_car_step_2.go_to_section_3.when_present.click
+  when '2'
+    site.my_vw.add_current_car_step_1.go_to_section_2.when_present.click
+  when '3'
+    site.my_vw.add_current_car_step_2.go_to_section_3.when_present.click
   end
   Watir::Wait.while { site.my_vw.add_current_car.loading_wheel.visible? }
 end

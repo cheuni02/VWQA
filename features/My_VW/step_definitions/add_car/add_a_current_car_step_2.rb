@@ -31,14 +31,13 @@ end
 
 Then(/^a change step (\d+) button is present$/) do |step|
   case step
-    when '1'
-      expect(site.my_vw.add_current_car_step_2.change_step_1.present?).to be true
-    when '2'
-      expect(site.my_vw.add_current_car_step_3.change_step_2.present?).to be true
+  when '1'
+    expect(site.my_vw.add_current_car_step_2.change_step_1.present?).to be true
+  when '2'
+    expect(site.my_vw.add_current_car_step_3.change_step_2.present?).to be true
   end
 end
 
 When(/^I select step 2 - Finish$/) do
   site.my_vw.add_current_car_step_2.step_2_finish.when_present.click
 end
-

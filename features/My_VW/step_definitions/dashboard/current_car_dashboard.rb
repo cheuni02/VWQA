@@ -295,3 +295,7 @@ end
 Given(/^I scroll to my preferred retailer$/) do
   site.my_vw.current_car_dashboard.scroll_to_retailer_section
 end
+
+When(/^I select Update$/) do
+  site.my_vw.current_car_dashboard.update_address_button.when_present.click
+end
