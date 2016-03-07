@@ -28,18 +28,17 @@ And(/^I will also see the following retailer address details displayed:$/) do |t
   current_car = site.my_vw.current_car_dashboard
   table.hashes.each do |hash|
     expect(current_car.retailer_address_name.text).to eq(hash['Name'])
-    expect(current_car.retailer_address_street.text).to eq(hash['Address'])
-    expect(current_car.retailer_address_town.text).to eq(hash['Town'])
-    expect(current_car.retailer_address_postcode.text).to eq(hash['Postcode'])
+    expect(current_car.retailer_address_street).to eq(hash['Address'])
+    expect(current_car.retailer_address_town).to eq(hash['Town'])
+    expect(current_car.retailer_address_postcode).to eq(hash['Postcode'])
   end
 end
 
 And(/^I will see the following contact details:$/) do |table|
   current_car = site.my_vw.current_car_dashboard
   table.hashes.each do |hash|
-    expect(current_car.retailer_contact_details('Phone')).to eq(hash['Phone'])
-    expect(current_car.retailer_contact_details('Fax')).to eq(hash['Fax'])
-    expect(current_car.retailer_contact_details('Email')).to eq(hash['Email'])
+    expect(current_car.retailer_contact_details_phone.text).to eq(hash['Phone'])
+    expect(current_car.retailer_contact_details_email.text).to eq(hash['Email'])
   end
 end
 
