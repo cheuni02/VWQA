@@ -240,4 +240,10 @@ class CurrentCarDashboard < MyVW
   def update_address_button
     @browser.button(id: 'update-contact-address')
   end
+
+  def today_opening_hours
+    @browser.element(class: 'my-retailer__hours').text.split(/\n/).first.split(': ').last
+  end
+
+
 end
