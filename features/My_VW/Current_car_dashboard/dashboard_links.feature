@@ -22,8 +22,8 @@ Feature: Current car dashboard
       | Name               | Address         | Town    | Postcode |
       | Ipswich Volkswagen | Sproughton Road | Ipswich | IP1 5AN  |
     And I will see the following contact details:
-      | Phone        | Fax          | Email                   |
-      | 01473 240800 | 01473 240088 | tribalddbtech@gmail.com |
+      | Phone       | Email                   |
+      | 01473351027 | tribalddbtech@gmail.com |
 
   @add_car_user @delete_added_car
   Scenario: My Retailer Link

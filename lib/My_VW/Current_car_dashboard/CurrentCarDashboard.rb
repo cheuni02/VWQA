@@ -161,20 +161,28 @@ class CurrentCarDashboard < MyVW
     retailer_address_details.div(class: 'org')
   end
 
+  def retailer_address
+    retailer_address_details.div(class: 'adr')
+  end
+
   def retailer_address_street
-    retailer_address_details.div(class: 'street-address')
+    retailer_address.text.split(',')[0].strip
   end
 
   def retailer_address_town
-    retailer_address_details.div(class: 'locality')
+    retailer_address.text.split(',')[1].strip
   end
 
   def retailer_address_postcode
-    retailer_address_details.div(class: 'postal-code')
+    retailer_address.text.split(',')[2].strip
   end
 
-  def retailer_contact_details(field)
-    retailer_details.div(class: 'my-retailer__contact', text: /#{field}/).text.gsub(field, '').strip
+  def retailer_contact_details_phone
+    retailer_details.divs(class: 'my-retailer__contact').first
+  end
+
+  def retailer_contact_details_email
+    retailer_details.divs(class: 'my-retailer__contact').last
   end
 
   def retailer_website_link
