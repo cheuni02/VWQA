@@ -128,27 +128,27 @@ end
 Then(/^I will be on the correct page related to the (.*)$/) do |page_name|
   owners_site = site.owners
   case page_name
-  when 'Our service promise'
-    page_name = 'Volkswagen Service Promise'
-    page_title = owners_site.servicing.service_promise.page_title
-  when 'What we check & why'
-    page_name = 'What We Check And Why'
-    page_title = owners_site.servicing.what_we_check_and_why.page_title
-  when 'Book a service'
-    page_name = 'Volkswagen Genuine Parts'
-    page_title = owners_site.servicing.genuine_parts.page_title
-  when 'Fixed price servicing'
-    page_name = page_name.split(' ').map(&:capitalize).join(' ')
-    page_title = owners_site.servicing.fixed_price_servicing.page_title_subject
-  when 'Volkswagen service plans'
-    page_name = page_name.split(' ').map(&:capitalize).join(' ')
-    page_title = owners_site.servicing.volkswagen_service_plans.page_title_subject
-  when 'Extended warranty'
-    page_name = page_name.split(' ').map(&:capitalize).join(' ')
-    page_title = owners_site.servicing.extended_warranty.page_title_subject
-  when 'Accessories'
-    page_name = 'Accessories and merchandise'
-    page_title = owners_site.accessories.page_title
+    when 'Our service promise'
+      page_name = 'Volkswagen Service Promise'
+      page_title = owners_site.servicing.service_promise.page_title
+    when 'What we check & why'
+      page_name = 'What We Check And Why'
+      page_title = owners_site.servicing.what_we_check_and_why.page_title
+    when 'Book a service'
+      page_name = 'Volkswagen Genuine Parts'
+      page_title = owners_site.servicing.genuine_parts.page_title
+    when 'Fixed price servicing'
+      page_name = page_name.split(' ').map(&:capitalize).join(' ')
+      page_title = owners_site.servicing.fixed_price_servicing.page_title_subject
+    when 'Volkswagen service plans'
+      page_name = page_name.split(' ').map(&:capitalize).join(' ')
+      page_title = owners_site.servicing.volkswagen_service_plans.page_title_subject
+    when 'Extended warranty'
+      page_name = page_name.split(' ').map(&:capitalize).join(' ')
+      page_title = owners_site.servicing.extended_warranty.page_title_subject
+    when 'Accessories'
+      page_name = 'Accessories and merchandise'
+      page_title = owners_site.accessories.page_title
   end
   Watir::Wait.until { page_title == page_name }
   expect(page_title).to eq(page_name), 'Expected: ' + page_name + ' Got: ' + page_title
@@ -174,17 +174,17 @@ end
 Then(/^the correct page related to (.*) will be loaded$/) do |page_name|
   owners_site = site.owners
   case page_name
-  when 'Owner\'s manual'
-    page_name = page_name.delete('\'') + 's'
-    page_title = owners_site.owners_manuals.page_title
-  when 'Warning lights'
-    page_title = owners_site.warning_lights.page_title
-  when 'How tos'
-    page_name = 'How to guides'
-    page_title = owners_site.how_to_guides.page_title
-  when 'Breakdown and insurance'
-    page_name = 'Breakdown and Insurance'
-    page_title = owners_site.breakdown_insurance.page_title
+    when 'Owner\'s manual'
+      page_name = page_name.delete('\'') + 's'
+      page_title = owners_site.owners_manuals.page_title
+    when 'Warning lights'
+      page_title = owners_site.warning_lights.page_title
+    when 'How tos'
+      page_name = 'How to guides'
+      page_title = owners_site.how_to_guides.page_title
+    when 'Breakdown and insurance'
+      page_name = 'Breakdown and Insurance'
+      page_title = owners_site.breakdown_insurance.page_title
   end
   Watir::Wait.until(60) { page_title == page_name }
   expect(page_title).to eq(page_name)
@@ -228,15 +228,15 @@ end
 
 Then(/^I will be on the (.*) page$/) do |buttons|
   case buttons
-  when 'Book a service'
-    Watir::Wait.until { site.service_booking.step1.page_loaded? }
-    expect(site.service_booking.step1.page_loaded?).to be true
-  when 'Keep me informed'
-    Watir::Wait.until { site.new_cars.keep_informed.page_loaded? }
-    expect(site.new_cars.keep_informed.page_loaded?).to be true
-  when 'Contact Us'
-    Watir::Wait.until { site.special_pages.contact_us.page_loaded? }
-    expect(site.special_pages.contact_us.page_loaded?).to be true
+    when 'Book a service'
+      Watir::Wait.until { site.service_booking.step1.page_loaded? }
+      expect(site.service_booking.step1.page_loaded?).to be true
+    when 'Keep me informed'
+      Watir::Wait.until { site.new_cars.keep_informed.page_loaded? }
+      expect(site.new_cars.keep_informed.page_loaded?).to be true
+    when 'Contact Us'
+      Watir::Wait.until { site.special_pages.contact_us.page_loaded? }
+      expect(site.special_pages.contact_us.page_loaded?).to be true
   end
 end
 
@@ -297,4 +297,11 @@ end
 
 When(/^I select Update$/) do
   site.my_vw.current_car_dashboard.update_address_button.when_present.click
+end
+
+
+And(/^I will see today's opening hours for Ipswich Volkswagen$/) do
+  opening_times = {Monday: '08:30-18:00', Tuesday: '08:30-18:00', Wednesday: '08:30-18:00', Thursday: '08:30-18:00',
+                   Friday: '08:30-18:00', Saturday: '09:00-17:00', Sunday: '10:00-16:00'}
+  expect(site.my_vw.current_car_dashboard.today_opening_hours).to eq(opening_times[Time.now.strftime('%A').to_sym])
 end

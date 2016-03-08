@@ -18,6 +18,7 @@ Feature: Current car dashboard
   Scenario: My Service Retailer
     Given I scroll to my preferred retailer
     Then I will see a map loaded displaying my retailer location
+    And I will see today's opening hours for Ipswich Volkswagen
     And I will also see the following retailer address details displayed:
       | Name               | Address         | Town    | Postcode |
       | Ipswich Volkswagen | Sproughton Road | Ipswich | IP1 5AN  |
