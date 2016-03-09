@@ -18,12 +18,13 @@ Feature: Current car dashboard
   Scenario: My Service Retailer
     Given I scroll to my preferred retailer
     Then I will see a map loaded displaying my retailer location
+    And I will see today's opening hours for Ipswich Volkswagen
     And I will also see the following retailer address details displayed:
       | Name               | Address         | Town    | Postcode |
       | Ipswich Volkswagen | Sproughton Road | Ipswich | IP1 5AN  |
     And I will see the following contact details:
-      | Phone        | Fax          | Email                   |
-      | 01473 240800 | 01473 240088 | tribalddbtech@gmail.com |
+      | Phone       | Email                   |
+      | 01473351027 | tribalddbtech@gmail.com |
 
   @add_car_user @delete_added_car
   Scenario: My Retailer Link
@@ -101,5 +102,5 @@ Feature: Current car dashboard
     Given I scroll to my service history and plans
     Then I will see a message Please check or update your address to enable this feature in service history and plans section
 
-    When I click on enable service history and plans service feature
+    When I click on enable service history and service plans feature
     Then I'm asked for Just a few details from you... to update my address

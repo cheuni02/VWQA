@@ -54,7 +54,11 @@ class CurrentCarDashboard < MyVW
   end
 
   def enable_history_feature
-    current_history_body.element(class: 'my-vw-button', text: 'Enable feature')
+    if current_history_body.present?
+      current_history_body.element(class: 'my-vw-button', text: 'Enable feature')
+    else
+      current_service_history_body.element(class: 'my-vw-button', text: 'Enable feature')
+    end
   end
 
   def service_type(row = 0, column)
@@ -157,20 +161,28 @@ class CurrentCarDashboard < MyVW
     retailer_address_details.div(class: 'org')
   end
 
+  def retailer_address
+    retailer_address_details.div(class: 'adr')
+  end
+
   def retailer_address_street
-    retailer_address_details.div(class: 'street-address')
+    retailer_address.text.split(',')[0].strip
   end
 
   def retailer_address_town
-    retailer_address_details.div(class: 'locality')
+    retailer_address.text.split(',')[1].strip
   end
 
   def retailer_address_postcode
-    retailer_address_details.div(class: 'postal-code')
+    retailer_address.text.split(',')[2].strip
   end
 
-  def retailer_contact_details(field)
-    retailer_details.div(class: 'my-retailer__contact', text: /#{field}/).text.gsub(field, '').strip
+  def retailer_contact_details_phone
+    retailer_details.divs(class: 'my-retailer__contact').first
+  end
+
+  def retailer_contact_details_email
+    retailer_details.divs(class: 'my-retailer__contact').last
   end
 
   def retailer_website_link
@@ -220,4 +232,18 @@ class CurrentCarDashboard < MyVW
   def click_guarantee(text)
     current_guarantees(text).parent.link(class: 'my-vw-text-link', text: 'Find out more').click
   end
+
+  def my_car_dashboard
+    @browser.element(class: 'full-hero__body')
+  end
+
+  def update_address_button
+    @browser.button(id: 'update-contact-address')
+  end
+
+  def today_opening_hours
+    @browser.element(class: 'my-retailer__hours').text.split(/\n/).first.split(': ').last
+  end
+
+
 end
