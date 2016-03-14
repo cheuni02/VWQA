@@ -125,12 +125,12 @@ class CurrentCarDashboard < MyVW
     @browser.h1(class: 'full-hero__title')
   end
 
-  def my_car_photo
-    current_car_hero.attribute_value('className').split(' ').last
+  def add_car_landing
+    @browser.element(class: 'my-landing-features')
   end
 
-  def camera_button
-    @browser.form(id: 'form-upload-image').label(id: 'img-placeholder-link')
+  def my_car_photo
+    current_car_hero.attribute_value('className').split(' ').last
   end
 
   def current_car_hero
@@ -147,6 +147,18 @@ class CurrentCarDashboard < MyVW
 
   def retailer_map
     @browser.element(class: 'my-retailer__map')
+  end
+
+  def view_retailer_map
+    @browser.div(class: 'my-retailer__map-container').a(class: 'my-vw-button--show-map')
+  end
+
+  def retailer_map_overlay
+    @browser.div(id: 'current-car-retailer-map-preview')
+  end
+
+  def retailer_map_overlay_close
+    retailer_map_overlay.a(class: 'my-overlay__close-button')
   end
 
   def retailer_details
@@ -242,7 +254,7 @@ class CurrentCarDashboard < MyVW
   end
 
   def today_opening_hours
-    @browser.element(class: 'my-retailer__hours').text.split(/\n/).first.split(': ').last
+    retailer_address_details.text.split(/\n/).first.split(': ').last
   end
 
 
