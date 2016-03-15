@@ -99,10 +99,10 @@ Feature: Current car dashboard
       | Book a service   |
       | Contact Us       |
 #
-#  @add_car_user @delete_added_car
-#  Scenario: My Service History Notification section without information as my account is not validated
-#    Given I scroll to my service history and plans
-#    Then I will see a message Please check or update your address to enable this feature in service history and plans section
-#
-#    When I click on enable service history and service plans feature
-#    Then I'm asked for Just a few details from you... to update my address
+  @add_car_user @delete_added_car
+  Scenario: My Service History Notification section without information as my account is not validated
+    Given I scroll to my service history and plans
+    Then I will see a message Please check or update your address to enable this feature in service history and plans section
+
+    When I click on enable service history and service plans feature
+    Then I'm asked for Just a few details from you... to update my address
