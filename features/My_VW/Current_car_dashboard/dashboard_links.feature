@@ -98,7 +98,7 @@ Feature: Current car dashboard
       | button           |
       | Book a service   |
       | Contact Us       |
-#
+
   @add_car_user @delete_added_car
   Scenario: My Service History Notification section without information as my account is not validated
     Given I scroll to my service history and plans
