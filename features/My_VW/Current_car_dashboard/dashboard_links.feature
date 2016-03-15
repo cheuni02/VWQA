@@ -12,12 +12,14 @@ Feature: Current car dashboard
   Scenario: My car hero section
     Given a default picture of my last added car type golf is displayed
     And my last added car name is GOLF
-    And I will also see a camera icon on the page
 
   @add_car_user @delete_added_car
   Scenario: My Service Retailer
     Given I scroll to my preferred retailer
     Then I will see a map loaded displaying my retailer location
+    When I select to view my retailer in maps
+    Then a map overlay of my retailer location is presented
+    When I close the map overlay
     And I will see today's opening hours for Ipswich Volkswagen
     And I will also see the following retailer address details displayed:
       | Name               | Address         | Town    | Postcode |
@@ -70,6 +72,7 @@ Feature: Current car dashboard
 
   @add_car_user @delete_added_car
   Scenario Outline: Need help search
+    Given I scroll to need help section
     When I search for <query> in the need help section
     Then I should see the Need help page
     And I will get <results> for my searched <query>
@@ -77,10 +80,10 @@ Feature: Current car dashboard
     Then I will see the need help search field
 
     Examples:
-      | query     | results |
-      | breakdown | true    |
-      | insurance | true    |
-      | b34f      | false   |
+      | query     | results      |
+      | breakdown | successful   |
+      | insurance | successful   |
+      | b34f      | unsuccessful |
 
   @add_car_user @delete_added_car
   Scenario Outline: Recovery zone section
@@ -94,13 +97,12 @@ Feature: Current car dashboard
     Examples:
       | button           |
       | Book a service   |
-      | Keep me informed |
       | Contact Us       |
-
-  @add_car_user @delete_added_car
-  Scenario: My Service History Notification section without information as my account is not validated
-    Given I scroll to my service history and plans
-    Then I will see a message Please check or update your address to enable this feature in service history and plans section
-
-    When I click on enable service history and service plans feature
-    Then I'm asked for Just a few details from you... to update my address
+#
+#  @add_car_user @delete_added_car
+#  Scenario: My Service History Notification section without information as my account is not validated
+#    Given I scroll to my service history and plans
+#    Then I will see a message Please check or update your address to enable this feature in service history and plans section
+#
+#    When I click on enable service history and service plans feature
+#    Then I'm asked for Just a few details from you... to update my address

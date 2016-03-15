@@ -39,5 +39,6 @@ Then(/^a change step (\d+) button is present$/) do |step|
 end
 
 When(/^I select step 2 - Finish$/) do
+  binding.pry
   site.my_vw.add_current_car_step_2.step_2_finish.when_present.click
 end
