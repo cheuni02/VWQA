@@ -51,7 +51,7 @@ Feature: My VW Login Version 2
     And i submit my attempt to login
     Then i should see a login error appear in my browser:
     """
-    Sorry, you've tried to login 5 times unsuccessfully and your account has been locked. You can wait 30 minutes and attempt to log in again or you can reset your password.
+    Sorry, you've tried to login 5 times unsuccessfully and your account has been locked. You can wait 30 minutes and attempt to log in again or you can reset your password by clicking on forgotten password.
     """
 
   Scenario: Link to reset my password

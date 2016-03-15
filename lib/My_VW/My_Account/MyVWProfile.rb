@@ -103,7 +103,7 @@ class MyVWProfile < MyVW
   end
 
   def car_panel
-    @browser.div(id: 'car-info')
+    @browser.div(class: 'welcome-stripe__body')
   end
 
   def next_actions_panel
