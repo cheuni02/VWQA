@@ -278,7 +278,7 @@ Feature: Add a current car
     Then I will see a form with my address details:
       | Field           | Mandatory | Value |
       | House Name / no | Yes       | empty |
-#
+
   @add_car_user @delete_added_car @logout @clear_cookies @clear_address
   Scenario: I skip and finnish step 3, I have successful added my car
     Given I have successfully completed step 1 with registration ML15XHR
