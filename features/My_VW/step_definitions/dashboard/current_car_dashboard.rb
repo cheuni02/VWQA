@@ -23,7 +23,7 @@ end
 And(/^I will also see the following retailer address details displayed:$/) do |table|
   current_car = site.my_vw.current_car_dashboard
   table.hashes.each do |hash|
-    # expect(current_car.retailer_address_name.text).to eq(hash['Name'])
+    expect(current_car.retailer_address_name.text).to eq(hash['Name'])
     expect(current_car.retailer_address_street).to eq(hash['Address'])
     expect(current_car.retailer_address_town).to eq(hash['Town'])
     expect(current_car.retailer_address_postcode).to eq(hash['Postcode'])
