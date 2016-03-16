@@ -76,15 +76,23 @@ Then(/^all the convenience options should be free of charge$/) do
 end
 
 Given(/^I am on the "([^"]*)" page$/) do |arg|
-
+  case arg
+    when "Your Vehicle"
+      expect(@serviceStep2.booking_steps(1)).to be_present
+  end
 end
 
-When(/^I have provided my car reg number$/) do
-  #pending
+When(/^I have provided my car reg number: (.*)$/) do |reg|
+  @serviceStep2.set_registration(reg)
+  @serviceStep2.submit_car_registration
 end
 
 Then(/^3rd party experian should return car details engine incl\. engine (.*)$/) do |size|
-  #pending
+  # expect(@serviceStep2.car_model_select_box.text).to eq('Golf (All types)')
+  # expect(@serviceStep2.derivative_field.value).to match(/golf/i)
+  expect(@serviceStep2.engine_field.value).to eq(size)
+  # expect(@serviceStep2.manufacture_year_field.text).to eq('2014')
+
 end
 
 When(/^I match the engine size from experian with the ones configured on RCMS$/) do

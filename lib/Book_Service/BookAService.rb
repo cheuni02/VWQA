@@ -52,6 +52,14 @@ class BookAService < BrowserContainer
     return result
   end
 
+  def booking_nav
+    @browser.div(id: "booking-nav").ul
+  end
+
+  def booking_steps(i)
+    booking_nav.li(index: i)
+  end
+
   private
 
   def page_url

@@ -37,6 +37,10 @@ class BookAServiceStep2 < BookAService
     car_model.disabled?
   end
 
+  def car_model_select_box
+    car_model
+  end
+
   def set_car_model(model)
     car_model.select(/#{model}/i)
   end
@@ -53,12 +57,24 @@ class BookAServiceStep2 < BookAService
     lease_company_field.when_present.set(company)
   end
 
+  def derivative_field
+    car_derivitive
+  end
+
   def set_car_derivative(derivative)
     car_derivitive.set(derivative)
   end
 
+  def engine_field
+    car_engine
+  end
+
   def set_car_engine(engine_size)
     car_engine.set(engine_size)
+  end
+
+  def manufacture_year_field
+    car_manufacture_year
   end
 
   def set_car_manufacture_year(year)
