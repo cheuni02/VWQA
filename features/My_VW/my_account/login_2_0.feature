@@ -84,7 +84,7 @@ Feature: My VW Login Version 2
     |tester@           | Please provide a valid email address|
     |@tester.com       | Please provide a valid email address|
     |***%%%!@%%%       | Please provide a valid email address|
-    |                  | Please complete email|
+    |                  | Please complete email               |
 
   @clear_cookies
   Scenario: Password field validation
