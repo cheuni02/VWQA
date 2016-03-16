@@ -4,9 +4,11 @@ Given(/^the user is on the OSB first page$/) do
   @serviceBooking = site.book_service.booking_step1
   @serviceStep2 = site.book_service.booking_step2
   @serviceStep3 = site.book_service.booking_step3
+  @serviceStep4 = site.book_service.booking_step4
 end
 
 And(/^has selected (an RTC|a non RTC) retailer: (.*)$/) do |type, retailer|
+  Watir::Wait.until {@serviceBooking.retailer_textbox.present?}
   @serviceBooking.set_retailer(retailer)
   @serviceBooking.retailer_to_autopopulate
   @serviceBooking.retailer_search
@@ -33,6 +35,7 @@ Then(/^the emissions fix work should be available \(only if engine size is (\d+)
 end
 
 And(/^it should be pre\-selected by default$/) do
+  Watir::Wait.until {@serviceStep3.emissions_fix_option_checked.exists?}
   expect(@serviceStep3.emissions_fix_option_checked).to be_present
 end
 
@@ -65,15 +68,15 @@ Given(/^I have selected 'Emissions fix' at '3\. Select work'$/) do
 end
 
 When(/^I get to the Convenience options at '4 Select date'$/) do
-  #pending
+  @serviceStep3.click_next_step
 end
 
 Then(/^all the convenience options should be free of charge$/) do
-  #pending
+  expect(@serviceStep4.options_free).to eq(true)
 end
 
 Given(/^I am on the "([^"]*)" page$/) do |arg|
-  #pending
+
 end
 
 When(/^I have provided my car reg number$/) do

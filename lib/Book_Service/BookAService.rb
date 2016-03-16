@@ -38,6 +38,20 @@ class BookAService < BrowserContainer
     back_step_button.parent.click
   end
 
+  def convenience_options
+    @browser.labels(class: "radio")
+  end
+
+  def options_free
+    result = true
+    convenience_options.each do |option|
+      if option.text != "£0"
+        result = false
+      end
+    end
+    return result
+  end
+
   private
 
   def page_url

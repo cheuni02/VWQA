@@ -1,4 +1,4 @@
-
+@OSB_Emissions_fix
 Feature: OSB Emissions Fix - Book service for non RTC retailers (VWOSBEB-3)
   As a Car owner who has received an emissions fix notification
   I want to Book the emissions fix online (with a non-RTC retailer)
@@ -8,7 +8,7 @@ Background: pre-requisites
   Given the user is on the OSB first page
   And has selected a non RTC retailer: Alan Day Volkswagen (Hampstead)
 
-@OSB_Emissions_fix
+
 Scenario:  my car is on the affected VINs list - the emissions fix work should be available in the list FOC
   Given my car is on the affected cars list and i have entered the reg number KV14EOT on the stage 'Your Vehicle'
   When I get to the “Select work” step on the OSB
@@ -17,7 +17,7 @@ Scenario:  my car is on the affected VINs list - the emissions fix work should b
   But I should be able to deselect it
   And I should be able to select any other additional work for my car
 
-@OSB_Emissions_fix
+
 Scenario: I have selected the emissions fix work : the Convenience options should be FOC
   Given I have selected 'Emissions fix' at '3. Select work'
   When I get to the Convenience options at '4 Select date'

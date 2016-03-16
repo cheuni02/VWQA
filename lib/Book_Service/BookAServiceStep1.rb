@@ -15,6 +15,10 @@ class BookAServiceStep1 < BookAService
     search_results.present?
   end
 
+  def retailer_textbox
+    retailer_field
+  end
+
   def set_retailer(retailer)
     retailer_field.set(retailer)
   end
