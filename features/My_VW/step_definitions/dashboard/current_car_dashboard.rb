@@ -1,5 +1,5 @@
 Then(/^I will be welcomed to add a car as none are present for my account$/) do
-  expect(site.my_vw.current_car_dashboard.my_car_hero.present?).to be false
+  expect(site.my_vw.current_car_dashboard.add_car_landing.present?).to be true
   expect(site.my_vw.current_car_dashboard.add_car_link.present?).to be true
 end
 
@@ -14,10 +14,6 @@ When(/^my last added car name is (.*)$/) do |car_name|
   Watir::Wait.until(20) { current_car.my_car_hero.text == car_name }
   expect(current_car.my_car_hero.present?).to be true
   expect(current_car.my_car_hero.text).to eq(car_name)
-end
-
-And(/^I will also see a camera icon on the page$/) do
-  expect(site.my_vw.current_car_dashboard.camera_button.present?).to be true
 end
 
 Then(/^I will see a map loaded displaying my retailer location$/) do
@@ -203,11 +199,11 @@ Then(/^I should see the (.*) page$/) do |page_title|
   expect(need_help.page_title).to eq(page_title)
 end
 
-But(/^I will get (true|false) for my searched (.*)$/) do |results, query|
+But(/^I will get (successful|unsuccessful) for my searched (.*)$/) do |results, query|
   need_help = site.need_help
   Watir::Wait.until { need_help.search_results_query == query }
   expect(need_help.search_results_query).to eq(query)
-  if results =~ /true/
+  if results == 'successful'
     expect(need_help.question_results.present?).to be true
   else
     expect(need_help.question_results.present?).to be false
@@ -231,9 +227,6 @@ Then(/^I will be on the (.*) page$/) do |buttons|
     when 'Book a service'
       Watir::Wait.until { site.service_booking.step1.page_loaded? }
       expect(site.service_booking.step1.page_loaded?).to be true
-    when 'Keep me informed'
-      Watir::Wait.until { site.new_cars.keep_informed.page_loaded? }
-      expect(site.new_cars.keep_informed.page_loaded?).to be true
     when 'Contact Us'
       Watir::Wait.until { site.special_pages.contact_us.page_loaded? }
       expect(site.special_pages.contact_us.page_loaded?).to be true
@@ -301,7 +294,19 @@ end
 
 
 And(/^I will see today's opening hours for Ipswich Volkswagen$/) do
-  opening_times = {Monday: '08:30-18:00', Tuesday: '08:30-18:00', Wednesday: '08:30-18:00', Thursday: '08:30-18:00',
-                   Friday: '08:30-18:00', Saturday: '09:00-17:00', Sunday: '10:00-16:00'}
+  opening_times = {Monday: '08:30—18:00', Tuesday: '08:30—18:00', Wednesday: '08:30—18:00', Thursday: '08:30—18:00',
+                   Friday: '08:30—18:00', Saturday: '09:00—17:00', Sunday: '10:00—16:00'}
   expect(site.my_vw.current_car_dashboard.today_opening_hours).to eq(opening_times[Time.now.strftime('%A').to_sym])
+end
+
+Then(/^a map overlay of my retailer location is presented$/) do
+  expect(site.my_vw.current_car_dashboard.retailer_map_overlay.present?).to be true
+end
+
+When(/^I select to view my retailer in maps$/) do
+  site.my_vw.current_car_dashboard.view_retailer_map.click
+end
+
+When(/^I close the map overlay$/) do
+  site.my_vw.current_car_dashboard.retailer_map_overlay_close.click
 end
