@@ -1,25 +1,18 @@
-@my_vw @Add-Current-Car
+@my_vw @Add-Current-Car @add_car_user @clear_cookies @update
 Feature: Add a current car
   As a Volkswagen vehicle owner
   I want to be able to add my current car to my account
   So that i can track and interact with my vehicle
 
-  @login_Current_User @clear_cookies
-  Scenario: I have logged into my VW account with max amount of current cars added
+  Background: Logging into my account
     Given I am on the Volkswagen Homepage
-    When I login into my account
-    Then I will be logged into my account
-    When I go to add a new car
-    Then I will be on add a car section with options:
-      | I'd like to add  |
-      | A car I own      |
-      | A car I ordered  |
-      | A configured car |
-    But none will be set
+    And I login into my account
+    And I go to add a new car
 
+  @login_Current_User
+  Scenario: Attempting to Add a Car when Account has 25 cars
     When I select the A car I own button
     Then I will see a pop up informing me Car limit reached
-
     When I select ok
     Then I will be on add a car section with options:
       | I'd like to add  |
@@ -28,27 +21,17 @@ Feature: Add a current car
       | A configured car |
     But none will be set
 
-  @add_car_user
-  Scenario: Select add a car to my account
-    Given I'm logged into my account
-    When I go to add a new car
-    Then I will be on add a car section with options:
-      | I'd like to add  |
-      | A car I own      |
-      | A car I ordered  |
-      | A configured car |
-    But none will be set
-
-  @add_car_user
-  Scenario Outline: Invalid search for registration
-    Given I'm logged into my account
-    When I go to add a new car
-    And I select the A car I own button
+  Scenario: Registration Lookup should enable on entry
+    When I select the A car I own button
     Then I will see a registration field
     But the Lookup button is disabled
-    When I add <registration> into the registration field
+    When I add CV54VDF into the registration field
     Then the Lookup button is enabled
-    When I lookup the registration
+
+  Scenario Outline: Invalid search for registration
+    When I select the A car I own button
+    And I add <registration> into the registration field
+    And I lookup the registration
     Then I will see registration field error <message>
 
     Examples:
@@ -57,15 +40,9 @@ Feature: Add a current car
       | aa           | Looks like your registration doesn’t belong to a Volkswagen. You can only add Volkswagens to My VW. |
       | CV54VDF      | Looks like your registration doesn’t belong to a Volkswagen. You can only add Volkswagens to My VW. |
 
-  @add_car_user @delete_added_car
-  Scenario Outline: After successful search for registration, I try again with invalid search for registration
-    Given a car with registration EJ62MMO and display name Golf is added to my account
-    And I'm logged into my account
-    When I go to add a new car
-    And I select the A car I own button
-    Then I will see a registration field
-
-    When I add SA04BGW into the registration field
+  Scenario: After successful search for registration, my car details should be completed
+    When I select the A car I own button
+    And I add SA04BGW into the registration field
     And I lookup the registration
     Then I will see my car details in summary:
       | Registration number | Model   | Details                                       |
@@ -73,6 +50,12 @@ Feature: Add a current car
     And acquired as will be set to A new car
     And my car will be called My Touareg by default
 
+  @delete_all_cars
+  Scenario Outline: After successful search for registration, I try again with invalid search for registration
+    Given a car with registration EJ62MMO and display name Golf is added to my account
+    And I select the A car I own button
+    And I add SA04BGW into the registration field
+    And I lookup the registration
     When I add <registration> into the registration field
     And I lookup the registration
     Then I will see registration field error <message>
@@ -96,11 +79,8 @@ Feature: Add a current car
       | SY64UCW      | We're sorry we could not match your registration, the My Volkswagen login is only for passenger cars, if you have a Commercial Vehicle, Camper Van or Passenger Carrier, please visit https://volkswagen-vans.co.uk/ |
       | CV54VDF      | Looks like your registration doesn’t belong to a Volkswagen. You can only add Volkswagens to My VW.                                                                                                                  |
 
-  @add_car_user
   Scenario: After successful registration search I think about not adding my car
-    Given I'm logged into my account
-    When I go to add a new car
-    And I select the A car I own button
+    When I select the A car I own button
     And I add ML15XHR into the registration field
     And I lookup the registration
     Then I will see my car details in summary:
@@ -108,42 +88,43 @@ Feature: Add a current car
       | ML15XHR             | Passat | PASSAT SE BUSINESS TDI BM, 2015, 2.0 Diesel, Manual |
     And acquired as will be set to A new car
     And my car will be called My Passat by default
-
-    When I select the back button
+    But I select the back button
     Then I will see popup asking Are you sure you want to leave?
 
-    When I select the Cancel button
+  Scenario: After successful registration search, i try to log out from my account
+    When I select the A car I own button
+    And I add ML15XHR into the registration field
+    And I lookup the registration
     Then I will see my car details in summary:
       | Registration number | Model  | Details                                             |
       | ML15XHR             | Passat | PASSAT SE BUSINESS TDI BM, 2015, 2.0 Diesel, Manual |
-    And acquired as will be set to A new car
-    And my car will be called My Passat by default
-
     When I select the logout button
     Then I will see popup asking Are you sure you want to leave?
-    When I select the Cancel button
+
+  Scenario: After successful registration search, i cancel the "Are you Sure?" Prompt to leave
+    When I select the A car I own button
+    And I add ML15XHR into the registration field
+    And I lookup the registration
+    When I select the logout button
+    Then I will see popup asking Are you sure you want to leave?
+    But I select the Cancel button
     Then I will see my car details in summary:
       | Registration number | Model  | Details                                             |
       | ML15XHR             | Passat | PASSAT SE BUSINESS TDI BM, 2015, 2.0 Diesel, Manual |
-    And acquired as will be set to A new car
-    And my car will be called My Passat by default
 
+  Scenario: After successful registration search, i confirm the "Are you Sure?" Prompt to leave
+    Given I select the A car I own button
+    And I add ML15XHR into the registration field
+    And I lookup the registration
     When I select the back button
     Then I will see popup asking Are you sure you want to leave?
     When I select the I'm sure button
     Then I will be on the dashboard
 
-  @add_car_user
   Scenario Outline: After successful registration search I update my car details
-    Given I'm logged into my account
-    When I go to add a new car
-    And I select the A car I own button
+    Given I select the A car I own button
     And I add MM07AYJ into the registration field
     And I lookup the registration
-    Then I will see my car details in editable form:
-      | Model | Derivative      | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
-      | Eos   | EOS SPORT T FSI |                     | 29/06/2007           | 2.0         | Petrol    | Manual       |
-
     When I update model to <Model>
     And I update derivative to <Derivative>
     And I update engine size to <Engine size>
@@ -160,18 +141,11 @@ Feature: Add a current car
       | Up    |                    | 29/06/2007           | 1.0         | 2015 | Please complete trim                 |
       |       | MOVE UP BLUEMOTION | 29/06/2007           | 1.0         | 2015 | Please complete model                |
 
-  @add_car_user
   Scenario Outline: I use the calender picker to select date of registration
-    Given I'm logged into my account
-    When I go to add a new car
-    And I select the A car I own button
+    Given I select the A car I own button
     And I add ML15XHR into the registration field
     And I lookup the registration
     And I select edit my car details
-    Then I will see my car details in editable form:
-      | Model  | Derivative                | Year of Manufacture | Date of registration | Engine size | Fuel type | Transmission |
-      | Passat | PASSAT SE BUSINESS TDI BM | 2015                | 27/04/2015           | 2.0         | Diesel    | Manual       |
-
     When I click the calender date picker
     And I choose a decade <year range>
     Then I'm presented with all the years between <selected year range>
@@ -187,15 +161,14 @@ Feature: Add a current car
       | 1930-1939  | 1929-1940           | 1938        | Jan          | January 1938        | 1-31                | 1st        | 01/01/1938        |
       | 2000-2009  | 1999-2010           | 2004        | Feb          | February 2004       | 1-29                | 29th       | 29/02/2004        |
 
-  @add_car_user @delete_added_car
+  @delete_all_cars
   Scenario Outline: I set my car's name to one used for another car on my account
     Given a car with registration EJ62MMO and display name Golf is added to my account
-    And I'm logged into my account
-    When I go to add a new car
+    And I go to add a new car
     And I select the A car I own button
-    And I add ML15XHR into the registration field
+    When I add ML15XHR into the registration field
     And I lookup the registration
-    When I update my car name to <display name>
+    And I update my car name to <display name>
     And I select continue to step 2
     Then I will see my car name validation feedback <message>
 
@@ -205,4 +178,3 @@ Feature: Add a current car
       | GOLF         | Looks like you have a car with this name already. Please enter a different name. |
       | Golf         | Looks like you have a car with this name already. Please enter a different name. |
       | golf         | Looks like you have a car with this name already. Please enter a different name. |
-

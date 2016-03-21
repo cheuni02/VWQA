@@ -275,7 +275,7 @@ When(/^I select the (Cancel|I'm sure) button$/) do |button|
 end
 
 When(/^I click the calender date picker$/) do
-  site.my_vw.add_current_car_step_1.date_picker.click
+  site.my_vw.add_current_car_step_1.date_picker.when_present.click
 end
 
 When(/^I choose a decade (.*)$/) do |range|
