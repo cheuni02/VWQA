@@ -1,7 +1,9 @@
-@my_vw @Add-Current-Car
+@my_vw @Add-Current-Car @update
 Feature: Add a current car
   As a Volkswagen vehicle owner
   I want to select a retailer to associate with my added car
+
+  
 
   @login_dbg_history_plan_without_car @delete_all_cars @clear_cookies
   Scenario: I add a car that matches my address and surname

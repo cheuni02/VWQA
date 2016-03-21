@@ -19,6 +19,7 @@ GEM
     diff-lcs (1.2.5)
     domain_name (0.5.20160310)
       unf (>= 0.0.5, < 1.0.0)
+    ffi (1.9.10)
     ffi (1.9.10-x64-mingw32)
     gherkin (3.2.0)
     headless (2.2.3)
