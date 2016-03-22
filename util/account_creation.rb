@@ -67,20 +67,20 @@ begin
 
     case purpose
     when 'DBG_User_History_Plan'
-      hash['lastname'] = 'Anderson'
-      hash['optional_details'][:postcode] = 'TS17 5BH'
+      hash['lastname'] = 'Edward'
+      hash['optional_details'][:postcode] = 'CF31 2PT'
     when 'DBG_User_Plan'
-      hash['lastname'] = 'Ruthven'
-      hash['optional_details'][:postcode] = 'EH15 3AJ'
+      hash['lastname'] = 'Shorrock'
+      hash['optional_details'][:postcode] = 'WD3 7EY'
     when 'DBG_User_History'
-      hash['lastname'] = 'Mcanulty'
-      hash['optional_details'][:postcode] = 'HD7 4AH'
+      hash['lastname'] = 'Kozlowski'
+      hash['optional_details'][:postcode] = 'NR1 2RD'
     when 'DBG_User_Nothing'
       hash['lastname'] = 'Clerk'
       hash['optional_details'][:postcode] = 'NW2 2AJ'
     when 'DBG_User_History_Ext'
-      hash['lastname'] = 'Roblin'
-      hash['optional_details'][:postcode] = 'SA12 9PT'
+      hash['lastname'] = 'Haddock'
+      hash['optional_details'][:postcode] = 'GU29 9EZ'
     else
       hash['lastname'] = 'Tester'
     end
