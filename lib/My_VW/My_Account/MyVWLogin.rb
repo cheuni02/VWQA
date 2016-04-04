@@ -49,15 +49,15 @@ class MyVWLogin < MyVW
   end
 
   def email_validation_error
-    @browser.div(class: 'my-input my-car-form__top-spacer').div(class: 'my-input__input').p(class: 'error-label')
+    @browser.div(class: 'my-input').div(class: 'my-input__input').p(class: 'error-label')
   end
 
   def password_validation_error
-    @browser.div(class: 'my-input my-car-form__top-spacer', index: 1).div(class: 'my-input__input').p(class: 'error-label')
+    @browser.div(class: 'my-input my-car-form__top-spacer').div(class: 'my-input__input').p(class: 'error-label')
   end
 
   def account_not_recognised
-    @browser.div(class: 'my-input my-car-form__top-spacer', index: 1).div(class: 'my-input__input').p(class: 'error-label')
+    @browser.div(class: 'my-input my-car-form__top-spacer').div(class: 'my-input__input').p(class: 'error-label')
   end
 
   # Gets the Login Details for a specified user account purpose
