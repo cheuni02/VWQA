@@ -16,6 +16,12 @@ GEM
     cucumber-core (1.4.0)
       gherkin (~> 3.2.0)
     cucumber-wire (0.0.1)
+    dbd-mysql (0.4.4)
+      dbi (>= 0.4.0)
+      mysql
+    dbi (0.4.5)
+      deprecated (= 2.0.1)
+    deprecated (2.0.1)
     diff-lcs (1.2.5)
     domain_name (0.5.20160310)
       unf (>= 0.0.5, < 1.0.0)
@@ -34,6 +40,7 @@ GEM
     mini_portile2 (2.0.0)
     multi_json (1.11.2)
     multi_test (0.1.2)
+    mysql (2.9.1)
     netrc (0.11.0)
     nokogiri (1.6.7)
       mini_portile2 (~> 2.0.0.rc2)
@@ -78,6 +85,8 @@ PLATFORMS
 
 DEPENDENCIES
   cucumber
+  dbd-mysql
+  dbi
   headless
   mail
   markaby
