@@ -28,7 +28,7 @@ class TableHandler
       puts "error code: #{e.err}..."
       case e.err
         when 1146
-          puts "tbl_env not created! creating it ..."
+          puts "#{tbl_name} not created! creating it ..."
           sth = db_connect.prepare("CREATE TABLE #{tbl_name} (#{tbl_headers});")
           sth.execute
       end
