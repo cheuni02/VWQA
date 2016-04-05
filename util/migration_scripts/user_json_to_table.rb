@@ -3,66 +3,87 @@ require 'dbi'
 require 'open-uri'
 
 
+class TableHandler
+
+  def users_file
+    JSON.parse(File.read("../../users.json"))
+  end
+
+  def envs
+    users_file['User_accounts']
+  end
+
+  def db_connect
+    DBI.connect("DBI:Mysql:user_db_ivan_machine:localhost","root","Tribaluser12")
+  end
 
 
-users_file = JSON.parse(File.read("../../users.json"))
 
-envs = users_file['User_accounts']
+  def create_table(tbl_name,tbl_headers)
+    begin
+      sth = db_connect.prepare("SELECT * FROM #{tbl_name}")
+      sth.execute
+    rescue DBI::DatabaseError => e
 
+      puts "error code: #{e.err}..."
+      case e.err
+        when 1146
+          puts "tbl_env not created! creating it ..."
+          sth = db_connect.prepare("CREATE TABLE #{tbl_name} (#{tbl_headers});")
+          sth.execute
+      end
+      retry
 
-DBI.connect("DBI:Mysql:user_db_ivan_machine:localhost","root","Tribaluser12") do |dbh|
-
-
-  ## check table exists
-  begin
-    sth = dbh.prepare("SELECT * FROM tbl_env")
-    sth.execute
-  rescue DBI::DatabaseError => e
-
-    puts "error code: #{e.err}..."
-    case e.err
-      when 1146
-        puts "tbl_env not created! creating it ..."
-        sth = dbh.prepare("CREATE TABLE tbl_env (env_id INT NOT NULL AUTO_INCREMENT, env_url VARCHAR(40), PRIMARY KEY(env_id));")
-        sth.execute
     end
-    retry
-
   end
 
-
-  ## if exists, input rows from JSON file to table
-  # puts "inserting data into table ..."
-  #
-  # sth = dbh.prepare("INSERT INTO tbl_env (env_url) VALUES ('www.volkswagen.co.uk'), ('origin.volkswagen.co.uk');")
-  # sth.execute
-
-  puts "list of environments to be inserted to tb_envs table:"
-
-
-
-  envs.each do |a|
-
-    puts a[0]#["username"]
-     sth = dbh.prepare("INSERT INTO tbl_env (env_url) VALUES (?);")
-     sth.execute(a[0])
+  def insert_data(tbl_name)
+    envs.each do |a|
+      puts a[0]
+      sth = db_connect.prepare("INSERT INTO #{tbl_name} (env_url) VALUES (?);")
+      sth.execute(a[0])
+    end
   end
 
+  def display_table(tbl_name)
+    sth = db_connect.prepare("SELECT * FROM #{tbl_name};")
+    sth.execute
 
-  ## display table
-  sth = dbh.prepare("SELECT * FROM tbl_env")
-  sth.execute
+    sth.fetch do |row|
 
-  sth.fetch do |row|
+      puts "now tbl_env table rows: "
+      puts "id is #{row[0]}"
+      puts "url is #{row[1]}"
 
-    puts "now tbl_env table rows: "
-    puts "id is #{row[0]}"
-    puts "url is #{row[1]}"
-
+    end
   end
-
-
-  sth.finish
-
 
 end
+
+
+  ## check env table exists and if not create it
+
+  hand = TableHandler.new
+
+
+  tbl_headers = "env_id INT NOT NULL AUTO_INCREMENT, env_url VARCHAR(40), PRIMARY KEY(env_id)"
+  hand.create_table('tbl_env',tbl_headers)
+
+  ## insert data
+  puts "list of environments to be inserted to tb_envs table:"
+  hand.insert_data('tbl_env')
+
+  ## display table
+  hand.display_table('tbl_env')
+
+  ## check user table exists and if not create it
+
+  tbl_headers = "usr_id INT NOT NULL AUTO_INCREMENT, env_id INT NOT NULL, usr_username VARCHAR(40), usr_title VARCHAR(40), usr_lastname VARCHAR(40), usr_password VARCHAR(40), usr_purpose VARCHAR(40), uuid INT, optional_details_id INT, PRIMARY KEY(usr_id)"
+  hand.create_table('tbl_usr',tbl_headers)
+
+
+
+
+
+
+
