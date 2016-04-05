@@ -1,4 +1,4 @@
-
+@OSB_Emissions_fix
 Feature: OSB Emissions Fix - Book service for non RTC retailers (VWOSBEB-3)
   As a Car owner who has received an emissions fix notification
   I want to Book the emissions fix online (with a non-RTC retailer)
@@ -24,7 +24,7 @@ Scenario: I have selected the emissions fix work : the Convenience options shoul
   Then all the convenience options should be free of charge
 
 
-  @OSB_Emissions_fix
+
 Scenario Outline: the 'Real time' (to be taken out of diary) depends on my engine size (for non RTC retailers)
   Given I am on the "Your Vehicle" page
   When I have provided my car reg number: <reg>
