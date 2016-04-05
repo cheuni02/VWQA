@@ -78,7 +78,7 @@ end
 
   ## check user table exists and if not create it
 
-  tbl_headers = "usr_id INT NOT NULL AUTO_INCREMENT, env_id INT NOT NULL, usr_username VARCHAR(40), usr_title VARCHAR(40), usr_lastname VARCHAR(40), usr_password VARCHAR(40), usr_purpose VARCHAR(40), uuid INT, optional_details_id INT, PRIMARY KEY(usr_id)"
+  tbl_headers = "usr_id INT NOT NULL AUTO_INCREMENT, env_id INT NOT NULL, usr_username VARCHAR(40), usr_title VARCHAR(40), usr_lastname VARCHAR(40), usr_password VARCHAR(40), usr_purpose VARCHAR(40), uuid INT, optional_details_id INT, PRIMARY KEY(usr_id), FOREIGN KEY(env_id) REFERENCES tbl_env(env_id)"
   hand.create_table('tbl_usr',tbl_headers)
 
 
