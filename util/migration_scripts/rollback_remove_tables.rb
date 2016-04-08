@@ -11,6 +11,9 @@ DBI.connect("DBI:Mysql:user_db_ivan_machine:localhost","root","Tribaluser12") do
 
 
   begin
+    sth = dbh.prepare('DROP TABLE IF EXISTS tbl_opt;')
+    sth.execute
+
     sth = dbh.prepare('DROP TABLE IF EXISTS tbl_usr;')
     sth.execute
 

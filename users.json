@@ -2,15 +2,21 @@
   "User_accounts": {
     "www.volkswagen.co.uk": [
       {
-        "username": "automatedtestdragon@example.com",
+        "username": "automatedtestdragon-A1@example.com",
         "password": "Abcd!2345",
+        "purpose": "General",
+        "uuid": null
+      },
+      {
+        "username": "automatedtestdragon-A2@example.com",
+        "password": "Abcd!2346",
         "purpose": "General",
         "uuid": null
       }
     ],
     "origin.volkswagen.co.uk": [
       {
-        "username": "automatedtestdragon@example.com",
+        "username": "automatedtestdragon-B@example.com",
         "password": "Abcd!2345",
         "purpose": "General",
         "uuid": null
@@ -18,7 +24,7 @@
     ],
     "cms-preview.volkswagen.co.uk": [
       {
-        "username": "automatedtestdragon@example.com",
+        "username": "automatedtestdragon-C@example.com",
         "password": "Abcd!2345",
         "purpose": "General",
         "uuid": null
@@ -26,7 +32,7 @@
     ],
     "origin-stage-vw.tribalddb.co.uk": [
       {
-        "username": "automatedtestdragon@example.com",
+        "username": "automatedtestdragon-D@example.com",
         "password": "Abcd!2345",
         "purpose": "General",
         "uuid": null
