@@ -69,6 +69,8 @@ class TableHandler
       a[1].each do |b|
         ## insert usr tbl
         #puts "b['optional_details'] = #{b['optional_details']}"
+        sth = db_connect.prepare("INSERT INTO tbl_usr (env_id, usr_title, usr_username, usr_firstname, usr_lastname, usr_password, usr_purpose, uuid) VALUES (?,?,?,?,?,?,?,?);")
+        sth.execute(return_env_id(a[0]),b['title'],b['username'],b['firstname'],b['lastname'],b['password'],b['purpose'],b['uuid'])
 
         c = b['optional_details']
 
@@ -77,9 +79,6 @@ class TableHandler
                                       preferred_contact, marital_status, date_of_birth) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
             sth.execute(c['address_type'],c['house_number'],c['postcode'],c['street'],c['street2'],c['city'],c['county'],c['phone1'],c['phone2'],c['phone_type'],c['work_phone'],c['preferred_contact'],c['marital_status'],c['date_of_birth'])
         end
-
-        sth = db_connect.prepare("INSERT INTO tbl_usr (env_id, usr_title, usr_username, usr_firstname, usr_lastname, usr_password, usr_purpose, uuid) VALUES (?,?,?,?,?,?,?,?);")
-        sth.execute(return_env_id(a[0]),b['title'],b['username'],b['firstname'],b['lastname'],b['password'],b['purpose'],b['uuid'])
 
 
         count+=1
