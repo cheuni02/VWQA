@@ -57,19 +57,31 @@ class TableHandler
 
     envs.each do |a|
       puts "a[0] = #{a[0]}"
+      ## insert env tbl
       sth = db_connect.prepare("INSERT INTO tbl_env (env_url) VALUES (?);")
       sth.execute(a[0])
-      puts "all attributes of a[1][0] = #{a[1][0]}"
-      puts "all attributes of a[1] = #{a[1]}"
-
-
-      puts "env_id = #{return_env_id(a[0])}"
+      # puts "all attributes of a[1][0] = #{a[1][0]}"
+      # puts "all attributes of a[1] = #{a[1]}"
+      #puts "all attributes of a[1] = #{a[1]['optional_details']}"
 
 
       count = 0
       a[1].each do |b|
-        sth = db_connect.prepare("INSERT INTO tbl_usr (usr_title, usr_username, usr_firstname, usr_lastname, usr_password, usr_purpose, uuid) VALUES (?,?,?,?,?,?,?);")
-        sth.execute(b['title'],b['username'],b['firstname'],b['lastname'],b['password'],b['purpose'],b['uuid'])
+        ## insert usr tbl
+        #puts "b['optional_details'] = #{b['optional_details']}"
+
+        c = b['optional_details']
+
+        if c != nil && c != {}
+            sth = db_connect.prepare("INSERT INTO tbl_opt (address_type, house_number, postcode, street, street2, city, county, phone1, phone2, phone_type, work_phone, \
+                                      preferred_contact, marital_status, date_of_birth) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
+            sth.execute(c['address_type'],c['house_number'],c['postcode'],c['street'],c['street2'],c['city'],c['county'],c['phone1'],c['phone2'],c['phone_type'],c['work_phone'],c['preferred_contact'],c['marital_status'],c['date_of_birth'])
+        end
+
+        sth = db_connect.prepare("INSERT INTO tbl_usr (env_id, usr_title, usr_username, usr_firstname, usr_lastname, usr_password, usr_purpose, uuid) VALUES (?,?,?,?,?,?,?,?);")
+        sth.execute(return_env_id(a[0]),b['title'],b['username'],b['firstname'],b['lastname'],b['password'],b['purpose'],b['uuid'])
+
+
         count+=1
       end
       puts count
