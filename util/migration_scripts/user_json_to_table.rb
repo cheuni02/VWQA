@@ -53,6 +53,15 @@ class TableHandler
     end
   end
 
+  def return_opt_id(username)
+    sth = db_connect.prepare("SELECT usr_id FROM tbl_usr WHERE usr_username='#{username}';")
+    sth.execute
+    sth.fetch do |b|
+      return b[0]
+    end
+  end
+
+
   def insert_data
 
     envs.each do |a|
@@ -75,9 +84,9 @@ class TableHandler
         c = b['optional_details']
 
         if c != nil && c != {}
-            sth = db_connect.prepare("INSERT INTO tbl_opt (address_type, house_number, postcode, street, street2, city, county, phone1, phone2, phone_type, work_phone, \
-                                      preferred_contact, marital_status, date_of_birth) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
-            sth.execute(c['address_type'],c['house_number'],c['postcode'],c['street'],c['street2'],c['city'],c['county'],c['phone1'],c['phone2'],c['phone_type'],c['work_phone'],c['preferred_contact'],c['marital_status'],c['date_of_birth'])
+            sth = db_connect.prepare("INSERT INTO tbl_opt (usr_id, address_type, house_number, postcode, street, street2, city, county, phone1, phone2, phone_type, work_phone, \
+                                      preferred_contact, marital_status, date_of_birth) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
+            sth.execute(return_opt_id(b['username']),c['address_type'],c['house_number'],c['postcode'],c['street'],c['street2'],c['city'],c['county'],c['phone1'],c['phone2'],c['phone_type'],c['work_phone'],c['preferred_contact'],c['marital_status'],c['date_of_birth'])
         end
 
 
@@ -86,6 +95,7 @@ class TableHandler
       puts count
     end
   end
+
 
   # def insert_keys
   #   envs.each do |a|
